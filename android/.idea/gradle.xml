@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="testRunner" value="GRADLE" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/../../flutter_local_notifications-9.4.0/android" />
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="/opt/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-1.15.0/android" />
+            <option value="/opt/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging-11.2.13/android" />
+            <option value="/opt/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_native_splash-2.1.6/android" />
+            <option value="/opt/flutter/.pub-cache/hosted/pub.dartlang.org/gallery_saver-2.3.2/android" />
+            <option value="/opt/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_android-2.0.11/android" />
+            <option value="/opt/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_android-2.0.11/android" />
+            <option value="/opt/flutter/.pub-cache/hosted/pub.dartlang.org/sqflite-2.0.2/android" />
+            <option value="/opt/flutter/.pub-cache/hosted/pub.dartlang.org/url_launcher_android-6.0.15/android" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
