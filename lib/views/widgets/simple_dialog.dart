@@ -7,11 +7,10 @@ import 'package:ldce_alumni/utils/local_notification_service.dart';
 class SimpleDialogWidget extends StatefulWidget {
   SimpleDialogWidget({required this.id, required this.type, required this.title, Key? key})
       : super(key: key);
-  String title, type, id;
+  final String title, type, id;
   @override
   State<SimpleDialogWidget> createState() => _SimpleDialogWidgetState();
 }
-
 class _SimpleDialogWidgetState extends State<SimpleDialogWidget> {
   late ThemeData themeData;
   @override

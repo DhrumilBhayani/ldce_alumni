@@ -87,7 +87,7 @@ class _DropdownWidgetState extends State<DropdownWidget> {
                       Container(
                         padding: EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                            color: theme.colorScheme.primaryVariant, shape: BoxShape.circle),
+                            color: theme.colorScheme.primary, shape: BoxShape.circle),
                         child: Icon(
                           MdiIcons.cartArrowRight,
                           color: theme.colorScheme.onPrimary,

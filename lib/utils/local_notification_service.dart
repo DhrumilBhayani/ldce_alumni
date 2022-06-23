@@ -41,7 +41,6 @@ class LocalNotificationService {
       }
     }
 
-    /// TODO initialize method
     _notificationsPlugin.initialize(initializationSettings, onSelectNotification: onSelectNotification);
   }
 

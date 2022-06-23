@@ -1,8 +1,6 @@
 // ignore_for_file: prefer_const_constructors, unnecessary_new
 
-import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 import 'package:ldce_alumni/core/globals.dart' as globals;
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -13,13 +11,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:ldce_alumni/controllers/home/home_controller.dart';
 import 'package:ldce_alumni/core/text.dart';
-import 'package:ldce_alumni/main.dart';
 import 'package:ldce_alumni/models/home/home.dart';
 import 'package:ldce_alumni/theme/theme_type.dart';
 import 'package:ldce_alumni/theme/themes.dart';
 import 'package:ldce_alumni/utils/custom_badge_icons.dart';
 import 'package:ldce_alumni/utils/local_notification_service.dart';
-import 'package:ldce_alumni/views/general/no_internet_screen.dart';
 import 'package:ldce_alumni/views/home/home_downloads_tab.dart';
 import 'package:ldce_alumni/views/home/home_events_tab.dart';
 import 'package:ldce_alumni/views/home/home_home_tab.dart';
@@ -32,7 +28,6 @@ import 'package:ldce_alumni/views/widgets/app_bar_widget.dart';
 import 'package:ldce_alumni/views/widgets/app_drawer_widget.dart';
 import 'package:ldce_alumni/views/widgets/simple_dialog.dart';
 import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({

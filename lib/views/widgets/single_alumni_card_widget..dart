@@ -1,12 +1,9 @@
-import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ldce_alumni/views/events/single_event_screen.dart';
 import 'package:ldce_alumni/core/text.dart';
 import 'package:ldce_alumni/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutx/flutx.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class SingleAlumniCardWidget extends StatelessWidget {
   //final String? imageUrl, date, title, shortDescription;

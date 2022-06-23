@@ -1,6 +1,4 @@
-import 'package:flutter/services.dart';
 import 'package:ldce_alumni/controllers/events/events_controller.dart';
-import 'package:ldce_alumni/core/text_style.dart';
 import 'package:ldce_alumni/models/events/events.dart';
 import 'package:ldce_alumni/views/widgets/single_event_widget.dart';
 import 'package:ldce_alumni/theme/app_theme.dart';
@@ -8,8 +6,6 @@ import 'package:ldce_alumni/core/globals.dart' as globals;
 
 import 'package:flutter/material.dart';
 // import 'package:flutx/flutx.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:provider/provider.dart';
 
 class EventUpcomingScreen extends StatefulWidget {
   final List<Events> events;

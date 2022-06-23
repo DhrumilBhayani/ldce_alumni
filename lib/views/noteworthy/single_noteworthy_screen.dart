@@ -1,12 +1,10 @@
 // import 'package:ldce_alumni/screens/news/news_editor_profile_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/services.dart';
 import 'package:ldce_alumni/core/text.dart';
 import 'package:ldce_alumni/theme/app_theme.dart';
 // import 'package:flutkit/utils/generator.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutx/flutx.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class SingleNoteworthyScreen extends StatefulWidget {
   SingleNoteworthyScreen(
@@ -20,7 +18,13 @@ class SingleNoteworthyScreen extends StatefulWidget {
       required this.alumniPassoutYear})
       : super(key: key);
 
-  String title, description, shortDescription, coverPhoto, alumniName, alumniBranch, alumniPassoutYear;
+  final String title,
+      description,
+      shortDescription,
+      coverPhoto,
+      alumniName,
+      alumniBranch,
+      alumniPassoutYear;
 
   @override
   _SingleNoteworthyScreenState createState() => _SingleNoteworthyScreenState();

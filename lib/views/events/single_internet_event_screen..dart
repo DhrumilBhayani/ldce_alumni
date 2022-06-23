@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:ldce_alumni/controllers/events/events_controller.dart';
 import 'package:ldce_alumni/core/text.dart';
@@ -253,7 +252,7 @@ class _SingleInternetEventScreenState extends State<SingleInternetEventScreen> {
                                       ))),
                             ],
                           )),
-                      singleEvents.coverPhoto != null
+                      singleEvents.coverPhoto != "null"
                           ? CachedNetworkImage(
                               imageUrl: 'https://' + singleEvents.coverPhoto,
                               fit: BoxFit.fill,

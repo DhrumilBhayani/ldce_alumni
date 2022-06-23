@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:ldce_alumni/core/text.dart';
 import 'package:ldce_alumni/theme/theme_type.dart';
 import 'package:ldce_alumni/theme/themes.dart';
 
+
 class AlumniDirectoryExpansionWidget extends StatefulWidget {
-  String name, passoutYear, program, branch, membership, profession;
-  bool isExpanded = false;
+  final String name, passoutYear, program, branch, membership, profession;
+  bool isExpanded;
 
   AlumniDirectoryExpansionWidget(
       {required this.name,
@@ -25,7 +25,7 @@ class AlumniDirectoryExpansionWidget extends StatefulWidget {
 class _AlumniDirectoryExpansionWidgetState extends State<AlumniDirectoryExpansionWidget> {
   @override
   Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
+    // ThemeData theme = Theme.of(context);
     late CustomTheme customTheme;
     bool isDark = false;
     customTheme = AppTheme.customTheme;

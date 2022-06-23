@@ -1,21 +1,15 @@
 // import 'package:ldce_alumni/screens/news/news_editor_profile_screen.dart';
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/gestures.dart';
-import 'package:flutter/services.dart';
+
 import 'package:ldce_alumni/controllers/news/news_controller.dart';
-import 'package:ldce_alumni/core/card.dart';
 import 'package:ldce_alumni/core/text.dart';
-import 'package:ldce_alumni/theme/app_theme.dart';
 // import 'package:flutkit/utils/generator.dart';
 import 'package:flutter/material.dart';
 import 'package:ldce_alumni/theme/themes.dart';
 import 'package:ldce_alumni/views/widgets/single_project_home_card_widget.dart';
 // import 'package:flutx/flutx.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class TreePlantationScreenTab extends StatefulWidget {
   // String title, date, shortDescription, description, imageUrl;

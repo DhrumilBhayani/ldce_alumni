@@ -1,11 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:ldce_alumni/controllers/events/events_controller.dart';
 import 'package:ldce_alumni/core/card.dart';
 import 'package:ldce_alumni/core/text.dart';
-import 'package:ldce_alumni/core/text_style.dart';
-import 'package:ldce_alumni/theme/app_theme.dart';
 // import 'package:flutkit/utils/generator.dart';
 import 'package:flutter/material.dart';
 import 'package:ldce_alumni/theme/themes.dart';

@@ -2,13 +2,12 @@ import 'package:flutter/services.dart';
 import 'package:ldce_alumni/core/text.dart';
 import 'package:ldce_alumni/theme/app_notifier.dart';
 import 'package:ldce_alumni/theme/app_theme.dart';
-import 'package:ldce_alumni/theme/custom_theme.dart';
 import 'package:ldce_alumni/theme/theme_type.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
-  String? title;
+  final String? title;
   final GlobalKey<ScaffoldState> scaffoldKey; // Create a key
   final PreferredSizeWidget? bottom;
   AppBarWidget({Key? key, this.title, required this.scaffoldKey, this.bottom}) : super(key: key);

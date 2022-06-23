@@ -1,14 +1,9 @@
-import 'dart:developer';
-
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:intl/intl.dart';
 import 'package:ldce_alumni/views/digital_downloads/single_digital_download_screen.dart';
-import 'package:ldce_alumni/views/events/single_event_screen.dart';
 import 'package:ldce_alumni/core/text.dart';
 import 'package:ldce_alumni/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutx/flutx.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class SingleDownloadWidget extends StatelessWidget {
   //final String? imageUrl, date, title, shortDescription;

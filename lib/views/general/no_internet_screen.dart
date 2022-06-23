@@ -2,8 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:ldce_alumni/core/button.dart';
 import 'package:ldce_alumni/core/text.dart';
 import 'package:ldce_alumni/theme/themes.dart';
@@ -51,7 +49,9 @@ class _NoInternetScreenState extends State<NoInternetScreen> {
       //     buildContext, MaterialPageRoute(builder: (buildContext) => NoInternetScreen()));
     } on Error catch (e) {
       print('General Error: $e');
-    } on HandshakeException catch (e) {}
+    } on HandshakeException catch (e) {
+      print(e);
+    }
   }
 
   @override

@@ -1,19 +1,16 @@
 // import 'package:ldce_alumni/screens/news/news_editor_profile_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/services.dart';
 import 'package:ldce_alumni/controllers/news/news_controller.dart';
 import 'package:ldce_alumni/core/card.dart';
 import 'package:ldce_alumni/core/text.dart';
-import 'package:ldce_alumni/theme/app_theme.dart';
 // import 'package:flutkit/utils/generator.dart';
 import 'package:flutter/material.dart';
 import 'package:ldce_alumni/theme/themes.dart';
 // import 'package:flutx/flutx.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 
 class SingleNewsScreen extends StatefulWidget {
-  String title, date, shortDescription, description, imageUrl;
+  final String title, date, shortDescription, description, imageUrl;
   final List<String>? attachmentList;
 
   SingleNewsScreen(

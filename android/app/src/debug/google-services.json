@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "511004081607",
-    "project_id": "ld-alumni-4e7da",
-    "storage_bucket": "ld-alumni-4e7da.appspot.com"
+    "project_number": "560097527000",
+    "project_id": "ldce-alumni-bd8d4",
+    "storage_bucket": "ldce-alumni-bd8d4.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:511004081607:android:6363affea289740c0e6de2",
+        "mobilesdk_app_id": "1:560097527000:android:81b3a97aaf0a332f9ac3ad",
         "android_client_info": {
           "package_name": "net.ldcealumni"
         }
       },
       "oauth_client": [
         {
-          "client_id": "511004081607-euqsgk15811aln0gql24cis7tumb6hej.apps.googleusercontent.com",
+          "client_id": "560097527000-drrqi76ts2l2d5qq0aiv2abb54nieqrj.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCzRYBdvPQgwpj5niqClMyjeFVv4WaHKC4"
+          "current_key": "AIzaSyBLUBFJqyJKBZzr-WFgn_IZQdx5U9xNYxA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "511004081607-euqsgk15811aln0gql24cis7tumb6hej.apps.googleusercontent.com",
+              "client_id": "560097527000-drrqi76ts2l2d5qq0aiv2abb54nieqrj.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -1,5 +1,4 @@
 import 'package:ldce_alumni/controllers/digital_downloads/digital_downloads_controller.dart';
-import 'package:ldce_alumni/controllers/events/events_controller.dart';
 import 'package:ldce_alumni/models/digital_downloads/digital_downloads.dart';
 import 'package:ldce_alumni/views/widgets/single_download_widget.dart';
 import 'package:ldce_alumni/theme/app_theme.dart';
@@ -7,7 +6,6 @@ import 'package:ldce_alumni/core/globals.dart' as globals;
 
 import 'package:flutter/material.dart';
 // import 'package:flutx/flutx.dart';
-import 'package:provider/provider.dart';
 
 class OtherMaterialsScreen extends StatefulWidget {
   final List<DigitalDownloads> events;

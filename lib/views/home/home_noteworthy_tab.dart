@@ -1,33 +1,18 @@
-import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 import 'package:ldce_alumni/controllers/home/home_controller.dart';
-import 'package:ldce_alumni/controllers/news/news_controller.dart';
 import 'package:ldce_alumni/core/text.dart';
 import 'package:ldce_alumni/models/news/news.dart';
 import 'package:ldce_alumni/models/noteworthy/noteworthy.dart';
 import 'package:ldce_alumni/theme/theme_type.dart';
 import 'package:ldce_alumni/theme/themes.dart';
 import 'package:ldce_alumni/views/loading_effect.dart';
-import 'package:ldce_alumni/theme/app_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-// import 'package:flutx/flutx.dart';
-import 'package:ldce_alumni/core/globals.dart' as globals;
 
-import 'package:ldce_alumni/controllers/media/media_controller.dart';
-import 'package:ldce_alumni/models/news/news.dart';
-import 'package:ldce_alumni/views/news/single_news_screen.dart';
 import 'package:ldce_alumni/views/noteworthy/single_noteworthy_screen.dart';
-import 'package:ldce_alumni/views/widgets/app_bar_widget.dart';
-import 'package:ldce_alumni/views/widgets/app_drawer_widget.dart';
-import 'package:ldce_alumni/views/widgets/single_alumni_card_widget..dart';
-import 'package:ldce_alumni/views/widgets/single_card_widget.dart';
+
 import 'package:ldce_alumni/views/widgets/single_home_alumni_card_widget.dart';
-import 'package:ldce_alumni/views/widgets/single_news_card_widget..dart';
-import 'package:ldce_alumni/views/widgets/single_news_home_card_widget.dart';
+
 import 'package:provider/provider.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+
 // import 'single_product_screen.dart';
 
 class HomeNoteworthyTab extends StatefulWidget {
@@ -44,7 +29,7 @@ class _HomeNoteworthyTabState extends State<HomeNoteworthyTab> {
   // TextDirection textDirection = TextDirection.ltr;
   late HomeController newsProvider;
   // late SearchController searchController;
-  late ScrollController _controller;
+  // late ScrollController _controller;
   late List<News> tempNews;
 
   final GlobalKey<ScaffoldState> _key = GlobalKey(); // Create a key

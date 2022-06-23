@@ -73,6 +73,7 @@ class Language {
     for (Language language in languages) {
       if (language.locale.languageCode == locale.languageCode) return language;
     }
+  
   }
 
   static T? autoDirection<T>([T? ltrValue, T? rtlValue]) {

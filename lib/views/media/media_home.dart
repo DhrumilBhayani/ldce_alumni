@@ -1,11 +1,7 @@
-import 'package:flutter/services.dart';
-import 'package:ldce_alumni/core/text.dart';
 import 'package:ldce_alumni/theme/theme_type.dart';
 import 'package:ldce_alumni/theme/themes.dart';
 import 'package:ldce_alumni/views/loading_effect.dart';
-import 'package:ldce_alumni/theme/app_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 // import 'package:flutx/flutx.dart';
 import 'package:ldce_alumni/core/globals.dart' as globals;
 

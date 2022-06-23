@@ -14,7 +14,6 @@ class _HomeTabState extends State<HomeTab> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     theme = AppTheme.theme;
     // customTheme = AppTheme.customTheme;

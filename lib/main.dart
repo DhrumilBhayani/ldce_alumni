@@ -164,6 +164,7 @@ class _MyAppState extends State<MyApp> {
       builder: (BuildContext context, AppNotifier value, Widget? child) {
         return MaterialApp(
           builder: (context, child) {
+            getToken();
             final mediaQueryData = MediaQuery.of(context);
             final scale = mediaQueryData.textScaleFactor.clamp(1.0, 1.2);
             return MediaQuery(
