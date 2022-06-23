@@ -1,9 +1,9 @@
 import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ld_alumni/views/events/single_event_screen.dart';
-import 'package:ld_alumni/core/text.dart';
-import 'package:ld_alumni/theme/app_theme.dart';
+import 'package:ldce_alumni/views/events/single_event_screen.dart';
+import 'package:ldce_alumni/core/text.dart';
+import 'package:ldce_alumni/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutx/flutx.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -16,9 +16,7 @@ class SingleHomeProjectCardWidget extends StatelessWidget {
 
   final VoidCallback onTap;
   const SingleHomeProjectCardWidget(
-      {
-        
-      required this.title,
+      {required this.title,
       required this.description,
       required this.date,
       required this.onTap,
@@ -29,7 +27,6 @@ class SingleHomeProjectCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   
     ThemeData theme = Theme.of(context);
     late CustomTheme customTheme;
     customTheme = AppTheme.customTheme;
@@ -73,7 +70,7 @@ class SingleHomeProjectCardWidget extends StatelessWidget {
         }*/
       // },
       child: Container(
-        margin: EdgeInsets.only(bottom: 15,top: 25),
+        margin: EdgeInsets.only(bottom: 15, top: 25),
         clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
             color: customTheme.card,
@@ -123,7 +120,6 @@ class SingleHomeProjectCardWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  
                   FxText.t1(title, color: theme.colorScheme.onBackground, fontWeight: 600),
                   Container(
                     margin: EdgeInsets.only(top: 8),
@@ -133,7 +129,7 @@ class SingleHomeProjectCardWidget extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              FxText.caption(description+"....",
+                              FxText.caption(description + "....",
                                   fontSize: 14,
                                   color: theme.colorScheme.onBackground,
                                   fontWeight: 600,

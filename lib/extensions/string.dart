@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:ld_alumni/localizations/translator.dart';
+import 'package:ldce_alumni/localizations/translator.dart';
 
 extension StringUtil on String {
   Color get toColor {
@@ -22,11 +22,9 @@ extension StringUtil on String {
   }
 
   bool toBool([bool defaultValue = false]) {
-    if (this.toString().compareTo('1') == 0 ||
-        this.toString().compareTo('true') == 0) {
+    if (this.toString().compareTo('1') == 0 || this.toString().compareTo('true') == 0) {
       return true;
-    } else if (this.toString().compareTo('0') == 0 ||
-        this.toString().compareTo('false') == 0) {
+    } else if (this.toString().compareTo('0') == 0 || this.toString().compareTo('false') == 0) {
       return false;
     }
     return defaultValue;

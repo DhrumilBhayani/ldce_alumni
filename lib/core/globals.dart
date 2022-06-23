@@ -4,7 +4,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:ld_alumni/views/general/no_internet_screen.dart';
+import 'package:ldce_alumni/views/general/no_internet_screen.dart';
 
 bool isAllUpcomingEventsLoaded = false;
 bool isAllPastEventsLoaded = false;

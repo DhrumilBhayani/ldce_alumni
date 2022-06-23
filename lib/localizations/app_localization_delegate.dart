@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ld_alumni/theme/app_notifier.dart';
+import 'package:ldce_alumni/theme/app_notifier.dart';
 import 'package:provider/provider.dart';
 
 import 'language.dart';
@@ -10,8 +10,7 @@ class AppLocalizationsDelegate extends LocalizationsDelegate {
   const AppLocalizationsDelegate(this.context);
 
   @override
-  bool isSupported(Locale locale) =>
-      Language.getLanguagesCodes().contains(locale.languageCode);
+  bool isSupported(Locale locale) => Language.getLanguagesCodes().contains(locale.languageCode);
 
   @override
   Future load(Locale locale) => _load(locale);

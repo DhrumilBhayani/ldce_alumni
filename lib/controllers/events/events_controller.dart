@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ld_alumni/models/events/events.dart';
+import 'package:ldce_alumni/models/events/events.dart';
 // import 'package:provider/provider.dart';
-import 'package:ld_alumni/core/globals.dart' as globals;
+import 'package:ldce_alumni/core/globals.dart' as globals;
 
 class EventsController with ChangeNotifier {
   bool showLoading = true,

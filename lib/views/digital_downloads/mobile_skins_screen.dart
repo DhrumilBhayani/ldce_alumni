@@ -1,10 +1,10 @@
-import 'package:ld_alumni/controllers/digital_downloads/digital_downloads_controller.dart';
+import 'package:ldce_alumni/controllers/digital_downloads/digital_downloads_controller.dart';
 
-import 'package:ld_alumni/models/digital_downloads/digital_downloads.dart';
-import 'package:ld_alumni/views/widgets/single_download_widget.dart';
+import 'package:ldce_alumni/models/digital_downloads/digital_downloads.dart';
+import 'package:ldce_alumni/views/widgets/single_download_widget.dart';
 
-import 'package:ld_alumni/theme/app_theme.dart';
-import 'package:ld_alumni/core/globals.dart' as globals;
+import 'package:ldce_alumni/theme/app_theme.dart';
+import 'package:ldce_alumni/core/globals.dart' as globals;
 
 import 'package:flutter/material.dart';
 
@@ -302,8 +302,7 @@ class _MobileSkinsScreenState extends State<MobileSkinsScreen> {
     // newsController = FxControllerStore.putOrFind<NewsController>(NewsController());
     if (widget.mobileSkins.isEmpty) {
       print("List Empty");
-      list.add(
-          Container(padding: EdgeInsets.only(top: 10), child: Text("There is no Mobile Skins.")));
+      list.add(Container(padding: EdgeInsets.only(top: 10), child: Text("There is no Mobile Skins.")));
     } else {
       for (DigitalDownloads singleNews in widget.mobileSkins) {
         list.add(_singleMobileSkin(singleNews));

@@ -3,7 +3,7 @@
 * Version : 1.0.0
 * */
 
-import 'package:ld_alumni/theme/theme_type.dart';
+import 'package:ldce_alumni/theme/theme_type.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutx/flutx.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,12 +19,11 @@ class AppTheme {
   static ThemeData theme = getTheme();
 
   // Change
-  
 
   AppTheme._();
 
   static init() {
-   resetFont();
+    resetFont();
 
     // FxAppTheme.changeLightTheme(lightTheme);
     // FxAppTheme.changeDarkTheme(darkTheme);
@@ -88,12 +87,10 @@ class AppTheme {
     cardTheme: CardTheme(color: Color(0xfff0f0f0)),
     cardColor: Color(0xfff0f0f0),
 
-    textTheme: TextTheme(
-        headline6: GoogleFonts.aBeeZee(), bodyText1: GoogleFonts.abel()),
+    textTheme: TextTheme(headline6: GoogleFonts.aBeeZee(), bodyText1: GoogleFonts.abel()),
 
     /// Colorscheme
-    colorScheme: ColorScheme.fromSeed(
-        seedColor: Color(0xff3C4EC5), brightness: Brightness.light),
+    colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff3C4EC5), brightness: Brightness.light),
 
     /// Floating Action Theme
     floatingActionButtonTheme: FloatingActionButtonThemeData(
@@ -110,8 +107,7 @@ class AppTheme {
     dividerColor: Color(0xffe8e8e8),
 
     /// Bottom AppBar Theme
-    bottomAppBarTheme:
-        BottomAppBarTheme(color: Color(0xffeeeeee), elevation: 2),
+    bottomAppBarTheme: BottomAppBarTheme(color: Color(0xffeeeeee), elevation: 2),
 
     /// Tab bar Theme
     tabBarTheme: TabBarTheme(
@@ -207,8 +203,7 @@ class AppTheme {
     cardColor: Color(0xff222327),
 
     /// Colorscheme
-    colorScheme: ColorScheme.fromSeed(
-        seedColor: Color(0xff069DEF), brightness: Brightness.dark),
+    colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff069DEF), brightness: Brightness.dark),
 
     /// Input (Text-Field) Theme
     inputDecorationTheme: InputDecorationTheme(
@@ -240,8 +235,7 @@ class AppTheme {
         foregroundColor: Colors.white),
 
     /// Bottom AppBar Theme
-    bottomAppBarTheme:
-        BottomAppBarTheme(color: Color(0xff464c52), elevation: 2),
+    bottomAppBarTheme: BottomAppBarTheme(color: Color(0xff464c52), elevation: 2),
 
     /// Tab bar Theme
     tabBarTheme: TabBarTheme(
@@ -313,7 +307,5 @@ class AppTheme {
     return lightTheme.copyWith(colorScheme: colorScheme);
   }
 
-  static resetThemeData() {
-
-  }
+  static resetThemeData() {}
 }

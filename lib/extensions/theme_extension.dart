@@ -1,4 +1,4 @@
-import 'package:ld_alumni/theme/theme_type.dart';
+import 'package:ldce_alumni/theme/theme_type.dart';
 
 extension ThemeExtension on ThemeType {
   String get toText {

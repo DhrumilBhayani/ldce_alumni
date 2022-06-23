@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ld_alumni/theme/app_theme.dart';
+import 'package:ldce_alumni/theme/app_theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'translator.dart';

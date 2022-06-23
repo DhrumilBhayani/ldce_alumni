@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ld_alumni/models/news/news.dart';
+import 'package:ldce_alumni/models/news/news.dart';
 
 class NewsController with ChangeNotifier {
   bool showLoading = true, uiLoading = true, hasMoreData = true, exceptionCreated = false;

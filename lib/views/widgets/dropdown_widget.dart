@@ -1,9 +1,9 @@
 // import 'package:flutkit/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:ld_alumni/core/button.dart';
-import 'package:ld_alumni/core/text.dart';
-import 'package:ld_alumni/theme/themes.dart';
+import 'package:ldce_alumni/core/button.dart';
+import 'package:ldce_alumni/core/text.dart';
+import 'package:ldce_alumni/theme/themes.dart';
 // import 'package:flutx/flutx.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -50,20 +50,17 @@ class _DropdownWidgetState extends State<DropdownWidget> {
               Column(
                 children: <Widget>[
                   singleCartItem(
-                      image:
-                          './assets/images/apps/shopping/product/product-5.jpg',
+                      image: './assets/images/apps/shopping/product/product-5.jpg',
                       price: 39.99,
                       name: 'Seeds',
                       index: 0),
                   singleCartItem(
-                      image:
-                          './assets/images/apps/shopping/product/product-7.jpg',
+                      image: './assets/images/apps/shopping/product/product-7.jpg',
                       price: 24.99,
                       name: 'Forbes',
                       index: 1),
                   singleCartItem(
-                      image:
-                          './assets/images/apps/shopping/product/product-8.jpg',
+                      image: './assets/images/apps/shopping/product/product-8.jpg',
                       price: 12.99,
                       name: 'Sandals',
                       index: 2),
@@ -84,15 +81,13 @@ class _DropdownWidgetState extends State<DropdownWidget> {
                       Expanded(
                         child: Center(
                           child: FxText.sh1("\$ 449.89",
-                              letterSpacing: 0.3,
-                              color: theme.colorScheme.onPrimary),
+                              letterSpacing: 0.3, color: theme.colorScheme.onPrimary),
                         ),
                       ),
                       Container(
                         padding: EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                            color: theme.colorScheme.primaryVariant,
-                            shape: BoxShape.circle),
+                            color: theme.colorScheme.primaryVariant, shape: BoxShape.circle),
                         child: Icon(
                           MdiIcons.cartArrowRight,
                           color: theme.colorScheme.onPrimary,
@@ -109,10 +104,7 @@ class _DropdownWidgetState extends State<DropdownWidget> {
   }
 
   Widget singleCartItem(
-      {required String image,
-      required String name,
-      double? price,
-      required int index}) {
+      {required String image, required String name, double? price, required int index}) {
     final GlobalKey _simpleMenuKey = new GlobalKey();
     List<int> _list = new List<int>.generate(5, (i) => i + 1);
 
@@ -136,8 +128,7 @@ class _DropdownWidgetState extends State<DropdownWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  FxText.sh1(name,
-                      color: theme.colorScheme.onBackground, letterSpacing: 0),
+                  FxText.sh1(name, color: theme.colorScheme.onBackground, letterSpacing: 0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -161,14 +152,11 @@ class _DropdownWidgetState extends State<DropdownWidget> {
                             },
                             color: theme.backgroundColor,
                             child: Container(
-                              padding: EdgeInsets.only(
-                                  left: 12, right: 12, top: 8, bottom: 8),
+                              padding: EdgeInsets.only(left: 12, right: 12, top: 8, bottom: 8),
                               decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(8)),
+                                borderRadius: BorderRadius.all(Radius.circular(8)),
                                 color: customTheme.card,
-                                border: Border.all(
-                                    color: customTheme.border, width: 1),
+                                border: Border.all(color: customTheme.border, width: 1),
                               ),
                               child: Row(
                                 children: <Widget>[
@@ -188,9 +176,7 @@ class _DropdownWidgetState extends State<DropdownWidget> {
                               ),
                             )),
                       ),
-                      FxText.b1("\$$price",
-                          color: theme.colorScheme.onBackground,
-                          letterSpacing: 0)
+                      FxText.b1("\$$price", color: theme.colorScheme.onBackground, letterSpacing: 0)
                     ],
                   )
                 ],

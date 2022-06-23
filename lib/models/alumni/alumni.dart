@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:ld_alumni/core/globals.dart' as globals;
+import 'package:ldce_alumni/core/globals.dart' as globals;
 
 class Alumni {
   String name, passoutYear, program, branch, membership, profession;

@@ -2,10 +2,10 @@
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:ld_alumni/core/text.dart';
-import 'package:ld_alumni/theme/themes.dart';
-import 'package:ld_alumni/views/widgets/app_bar_widget.dart';
-import 'package:ld_alumni/views/widgets/app_drawer_widget.dart';
+import 'package:ldce_alumni/core/text.dart';
+import 'package:ldce_alumni/theme/themes.dart';
+import 'package:ldce_alumni/views/widgets/app_bar_widget.dart';
+import 'package:ldce_alumni/views/widgets/app_drawer_widget.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -403,7 +403,6 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                 SizedBox(
                   height: 35,
                 ),
-              
               ]),
             )),
           ],

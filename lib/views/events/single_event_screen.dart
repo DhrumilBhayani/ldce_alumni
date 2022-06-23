@@ -1,17 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:ld_alumni/controllers/events/events_controller.dart';
-import 'package:ld_alumni/core/card.dart';
-import 'package:ld_alumni/core/text.dart';
-import 'package:ld_alumni/core/text_style.dart';
-import 'package:ld_alumni/theme/app_theme.dart';
+import 'package:ldce_alumni/controllers/events/events_controller.dart';
+import 'package:ldce_alumni/core/card.dart';
+import 'package:ldce_alumni/core/text.dart';
+import 'package:ldce_alumni/core/text_style.dart';
+import 'package:ldce_alumni/theme/app_theme.dart';
 // import 'package:flutkit/utils/generator.dart';
 import 'package:flutter/material.dart';
-import 'package:ld_alumni/theme/themes.dart';
+import 'package:ldce_alumni/theme/themes.dart';
 // import 'package:flutx/flutx.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:ld_alumni/core/readmore.dart';
+import 'package:ldce_alumni/core/readmore.dart';
 import 'package:provider/provider.dart';
 
 class SingleEventScreen extends StatefulWidget {
@@ -60,7 +60,7 @@ class _SingleEventScreenState extends State<SingleEventScreen> {
         // padding: EdgeInsets.all(0),
         margin: EdgeInsets.symmetric(horizontal: 5),
         child: CachedNetworkImage(
-          imageUrl:'https://' + widget.attachmentList![i],
+          imageUrl: 'https://' + widget.attachmentList![i],
 
           // image: NetworkImage('https://' + widget.attachmentList![i]),
           fit: BoxFit.contain,
@@ -201,7 +201,7 @@ class _SingleEventScreenState extends State<SingleEventScreen> {
                           Align(
                               alignment: Alignment.topLeft,
                               child: Container(
-                                width: 90,
+                                  width: 90,
                                   decoration: BoxDecoration(
                                     color: Color(0xffd32a27),
                                     borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -225,7 +225,7 @@ class _SingleEventScreenState extends State<SingleEventScreen> {
                           Align(
                               alignment: Alignment.center,
                               child: Container(
-                                width: 90,
+                                  width: 90,
                                   decoration: BoxDecoration(
                                     color: Color(0xff1692d0),
                                     borderRadius: BorderRadius.all(Radius.circular(8)),

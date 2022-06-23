@@ -1,19 +1,19 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:ld_alumni/views/home/home_screen.dart';
-import 'package:ld_alumni/views/widgets/select_language_dialog.dart';
+import 'package:ldce_alumni/views/home/home_screen.dart';
+import 'package:ldce_alumni/views/widgets/select_language_dialog.dart';
 // import 'package:flutkit/images.dart';
-import 'package:ld_alumni/theme/app_notifier.dart';
-import 'package:ld_alumni/theme/app_theme.dart';
-import 'package:ld_alumni/theme/theme_type.dart';
+import 'package:ldce_alumni/theme/app_notifier.dart';
+import 'package:ldce_alumni/theme/app_theme.dart';
+import 'package:ldce_alumni/theme/theme_type.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 // import 'package:flutx/flutx.dart';
 import 'package:provider/provider.dart';
-import 'package:ld_alumni/extensions/extensions.dart';
-import 'package:ld_alumni/core/text.dart';
-import 'package:ld_alumni/core/button.dart';
+import 'package:ldce_alumni/extensions/extensions.dart';
+import 'package:ldce_alumni/core/text.dart';
+import 'package:ldce_alumni/core/button.dart';
 
 class AppDrawerWidget extends StatefulWidget {
   const AppDrawerWidget({Key? key}) : super(key: key);

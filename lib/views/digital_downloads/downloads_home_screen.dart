@@ -1,20 +1,20 @@
 // import 'dart:html';
 
-import 'package:ld_alumni/controllers/digital_downloads/digital_downloads_controller.dart';
-import 'package:ld_alumni/views/digital_downloads/calendars_screen.dart';
-import 'package:ld_alumni/views/digital_downloads/campaign_downloads_screen.dart';
-import 'package:ld_alumni/views/digital_downloads/desktop_wallpapers_screen.dart';
-import 'package:ld_alumni/views/digital_downloads/mobile_skins_screen.dart';
-import 'package:ld_alumni/views/digital_downloads/other_materials_screen.dart';
-import 'package:ld_alumni/views/loading_effect.dart';
-import 'package:ld_alumni/views/widgets/app_bar_widget.dart';
-import 'package:ld_alumni/views/widgets/app_drawer_widget.dart';
-import 'package:ld_alumni/theme/app_notifier.dart';
-import 'package:ld_alumni/theme/app_theme.dart';
-import 'package:ld_alumni/theme/theme_type.dart';
+import 'package:ldce_alumni/controllers/digital_downloads/digital_downloads_controller.dart';
+import 'package:ldce_alumni/views/digital_downloads/calendars_screen.dart';
+import 'package:ldce_alumni/views/digital_downloads/campaign_downloads_screen.dart';
+import 'package:ldce_alumni/views/digital_downloads/desktop_wallpapers_screen.dart';
+import 'package:ldce_alumni/views/digital_downloads/mobile_skins_screen.dart';
+import 'package:ldce_alumni/views/digital_downloads/other_materials_screen.dart';
+import 'package:ldce_alumni/views/loading_effect.dart';
+import 'package:ldce_alumni/views/widgets/app_bar_widget.dart';
+import 'package:ldce_alumni/views/widgets/app_drawer_widget.dart';
+import 'package:ldce_alumni/theme/app_notifier.dart';
+import 'package:ldce_alumni/theme/app_theme.dart';
+import 'package:ldce_alumni/theme/theme_type.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ld_alumni/core/globals.dart' as globals;
+import 'package:ldce_alumni/core/globals.dart' as globals;
 
 class DownloadsHomeScreen extends StatefulWidget {
   @override
@@ -52,7 +52,7 @@ class _DownloadsHomeScreenState extends State<DownloadsHomeScreen> with SingleTi
     return Consumer2<AppNotifier, DigitalDownloadsController>(
         builder: (BuildContext context, AppNotifier value, digitalDownloadsProvider, Widget? child) {
       //inspect(value);
-            globals.checkInternet(context);
+      globals.checkInternet(context);
 
       isDark = AppTheme.themeType == ThemeType.dark;
       textDirection = AppTheme.textDirection;

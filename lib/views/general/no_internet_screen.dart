@@ -4,10 +4,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:ld_alumni/core/button.dart';
-import 'package:ld_alumni/core/text.dart';
-import 'package:ld_alumni/theme/themes.dart';
-import 'package:ld_alumni/views/home/home_screen.dart';
+import 'package:ldce_alumni/core/button.dart';
+import 'package:ldce_alumni/core/text.dart';
+import 'package:ldce_alumni/theme/themes.dart';
+import 'package:ldce_alumni/views/home/home_screen.dart';
 // import 'package:flutx/flutx.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -51,9 +51,7 @@ class _NoInternetScreenState extends State<NoInternetScreen> {
       //     buildContext, MaterialPageRoute(builder: (buildContext) => NoInternetScreen()));
     } on Error catch (e) {
       print('General Error: $e');
-    } on HandshakeException catch (e) {
-      
-    }
+    } on HandshakeException catch (e) {}
   }
 
   @override

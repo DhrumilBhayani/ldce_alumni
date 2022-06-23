@@ -3,13 +3,13 @@
 * Version : 1.0.0
 * */
 
-import 'package:ld_alumni/localizations/language.dart';
-import 'package:ld_alumni/theme/app_theme.dart';
-import 'package:ld_alumni/theme/theme_type.dart';
+import 'package:ldce_alumni/localizations/language.dart';
+import 'package:ldce_alumni/theme/app_theme.dart';
+import 'package:ldce_alumni/theme/theme_type.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutx/flutx.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:ld_alumni/extensions/theme_extension.dart';
+import 'package:ldce_alumni/extensions/theme_extension.dart';
 
 class AppNotifier extends ChangeNotifier {
   AppNotifier() {

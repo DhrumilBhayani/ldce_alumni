@@ -1,8 +1,8 @@
-// import 'package:ld_alumni/screens/news/news_editor_profile_screen.dart';
+// import 'package:ldce_alumni/screens/news/news_editor_profile_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/services.dart';
-import 'package:ld_alumni/core/text.dart';
-import 'package:ld_alumni/theme/app_theme.dart';
+import 'package:ldce_alumni/core/text.dart';
+import 'package:ldce_alumni/theme/app_theme.dart';
 // import 'package:flutkit/utils/generator.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutx/flutx.dart';
@@ -122,7 +122,7 @@ class _SingleNoteworthyScreenState extends State<SingleNoteworthyScreen> {
                               child: Container(
                                   padding: EdgeInsets.only(top: 0),
                                   child: Container(
-                                    width: 90,
+                                      width: 90,
                                       decoration: BoxDecoration(
                                         color: Color(0xffd32a27),
                                         borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -147,7 +147,7 @@ class _SingleNoteworthyScreenState extends State<SingleNoteworthyScreen> {
                           Align(
                               alignment: Alignment.center,
                               child: Container(
-                                width: 90,
+                                  width: 90,
                                   decoration: BoxDecoration(
                                     color: Color(0xffd32a27),
                                     borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -156,7 +156,9 @@ class _SingleNoteworthyScreenState extends State<SingleNoteworthyScreen> {
                                   padding: EdgeInsets.all(6),
                                   child: InkWell(
                                     child: Container(
-                                        padding: EdgeInsets.only(top: 0, ),
+                                        padding: EdgeInsets.only(
+                                          top: 0,
+                                        ),
                                         child: Column(children: [
                                           Icon(
                                             Icons.image,

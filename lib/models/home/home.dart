@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'package:ld_alumni/core/globals.dart' as globals;
+import 'package:ldce_alumni/core/globals.dart' as globals;
 
 class Home {
   String imageUrl;

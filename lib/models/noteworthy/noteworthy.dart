@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
 
 import 'dart:convert';
-import 'package:ld_alumni/core/globals.dart' as globals;
+import 'package:ldce_alumni/core/globals.dart' as globals;
 
 class Noteworthy {
   String coverPhoto, title, shortDescription, description, alumniName, alumniPassoutYear, alumniBranch;

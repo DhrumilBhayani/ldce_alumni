@@ -1,23 +1,23 @@
 // import 'dart:html';
 
 import 'package:flutter/services.dart';
-import 'package:ld_alumni/controllers/events/events_controller.dart';
-import 'package:ld_alumni/core/text.dart';
-import 'package:ld_alumni/views/events/event_past_screen.dart';
-import 'package:ld_alumni/views/events/event_upcoming_screen.dart';
-import 'package:ld_alumni/views/loading_effect.dart';
-import 'package:ld_alumni/views/widgets/app_bar_widget.dart';
-import 'package:ld_alumni/views/widgets/app_drawer_widget.dart';
+import 'package:ldce_alumni/controllers/events/events_controller.dart';
+import 'package:ldce_alumni/core/text.dart';
+import 'package:ldce_alumni/views/events/event_past_screen.dart';
+import 'package:ldce_alumni/views/events/event_upcoming_screen.dart';
+import 'package:ldce_alumni/views/loading_effect.dart';
+import 'package:ldce_alumni/views/widgets/app_bar_widget.dart';
+import 'package:ldce_alumni/views/widgets/app_drawer_widget.dart';
 // import 'package:flutkit/screens/event/event_filter_dialog.dart';
-import 'package:ld_alumni/views/events/single_event_screen.dart';
-import 'package:ld_alumni/theme/app_notifier.dart';
-import 'package:ld_alumni/theme/app_theme.dart';
-import 'package:ld_alumni/theme/theme_type.dart';
+import 'package:ldce_alumni/views/events/single_event_screen.dart';
+import 'package:ldce_alumni/theme/app_notifier.dart';
+import 'package:ldce_alumni/theme/app_theme.dart';
+import 'package:ldce_alumni/theme/theme_type.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutx/flutx.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:ld_alumni/core/globals.dart' as globals;
+import 'package:ldce_alumni/core/globals.dart' as globals;
 
 class EventHomeScreen extends StatefulWidget {
   @override
@@ -52,7 +52,7 @@ class _EventHomeScreenState extends State<EventHomeScreen> with SingleTickerProv
     //     statusBarIconBrightness: Brightness.light));
     return Consumer2<AppNotifier, EventsController>(
         builder: (BuildContext context, AppNotifier value, eventsProvider, Widget? child) {
-                globals.checkInternet(context);
+      globals.checkInternet(context);
 
       isDark = AppTheme.themeType == ThemeType.dark;
       textDirection = AppTheme.textDirection;

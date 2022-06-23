@@ -1,12 +1,12 @@
-import 'package:ld_alumni/models/digital_downloads/digital_downloads.dart';
-import 'package:ld_alumni/models/events/events.dart';
-import 'package:ld_alumni/models/home/home.dart';
-import 'package:ld_alumni/models/media/media.dart';
-import 'package:ld_alumni/models/news/news.dart';
+import 'package:ldce_alumni/models/digital_downloads/digital_downloads.dart';
+import 'package:ldce_alumni/models/events/events.dart';
+import 'package:ldce_alumni/models/home/home.dart';
+import 'package:ldce_alumni/models/media/media.dart';
+import 'package:ldce_alumni/models/news/news.dart';
 import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart';
-import 'package:ld_alumni/core/globals.dart' as globals;
-import 'package:ld_alumni/models/noteworthy/noteworthy.dart';
+import 'package:ldce_alumni/core/globals.dart' as globals;
+import 'package:ldce_alumni/models/noteworthy/noteworthy.dart';
 
 class HomeController with ChangeNotifier {
   bool showLoading = true,

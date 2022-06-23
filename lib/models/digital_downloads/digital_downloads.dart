@@ -19,7 +19,7 @@
  */
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:ld_alumni/core/globals.dart' as globals;
+import 'package:ldce_alumni/core/globals.dart' as globals;
 
 class DigitalDownloads {
   //  final String? imageUrl, date, title, venue, time;
@@ -164,7 +164,11 @@ class DigitalDownloads {
   }
 
   static Future<String> getMobileSkinData(pageSize, pageNumber) async {
-    var url = Uri.parse(globals.BASE_API_URL + 'DigitalDownload?Mobileskin&pageSize='+pageSize.toString()+'&pageNumber='+pageNumber.toString());
+    var url = Uri.parse(globals.BASE_API_URL +
+        'DigitalDownload?Mobileskin&pageSize=' +
+        pageSize.toString() +
+        '&pageNumber=' +
+        pageNumber.toString());
     var response = await http.get(url);
     if (response.statusCode == 200) {
       // print("getMobileSkinData DD : " + pageNumber.toString());
@@ -179,7 +183,11 @@ class DigitalDownloads {
   }
 
   static Future<String> getDesktopWallpapersData(pageSize, pageNumber) async {
-    var url = Uri.parse(globals.BASE_API_URL + 'DigitalDownload?DesktopWallpaper&pageSize='+pageSize.toString()+'&pageNumber='+pageNumber.toString());
+    var url = Uri.parse(globals.BASE_API_URL +
+        'DigitalDownload?DesktopWallpaper&pageSize=' +
+        pageSize.toString() +
+        '&pageNumber=' +
+        pageNumber.toString());
     var response = await http.get(url);
     if (response.statusCode == 200) {
       // print("getDesktopWallpapersData DD : " + pageNumber.toString());
@@ -194,7 +202,11 @@ class DigitalDownloads {
   }
 
   static Future<String> getCalendarsData(pageSize, pageNumber) async {
-    var url = Uri.parse(globals.BASE_API_URL + 'DigitalDownload?Calendar&pageSize='+pageSize.toString()+'&pageNumber='+pageNumber.toString());
+    var url = Uri.parse(globals.BASE_API_URL +
+        'DigitalDownload?Calendar&pageSize=' +
+        pageSize.toString() +
+        '&pageNumber=' +
+        pageNumber.toString());
     var response = await http.get(url);
     if (response.statusCode == 200) {
       // print("getCalendarsData DD : " + pageNumber.toString());
@@ -209,7 +221,11 @@ class DigitalDownloads {
   }
 
   static Future<String> getCampaignDownloadsData(pageSize, pageNumber) async {
-    var url = Uri.parse(globals.BASE_API_URL + 'DigitalDownload?CampaignDownload&pageSize='+pageSize.toString()+'&pageNumber='+pageNumber.toString());
+    var url = Uri.parse(globals.BASE_API_URL +
+        'DigitalDownload?CampaignDownload&pageSize=' +
+        pageSize.toString() +
+        '&pageNumber=' +
+        pageNumber.toString());
     var response = await http.get(url);
     if (response.statusCode == 200) {
       // print("getCampaignDownloadsData DD : " + pageNumber.toString());
@@ -224,7 +240,11 @@ class DigitalDownloads {
   }
 
   static Future<String> getOtherMaterialsData(pageSize, pageNumber) async {
-    var url = Uri.parse(globals.BASE_API_URL + 'DigitalDownload?OtherMaterial&pageSize='+pageSize.toString()+'&pageNumber='+pageNumber.toString());
+    var url = Uri.parse(globals.BASE_API_URL +
+        'DigitalDownload?OtherMaterial&pageSize=' +
+        pageSize.toString() +
+        '&pageNumber=' +
+        pageNumber.toString());
     var response = await http.get(url);
     if (response.statusCode == 200) {
       // print("getOtherMaterialsData DD : " + pageNumber.toString());

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ld_alumni/core/text.dart';
-import 'package:ld_alumni/theme/themes.dart';
+import 'package:ldce_alumni/core/text.dart';
+import 'package:ldce_alumni/theme/themes.dart';
 
 class HomeTab extends StatefulWidget {
   HomeTab({Key? key}) : super(key: key);

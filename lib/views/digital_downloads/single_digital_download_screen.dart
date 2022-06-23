@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:gallery_saver/gallery_saver.dart';
-import 'package:ld_alumni/controllers/events/events_controller.dart';
-import 'package:ld_alumni/core/text.dart';
+import 'package:ldce_alumni/controllers/events/events_controller.dart';
+import 'package:ldce_alumni/core/text.dart';
 // import 'package:flutkit/utils/generator.dart';
 import 'package:flutter/material.dart';
-import 'package:ld_alumni/theme/themes.dart';
+import 'package:ldce_alumni/theme/themes.dart';
 // import 'package:flutx/flutx.dart';
 import 'package:provider/provider.dart';
 
@@ -148,7 +148,7 @@ class _SingleDigitalDownloadScreenState extends State<SingleDigitalDownloadScree
                           Align(
                               alignment: Alignment.topLeft,
                               child: Container(
-                                width: 110,
+                                  width: 110,
                                   decoration: BoxDecoration(
                                     color: Color(0xffd32a27),
                                     borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -172,7 +172,7 @@ class _SingleDigitalDownloadScreenState extends State<SingleDigitalDownloadScree
                           Align(
                               alignment: Alignment.center,
                               child: Container(
-                                width: 110,
+                                  width: 110,
                                   decoration: BoxDecoration(
                                     color: Color(0xff1692d0),
                                     borderRadius: BorderRadius.all(Radius.circular(8)),

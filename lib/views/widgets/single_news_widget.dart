@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ld_alumni/core/text.dart';
-import 'package:ld_alumni/views/news/single_news_screen.dart';
+import 'package:ldce_alumni/core/text.dart';
+import 'package:ldce_alumni/views/news/single_news_screen.dart';
 // import 'package:flutx/flutx.dart';
 
 class SingleNewsWidget extends StatelessWidget {
@@ -57,8 +57,7 @@ class SingleNewsWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FxText.b2(date!,
-                      color: theme.colorScheme.onBackground, fontWeight: 600, xMuted: true),
+                  FxText.b2(date!, color: theme.colorScheme.onBackground, fontWeight: 600, xMuted: true),
                   const SizedBox(
                     height: 4,
                   ),

@@ -3,7 +3,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:ld_alumni/core/globals.dart' as globals;
+import 'package:ldce_alumni/core/globals.dart' as globals;
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -11,26 +11,26 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:ld_alumni/controllers/home/home_controller.dart';
-import 'package:ld_alumni/core/text.dart';
-import 'package:ld_alumni/main.dart';
-import 'package:ld_alumni/models/home/home.dart';
-import 'package:ld_alumni/theme/theme_type.dart';
-import 'package:ld_alumni/theme/themes.dart';
-import 'package:ld_alumni/utils/custom_badge_icons.dart';
-import 'package:ld_alumni/utils/local_notification_service.dart';
-import 'package:ld_alumni/views/general/no_internet_screen.dart';
-import 'package:ld_alumni/views/home/home_downloads_tab.dart';
-import 'package:ld_alumni/views/home/home_events_tab.dart';
-import 'package:ld_alumni/views/home/home_home_tab.dart';
-import 'package:ld_alumni/views/home/home_media_tab.dart';
-import 'package:ld_alumni/views/home/home_news_tab.dart';
-import 'package:ld_alumni/views/home/home_noteworthy_tab.dart';
-import 'package:ld_alumni/views/loading_effect.dart';
-import 'package:ld_alumni/views/projects/home_project_tab.dart';
-import 'package:ld_alumni/views/widgets/app_bar_widget.dart';
-import 'package:ld_alumni/views/widgets/app_drawer_widget.dart';
-import 'package:ld_alumni/views/widgets/simple_dialog.dart';
+import 'package:ldce_alumni/controllers/home/home_controller.dart';
+import 'package:ldce_alumni/core/text.dart';
+import 'package:ldce_alumni/main.dart';
+import 'package:ldce_alumni/models/home/home.dart';
+import 'package:ldce_alumni/theme/theme_type.dart';
+import 'package:ldce_alumni/theme/themes.dart';
+import 'package:ldce_alumni/utils/custom_badge_icons.dart';
+import 'package:ldce_alumni/utils/local_notification_service.dart';
+import 'package:ldce_alumni/views/general/no_internet_screen.dart';
+import 'package:ldce_alumni/views/home/home_downloads_tab.dart';
+import 'package:ldce_alumni/views/home/home_events_tab.dart';
+import 'package:ldce_alumni/views/home/home_home_tab.dart';
+import 'package:ldce_alumni/views/home/home_media_tab.dart';
+import 'package:ldce_alumni/views/home/home_news_tab.dart';
+import 'package:ldce_alumni/views/home/home_noteworthy_tab.dart';
+import 'package:ldce_alumni/views/loading_effect.dart';
+import 'package:ldce_alumni/views/projects/home_project_tab.dart';
+import 'package:ldce_alumni/views/widgets/app_bar_widget.dart';
+import 'package:ldce_alumni/views/widgets/app_drawer_widget.dart';
+import 'package:ldce_alumni/views/widgets/simple_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
@@ -259,7 +259,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     }
     return list;
   }
-
 
   @override
   Widget build(BuildContext context) {

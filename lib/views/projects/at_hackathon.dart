@@ -1,14 +1,14 @@
-// import 'package:ld_alumni/screens/news/news_editor_profile_screen.dart';
+// import 'package:ldce_alumni/screens/news/news_editor_profile_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
-import 'package:ld_alumni/controllers/news/news_controller.dart';
-import 'package:ld_alumni/core/card.dart';
-import 'package:ld_alumni/core/text.dart';
-import 'package:ld_alumni/theme/app_theme.dart';
+import 'package:ldce_alumni/controllers/news/news_controller.dart';
+import 'package:ldce_alumni/core/card.dart';
+import 'package:ldce_alumni/core/text.dart';
+import 'package:ldce_alumni/theme/app_theme.dart';
 // import 'package:flutkit/utils/generator.dart';
 import 'package:flutter/material.dart';
-import 'package:ld_alumni/theme/themes.dart';
+import 'package:ldce_alumni/theme/themes.dart';
 // import 'package:flutx/flutx.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
@@ -94,7 +94,7 @@ class _ATHackathonState extends State<ATHackathon> {
                     child: ListView(
                   padding: EdgeInsets.fromLTRB(0, 0, 0, 16),
                   children: [
-                     Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Align(
@@ -102,18 +102,27 @@ class _ATHackathonState extends State<ATHackathon> {
                             child: Container(
                                 padding: EdgeInsets.only(top: 0),
                                 child: Container(
-                                decoration: BoxDecoration(
-                                  color: Color(0xffd32a27),
-                                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                                ),
-                                // color: Colors.red,
-                                padding: EdgeInsets.all(6),
-                                child: InkWell(
-                                    child: Column(children: [Icon(Icons.home,color: Colors.white,), FxText.b2("Home",color: Colors.white,)]),
-                                    onTap: () {
-                                      Navigator.of(context).pushNamedAndRemoveUntil(
-                                          'home', (Route<dynamic> route) => false);
-                                    })))),
+                                    decoration: BoxDecoration(
+                                      color: Color(0xffd32a27),
+                                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                                    ),
+                                    // color: Colors.red,
+                                    padding: EdgeInsets.all(6),
+                                    child: InkWell(
+                                        child: Column(children: [
+                                          Icon(
+                                            Icons.home,
+                                            color: Colors.white,
+                                          ),
+                                          FxText.b2(
+                                            "Home",
+                                            color: Colors.white,
+                                          )
+                                        ]),
+                                        onTap: () {
+                                          Navigator.of(context).pushNamedAndRemoveUntil(
+                                              'home', (Route<dynamic> route) => false);
+                                        })))),
                         // Align(
                         //     alignment: Alignment.center,
                         //     child: InkWell(
@@ -244,7 +253,7 @@ class _ATHackathonState extends State<ATHackathon> {
                                 ),
                               ],
                             ))),
-                            Divider(),
+                    Divider(),
                     Container(
                         // margin: EdgeInsets.only(top: 16),
                         child: Theme(
@@ -272,7 +281,7 @@ class _ATHackathonState extends State<ATHackathon> {
                                 ),
                               ],
                             ))),
-                                  Divider(),
+                    Divider(),
                     Container(
                         // margin: EdgeInsets.only(top: 16),
                         child: Theme(
@@ -300,7 +309,7 @@ class _ATHackathonState extends State<ATHackathon> {
                                 ),
                               ],
                             ))),
-                              Divider(),
+                    Divider(),
                     Container(
                         // margin: EdgeInsets.only(top: 16),
                         child: Theme(
@@ -342,7 +351,6 @@ class _ATHackathonState extends State<ATHackathon> {
                                               }
                                             },
                                         ))),
-                          
                               ],
                             ))),
                     Divider(),
@@ -350,7 +358,7 @@ class _ATHackathonState extends State<ATHackathon> {
                         // margin: EdgeInsets.only(top: 16),
                         child: Theme(
                             data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-                           child: ExpansionTile(
+                            child: ExpansionTile(
                               tilePadding: EdgeInsets.zero,
                               // backgroundColor: Colors.red,
                               initiallyExpanded: false,
@@ -384,8 +392,9 @@ class _ATHackathonState extends State<ATHackathon> {
                                               SizedBox(
                                                 width: 10,
                                               ),
-                                             
-                                              FxText.caption("Dr. R.K.Gajjar \n(Principal, L.D.College of Engineering)",
+
+                                              FxText.caption(
+                                                  "Dr. R.K.Gajjar \n(Principal, L.D.College of Engineering)",
                                                   fontSize: 14,
                                                   fontWeight: 600,
                                                   color: theme.colorScheme.onBackground),
@@ -403,8 +412,8 @@ class _ATHackathonState extends State<ATHackathon> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(height:20),
-                                 Align(
+                                SizedBox(height: 20),
+                                Align(
                                     alignment: Alignment.topLeft,
                                     child: FxText.t2("PATRON", fontWeight: 600)),
                                 Container(
@@ -431,7 +440,7 @@ class _ATHackathonState extends State<ATHackathon> {
                                               SizedBox(
                                                 width: 10,
                                               ),
-                                             
+
                                               FxText.caption("Mr. Pranav Desai",
                                                   fontSize: 14,
                                                   fontWeight: 600,
@@ -474,7 +483,7 @@ class _ATHackathonState extends State<ATHackathon> {
                                               SizedBox(
                                                 width: 10,
                                               ),
-                                             
+
                                               FxText.caption("Mr. Prerak Shah",
                                                   fontSize: 14,
                                                   fontWeight: 600,
@@ -493,8 +502,8 @@ class _ATHackathonState extends State<ATHackathon> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(height:20),
-                                 Align(
+                                SizedBox(height: 20),
+                                Align(
                                     alignment: Alignment.topLeft,
                                     child: FxText.t2("PROGRAM COMMITTEE", fontWeight: 600)),
                                 Container(
@@ -539,7 +548,7 @@ class _ATHackathonState extends State<ATHackathon> {
                                     ),
                                   ),
                                 ),
-                                 Container(
+                                Container(
                                   // padding: EdgeInsets.all(16),
                                   child: Container(
                                     margin: EdgeInsets.only(top: 0),
@@ -581,7 +590,7 @@ class _ATHackathonState extends State<ATHackathon> {
                                     ),
                                   ),
                                 ),
-                                 Container(
+                                Container(
                                   // padding: EdgeInsets.all(16),
                                   child: Container(
                                     margin: EdgeInsets.only(top: 0),
@@ -623,7 +632,7 @@ class _ATHackathonState extends State<ATHackathon> {
                                     ),
                                   ),
                                 ),
-                                 Container(
+                                Container(
                                   // padding: EdgeInsets.all(16),
                                   child: Container(
                                     margin: EdgeInsets.only(top: 0),
@@ -665,8 +674,8 @@ class _ATHackathonState extends State<ATHackathon> {
                                     ),
                                   ),
                                 ),
-                                  SizedBox(height:20),
-                                 Align(
+                                SizedBox(height: 20),
+                                Align(
                                     alignment: Alignment.topLeft,
                                     child: FxText.t2("For any query, contact", fontWeight: 600)),
                                 Container(
@@ -713,8 +722,8 @@ class _ATHackathonState extends State<ATHackathon> {
                                 ),
                               ],
                             ))),
-                            Divider(),
-                             Container(
+                    Divider(),
+                    Container(
                         // margin: EdgeInsets.only(top: 16),
                         child: Theme(
                             data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
@@ -741,8 +750,8 @@ class _ATHackathonState extends State<ATHackathon> {
                                 ),
                               ],
                             ))),
-                     Divider(),
-                             Container(
+                    Divider(),
+                    Container(
                         // margin: EdgeInsets.only(top: 16),
                         child: Theme(
                             data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
@@ -769,7 +778,7 @@ class _ATHackathonState extends State<ATHackathon> {
                                 ),
                               ],
                             ))),
-                    
+
                     Divider(),
                   ],
                 )),

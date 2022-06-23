@@ -1,8 +1,8 @@
-import 'package:ld_alumni/controllers/digital_downloads/digital_downloads_controller.dart';
-import 'package:ld_alumni/models/digital_downloads/digital_downloads.dart';
-import 'package:ld_alumni/views/widgets/single_download_widget.dart';
-import 'package:ld_alumni/theme/app_theme.dart';
-import 'package:ld_alumni/core/globals.dart' as globals;
+import 'package:ldce_alumni/controllers/digital_downloads/digital_downloads_controller.dart';
+import 'package:ldce_alumni/models/digital_downloads/digital_downloads.dart';
+import 'package:ldce_alumni/views/widgets/single_download_widget.dart';
+import 'package:ldce_alumni/theme/app_theme.dart';
+import 'package:ldce_alumni/core/globals.dart' as globals;
 
 import 'package:flutter/material.dart';
 
@@ -299,8 +299,7 @@ class _CampaignDownloadsScreenState extends State<CampaignDownloadsScreen> {
     // newsController = FxControllerStore.putOrFind<NewsController>(NewsController());
     if (widget.events.isEmpty) {
       print("List Empty");
-      list.add(Container(
-          padding: EdgeInsets.only(top: 10), child: Text("No Campaign Downloads")));
+      list.add(Container(padding: EdgeInsets.only(top: 10), child: Text("No Campaign Downloads")));
     } else {
       for (DigitalDownloads singleNews in widget.events) {
         list.add(_singleEvent(singleNews));

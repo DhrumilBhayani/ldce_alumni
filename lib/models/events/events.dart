@@ -19,7 +19,7 @@
  */
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:ld_alumni/core/globals.dart' as globals;
+import 'package:ldce_alumni/core/globals.dart' as globals;
 
 class Events {
   //  final String? imageUrl, date, title, venue, time;

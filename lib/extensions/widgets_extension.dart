@@ -1,4 +1,4 @@
-import 'package:ld_alumni/theme/app_theme.dart';
+import 'package:ldce_alumni/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';

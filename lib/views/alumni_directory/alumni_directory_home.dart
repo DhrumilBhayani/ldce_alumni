@@ -1,20 +1,20 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-import 'package:ld_alumni/controllers/alumni/alumni_controller.dart';
-import 'package:ld_alumni/core/text.dart';
-import 'package:ld_alumni/models/alumni/alumni.dart';
-import 'package:ld_alumni/theme/theme_type.dart';
-import 'package:ld_alumni/theme/themes.dart';
-import 'package:ld_alumni/views/loading_effect.dart';
-import 'package:ld_alumni/views/widgets/alumni_expansion.dart';
-import 'package:ld_alumni/views/widgets/app_bar_widget.dart';
-import 'package:ld_alumni/views/widgets/app_drawer_widget.dart';
+import 'package:ldce_alumni/controllers/alumni/alumni_controller.dart';
+import 'package:ldce_alumni/core/text.dart';
+import 'package:ldce_alumni/models/alumni/alumni.dart';
+import 'package:ldce_alumni/theme/theme_type.dart';
+import 'package:ldce_alumni/theme/themes.dart';
+import 'package:ldce_alumni/views/loading_effect.dart';
+import 'package:ldce_alumni/views/widgets/alumni_expansion.dart';
+import 'package:ldce_alumni/views/widgets/app_bar_widget.dart';
+import 'package:ldce_alumni/views/widgets/app_drawer_widget.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
 import 'package:provider/provider.dart';
-import 'package:ld_alumni/core/globals.dart' as globals;
+import 'package:ldce_alumni/core/globals.dart' as globals;
 
 class AlumniDirectoryHome extends StatefulWidget {
   @override
@@ -207,7 +207,7 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
     return Consumer2<AppNotifier, AlumniDirectoryController>(
         builder: (BuildContext context, AppNotifier value, alumniProvider, Widget? child) {
       //inspect(value);
-            globals.checkInternet(context);
+      globals.checkInternet(context);
 
       isDark = AppTheme.themeType == ThemeType.dark;
 

@@ -1,19 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:ld_alumni/controllers/events/events_controller.dart';
-import 'package:ld_alumni/core/text.dart';
-import 'package:ld_alumni/core/text_style.dart';
-import 'package:ld_alumni/models/events/events.dart';
-import 'package:ld_alumni/theme/app_notifier.dart';
-import 'package:ld_alumni/theme/app_theme.dart';
+import 'package:ldce_alumni/controllers/events/events_controller.dart';
+import 'package:ldce_alumni/core/text.dart';
+import 'package:ldce_alumni/core/text_style.dart';
+import 'package:ldce_alumni/models/events/events.dart';
+import 'package:ldce_alumni/theme/app_notifier.dart';
+import 'package:ldce_alumni/theme/app_theme.dart';
 // import 'package:flutkit/utils/generator.dart';
 import 'package:flutter/material.dart';
-import 'package:ld_alumni/utils/local_notification_service.dart';
-import 'package:ld_alumni/views/loading_effect.dart';
+import 'package:ldce_alumni/utils/local_notification_service.dart';
+import 'package:ldce_alumni/views/loading_effect.dart';
 // import 'package:flutx/flutx.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:ld_alumni/core/readmore.dart';
+import 'package:ldce_alumni/core/readmore.dart';
 import 'package:provider/provider.dart';
 
 class SingleInternetEventScreen extends StatefulWidget {
@@ -84,7 +84,7 @@ class _SingleInternetEventScreenState extends State<SingleInternetEventScreen> {
     return Consumer2<AppNotifier, EventsController>(
         builder: (BuildContext context, AppNotifier value, eventsProvider, Widget? child) {
       if (!called) {}
-       eventsProvider.getSingleEvent(args.id);
+      eventsProvider.getSingleEvent(args.id);
       called = true;
       // print("0 HomeProvider");
       // isDark = AppTheme.themeType == ThemeType.dark;
@@ -103,7 +103,7 @@ class _SingleInternetEventScreenState extends State<SingleInternetEventScreen> {
         // print("HomeProvider");
         print(args.id);
         print("uiLoading+ UI");
-       
+
         print(eventsProvider.uiLoading);
 
         // newsProvider.getSingleNews(widget.id).then((News newQuestions) {
@@ -112,7 +112,6 @@ class _SingleInternetEventScreenState extends State<SingleInternetEventScreen> {
 
         // print(singleNews);
         return Scaffold(
-          
             extendBodyBehindAppBar: true,
             appBar: AppBar(
               automaticallyImplyLeading: false,
@@ -195,65 +194,65 @@ class _SingleInternetEventScreenState extends State<SingleInternetEventScreen> {
                   child: ListView(
                     padding: EdgeInsets.only(top: 16, bottom: 16),
                     children: [
-                        Container(
-                      padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Align(
-                              alignment: Alignment.topLeft,
-                              child: Container(
-                                width: 90,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xffd32a27),
-                                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                                  ),
-                                  padding: EdgeInsets.all(6),
-                                  child: InkWell(
-                                      child: Column(children: [
-                                        Icon(
-                                          Icons.home,
-                                          color: Colors.white,
-                                        ),
-                                        FxText.b2(
-                                          "Home",
-                                          color: Colors.white,
-                                        )
-                                      ]),
-                                      onTap: () {
-                                        Navigator.of(context).pushNamedAndRemoveUntil(
-                                            'home', (Route<dynamic> route) => false);
-                                      }))),
-                          Align(
-                              alignment: Alignment.center,
-                              child: Container(
-                                width: 90,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xff1692d0),
-                                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                                  ),
-                                  // color: Colors.red,
-                                  padding: EdgeInsets.all(6),
-                                  child: InkWell(
-                                    child: Container(
-                                        padding: EdgeInsets.only(),
-                                        child: Column(children: [
-                                          Icon(
-                                            Icons.event,
-                                            color: Colors.white,
-                                          ),
-                                          FxText.b2(
-                                            "All Events",
-                                            color: Colors.white,
-                                          )
-                                        ])),
-                                    onTap: () {
-                                      Navigator.of(context).pushNamedAndRemoveUntil(
-                                          'events_home', ModalRoute.withName('home'));
-                                    },
-                                  ))),
-                        ],
-                      )),
+                      Container(
+                          padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Container(
+                                      width: 90,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xffd32a27),
+                                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                                      ),
+                                      padding: EdgeInsets.all(6),
+                                      child: InkWell(
+                                          child: Column(children: [
+                                            Icon(
+                                              Icons.home,
+                                              color: Colors.white,
+                                            ),
+                                            FxText.b2(
+                                              "Home",
+                                              color: Colors.white,
+                                            )
+                                          ]),
+                                          onTap: () {
+                                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                                'home', (Route<dynamic> route) => false);
+                                          }))),
+                              Align(
+                                  alignment: Alignment.center,
+                                  child: Container(
+                                      width: 90,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xff1692d0),
+                                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                                      ),
+                                      // color: Colors.red,
+                                      padding: EdgeInsets.all(6),
+                                      child: InkWell(
+                                        child: Container(
+                                            padding: EdgeInsets.only(),
+                                            child: Column(children: [
+                                              Icon(
+                                                Icons.event,
+                                                color: Colors.white,
+                                              ),
+                                              FxText.b2(
+                                                "All Events",
+                                                color: Colors.white,
+                                              )
+                                            ])),
+                                        onTap: () {
+                                          Navigator.of(context).pushNamedAndRemoveUntil(
+                                              'events_home', ModalRoute.withName('home'));
+                                        },
+                                      ))),
+                            ],
+                          )),
                       singleEvents.coverPhoto != null
                           ? CachedNetworkImage(
                               imageUrl: 'https://' + singleEvents.coverPhoto,

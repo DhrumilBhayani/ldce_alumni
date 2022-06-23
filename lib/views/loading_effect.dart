@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
-import 'package:ld_alumni/theme/app_theme.dart';
-import 'package:ld_alumni/theme/theme_type.dart';
+import 'package:ldce_alumni/theme/app_theme.dart';
+import 'package:ldce_alumni/theme/theme_type.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutx/flutx.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';

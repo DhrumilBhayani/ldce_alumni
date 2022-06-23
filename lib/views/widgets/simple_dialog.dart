@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ld_alumni/core/button.dart';
-import 'package:ld_alumni/core/text.dart';
-import 'package:ld_alumni/theme/themes.dart';
-import 'package:ld_alumni/utils/local_notification_service.dart';
+import 'package:ldce_alumni/core/button.dart';
+import 'package:ldce_alumni/core/text.dart';
+import 'package:ldce_alumni/theme/themes.dart';
+import 'package:ldce_alumni/utils/local_notification_service.dart';
 
 class SimpleDialogWidget extends StatefulWidget {
   SimpleDialogWidget({required this.id, required this.type, required this.title, Key? key})
@@ -60,12 +60,12 @@ class _SimpleDialogWidgetState extends State<SimpleDialogWidget> {
                 child: FxButton(
                     onPressed: () {
                       if (widget.type.toLowerCase() == "event") {
-                          Navigator.pop(context);
+                        Navigator.pop(context);
                         Navigator.pushNamed(context, 'single_internet_events_screen',
                             arguments: ScreenArguments(widget.id));
                       }
                       if (widget.type.toLowerCase() == "news") {
-                          Navigator.pop(context);
+                        Navigator.pop(context);
                         Navigator.pushNamed(context, 'single_internet_news_screen',
                             arguments: ScreenArguments(widget.id));
                       }

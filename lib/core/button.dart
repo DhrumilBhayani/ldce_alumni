@@ -1,7 +1,6 @@
-
 import 'package:flutter/material.dart';
-import 'package:ld_alumni/theme/app_theme.dart';
-import 'package:ld_alumni/theme/themes.dart';
+import 'package:ldce_alumni/theme/app_theme.dart';
+import 'package:ldce_alumni/theme/themes.dart';
 
 enum FxButtonType { elevated, outlined, text }
 
@@ -49,7 +48,7 @@ class FxButton extends StatelessWidget {
       this.msShape,
       this.shape,
       this.borderRadius,
-      this.borderRadiusAll=0,
+      this.borderRadiusAll = 0,
       this.msBackgroundColor,
       this.backgroundColor,
       this.buttonType = FxButtonType.elevated,
@@ -255,24 +254,17 @@ class FxButton extends StatelessWidget {
                 side: msSide ??
                     MaterialStateProperty.all(side ??
                         BorderSide(
-                          color:
-                              soft ? borderColor.withAlpha(100) : borderColor,
+                          color: soft ? borderColor.withAlpha(100) : borderColor,
                           width: soft ? 0.8 : 1,
                         )),
-                overlayColor: MaterialStateProperty.all(
-                    splashColor ?? (bgColor.withAlpha(40))),
-                backgroundColor: soft
-                    ? MaterialStateProperty.all(borderColor.withAlpha(40))
-                    : null,
-                foregroundColor:
-                    MaterialStateProperty.all(borderColor.withAlpha(40)),
-                shadowColor:
-                    msShadowColor ?? MaterialStateProperty.all(shadowColor),
+                overlayColor: MaterialStateProperty.all(splashColor ?? (bgColor.withAlpha(40))),
+                backgroundColor: soft ? MaterialStateProperty.all(borderColor.withAlpha(40)) : null,
+                foregroundColor: MaterialStateProperty.all(borderColor.withAlpha(40)),
+                shadowColor: msShadowColor ?? MaterialStateProperty.all(shadowColor),
                 padding: msPadding ?? MaterialStateProperty.all(padding),
                 shape: MaterialStateProperty.all(shape ??
                     RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                          borderRadiusAll ?? 8),
+                      borderRadius: BorderRadius.circular(borderRadiusAll ?? 8),
                     ))),
       );
     } else if (buttonType == FxButtonType.elevated) {
@@ -286,36 +278,30 @@ class FxButton extends StatelessWidget {
                             return 0;
                           else if (states.contains(MaterialState.pressed))
                             return elevation! * 2;
-                          else if (states.contains(MaterialState.hovered))
-                            return elevation! * 1.5;
+                          else if (states.contains(MaterialState.hovered)) return elevation! * 1.5;
                           return elevation!;
                         },
                       ),
                   backgroundColor: msBackgroundColor ??
                       MaterialStateProperty.resolveWith<Color>(
                         (Set<MaterialState> states) {
-                          if (states.contains(MaterialState.disabled))
-                            return bgColor.withAlpha(100);
+                          if (states.contains(MaterialState.disabled)) return bgColor.withAlpha(100);
                           return bgColor;
                         },
                       ),
-                  shadowColor: msShadowColor ??
-                      MaterialStateProperty.all(shadowColor ?? bgColor),
+                  shadowColor: msShadowColor ?? MaterialStateProperty.all(shadowColor ?? bgColor),
                   padding: msPadding ?? MaterialStateProperty.all(padding),
-                  overlayColor: MaterialStateProperty.all(
-                      splashColor ?? (bgColor.withAlpha(40))),
+                  overlayColor: MaterialStateProperty.all(splashColor ?? (bgColor.withAlpha(40))),
                   shape: MaterialStateProperty.all(shape ??
                       RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(borderRadiusAll ??
-                            8),
+                        borderRadius: BorderRadius.circular(borderRadiusAll ?? 8),
                       ))),
           onPressed: onPressed,
           child: child);
     } else {
       button = TextButton(
         style: ButtonStyle(
-            overlayColor: MaterialStateProperty.all(
-                splashColor ?? (bgColor.withAlpha(40))),
+            overlayColor: MaterialStateProperty.all(splashColor ?? (bgColor.withAlpha(40))),
             padding: msPadding ?? MaterialStateProperty.all(padding),
             visualDensity: VisualDensity.compact,
             tapTargetSize: MaterialTapTargetSize.shrinkWrap),

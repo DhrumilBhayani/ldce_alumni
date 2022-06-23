@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ld_alumni/models/digital_downloads/digital_downloads.dart';
-import 'package:ld_alumni/core/globals.dart' as globals;
+import 'package:ldce_alumni/models/digital_downloads/digital_downloads.dart';
+import 'package:ldce_alumni/core/globals.dart' as globals;
 
 class DigitalDownloadsController with ChangeNotifier {
   bool showLoading = true,
@@ -80,7 +80,6 @@ class DigitalDownloadsController with ChangeNotifier {
   }
 
   Future loadMore(int pageNumber, String screenName) async {
-
     if (hasMoreUpcomingData && screenName == 'mobile' && !globals.isAllMobileSkinsLoaded) {
       mobileSkins = await DigitalDownloads.getMobileSkinsList(pageNumber: pageNumber);
       if (mobileSkins.length <= 0) {

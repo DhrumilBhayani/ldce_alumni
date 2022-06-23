@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ld_alumni/models/alumni/alumni.dart';
+import 'package:ldce_alumni/models/alumni/alumni.dart';
 // import 'package:provider/provider.dart';
 
 class AlumniDirectoryController with ChangeNotifier {

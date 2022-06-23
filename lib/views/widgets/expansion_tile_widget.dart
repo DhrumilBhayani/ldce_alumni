@@ -1,9 +1,7 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:ld_alumni/core/text.dart';
-import 'package:ld_alumni/theme/themes.dart';
+import 'package:ldce_alumni/core/text.dart';
+import 'package:ldce_alumni/theme/themes.dart';
 
 class ExpansionTileWidget extends StatefulWidget {
   @override
@@ -57,8 +55,7 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                       children: <Widget>[
                         Container(
                           padding: EdgeInsets.all(16),
-                          child:
-                              Center(child: FxText("This is second content")),
+                          child: Center(child: FxText("This is second content")),
                         )
                       ],
                     ),

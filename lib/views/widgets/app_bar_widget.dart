@@ -1,9 +1,9 @@
 import 'package:flutter/services.dart';
-import 'package:ld_alumni/core/text.dart';
-import 'package:ld_alumni/theme/app_notifier.dart';
-import 'package:ld_alumni/theme/app_theme.dart';
-import 'package:ld_alumni/theme/custom_theme.dart';
-import 'package:ld_alumni/theme/theme_type.dart';
+import 'package:ldce_alumni/core/text.dart';
+import 'package:ldce_alumni/theme/app_notifier.dart';
+import 'package:ldce_alumni/theme/app_theme.dart';
+import 'package:ldce_alumni/theme/custom_theme.dart';
+import 'package:ldce_alumni/theme/theme_type.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

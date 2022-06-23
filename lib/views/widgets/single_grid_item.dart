@@ -7,8 +7,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:ld_alumni/core/text.dart';
-import 'package:ld_alumni/theme/app_theme.dart';
+import 'package:ldce_alumni/core/text.dart';
+import 'package:ldce_alumni/theme/app_theme.dart';
 
 class SingleGridItem extends StatelessWidget {
   final String title;

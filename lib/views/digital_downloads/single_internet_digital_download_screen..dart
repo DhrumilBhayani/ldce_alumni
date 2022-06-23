@@ -1,17 +1,17 @@
 import 'package:intl/intl.dart';
-import 'package:ld_alumni/controllers/events/events_controller.dart';
-import 'package:ld_alumni/core/text.dart';
-import 'package:ld_alumni/core/text_style.dart';
-import 'package:ld_alumni/models/events/events.dart';
-import 'package:ld_alumni/theme/app_notifier.dart';
-import 'package:ld_alumni/theme/app_theme.dart';
+import 'package:ldce_alumni/controllers/events/events_controller.dart';
+import 'package:ldce_alumni/core/text.dart';
+import 'package:ldce_alumni/core/text_style.dart';
+import 'package:ldce_alumni/models/events/events.dart';
+import 'package:ldce_alumni/theme/app_notifier.dart';
+import 'package:ldce_alumni/theme/app_theme.dart';
 // import 'package:flutkit/utils/generator.dart';
 import 'package:flutter/material.dart';
-import 'package:ld_alumni/utils/local_notification_service.dart';
-import 'package:ld_alumni/views/loading_effect.dart';
+import 'package:ldce_alumni/utils/local_notification_service.dart';
+import 'package:ldce_alumni/views/loading_effect.dart';
 // import 'package:flutx/flutx.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:ld_alumni/core/readmore.dart';
+import 'package:ldce_alumni/core/readmore.dart';
 import 'package:provider/provider.dart';
 
 class SingleInternetEventScreen extends StatefulWidget {

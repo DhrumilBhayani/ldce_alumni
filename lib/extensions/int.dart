@@ -1,4 +1,4 @@
-import 'package:ld_alumni/theme/app_theme.dart';
+import 'package:ldce_alumni/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 extension IntUtil on int {
@@ -42,8 +42,6 @@ extension IntUtil on int {
   }
 
   int cd([int? alternative]) {
-    return AppTheme.textDirection == TextDirection.ltr
-        ? this
-        : alternative ?? this;
+    return AppTheme.textDirection == TextDirection.ltr ? this : alternative ?? this;
   }
 }

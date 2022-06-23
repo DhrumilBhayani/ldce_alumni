@@ -12,7 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:ld_alumni/theme/app_theme.dart';
+import 'package:ldce_alumni/theme/app_theme.dart';
 
 enum FxTextType {
   h4,
@@ -171,15 +171,10 @@ class FxTextStyle {
 
     Color? finalColor;
     if (color == null) {
-      Color themeColor =
-          AppTheme.getTheme().colorScheme.onBackground;
-      finalColor = xMuted
-          ? themeColor.withAlpha(160)
-          : (muted ? themeColor.withAlpha(200) : themeColor);
+      Color themeColor = AppTheme.getTheme().colorScheme.onBackground;
+      finalColor = xMuted ? themeColor.withAlpha(160) : (muted ? themeColor.withAlpha(200) : themeColor);
     } else {
-      finalColor = xMuted
-          ? color.withAlpha(160)
-          : (muted ? color.withAlpha(200) : color);
+      finalColor = xMuted ? color.withAlpha(160) : (muted ? color.withAlpha(200) : color);
     }
 
     return _fontFamily(
@@ -208,8 +203,7 @@ class FxTextStyle {
         color: color,
         height: height,
         muted: muted,
-        letterSpacing:
-            letterSpacing ?? _defaultLetterSpacing[FxTextType.h4] ?? 0,
+        letterSpacing: letterSpacing ?? _defaultLetterSpacing[FxTextType.h4] ?? 0,
         fontWeight: fontWeight,
         decoration: decoration,
         textStyle: textStyle,
@@ -233,8 +227,7 @@ class FxTextStyle {
         color: color,
         height: height,
         muted: muted,
-        letterSpacing:
-            letterSpacing ?? _defaultLetterSpacing[FxTextType.h5] ?? 0,
+        letterSpacing: letterSpacing ?? _defaultLetterSpacing[FxTextType.h5] ?? 0,
         fontWeight: fontWeight,
         decoration: decoration,
         textStyle: textStyle,
@@ -258,8 +251,7 @@ class FxTextStyle {
         color: color,
         height: height,
         muted: muted,
-        letterSpacing:
-            letterSpacing ?? _defaultLetterSpacing[FxTextType.h6] ?? 0,
+        letterSpacing: letterSpacing ?? _defaultLetterSpacing[FxTextType.h6] ?? 0,
         fontWeight: fontWeight,
         decoration: decoration,
         textStyle: textStyle,
@@ -283,8 +275,7 @@ class FxTextStyle {
         color: color,
         height: height,
         muted: muted,
-        letterSpacing:
-            letterSpacing ?? _defaultLetterSpacing[FxTextType.sh1] ?? 0.15,
+        letterSpacing: letterSpacing ?? _defaultLetterSpacing[FxTextType.sh1] ?? 0.15,
         fontWeight: fontWeight,
         decoration: decoration,
         textStyle: textStyle,
@@ -308,8 +299,7 @@ class FxTextStyle {
         color: color,
         height: height,
         muted: muted,
-        letterSpacing:
-            letterSpacing ?? _defaultLetterSpacing[FxTextType.sh2] ?? 0.15,
+        letterSpacing: letterSpacing ?? _defaultLetterSpacing[FxTextType.sh2] ?? 0.15,
         fontWeight: fontWeight,
         decoration: decoration,
         textStyle: textStyle,
@@ -333,8 +323,7 @@ class FxTextStyle {
         color: color,
         height: height,
         muted: muted,
-        letterSpacing:
-            letterSpacing ?? _defaultLetterSpacing[FxTextType.button] ?? 0.15,
+        letterSpacing: letterSpacing ?? _defaultLetterSpacing[FxTextType.button] ?? 0.15,
         fontWeight: fontWeight,
         decoration: decoration,
         textStyle: textStyle,
@@ -358,8 +347,7 @@ class FxTextStyle {
         color: color,
         height: height,
         muted: muted,
-        letterSpacing:
-            letterSpacing ?? _defaultLetterSpacing[FxTextType.caption] ?? 0.15,
+        letterSpacing: letterSpacing ?? _defaultLetterSpacing[FxTextType.caption] ?? 0.15,
         fontWeight: fontWeight,
         decoration: decoration,
         textStyle: textStyle,
@@ -383,8 +371,7 @@ class FxTextStyle {
         color: color,
         height: height,
         muted: muted,
-        letterSpacing:
-            letterSpacing ?? _defaultLetterSpacing[FxTextType.overline] ?? 0.15,
+        letterSpacing: letterSpacing ?? _defaultLetterSpacing[FxTextType.overline] ?? 0.15,
         fontWeight: fontWeight,
         decoration: decoration,
         textStyle: textStyle,
@@ -409,8 +396,7 @@ class FxTextStyle {
         color: color,
         height: height,
         muted: muted,
-        letterSpacing:
-            letterSpacing ?? _defaultLetterSpacing[FxTextType.d1] ?? -0.2,
+        letterSpacing: letterSpacing ?? _defaultLetterSpacing[FxTextType.d1] ?? -0.2,
         fontWeight: _defaultTextFontWeight[FxTextType.d1] ?? 500,
         decoration: decoration,
         textStyle: textStyle,
@@ -434,8 +420,7 @@ class FxTextStyle {
         color: color,
         height: height,
         muted: muted,
-        letterSpacing:
-            letterSpacing ?? _defaultLetterSpacing[FxTextType.d2] ?? -0.2,
+        letterSpacing: letterSpacing ?? _defaultLetterSpacing[FxTextType.d2] ?? -0.2,
         fontWeight: _defaultTextFontWeight[FxTextType.d2] ?? 500,
         decoration: decoration,
         textStyle: textStyle,
@@ -459,8 +444,7 @@ class FxTextStyle {
         color: color,
         height: height,
         muted: muted,
-        letterSpacing:
-            letterSpacing ?? _defaultLetterSpacing[FxTextType.d3] ?? -0.2,
+        letterSpacing: letterSpacing ?? _defaultLetterSpacing[FxTextType.d3] ?? -0.2,
         fontWeight: _defaultTextFontWeight[FxTextType.d3] ?? 500,
         decoration: decoration,
         textStyle: textStyle,
@@ -484,8 +468,7 @@ class FxTextStyle {
         color: color,
         height: height,
         muted: muted,
-        letterSpacing:
-            letterSpacing ?? _defaultLetterSpacing[FxTextType.h1] ?? -0.2,
+        letterSpacing: letterSpacing ?? _defaultLetterSpacing[FxTextType.h1] ?? -0.2,
         fontWeight: _defaultTextFontWeight[FxTextType.h1] ?? 500,
         decoration: decoration,
         textStyle: textStyle,
@@ -509,8 +492,7 @@ class FxTextStyle {
         color: color,
         height: height,
         muted: muted,
-        letterSpacing:
-            letterSpacing ?? _defaultLetterSpacing[FxTextType.h2] ?? -0.15,
+        letterSpacing: letterSpacing ?? _defaultLetterSpacing[FxTextType.h2] ?? -0.15,
         fontWeight: _defaultTextFontWeight[FxTextType.h2] ?? 500,
         decoration: decoration,
         textStyle: textStyle,
@@ -534,8 +516,7 @@ class FxTextStyle {
         color: color,
         height: height,
         muted: muted,
-        letterSpacing:
-            letterSpacing ?? _defaultLetterSpacing[FxTextType.h3] ?? -0.15,
+        letterSpacing: letterSpacing ?? _defaultLetterSpacing[FxTextType.h3] ?? -0.15,
         fontWeight: _defaultTextFontWeight[FxTextType.h3] ?? 500,
         decoration: decoration,
         textStyle: textStyle,
@@ -559,8 +540,7 @@ class FxTextStyle {
         color: color,
         height: height,
         muted: muted,
-        letterSpacing:
-            letterSpacing ?? _defaultLetterSpacing[FxTextType.t1] ?? -0.15,
+        letterSpacing: letterSpacing ?? _defaultLetterSpacing[FxTextType.t1] ?? -0.15,
         fontWeight: _defaultTextFontWeight[FxTextType.t1] ?? 500,
         decoration: decoration,
         textStyle: textStyle,
@@ -584,8 +564,7 @@ class FxTextStyle {
         color: color,
         height: height,
         muted: muted,
-        letterSpacing:
-            letterSpacing ?? _defaultLetterSpacing[FxTextType.t2] ?? -0.15,
+        letterSpacing: letterSpacing ?? _defaultLetterSpacing[FxTextType.t2] ?? -0.15,
         fontWeight: _defaultTextFontWeight[FxTextType.t2] ?? 500,
         decoration: decoration,
         textStyle: textStyle,
@@ -609,8 +588,7 @@ class FxTextStyle {
         color: color,
         height: height,
         muted: muted,
-        letterSpacing:
-            letterSpacing ?? _defaultLetterSpacing[FxTextType.t3] ?? -0.15,
+        letterSpacing: letterSpacing ?? _defaultLetterSpacing[FxTextType.t3] ?? -0.15,
         fontWeight: _defaultTextFontWeight[FxTextType.t3] ?? 500,
         decoration: decoration,
         textStyle: textStyle,
@@ -634,8 +612,7 @@ class FxTextStyle {
         color: color,
         height: height,
         muted: muted,
-        letterSpacing:
-            letterSpacing ?? _defaultLetterSpacing[FxTextType.l1] ?? -0.15,
+        letterSpacing: letterSpacing ?? _defaultLetterSpacing[FxTextType.l1] ?? -0.15,
         fontWeight: _defaultTextFontWeight[FxTextType.l1] ?? 500,
         decoration: decoration,
         textStyle: textStyle,
@@ -659,8 +636,7 @@ class FxTextStyle {
         color: color,
         height: height,
         muted: muted,
-        letterSpacing:
-            letterSpacing ?? _defaultLetterSpacing[FxTextType.l2] ?? -0.15,
+        letterSpacing: letterSpacing ?? _defaultLetterSpacing[FxTextType.l2] ?? -0.15,
         fontWeight: _defaultTextFontWeight[FxTextType.l2] ?? 500,
         decoration: decoration,
         textStyle: textStyle,
@@ -684,8 +660,7 @@ class FxTextStyle {
         color: color,
         height: height,
         muted: muted,
-        letterSpacing:
-            letterSpacing ?? _defaultLetterSpacing[FxTextType.l3] ?? -0.15,
+        letterSpacing: letterSpacing ?? _defaultLetterSpacing[FxTextType.l3] ?? -0.15,
         fontWeight: _defaultTextFontWeight[FxTextType.l3] ?? 500,
         decoration: decoration,
         textStyle: textStyle,
@@ -709,8 +684,7 @@ class FxTextStyle {
         color: color,
         height: height,
         muted: muted,
-        letterSpacing:
-            letterSpacing ?? _defaultLetterSpacing[FxTextType.b1] ?? 0.15,
+        letterSpacing: letterSpacing ?? _defaultLetterSpacing[FxTextType.b1] ?? 0.15,
         fontWeight: _defaultTextFontWeight[FxTextType.b1] ?? 500,
         decoration: decoration,
         textStyle: textStyle,
@@ -734,8 +708,7 @@ class FxTextStyle {
         color: color,
         height: height,
         muted: muted,
-        letterSpacing:
-            letterSpacing ?? _defaultLetterSpacing[FxTextType.b2] ?? 0.15,
+        letterSpacing: letterSpacing ?? _defaultLetterSpacing[FxTextType.b2] ?? 0.15,
         fontWeight: _defaultTextFontWeight[FxTextType.b2] ?? 500,
         decoration: decoration,
         textStyle: textStyle,
@@ -759,8 +732,7 @@ class FxTextStyle {
         color: color,
         height: height,
         muted: muted,
-        letterSpacing:
-            letterSpacing ?? _defaultLetterSpacing[FxTextType.b3] ?? 0.15,
+        letterSpacing: letterSpacing ?? _defaultLetterSpacing[FxTextType.b3] ?? 0.15,
         fontWeight: _defaultTextFontWeight[FxTextType.b3] ?? 500,
         decoration: decoration,
         textStyle: textStyle,
@@ -782,11 +754,9 @@ class FxTextStyle {
 
   static Map<FxTextType, double> get defaultTextSize => _defaultTextSize;
 
-  static Map<FxTextType, double> get defaultLetterSpacing =>
-      _defaultLetterSpacing;
+  static Map<FxTextType, double> get defaultLetterSpacing => _defaultLetterSpacing;
 
-  static Map<FxTextType, int> get defaultTextFontWeight =>
-      _defaultTextFontWeight;
+  static Map<FxTextType, int> get defaultTextFontWeight => _defaultTextFontWeight;
 
   static Map<int, FontWeight> get defaultFontWeight => _defaultFontWeight;
 

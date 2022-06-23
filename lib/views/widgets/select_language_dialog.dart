@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ld_alumni/core/text.dart';
-import 'package:ld_alumni/localizations/language.dart';
-import 'package:ld_alumni/theme/app_notifier.dart';
-import 'package:ld_alumni/theme/app_theme.dart';
+import 'package:ldce_alumni/core/text.dart';
+import 'package:ldce_alumni/localizations/language.dart';
+import 'package:ldce_alumni/theme/app_notifier.dart';
+import 'package:ldce_alumni/theme/app_theme.dart';
 import 'package:provider/provider.dart';
 
 class SelectLanguageDialog extends StatefulWidget {
@@ -38,8 +38,7 @@ class _SelectLanguageDialogState extends State<SelectLanguageDialog> {
         return Dialog(
           child: Container(
             padding: EdgeInsets.only(top: 16, bottom: 16),
-            child: Column(
-                mainAxisSize: MainAxisSize.min, children: _buildOptions()),
+            child: Column(mainAxisSize: MainAxisSize.min, children: _buildOptions()),
           ),
         );
       },

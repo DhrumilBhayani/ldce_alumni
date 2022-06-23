@@ -1,9 +1,9 @@
 import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ld_alumni/views/events/single_event_screen.dart';
-import 'package:ld_alumni/core/text.dart';
-import 'package:ld_alumni/theme/app_theme.dart';
+import 'package:ldce_alumni/views/events/single_event_screen.dart';
+import 'package:ldce_alumni/core/text.dart';
+import 'package:ldce_alumni/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutx/flutx.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -90,7 +90,7 @@ class SingleCardWidget extends StatelessWidget {
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(2), topRight: Radius.circular(2)),
                           child: CachedNetworkImage(
-                            imageUrl:'https://' + imageUrl!,
+                            imageUrl: 'https://' + imageUrl!,
                             fit: BoxFit.cover,
                             width: width,
                             height: width! * 0.55,

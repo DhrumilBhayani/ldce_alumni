@@ -1,20 +1,20 @@
 import 'package:flutter/services.dart';
-import 'package:ld_alumni/core/text.dart';
-import 'package:ld_alumni/theme/theme_type.dart';
-import 'package:ld_alumni/theme/themes.dart';
-import 'package:ld_alumni/views/loading_effect.dart';
-import 'package:ld_alumni/theme/app_theme.dart';
+import 'package:ldce_alumni/core/text.dart';
+import 'package:ldce_alumni/theme/theme_type.dart';
+import 'package:ldce_alumni/theme/themes.dart';
+import 'package:ldce_alumni/views/loading_effect.dart';
+import 'package:ldce_alumni/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 // import 'package:flutx/flutx.dart';
-import 'package:ld_alumni/core/globals.dart' as globals;
+import 'package:ldce_alumni/core/globals.dart' as globals;
 
-import 'package:ld_alumni/controllers/media/media_controller.dart';
-import 'package:ld_alumni/models/media/media.dart';
-import 'package:ld_alumni/views/media/single_media_screen.dart';
-import 'package:ld_alumni/views/widgets/app_bar_widget.dart';
-import 'package:ld_alumni/views/widgets/app_drawer_widget.dart';
-import 'package:ld_alumni/views/widgets/single_card_widget.dart';
+import 'package:ldce_alumni/controllers/media/media_controller.dart';
+import 'package:ldce_alumni/models/media/media.dart';
+import 'package:ldce_alumni/views/media/single_media_screen.dart';
+import 'package:ldce_alumni/views/widgets/app_bar_widget.dart';
+import 'package:ldce_alumni/views/widgets/app_drawer_widget.dart';
+import 'package:ldce_alumni/views/widgets/single_card_widget.dart';
 import 'package:provider/provider.dart';
 // import 'single_product_screen.dart';
 

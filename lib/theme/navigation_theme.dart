@@ -1,4 +1,4 @@
-import 'package:ld_alumni/theme/theme_type.dart';
+import 'package:ldce_alumni/theme/theme_type.dart';
 import 'package:flutter/material.dart';
 
 import 'app_theme.dart';
