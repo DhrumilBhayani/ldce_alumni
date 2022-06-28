@@ -26,10 +26,23 @@ class NewsController with ChangeNotifier {
   Future getNews() async {
     print("GetNews()");
     //print(home.length);
+    try {
+      
     news = await News.getDummyList();
     // await Future.delayed(Duration(milliseconds: 500));
     showLoading = false;
     uiLoading = false;
+    } on Exception catch (exception) {
+      print("excep");
+      print(exception);
+      exceptionCreated = true;
+      notifyListeners();
+    } catch (error) {
+      print("error");
+      print(error);
+      exceptionCreated = true;
+      notifyListeners();
+    }
     notifyListeners();
     // events = await Events.getUpcomingDummyList();
     // media = await Media.getDummyList();

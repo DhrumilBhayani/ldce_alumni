@@ -58,7 +58,17 @@ class _DownloadsHomeScreenState extends State<DownloadsHomeScreen> with SingleTi
       textDirection = AppTheme.textDirection;
       theme = AppTheme.theme;
       customTheme = AppTheme.customTheme;
-      if (digitalDownloadsProvider.uiLoading) {
+      if (digitalDownloadsProvider.exceptionCreated) {
+          print("Exception created block");
+          // Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
+          WidgetsBinding.instance!.addPostFrameCallback((_) {
+            print("Exception created block 1");
+            Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
+            digitalDownloadsProvider.uiLoading = false;
+            // showSnackBarWithFloating();
+          });
+        }
+      if (digitalDownloadsProvider.uiLoading && !digitalDownloadsProvider.exceptionCreated) {
         return Scaffold(
             extendBodyBehindAppBar: true,
             appBar: AppBar(
@@ -81,7 +91,7 @@ class _DownloadsHomeScreenState extends State<DownloadsHomeScreen> with SingleTi
         //   theme = AppTheme.theme;
         //   customTheme = AppTheme.customTheme;
 
-        return Scaffold(
+        return !digitalDownloadsProvider.exceptionCreated ? Scaffold(
             extendBodyBehindAppBar: true,
             key: _key,
             // key: homeController.scaffoldKey,
@@ -187,7 +197,18 @@ class _DownloadsHomeScreenState extends State<DownloadsHomeScreen> with SingleTi
                 CampaignDownloadsScreen(digitalDownloadsProvider.campaignDownloads),
                 OtherMaterialsScreen(digitalDownloadsProvider.otherMaterials),
               ]))
-            ]));
+            ])):Scaffold(
+            extendBodyBehindAppBar: true,
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+              elevation: 0,
+            ),
+            backgroundColor: customTheme.card,
+            body: Container(
+                margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 20),
+                child: LoadingEffect.getEventsHomeLoadingScreen(
+                  context,
+                )));;
       }
     });
   }

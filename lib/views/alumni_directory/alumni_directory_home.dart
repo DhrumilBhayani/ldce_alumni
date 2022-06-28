@@ -104,9 +104,8 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
     ));
   }
 
-  List<Widget> _buildAlumniList() {
-    final alumniProvider = Provider.of<AlumniDirectoryController>(context);
-
+  List<Widget> _buildAlumniList(AlumniDirectoryController alumniProvider) {
+  
     List<Widget> list = [];
 
     for (Alumni alumni in alumniProvider.alumni) {
@@ -213,7 +212,17 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
 
       theme = AppTheme.theme;
       customTheme = AppTheme.customTheme;
-      if (alumniProvider.uiLoading) {
+      if (alumniProvider.exceptionCreated) {
+          print("Exception created block");
+          // Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
+          WidgetsBinding.instance!.addPostFrameCallback((_) {
+            print("Exception created block 1");
+            Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
+            alumniProvider.uiLoading = false;
+            // showSnackBarWithFloating();
+          });
+        }
+      if (alumniProvider.uiLoading && !alumniProvider.exceptionCreated) {
         return Scaffold(
             extendBodyBehindAppBar: true,
             appBar: AppBar(
@@ -524,7 +533,7 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
                                   ),
                                 ),
                               ),
-                              content: Column(children: _buildAlumniList())
+                              content: !alumniProvider.exceptionCreated ?Column(children: _buildAlumniList(alumniProvider)):Container(),
 
                               //  Column(children: <Widget>[
                               // if (isLoading)

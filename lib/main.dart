@@ -21,6 +21,7 @@ import 'package:ldce_alumni/views/events/single_internet_event_screen..dart';
 import 'package:ldce_alumni/views/general/about_us.dart';
 import 'package:ldce_alumni/views/general/membership_types.dart';
 import 'package:ldce_alumni/views/general/no_internet_screen.dart';
+import 'package:ldce_alumni/views/general/something_wrong_screen.dart';
 import 'package:ldce_alumni/views/home/home_screen.dart';
 import 'package:ldce_alumni/views/media/media_home.dart';
 import 'package:ldce_alumni/views/news/news_home.dart';
@@ -191,6 +192,7 @@ class _MyAppState extends State<MyApp> {
             'at_hackathon': (context) => ATHackathon(),
             'about_us': (context) => AboutUsScreen(),
             'membership_types': (context) => MemberShipTypes(),
+            'something_wrong': (context) => SomethingWrongScreen(),
           },
           debugShowCheckedModeBanner: false,
           theme: AppTheme.theme,
