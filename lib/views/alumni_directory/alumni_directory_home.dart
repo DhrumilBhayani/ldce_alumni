@@ -33,6 +33,7 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
   bool searchPressed = false;
   int currentPageNumber = 1;
   late TextEditingController searchEditingController;
+  late AlumniDirectoryController _alumniDirectoryController;
   String? selectedProgramValue;
   String? selectedBranchValue;
   String? selectedYearValue;
@@ -91,6 +92,12 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
     years.insert(0, "All");
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    _alumniDirectoryController.uiLoading = true;
+  }
+
   Widget _buildSingleAlumni(Alumni alumni) {
     return Container(
         child: AlumniDirectoryExpansionWidget(
@@ -105,7 +112,6 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
   }
 
   List<Widget> _buildAlumniList(AlumniDirectoryController alumniProvider) {
-  
     List<Widget> list = [];
 
     for (Alumni alumni in alumniProvider.alumni) {
@@ -209,20 +215,21 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
       globals.checkInternet(context);
 
       isDark = AppTheme.themeType == ThemeType.dark;
-
+      _alumniDirectoryController = alumniProvider;
       theme = AppTheme.theme;
       customTheme = AppTheme.customTheme;
       if (alumniProvider.exceptionCreated) {
-          print("Exception created block");
-          // Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
-          WidgetsBinding.instance!.addPostFrameCallback((_) {
-            print("Exception created block 1");
-            Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
-            alumniProvider.uiLoading = false;
-            // showSnackBarWithFloating();
-          });
-        }
+        print("Exception created block");
+        // Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
+        WidgetsBinding.instance!.addPostFrameCallback((_) {
+          print("Exception created block 1");
+          Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
+          alumniProvider.uiLoading = false;
+          // showSnackBarWithFloating();
+        });
+      }
       if (alumniProvider.uiLoading && !alumniProvider.exceptionCreated) {
+        alumniProvider.fetchData();
         return Scaffold(
             extendBodyBehindAppBar: true,
             appBar: AppBar(
@@ -504,74 +511,76 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
                                   padding: EdgeInsets.all(10), child: CircularProgressIndicator())),
                         if (!isLoading)
                           StickyHeader(
-                              header: Container(
-                                width: MediaQuery.of(context).size.width,
-                                height: 50.0,
-                                color: theme.backgroundColor,
-                                // padding: EdgeInsets.symmetric(horizontal: 16.0),
-                                alignment: Alignment.centerLeft,
-                                child: Container(
-                                  // color: Colors.white,
-                                  padding: EdgeInsets.only(left: 10.0),
-                                  child: Table(
-                                    // border: TableBorder.all(color: Colors.black),
-                                    children: [
-                                      TableRow(children: [
-                                        Text('Name'),
-                                        // SizedBox(width: 5,),
-                                        Container(
-                                          child: Text('Passout Year'),
-                                          padding: EdgeInsets.only(left: 35),
-                                        ),
-                                        Container(
-                                          child: Text('Program'),
-                                          padding: EdgeInsets.only(left: 20),
-                                        ),
-                                        // Text('Program'),
-                                      ]),
-                                    ],
-                                  ),
+                            header: Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: 50.0,
+                              color: theme.backgroundColor,
+                              // padding: EdgeInsets.symmetric(horizontal: 16.0),
+                              alignment: Alignment.centerLeft,
+                              child: Container(
+                                // color: Colors.white,
+                                padding: EdgeInsets.only(left: 10.0),
+                                child: Table(
+                                  // border: TableBorder.all(color: Colors.black),
+                                  children: [
+                                    TableRow(children: [
+                                      Text('Name'),
+                                      // SizedBox(width: 5,),
+                                      Container(
+                                        child: Text('Passout Year'),
+                                        padding: EdgeInsets.only(left: 35),
+                                      ),
+                                      Container(
+                                        child: Text('Program'),
+                                        padding: EdgeInsets.only(left: 20),
+                                      ),
+                                      // Text('Program'),
+                                    ]),
+                                  ],
                                 ),
                               ),
-                              content: !alumniProvider.exceptionCreated ?Column(children: _buildAlumniList(alumniProvider)):Container(),
+                            ),
+                            content: !alumniProvider.exceptionCreated
+                                ? Column(children: _buildAlumniList(alumniProvider))
+                                : Container(),
 
-                              //  Column(children: <Widget>[
-                              // if (isLoading)
-                              // isLoading
-                              //     ? Center(
-                              //         child: Padding(
-                              //             padding: EdgeInsets.all(10),
-                              //             child: Text("Test")))
-                              //     : Column(children: _buildAlumniList()),
-                              // if (!isLoading) Column(children: _buildAlumniList())
-                              // : Center(
-                              //     child: Padding(
-                              //         padding: EdgeInsets.all(10),
-                              //         child: CircularProgressIndicator()))
-                              // Container(
-                              //   // color: Colors.white,
-                              //   padding: EdgeInsets.only(left: 20.0),
-                              //   child: Table(
-                              //     // border: TableBorder.all(color: Colors.black),
-                              //     children: [
-                              //       TableRow(children: [
-                              //         Text('Name'),
-                              //         // SizedBox(width: 5,),
-                              //         Container(
-                              //           child: Text('Passout Year'),
-                              //           padding: EdgeInsets.only(left: 35),
-                              //         ),
-                              //         Container(
-                              //           child: Text('Program'),
-                              //           padding: EdgeInsets.only(left: 15),
-                              //         ),
-                              //         // Text('Program'),
-                              //       ]),
-                              //     ],
-                              //   ),
-                              // ),
-                              // ])
-                              )
+                            //  Column(children: <Widget>[
+                            // if (isLoading)
+                            // isLoading
+                            //     ? Center(
+                            //         child: Padding(
+                            //             padding: EdgeInsets.all(10),
+                            //             child: Text("Test")))
+                            //     : Column(children: _buildAlumniList()),
+                            // if (!isLoading) Column(children: _buildAlumniList())
+                            // : Center(
+                            //     child: Padding(
+                            //         padding: EdgeInsets.all(10),
+                            //         child: CircularProgressIndicator()))
+                            // Container(
+                            //   // color: Colors.white,
+                            //   padding: EdgeInsets.only(left: 20.0),
+                            //   child: Table(
+                            //     // border: TableBorder.all(color: Colors.black),
+                            //     children: [
+                            //       TableRow(children: [
+                            //         Text('Name'),
+                            //         // SizedBox(width: 5,),
+                            //         Container(
+                            //           child: Text('Passout Year'),
+                            //           padding: EdgeInsets.only(left: 35),
+                            //         ),
+                            //         Container(
+                            //           child: Text('Program'),
+                            //           padding: EdgeInsets.only(left: 15),
+                            //         ),
+                            //         // Text('Program'),
+                            //       ]),
+                            //     ],
+                            //   ),
+                            // ),
+                            // ])
+                          )
                       ])))
             ]));
       }

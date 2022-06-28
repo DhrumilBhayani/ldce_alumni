@@ -63,9 +63,9 @@ class Noteworthy {
       print('Socket Error: $e');
     } on Error catch (e) {
       print('General Error: $e');
-    } finally {
+    } 
       return '';
-    } // return await rootBundle.loadString('lib/models/news/news.json');
+     // return await rootBundle.loadString('lib/models/news/news.json');
     // /home/evilknight/Desktop/Projects/LD/ld_alumni/lib/models/home/news.json
   }
 

@@ -16,7 +16,7 @@ class AlumniDirectoryController with ChangeNotifier {
   RangeValues selectedRange = const RangeValues(200, 800);
 
   AlumniDirectoryController() {
-    fetchData();
+    // fetchData();
 
     // getList();
   }

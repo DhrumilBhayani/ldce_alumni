@@ -45,7 +45,7 @@ class HomeController with ChangeNotifier {
       singleNews = await News.getDummyList(pageSize: 1, pageNumber: 1);
       newsUiLoading = false;
     } on Exception catch (exception) {
-      print("excep");
+      print("news excep");
       print(exception);
       exceptionCreated = true;
       notifyListeners();
