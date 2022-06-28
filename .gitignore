@@ -2,3 +2,4 @@
 build/
 google-services.json
 GoogleService-Info.plist
+.flutter-plugins-dependencies
