@@ -55,6 +55,16 @@ class _EventHomeScreenState extends State<EventHomeScreen> with SingleTickerProv
       textDirection = AppTheme.textDirection;
       theme = AppTheme.theme;
       customTheme = AppTheme.customTheme;
+      if (eventsProvider.exceptionCreated) {
+        print("Exception created block");
+        // Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
+        WidgetsBinding.instance!.addPostFrameCallback((_) {
+          print("Exception created block 1");
+          Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
+          eventsProvider.uiLoading = false;
+          // showSnackBarWithFloating();
+        });
+      }
       if (eventsProvider.uiLoading) {
         SystemChrome.setSystemUIOverlayStyle(
             SystemUiOverlayStyle(statusBarIconBrightness: Brightness.dark));
@@ -81,100 +91,114 @@ class _EventHomeScreenState extends State<EventHomeScreen> with SingleTickerProv
         //   theme = AppTheme.theme;
         //   customTheme = AppTheme.customTheme;
 
-        return Scaffold(
-            extendBodyBehindAppBar: true,
-            key: _key,
-            // key: homeController.scaffoldKey,
-            // appBar: AppBar(
-            //   elevation: 0,
-            //   title: FxText.t1(
-            //     "Events",
-            //     fontWeight: 600,
-            //   ),
-            // ),
-            appBar: AppBarWidget(
-              scaffoldKey: _key,
-              title: "Events",
-            ),
-            // appBar: AppBar(
-            //     backgroundColor: Colors.black.withOpacity(0.5),
-            //     leading: Container(
-            //         margin: EdgeInsets.only(top: 5, right: 5),
-            //         padding: EdgeInsets.only(left: 5, bottom: 5),
-            //         child: Row(children: [
-            //           Image.asset("./assets/images/laa_logo_notext.png"),
-            //           // SizedBox(
-            //           //   width: 1,
-            //           // ),
-            //           // FxText.t1(
-            //           //   "LDCE Alumni Portal",
-            //           //   // title ?? "",
-            //           //   color: Colors.white,
-            //           //   fontWeight: 600,
-            //           // ),
-            //         ])),
-            //     // bottom: TabBar(
-            //     //   unselectedLabelColor: Colors.white.withOpacity(0.8),
-            //     //   labelColor: Colors.blue,
-            //     //   controller: tabController,
-            //     //   tabs: [
-            //     //     Tab(icon: Icon(Icons.upcoming), text: "Upcoming Events"),
-            //     //     Tab(icon: Icon(Icons.history), text: "Past Events")
-            //     //   ],
-            //     // ),
-            //     // backgroundColor: theme.appBarTheme.pri,
-            //     actions: [
-            //       Builder(
-            //         builder: (BuildContext context) {
-            //           return IconButton(
-            //             icon: const Icon(
-            //               Icons.menu,
-            //               color: Colors.white,
-            //             ),
-            //             onPressed: () {
-            //               print("object");
-            //               // print(scaffoldKey);
-            //               _key.currentState!.openEndDrawer();
-            //             },
-            //             tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-            //           );
-            //         },
-            //       ),
-            //     ],
-            //     title: Container(
-            //       child: FxText.t1(
-            //         "LDCE Alumni Portal",
-            //         color: Colors.white,
-            //       ),
-            //     )),
-            endDrawer: AppDrawerWidget(),
-            // drawer: AppDrawerWidget(),
-            // resizeToAvoidBottomInset: false,
-            body: Column(children: [
-              //  Stack(children:[
-              Container(
-                  color: theme.cardColor,
-                  padding: EdgeInsets.only(top: AppBar().preferredSize.height * 2),
-                  child: TabBar(
-                    unselectedLabelColor: Colors.black.withOpacity(0.8),
-                    labelColor: Colors.blue,
-                    controller: tabController,
-                    tabs: [
-                      Tab(icon: Icon(Icons.upcoming), text: "Upcoming Events"),
-                      Tab(icon: Icon(Icons.history), text: "Past Events")
-                    ],
-                  )),
-              //  ]),
-              // SizedBox(height: 10,),
+        return !eventsProvider.exceptionCreated
+            ? Scaffold(
+                extendBodyBehindAppBar: true,
+                key: _key,
+                // key: homeController.scaffoldKey,
+                // appBar: AppBar(
+                //   elevation: 0,
+                //   title: FxText.t1(
+                //     "Events",
+                //     fontWeight: 600,
+                //   ),
+                // ),
+                appBar: AppBarWidget(
+                  scaffoldKey: _key,
+                  title: "Events",
+                ),
+                // appBar: AppBar(
+                //     backgroundColor: Colors.black.withOpacity(0.5),
+                //     leading: Container(
+                //         margin: EdgeInsets.only(top: 5, right: 5),
+                //         padding: EdgeInsets.only(left: 5, bottom: 5),
+                //         child: Row(children: [
+                //           Image.asset("./assets/images/laa_logo_notext.png"),
+                //           // SizedBox(
+                //           //   width: 1,
+                //           // ),
+                //           // FxText.t1(
+                //           //   "LDCE Alumni Portal",
+                //           //   // title ?? "",
+                //           //   color: Colors.white,
+                //           //   fontWeight: 600,
+                //           // ),
+                //         ])),
+                //     // bottom: TabBar(
+                //     //   unselectedLabelColor: Colors.white.withOpacity(0.8),
+                //     //   labelColor: Colors.blue,
+                //     //   controller: tabController,
+                //     //   tabs: [
+                //     //     Tab(icon: Icon(Icons.upcoming), text: "Upcoming Events"),
+                //     //     Tab(icon: Icon(Icons.history), text: "Past Events")
+                //     //   ],
+                //     // ),
+                //     // backgroundColor: theme.appBarTheme.pri,
+                //     actions: [
+                //       Builder(
+                //         builder: (BuildContext context) {
+                //           return IconButton(
+                //             icon: const Icon(
+                //               Icons.menu,
+                //               color: Colors.white,
+                //             ),
+                //             onPressed: () {
+                //               print("object");
+                //               // print(scaffoldKey);
+                //               _key.currentState!.openEndDrawer();
+                //             },
+                //             tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+                //           );
+                //         },
+                //       ),
+                //     ],
+                //     title: Container(
+                //       child: FxText.t1(
+                //         "LDCE Alumni Portal",
+                //         color: Colors.white,
+                //       ),
+                //     )),
+                endDrawer: AppDrawerWidget(),
+                // drawer: AppDrawerWidget(),
+                // resizeToAvoidBottomInset: false,
+                body: Column(children: [
+                  //  Stack(children:[
+                  Container(
+                      color: theme.cardColor,
+                      padding: EdgeInsets.only(top: AppBar().preferredSize.height * 2),
+                      child: TabBar(
+                        unselectedLabelColor: Colors.black.withOpacity(0.8),
+                        labelColor: Colors.blue,
+                        controller: tabController,
+                        tabs: [
+                          Tab(icon: Icon(Icons.upcoming), text: "Upcoming Events"),
+                          Tab(icon: Icon(Icons.history), text: "Past Events")
+                        ],
+                      )),
+                  //  ]),
+                  // SizedBox(height: 10,),
 
-              Flexible(
-                  child: Container(
-                      // /padding: Ed,
-                      child: TabBarView(controller: tabController, children: [
-                EventUpcomingScreen(eventsProvider.upcomingEvents),
-                EventPastScreen(eventsProvider.pastEvents)
-              ])))
-            ]));
+                  Flexible(
+                      child: Container(
+                          // /padding: Ed,
+                          child: TabBarView(controller: tabController, children: [
+                    EventUpcomingScreen(eventsProvider.upcomingEvents),
+                    EventPastScreen(eventsProvider.pastEvents)
+                  ])))
+                ]))
+            : Scaffold(
+                extendBodyBehindAppBar: true,
+                appBar: AppBar(
+                  automaticallyImplyLeading: false,
+                  elevation: 0,
+                ),
+                backgroundColor: customTheme.card,
+                body: Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 20),
+                    child: LoadingEffect.getEventsHomeLoadingScreen(
+                      context,
+                    )));
+        ;
       }
     });
   }

@@ -68,18 +68,32 @@ class DigitalDownloadsController with ChangeNotifier {
   }
 
   Future fetchData() async {
-    mobileSkins = await DigitalDownloads.getMobileSkinsList();
-    desktopWallpapers = await DigitalDownloads.getDesktopWallpaperList();
-    calendars = await DigitalDownloads.getCalendarsList();
-    campaignDownloads = await DigitalDownloads.getCampaignDownloadsList();
-    otherMaterials = await DigitalDownloads.getOtherMList();
+    try {
+      mobileSkins = await DigitalDownloads.getMobileSkinsList();
+      desktopWallpapers = await DigitalDownloads.getDesktopWallpaperList();
+      calendars = await DigitalDownloads.getCalendarsList();
+      campaignDownloads = await DigitalDownloads.getCampaignDownloadsList();
+      otherMaterials = await DigitalDownloads.getOtherMList();
 
-    showLoading = false;
-    uiLoading = false;
+      showLoading = false;
+      uiLoading = false;
+    } on Exception catch (exception) {
+      print("excep");
+      print(exception);
+      exceptionCreated = true;
+      notifyListeners();
+    } catch (error) {
+      print("error");
+      print(error);
+      exceptionCreated = true;
+      notifyListeners();
+    }
     notifyListeners();
   }
 
   Future loadMore(int pageNumber, String screenName) async {
+    try {
+      
     if (hasMoreUpcomingData && screenName == 'mobile' && !globals.isAllMobileSkinsLoaded) {
       mobileSkins = await DigitalDownloads.getMobileSkinsList(pageNumber: pageNumber);
       if (mobileSkins.length <= 0) {
@@ -121,6 +135,17 @@ class DigitalDownloadsController with ChangeNotifier {
     }
     print("In controller");
     print(mobileSkins);
+    }on Exception catch (exception) {
+      print("excep");
+      print(exception);
+      exceptionCreated = true;
+      notifyListeners();
+    } catch (error) {
+      print("error");
+      print(error);
+      exceptionCreated = true;
+      notifyListeners();
+    }
 
     notifyListeners();
   }

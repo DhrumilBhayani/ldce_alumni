@@ -174,6 +174,16 @@ class _NoteworthyHomeScreenState extends State<NoteworthyHomeScreen> {
       textDirection = AppTheme.textDirection;
       theme = AppTheme.theme;
       customTheme = AppTheme.customTheme;
+      if (noteworthyProvider.exceptionCreated) {
+          print("Exception created block");
+          // Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
+          WidgetsBinding.instance!.addPostFrameCallback((_) {
+            print("Exception created block 1");
+            Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
+            noteworthyProvider.uiLoading = false;
+            // showSnackBarWithFloating();
+          });
+        }
       if (noteworthyProvider.uiLoading) {
         return Scaffold(
             extendBodyBehindAppBar: true,
@@ -192,7 +202,7 @@ class _NoteworthyHomeScreenState extends State<NoteworthyHomeScreen> {
         if (_hasNextPage == false) {
           noteworthyProvider.hasMoreData = false;
         }
-        return Scaffold(
+        return !noteworthyProvider.exceptionCreated ? Scaffold(
             extendBodyBehindAppBar: true,
             key: _key,
             endDrawer: AppDrawerWidget(),
@@ -226,7 +236,18 @@ class _NoteworthyHomeScreenState extends State<NoteworthyHomeScreen> {
                     child: Text('No More Noteworthy Mentions'),
                   ),
                 ),
-            ])));
+            ]))): Scaffold(
+            extendBodyBehindAppBar: true,
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+              elevation: 0,
+            ),
+            backgroundColor: customTheme.card,
+            body: Container(
+                margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 20),
+                child: LoadingEffect.getMediaHomeLoadingScreen(
+                  context,
+                )));
       }
     });
   }

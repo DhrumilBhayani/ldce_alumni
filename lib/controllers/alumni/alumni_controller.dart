@@ -3,7 +3,7 @@ import 'package:ldce_alumni/models/alumni/alumni.dart';
 // import 'package:provider/provider.dart';
 
 class AlumniDirectoryController with ChangeNotifier {
-  bool showLoading = true, uiLoading = true, hasMoreData = true;
+  bool showLoading = true, uiLoading = true, hasMoreData = true, exceptionCreated = false;
   late List<Alumni> alumni;
 
   late TextEditingController searchEditingController;
@@ -16,7 +16,7 @@ class AlumniDirectoryController with ChangeNotifier {
   RangeValues selectedRange = const RangeValues(200, 800);
 
   AlumniDirectoryController() {
-    fetchData();
+    // fetchData();
 
     // getList();
   }
@@ -39,23 +39,44 @@ class AlumniDirectoryController with ChangeNotifier {
 
   Future fetchData() async {
     // print("fetchData()");
-    alumni = await Alumni.getDummyList();
-
-    // await Future.delayed(Duration(seconds: 1));
-
-    showLoading = false;
-    uiLoading = false;
+    try {
+      alumni = await Alumni.getDummyList();
+      showLoading = false;
+      uiLoading = false;
+    } on Exception catch (exception) {
+      print("excep");
+      print(exception);
+      exceptionCreated = true;
+      notifyListeners();
+    } catch (error) {
+      print("error");
+      print(error);
+      exceptionCreated = true;
+      notifyListeners();
+    }
     // print("fetchData(ffff) done");
     notifyListeners();
   }
 
   Future getSearchResults({name, passoutYear, degree, branch, membershipType}) async {
-    alumni = await Alumni.getSearchResult(
-        name: name,
-        passoutYear: passoutYear,
-        degree: degree,
-        branch: branch,
-        membershipType: membershipType);
+    try {
+      alumni = await Alumni.getSearchResult(
+          name: name,
+          passoutYear: passoutYear,
+          degree: degree,
+          branch: branch,
+          membershipType: membershipType);
+    } on Exception catch (exception) {
+      print("excep");
+      print(exception);
+      exceptionCreated = true;
+      notifyListeners();
+    } catch (error) {
+      print("error");
+      print(error);
+      exceptionCreated = true;
+      notifyListeners();
+    }
     notifyListeners();
   }
 
@@ -65,7 +86,19 @@ class AlumniDirectoryController with ChangeNotifier {
     print("Has Mode data :");
     print(hasMoreData);
     if (hasMoreData) {
-      alumni = await Alumni.getDummyList(pageNumber: pageNumber);
+      try {
+        alumni = await Alumni.getDummyList(pageNumber: pageNumber);
+      } on Exception catch (exception) {
+        print("excep");
+        print(exception);
+        exceptionCreated = true;
+        notifyListeners();
+      } catch (error) {
+        print("error");
+        print(error);
+        exceptionCreated = true;
+        notifyListeners();
+      }
     }
     print("In controller");
     print(alumni);

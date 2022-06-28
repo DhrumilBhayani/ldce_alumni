@@ -245,8 +245,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     );
   }
 
-  List<Widget> _buildSliderImage() {
-    final homeProvider = Provider.of<HomeController>(context);
+  List<Widget> _buildSliderImage(HomeController homeProvider) {
+    // final homeProvider = Provider.of<HomeController>(context);
 
     List<Widget> list = [];
     for (Home singleImage in homeProvider.home) {
@@ -269,10 +269,28 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         textDirection = AppTheme.textDirection;
         theme = AppTheme.theme;
         customTheme = AppTheme.customTheme;
-        if (homeProvider.uiLoading) {
+        if (homeProvider.exceptionCreated) {
+          print("Exception created block");
+          // Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
+          WidgetsBinding.instance!.addPostFrameCallback((_) {
+            print("Exception created block 1");
+            Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
+            homeProvider.uiLoading = false;
+            // showSnackBarWithFloating();
+          });
+        }
+        if (homeProvider.uiLoading && !homeProvider.exceptionCreated ) {
           // print("HomeProvider");
+
           // homeProvider.getNews();
-          homeProvider.fetchData();
+          try {
+           
+            homeProvider.fetchData();
+          } on Exception catch (ex) {
+            print(ex);
+          } catch (e) {
+            print(e);
+          }
           return Scaffold(
               extendBodyBehindAppBar: true,
               appBar: AppBar(
@@ -333,7 +351,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                         autoPlayAnimationDuration: Duration(milliseconds: 500),
                         viewportFraction: 2,
                       ),
-                      items: _buildSliderImage(),
+                      items: !homeProvider.exceptionCreated ? _buildSliderImage(homeProvider) : [Container()],
                     ),
                     Positioned(
                         top: MediaQuery.of(context).size.height * 0.125,

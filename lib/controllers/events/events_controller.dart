@@ -70,13 +70,25 @@ class EventsController with ChangeNotifier {
 
   Future fetchData() async {
     print("fetchData()");
+    try {
+      pastEvents = await Events.getPastDummyList();
+
+      // await Future.delayed(Duration(seconds: 1));
+
+      showLoading = false;
+      uiLoading = false;
+    } on Exception catch (exception) {
+      print("excep");
+      print(exception);
+      exceptionCreated = true;
+      notifyListeners();
+    } catch (error) {
+      print("error");
+      print(error);
+      exceptionCreated = true;
+      notifyListeners();
+    }
     upcomingEvents = await Events.getUpcomingDummyList();
-    pastEvents = await Events.getPastDummyList();
-
-    // await Future.delayed(Duration(seconds: 1));
-
-    showLoading = false;
-    uiLoading = false;
     // print("fetchData(ffff) done");
     notifyListeners();
   }

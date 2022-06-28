@@ -1,4 +1,3 @@
-
 import 'package:ldce_alumni/controllers/home/home_controller.dart';
 import 'package:ldce_alumni/controllers/news/news_controller.dart';
 import 'package:ldce_alumni/models/news/news.dart';
@@ -189,6 +188,16 @@ class _NewsHomeScreenState extends State<NewsHomeScreen> {
       customTheme = AppTheme.customTheme;
       print("Has More Data NH:");
       print(newsProvider.hasMoreData);
+      if (newsProvider.exceptionCreated) {
+        print("Exception created block");
+        // Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
+        WidgetsBinding.instance!.addPostFrameCallback((_) {
+          print("Exception created block 1");
+          Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
+          newsProvider.uiLoading = false;
+          // showSnackBarWithFloating();
+        });
+      }
       if (newsProvider.uiLoading) {
         return Scaffold(
             extendBodyBehindAppBar: true,
@@ -207,47 +216,60 @@ class _NewsHomeScreenState extends State<NewsHomeScreen> {
         if (_hasNextPage == false) {
           newsProvider.hasMoreData = false;
         }
-        return Scaffold(
-            key: _key,
-            // extendBodyBehindAppBar: true,
-            //  key: searchController.scaffoldKey,
-            endDrawer: AppDrawerWidget(),
-            // drawer: AppDrawerWidget(),
-            appBar: AppBarWidget(
-              scaffoldKey: _key,
-              title: "News",
-            ),
-            body: ListView(
-                controller: _controller,
-                padding: EdgeInsets.only(top: AppBar().preferredSize.height * 0.3),
-                children: <Widget>[
-                  Container(
-                      // margin: EdgeInsets.fromLTRB(24, 50, 24, 16),
-                      child: Column(children: <Widget>[
-                    Column(
-                      children: _buildNewsList(tempNews),
-                    ),
-                  ])),
+        return !newsProvider.exceptionCreated
+            ? Scaffold(
+                key: _key,
+                // extendBodyBehindAppBar: true,
+                //  key: searchController.scaffoldKey,
+                endDrawer: AppDrawerWidget(),
+                // drawer: AppDrawerWidget(),
+                appBar: AppBarWidget(
+                  scaffoldKey: _key,
+                  title: "News",
+                ),
+                body: ListView(
+                    controller: _controller,
+                    padding: EdgeInsets.only(top: AppBar().preferredSize.height * 0.3),
+                    children: <Widget>[
+                      Container(
+                          // margin: EdgeInsets.fromLTRB(24, 50, 24, 16),
+                          child: Column(children: <Widget>[
+                        Column(
+                          children: _buildNewsList(tempNews),
+                        ),
+                      ])),
 
-                  // when the _loadMore function is running
-                  if (_isLoadMoreRunning == true)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10, bottom: 10),
-                      child: Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    ),
+                      // when the _loadMore function is running
+                      if (_isLoadMoreRunning == true)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10, bottom: 10),
+                          child: Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
 
-                  // When nothing else to load
-                  if (_hasNextPage == false)
-                    Container(
-                      padding: const EdgeInsets.only(top: 0, bottom: 40),
-                      // color: Colors.amber,
-                      child: Center(
-                        child: Text('No More News'),
-                      ),
-                    ),
-                ]));
+                      // When nothing else to load
+                      if (_hasNextPage == false)
+                        Container(
+                          padding: const EdgeInsets.only(top: 0, bottom: 40),
+                          // color: Colors.amber,
+                          child: Center(
+                            child: Text('No More News'),
+                          ),
+                        ),
+                    ]))
+            : Scaffold(
+                extendBodyBehindAppBar: true,
+                appBar: AppBar(
+                  automaticallyImplyLeading: false,
+                  elevation: 0,
+                ),
+                backgroundColor: customTheme.card,
+                body: Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 20),
+                    child: LoadingEffect.getMediaHomeLoadingScreen(
+                      context,
+                    )));
       }
     });
   }

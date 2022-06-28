@@ -4,7 +4,7 @@ import 'package:ldce_alumni/models/media/media.dart';
 import 'package:ldce_alumni/core/globals.dart' as globals;
 
 class MediaController with ChangeNotifier {
-  bool showLoading = true, uiLoading = true, hasMoreData = true;
+  bool showLoading = true, uiLoading = true, hasMoreData = true, exceptionCreated = false;
   late List<Media> media;
 
   late TextEditingController searchEditingController;
@@ -39,12 +39,24 @@ class MediaController with ChangeNotifier {
 
   Future fetchData() async {
     // print("fetchData()");
-    media = await Media.getDummyList();
+    try {
+      media = await Media.getDummyList();
 
-    // await Future.delayed(Duration(seconds: 1));
+      // await Future.delayed(Duration(seconds: 1));
 
-    showLoading = false;
-    uiLoading = false;
+      showLoading = false;
+      uiLoading = false;
+    } on Exception catch (exception) {
+      print("excep");
+      print(exception);
+      exceptionCreated = true;
+      notifyListeners();
+    } catch (error) {
+      print("error");
+      print(error);
+      exceptionCreated = true;
+      notifyListeners();
+    }
     // print("fetchData(ffff) done");
     notifyListeners();
   }
@@ -55,7 +67,19 @@ class MediaController with ChangeNotifier {
     print("Has Mode data :");
     print(hasMoreData);
     if (hasMoreData && !globals.isAllMediaLoaded) {
-      media = await Media.getDummyList(pageNumber: pageNumber);
+      try {
+        media = await Media.getDummyList(pageNumber: pageNumber);
+      } on Exception catch (exception) {
+        print("excep");
+        print(exception);
+        exceptionCreated = true;
+        notifyListeners();
+      } catch (error) {
+        print("error");
+        print(error);
+        exceptionCreated = true;
+        notifyListeners();
+      }
     }
     print("In controller");
     print(media);

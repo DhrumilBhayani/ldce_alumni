@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:ldce_alumni/core/globals.dart' as globals;
+import 'dart:async';
+import 'dart:io';
 
 class Media {
   String coverPhoto, date, title, shortDescription, description;
@@ -58,16 +60,21 @@ class Media {
         '&pageNumber=' +
         pageNumber.toString());
 
-    var response = await http.get(url);
-    if (response.statusCode == 200) {
-      // print("getData : "+pageNumber.toString());
-      // print(response.body);
-      // dynamic data = json.decode(response.body);
-      // print(data["Status"]);
-      return response.body;
-    } else {
+     try {
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        
+        return response.body;
+      }
+    } on TimeoutException catch (e) {
+      print('Timeout Error: $e');
+    } on SocketException catch (e) {
+      print('Socket Error: $e');
+    } on Error catch (e) {
+      print('General Error: $e');
+    }
       return '';
-    } // return await rootBundle.loadString('lib/models/news/news.json');
+     // return await rootBundle.loadString('lib/models/news/news.json');
     // /home/evilknight/Desktop/Projects/LD/ld_alumni/lib/models/home/news.json
   }
   // static Future<String> getData() async {

@@ -17,7 +17,9 @@ class HomeController with ChangeNotifier {
       eventUiLoading = true,
       mediaUiLoading = true,
       noteworthyUiLoading = true,
-      digitalDownloadsUiLoading = true;
+      digitalDownloadsUiLoading = true,
+      exceptionCreated = false;
+
   late List<News> news;
   late List<News> singleNews;
   late List<Events> singleEvent;
@@ -39,40 +41,112 @@ class HomeController with ChangeNotifier {
     // getList();
   }
   Future fetchNews() async {
-    singleNews = await News.getDummyList(pageSize: 1, pageNumber: 1);
-    newsUiLoading = false;
+    try {
+      singleNews = await News.getDummyList(pageSize: 1, pageNumber: 1);
+      newsUiLoading = false;
+    } on Exception catch (exception) {
+      print("news excep");
+      print(exception);
+      exceptionCreated = true;
+      notifyListeners();
+    } catch (error) {
+      print("error");
+      print(error);
+      exceptionCreated = true;
+      notifyListeners();
+    }
     notifyListeners();
   }
 
   Future fetchEvents() async {
-    singleEvent = await Events.getDummyList(pageSize: 1, pageNumber: 1);
-    eventUiLoading = false;
+    try {
+      singleEvent = await Events.getDummyList(pageSize: 1, pageNumber: 1);
+      eventUiLoading = false;
+    } on Exception catch (exception) {
+      print("excep");
+      print(exception);
+      exceptionCreated = true;
+      notifyListeners();
+    } catch (error) {
+      print("error");
+      print(error);
+      exceptionCreated = true;
+      notifyListeners();
+    }
     notifyListeners();
   }
 
   Future fetchMedia() async {
-    singleMedia = await Media.getDummyList(pageSize: 1, pageNumber: 1);
-    mediaUiLoading = false;
+    try {
+      singleMedia = await Media.getDummyList(pageSize: 1, pageNumber: 1);
+      mediaUiLoading = false;
+    } on Exception catch (exception) {
+      print("excep");
+      print(exception);
+      exceptionCreated = true;
+      notifyListeners();
+    } catch (error) {
+      print("error");
+      print(error);
+      exceptionCreated = true;
+      notifyListeners();
+    }
     notifyListeners();
   }
 
   Future fetchNoteworthy() async {
-    singleNoteworthy = await Noteworthy.getDummyList(pageSize: 1, pageNumber: 1);
-    noteworthyUiLoading = false;
+    try {
+      singleNoteworthy = await Noteworthy.getDummyList(pageSize: 1, pageNumber: 1);
+      noteworthyUiLoading = false;
+    } on Exception catch (exception) {
+      print("excep");
+      print(exception);
+      exceptionCreated = true;
+      notifyListeners();
+    } catch (error) {
+      print("error");
+      print(error);
+      exceptionCreated = true;
+      notifyListeners();
+    }
     notifyListeners();
   }
 
   Future fetchDownloads() async {
-    singleDigitalDownload = await DigitalDownloads.getDesktopWallpaperList(pageSize: 1, pageNumber: 1);
-    digitalDownloadsUiLoading = false;
+    try {
+      singleDigitalDownload = await DigitalDownloads.getDesktopWallpaperList(pageSize: 1, pageNumber: 1);
+      digitalDownloadsUiLoading = false;
+    } on Exception catch (exception) {
+      print("excep");
+      print(exception);
+      exceptionCreated = true;
+      notifyListeners();
+    } catch (error) {
+      print("error");
+      print(error);
+      exceptionCreated = true;
+      notifyListeners();
+    }
     notifyListeners();
   }
 
   Future fetchData() async {
     print("fetchData()");
-    home = await Home.getDummyList();
-    showLoading = false;
-    uiLoading = false;
+    try {
+      home = await Home.getDummyList();
+      showLoading = false;
+      uiLoading = false;
+    } on Exception catch (exception) {
+      print("excep");
+      print(exception);
+      exceptionCreated = true;
+      notifyListeners();
+    } catch (error) {
+      print("error");
+      print(error);
+      exceptionCreated = true;
+      notifyListeners();
+    }
     notifyListeners();
 
     // notifyListeners();

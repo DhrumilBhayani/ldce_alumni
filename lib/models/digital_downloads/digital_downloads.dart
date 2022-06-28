@@ -18,6 +18,8 @@
 
  */
 import 'dart:convert';
+import 'dart:async';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:ldce_alumni/core/globals.dart' as globals;
 
@@ -106,15 +108,22 @@ class DigitalDownloads {
 // https://ldcealumniapi.devitsandbox.com/api/DigitalDownload/{Id}
     var url = Uri.parse(globals.BASE_API_URL + 'DigitalDownload/' + digitalDldId.toString());
 
-    var response = await http.get(url);
-    if (response.statusCode == 200) {
-      // print("getDataById EVENTS : ");
-      // print(response.body);
-      // print(data["Status"]);
-      return response.body;
-    } else {
+    try {
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        
+        return response.body;
+      }
+    } on TimeoutException catch (e) {
+      print('Timeout Error: $e');
+    } on SocketException catch (e) {
+      print('Socket Error: $e');
+    } on Error catch (e) {
+      print('General Error: $e');
+    } 
       return '';
-    } // return await rootBundle.loadString('lib/models/news/news.json');
+    
+    // return await rootBundle.loadString('lib/models/news/news.json');
     // /home/evilknight/Desktop/Projects/LD/ld_alumni/lib/models/home/news.json
   }
 
@@ -150,35 +159,45 @@ class DigitalDownloads {
 
   static Future<String> getData(pageSize, pageNumber) async {
     var url = Uri.parse(globals.BASE_API_URL + 'DigitalDownload');
-    var response = await http.get(url);
-    if (response.statusCode == 200) {
-      // print("getData DD : " + pageNumber.toString());
-      // print(response.body);
-      // dynamic data = json.decode(response.body);
-      // print(data["Status"]);
-      return response.body;
-    } else {
+     try {
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        
+        return response.body;
+      }
+    } on TimeoutException catch (e) {
+      print('Timeout Error: $e');
+    } on SocketException catch (e) {
+      print('Socket Error: $e');
+    } on Error catch (e) {
+      print('General Error: $e');
+    }
       return '';
-    } // return await rootBundle.loadString('lib/models/news/news.json');
+      // return await rootBundle.loadString('lib/models/news/news.json');
     // /home/evilknight/Desktop/Projects/LD/ld_alumni/lib/models/home/news.json
   }
 
   static Future<String> getMobileSkinData(pageSize, pageNumber) async {
     var url = Uri.parse(globals.BASE_API_URL +
-        'DigitalDownload?Mobileskin&pageSize=' +
+        'DigitalDowngload?Mobileskin&pageSize=' +
         pageSize.toString() +
         '&pageNumber=' +
         pageNumber.toString());
-    var response = await http.get(url);
-    if (response.statusCode == 200) {
-      // print("getMobileSkinData DD : " + pageNumber.toString());
-      // print(response.body);
-      // dynamic data = json.decode(response.body);
-      // print(data["Status"]);
-      return response.body;
-    } else {
+     try {
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        
+        return response.body;
+      }
+    } on TimeoutException catch (e) {
+      print('Timeout Error: $e');
+    } on SocketException catch (e) {
+      print('Socket Error: $e');
+    } on Error catch (e) {
+      print('General Error: $e');
+    }
       return '';
-    } // return await rootBundle.loadString('lib/models/news/news.json');
+      // return await rootBundle.loadString('lib/models/news/news.json');
     // /home/evilknight/Desktop/Projects/LD/ld_alumni/lib/models/home/news.json
   }
 
@@ -188,16 +207,21 @@ class DigitalDownloads {
         pageSize.toString() +
         '&pageNumber=' +
         pageNumber.toString());
-    var response = await http.get(url);
-    if (response.statusCode == 200) {
-      // print("getDesktopWallpapersData DD : " + pageNumber.toString());
-      // print(response.body);
-      // dynamic data = json.decode(response.body);
-      // print(data["Status"]);
-      return response.body;
-    } else {
+     try {
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        
+        return response.body;
+      }
+    } on TimeoutException catch (e) {
+      print('Timeout Error: $e');
+    } on SocketException catch (e) {
+      print('Socket Error: $e');
+    } on Error catch (e) {
+      print('General Error: $e');
+    }
       return '';
-    } // return await rootBundle.loadString('lib/models/news/news.json');
+     // return await rootBundle.loadString('lib/models/news/news.json');
     // /home/evilknight/Desktop/Projects/LD/ld_alumni/lib/models/home/news.json
   }
 
@@ -207,16 +231,21 @@ class DigitalDownloads {
         pageSize.toString() +
         '&pageNumber=' +
         pageNumber.toString());
-    var response = await http.get(url);
-    if (response.statusCode == 200) {
-      // print("getCalendarsData DD : " + pageNumber.toString());
-      // print(response.body);
-      // dynamic data = json.decode(response.body);
-      // print(data["Status"]);
-      return response.body;
-    } else {
+     try {
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        
+        return response.body;
+      }
+    } on TimeoutException catch (e) {
+      print('Timeout Error: $e');
+    } on SocketException catch (e) {
+      print('Socket Error: $e');
+    } on Error catch (e) {
+      print('General Error: $e');
+    }
       return '';
-    } // return await rootBundle.loadString('lib/models/news/news.json');
+     // return await rootBundle.loadString('lib/models/news/news.json');
     // /home/evilknight/Desktop/Projects/LD/ld_alumni/lib/models/home/news.json
   }
 
@@ -226,16 +255,21 @@ class DigitalDownloads {
         pageSize.toString() +
         '&pageNumber=' +
         pageNumber.toString());
-    var response = await http.get(url);
-    if (response.statusCode == 200) {
-      // print("getCampaignDownloadsData DD : " + pageNumber.toString());
-      // print(response.body);
-      // dynamic data = json.decode(response.body);
-      // print(data["Status"]);
-      return response.body;
-    } else {
-      return '';
-    } // return await rootBundle.loadString('lib/models/news/news.json');
+     try {
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        
+        return response.body;
+      }
+    } on TimeoutException catch (e) {
+      print('Timeout Error: $e');
+    } on SocketException catch (e) {
+      print('Socket Error: $e');
+    } on Error catch (e) {
+      print('General Error: $e');
+    }
+     return '';
+      // return await rootBundle.loadString('lib/models/news/news.json');
     // /home/evilknight/Desktop/Projects/LD/ld_alumni/lib/models/home/news.json
   }
 
@@ -245,16 +279,21 @@ class DigitalDownloads {
         pageSize.toString() +
         '&pageNumber=' +
         pageNumber.toString());
-    var response = await http.get(url);
-    if (response.statusCode == 200) {
-      // print("getOtherMaterialsData DD : " + pageNumber.toString());
-      // print(response.body);
-      // dynamic data = json.decode(response.body);
-      // print(data["Status"]);
-      return response.body;
-    } else {
+     try {
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        
+        return response.body;
+      }
+    } on TimeoutException catch (e) {
+      print('Timeout Error: $e');
+    } on SocketException catch (e) {
+      print('Socket Error: $e');
+    } on Error catch (e) {
+      print('General Error: $e');
+    } 
       return '';
-    } // return await rootBundle.loadString('lib/models/news/news.json');
+      // return await rootBundle.loadString('lib/models/news/news.json');
     // /home/evilknight/Desktop/Projects/LD/ld_alumni/lib/models/home/news.json
   }
 /**

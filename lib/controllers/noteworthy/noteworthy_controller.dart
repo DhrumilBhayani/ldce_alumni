@@ -4,7 +4,7 @@ import 'package:ldce_alumni/models/noteworthy/noteworthy.dart';
 import 'package:ldce_alumni/core/globals.dart' as globals;
 
 class NoteworthyController with ChangeNotifier {
-  bool showLoading = true, uiLoading = true, hasMoreData = true;
+  bool showLoading = true, uiLoading = true, hasMoreData = true, exceptionCreated = false;
   late List<Noteworthy> noteworthy;
 
   late TextEditingController searchEditingController;
@@ -26,12 +26,21 @@ class NoteworthyController with ChangeNotifier {
 
   Future fetchData() async {
     // print("fetchData()");
-    noteworthy = await Noteworthy.getDummyList();
-
-    // await Future.delayed(Duration(seconds: 1));
-
-    showLoading = false;
-    uiLoading = false;
+    try {
+      noteworthy = await Noteworthy.getDummyList();
+      showLoading = false;
+      uiLoading = false;
+    } on Exception catch (exception) {
+      print("excep");
+      print(exception);
+      exceptionCreated = true;
+      notifyListeners();
+    } catch (error) {
+      print("error");
+      print(error);
+      exceptionCreated = true;
+      notifyListeners();
+    }
     // print("fetchData(ffff) done");
     notifyListeners();
   }
@@ -42,7 +51,19 @@ class NoteworthyController with ChangeNotifier {
     print("Has Mode data :");
     print(hasMoreData && !globals.isAllNoteworthyLoaded);
     if (hasMoreData) {
-      noteworthy = await Noteworthy.getDummyList(pageNumber: pageNumber);
+      try {
+        noteworthy = await Noteworthy.getDummyList(pageNumber: pageNumber);
+      } on Exception catch (exception) {
+        print("excep");
+        print(exception);
+        exceptionCreated = true;
+        notifyListeners();
+      } catch (error) {
+        print("error");
+        print(error);
+        exceptionCreated = true;
+        notifyListeners();
+      }
     }
     print("In controller");
     print(noteworthy);
