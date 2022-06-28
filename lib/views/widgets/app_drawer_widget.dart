@@ -7,6 +7,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 // import 'package:flutx/flutx.dart';
 import 'package:provider/provider.dart';
 import 'package:ldce_alumni/core/text.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class AppDrawerWidget extends StatefulWidget {
   const AppDrawerWidget({Key? key}) : super(key: key);
@@ -16,6 +17,13 @@ class AppDrawerWidget extends StatefulWidget {
 }
 
 class _AppDrawerWidgetState extends State<AppDrawerWidget> {
+   PackageInfo _packageInfo = PackageInfo(
+    appName: 'Unknown',
+    packageName: 'Unknown',
+    version: 'Unknown',
+    buildNumber: 'Unknown',
+    buildSignature: 'Unknown',
+  );
   late ThemeData theme = AppTheme.theme;
   bool isDark = false;
   //  theme = AppTheme.theme;
@@ -33,12 +41,19 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
     }
     setState(() {});
   }
-
+Future<void> _initPackageInfo() async {
+    final info = await PackageInfo.fromPlatform();
+    setState(() {
+      _packageInfo = info;
+    });
+  }
   @override
   void initState() {
     super.initState();
     // theme = AppTheme.theme;
     scrollController = ScrollController();
+        _initPackageInfo();
+
   }
 
   @override
@@ -348,13 +363,13 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                                       isExpandedAbout = value;
                                     });
                                     if (value) {
-                                      Future.delayed(Duration(milliseconds: 200), () {
-                                        print("Executed after 5 seconds");
-                                        scrollController.animateTo(
-                                            MediaQuery.of(context).size.height * 1.005,
-                                            duration: Duration(milliseconds: 1000),
-                                            curve: Curves.linear);
-                                      });
+                                      // Future.delayed(Duration(milliseconds: 200), () {
+                                      //   print("Executed after 5 seconds");
+                                      //   scrollController.animateTo(
+                                      //       MediaQuery.of(context).size.height * 1.005,
+                                      //       duration: Duration(milliseconds: 1000),
+                                      //       curve: Curves.linear);
+                                      // });
                                     }
                                   }),
                                   // initiallyExpanded: true,
@@ -427,6 +442,7 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                                 )))),
                           ],
                         ),
+                        Text('v'+_packageInfo.version+' ('+_packageInfo.buildNumber+')'),
                       ],
                     ),
                   ),
