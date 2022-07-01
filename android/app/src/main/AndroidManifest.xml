@@ -17,7 +17,9 @@
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        android:label="LDCE Connect" >
+        android:label="LDCE Connect" 
+         android:usesCleartextTraffic="true"
+        >
         <!-- <activity
             android:name=".NotificationTapActivity"
             android:exported="false"
