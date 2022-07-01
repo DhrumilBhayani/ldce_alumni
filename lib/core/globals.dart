@@ -18,7 +18,8 @@ bool isAllCalendarsLoaded = false;
 bool isAllCampaingDLoaded = false;
 bool isAllOtherMLoaded = false;
 
-const String BASE_API_URL = 'https://ldcealumniapi.devitsandbox.com/api/';
+// const String BASE_API_URL = 'https://ldcealumniapi.devitsandbox.com/api/';
+const String BASE_API_URL = 'http://api.ldcealumni.net/api/';
 int timeout = 40;
 
 checkInternet(buildContext) async {
