@@ -91,49 +91,51 @@ class _TreePlantationScreenState extends State<TreePlantationScreen> {
                     child: ListView(
                   padding: EdgeInsets.fromLTRB(0, 0, 0, 16),
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Align(
-                            alignment: Alignment.topLeft,
-                            child: Container(
-                                padding: EdgeInsets.only(top: 0),
+                    Container(
+                        padding: EdgeInsets.only(left: 0, right: 0, top: 0, bottom: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Align(
+                                alignment: Alignment.topLeft,
                                 child: Container(
-                                    decoration: BoxDecoration(
-                                      color: Color(0xffd32a27),
-                                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                                    ),
-                                    // color: Colors.red,
-                                    padding: EdgeInsets.all(6),
-                                    child: InkWell(
-                                        child: Column(children: [
-                                          Icon(
-                                            Icons.home,
-                                            color: Colors.white,
-                                          ),
-                                          FxText.b2(
-                                            "Home",
-                                            color: Colors.white,
-                                          )
-                                        ]),
-                                        onTap: () {
-                                          Navigator.of(context).pushNamedAndRemoveUntil(
-                                              'home', (Route<dynamic> route) => false);
-                                        })))),
-                        // Align(
-                        //     alignment: Alignment.center,
-                        //     child: InkWell(
-                        //       child: Container(
-                        //           padding: EdgeInsets.only(top: 6, right: 6),
-                        //           child:
-                        //               Column(children: [Icon(Icons.newspaper), FxText.b2("All News")])),
-                        //       onTap: () {
-                        //         Navigator.of(context)
-                        //             .pushNamedAndRemoveUntil('news_home', ModalRoute.withName('home'));
-                        //       },
-                        //     )),
-                      ],
-                    ),
+                                    padding: EdgeInsets.only(top: 0),
+                                    child: Container(
+                                        decoration: BoxDecoration(
+                                          color: Color(0xffd32a27),
+                                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                                        ),
+                                        // color: Colors.red,
+                                        padding: EdgeInsets.all(6),
+                                        child: InkWell(
+                                            child: Column(children: [
+                                              Icon(
+                                                Icons.home,
+                                                color: Colors.white,
+                                              ),
+                                              FxText.b2(
+                                                "Home",
+                                                color: Colors.white,
+                                              )
+                                            ]),
+                                            onTap: () {
+                                              Navigator.of(context).pushNamedAndRemoveUntil(
+                                                  'home', (Route<dynamic> route) => false);
+                                            })))),
+                            // Align(
+                            //     alignment: Alignment.center,
+                            //     child: InkWell(
+                            //       child: Container(
+                            //           padding: EdgeInsets.only(top: 6, right: 6),
+                            //           child:
+                            //               Column(children: [Icon(Icons.newspaper), FxText.b2("All News")])),
+                            //       onTap: () {
+                            //         Navigator.of(context)
+                            //             .pushNamedAndRemoveUntil('news_home', ModalRoute.withName('home'));
+                            //       },
+                            //     )),
+                          ],
+                        )),
                     Container(
                       decoration: BoxDecoration(
                           color: customTheme.card,

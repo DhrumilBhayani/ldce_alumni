@@ -201,69 +201,71 @@ class _SingleNewsScreenState extends State<SingleNewsScreen> {
                         child: ListView(
                   padding: EdgeInsets.fromLTRB(0, 0, 0, 16),
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Align(
-                            alignment: Alignment.topLeft,
-                            child: Container(
-                                width: 90,
-                                decoration: BoxDecoration(
-                                  color: Color(0xffd32a27),
-                                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                                ),
-                                // color: Colors.red,
-                                padding: EdgeInsets.all(6),
-                                child: InkWell(
-                                    child: Column(children: [
-                                      Icon(
-                                        Icons.home,
-                                        color: Colors.white,
-                                      ),
-                                      FxText.b2(
-                                        "Home",
-                                        color: Colors.white,
-                                      )
-                                    ]),
-                                    onTap: () {
-                                      Navigator.of(context).pushNamedAndRemoveUntil(
-                                          'home', (Route<dynamic> route) => false);
-                                    }))),
-                        Align(
-                            alignment: Alignment.center,
-                            child: Container(
-                                width: 90,
+                    Container(
+                        padding: EdgeInsets.only(left: 0, right: 0, top: 0, bottom: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Align(
+                                alignment: Alignment.topLeft,
+                                child: Container(
+                                    width: 90,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xffd32a27),
+                                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                                    ),
+                                    // color: Colors.red,
+                                    padding: EdgeInsets.all(6),
+                                    child: InkWell(
+                                        child: Column(children: [
+                                          Icon(
+                                            Icons.home,
+                                            color: Colors.white,
+                                          ),
+                                          FxText.b2(
+                                            "Home",
+                                            color: Colors.white,
+                                          )
+                                        ]),
+                                        onTap: () {
+                                          Navigator.of(context).pushNamedAndRemoveUntil(
+                                              'home', (Route<dynamic> route) => false);
+                                        }))),
+                            Align(
                                 alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  color: Color(0xffffca02),
-                                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                                ),
-                                // color: Colors.red,
-                                padding: EdgeInsets.all(6),
-                                child: InkWell(
-                                  child: Container(
-                                      alignment: Alignment.center,
-                                      padding: EdgeInsets.only(),
-                                      child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Icon(
-                                              Icons.newspaper,
-                                              color: Colors.white,
-                                            ),
-                                            FxText.b2(
-                                              "All News",
-                                              color: Colors.white,
-                                            )
-                                          ])),
-                                  onTap: () {
-                                    Navigator.of(context).pushNamedAndRemoveUntil(
-                                        'news_home', ModalRoute.withName('home'));
-                                  },
-                                ))),
-                      ],
-                    ),
+                                child: Container(
+                                    width: 90,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xffffca02),
+                                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                                    ),
+                                    // color: Colors.red,
+                                    padding: EdgeInsets.all(6),
+                                    child: InkWell(
+                                      child: Container(
+                                          alignment: Alignment.center,
+                                          padding: EdgeInsets.only(),
+                                          child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  Icons.newspaper,
+                                                  color: Colors.white,
+                                                ),
+                                                FxText.b2(
+                                                  "All News",
+                                                  color: Colors.white,
+                                                )
+                                              ])),
+                                      onTap: () {
+                                        Navigator.of(context).pushNamedAndRemoveUntil(
+                                            'news_home', ModalRoute.withName('home'));
+                                      },
+                                    ))),
+                          ],
+                        )),
                     widget.imageUrl != "null"
                         ? ClipRRect(
                             clipBehavior: Clip.antiAliasWithSaveLayer,

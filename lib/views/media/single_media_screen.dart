@@ -58,6 +58,16 @@ class _SingleMediaScreenState extends State<SingleMediaScreen> {
     return list;
   }
 
+  final double _height = 20.0;
+
+  void _animateToIndex(int index, myController) {
+    myController.animateTo(
+      index * _height,
+      duration: Duration(seconds: 2),
+      curve: Curves.fastOutSlowIn,
+    );
+  }
+
   List<Widget> _buildThumbnails(myController) {
     List<Widget> list = [];
 
@@ -67,12 +77,13 @@ class _SingleMediaScreenState extends State<SingleMediaScreen> {
         onTap: () {
           myController.onPageChanged(i, fromUser: true);
           print(i);
+          _animateToIndex(i, thumbnailScrollController);
           if (i > 6) {
-            thumbnailScrollController.animateTo(
-              thumbnailScrollController.position.maxScrollExtent,
-              duration: Duration(seconds: 1),
-              curve: Curves.fastOutSlowIn,
-            );
+            // thumbnailScrollController.animateTo(
+            //   thumbnailScrollController.position.maxScrollExtent,
+            //   duration: Duration(seconds: 1),
+            //   curve: Curves.fastOutSlowIn,
+            // );
           }
         },
         borderRadiusAll: 4,

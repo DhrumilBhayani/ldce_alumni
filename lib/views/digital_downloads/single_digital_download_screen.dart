@@ -141,7 +141,7 @@ class _SingleDigitalDownloadScreenState extends State<SingleDigitalDownloadScree
                 padding: EdgeInsets.only(top: 10, bottom: 16),
                 children: [
                   Container(
-                      padding: EdgeInsets.only(left: 20, right: 20, top: 0, bottom: 10),
+                      padding: EdgeInsets.only(left: 20, right: 20, top: 0, bottom: 20),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
