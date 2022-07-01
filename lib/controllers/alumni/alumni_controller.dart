@@ -3,8 +3,12 @@ import 'package:ldce_alumni/models/alumni/alumni.dart';
 // import 'package:provider/provider.dart';
 
 class AlumniDirectoryController with ChangeNotifier {
-  bool showLoading = true, uiLoading = true, hasMoreData = true, exceptionCreated = false;
-  late List<Alumni> alumni;
+  bool showLoading = true,
+      uiLoading = true,
+      hasMoreData = true,
+      hasMoreSearchData = true,
+      exceptionCreated = false;
+  late List<Alumni> alumni, alumni2;
 
   late TextEditingController searchEditingController;
   late TextEditingController locationEditingController;
@@ -58,7 +62,13 @@ class AlumniDirectoryController with ChangeNotifier {
     notifyListeners();
   }
 
-  Future getSearchResults({name, passoutYear, degree, branch, membershipType}) async {
+  Future getSearchResults({name, passoutYear, degree, branch, membershipType, pageNumber}) async {
+    print(name);
+    print(passoutYear);
+    print(degree);
+    print(branch);
+    print(membershipType);
+    print(pageNumber);
     try {
       alumni = await Alumni.getSearchResult(
           name: name,
@@ -66,6 +76,20 @@ class AlumniDirectoryController with ChangeNotifier {
           degree: degree,
           branch: branch,
           membershipType: membershipType);
+      alumni2 = await Alumni.getSearchResult(
+          name: name,
+          passoutYear: passoutYear,
+          degree: degree,
+          branch: branch,
+          membershipType: membershipType,
+          pageNumber: pageNumber + 1);
+      print("ALumni2 length: " + alumni2.length.toString());
+      if (alumni2.length <= 0) {
+        hasMoreSearchData = false;
+        print(hasMoreSearchData);
+      } else {
+        hasMoreSearchData = true;
+      }
     } on Exception catch (exception) {
       print("excep");
       print(exception);
@@ -88,6 +112,55 @@ class AlumniDirectoryController with ChangeNotifier {
     if (hasMoreData) {
       try {
         alumni = await Alumni.getDummyList(pageNumber: pageNumber);
+      } on Exception catch (exception) {
+        print("excep");
+        print(exception);
+        exceptionCreated = true;
+        notifyListeners();
+      } catch (error) {
+        print("error");
+        print(error);
+        exceptionCreated = true;
+        notifyListeners();
+      }
+    }
+    print("In controller");
+    print(alumni);
+    if (alumni.length <= 0) {
+      print("object");
+      hasMoreData = false;
+    }
+    notifyListeners();
+  }
+
+  Future loadMoreSearch(int pageNumber, {name, passoutYear, degree, branch, membershipType}) async {
+    print("loadMore");
+    print(pageNumber);
+    print("Has Mode data :");
+    print(hasMoreData);
+    if (hasMoreData) {
+      try {
+        alumni = await Alumni.getSearchResult(
+            name: name,
+            passoutYear: passoutYear,
+            degree: degree,
+            branch: branch,
+            membershipType: membershipType,
+            pageNumber: pageNumber);
+        alumni2 = await Alumni.getSearchResult(
+            name: name,
+            passoutYear: passoutYear,
+            degree: degree,
+            branch: branch,
+            membershipType: membershipType,
+            pageNumber: pageNumber + 1);
+        print("ALumni2 length: " + alumni2.length.toString());
+        if (alumni2.length <= 0) {
+          hasMoreSearchData = false;
+          print(hasMoreSearchData);
+        } else {
+          hasMoreSearchData = true;
+        }
       } on Exception catch (exception) {
         print("excep");
         print(exception);

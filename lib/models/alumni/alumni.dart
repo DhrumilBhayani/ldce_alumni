@@ -24,15 +24,24 @@ class Alumni {
   }
 
   static Future<List<Alumni>> getSearchResult(
-      {name = "", passoutYear = "", degree = "", branch = "", membershipType = ""}) async {
+      {name = "",
+      passoutYear = "",
+      degree = "",
+      branch = "",
+      membershipType = "",
+      pageSize = 25,
+      pageNumber = 1}) async {
     print("_____________________________--");
     dynamic data = json.decode(await getSearchResultData(
-        name: name,
-        passoutYear: passoutYear,
-        degree: degree,
-        branch: branch,
-        membershipType: membershipType));
-    print(data);
+      name: name,
+      passoutYear: passoutYear,
+      degree: degree,
+      branch: branch,
+      membershipType: membershipType,
+      pageSize: pageSize,
+      pageNumber: pageNumber,
+    ));
+    // print(data);
     return getListFromJson(data);
   }
 
@@ -76,7 +85,7 @@ class Alumni {
 
       if (response.statusCode == 200) {
         // print("getData : "+pageNumber.toString());
-        print(response.body);
+        // print(response.body);
         // dynamic data = json.decode(response.body);
         // print(data["Status"]);
         return response.body;
@@ -88,15 +97,21 @@ class Alumni {
     } on Error catch (e) {
       print('General Error: $e');
     }
-      return '';
-    
+    return '';
+
     // return await rootBundle.loadString('lib/models/news/news.json');
     // return await rootBundle.loadString('lib/models/alumni/alumni.json');
     // /home/evilknight/Desktop/Projects/LD/ld_alumni/lib/models/home/news.json
   }
 
   static Future<String> getSearchResultData(
-      {name = "", passoutYear = "", degree = "", branch = "", membershipType = ""}) async {
+      {name = "",
+      passoutYear = "",
+      degree = "",
+      branch = "",
+      membershipType = "",
+      pageSize = 25,
+      pageNumber = 1}) async {
     if (name == null) {
       name = "";
     }
@@ -116,7 +131,7 @@ class Alumni {
     // print(myJson);
 // https://ldcealumniapi.devitsandbox.com/api/Alumni/SearchAlumni?name=akash&passoutYear=&degree=&branch=&membershipType=
     var url = Uri.parse(globals.BASE_API_URL +
-        '/Alumni/SearchAlumni?name=' +
+        'Alumni/SearchAlumni?name=' +
         name +
         '&passoutYear=' +
         passoutYear.toString() +
@@ -125,30 +140,32 @@ class Alumni {
         '&branch=' +
         branch.toString() +
         '&membershipType=' +
-        membershipType.toString());
+        membershipType.toString() +
+        '&pageSize=' +
+        pageSize.toString() +
+        '&pageNumber=' +
+        pageNumber.toString());
     print(url.toString());
     try {
-      
-    var response = await http.get(url);
-      
-    if (response.statusCode == 200) {
-      // print("getData : "+pageNumber.toString());
-      print(response.body);
-      // dynamic data = json.decode(response.body);
-      // print(data["Status"]);
-      return response.body;
-    }
+      var response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        // print("getData : "+pageNumber.toString());
+        // print(response.body);
+        // dynamic data = json.decode(response.body);
+        // print(data["Status"]);
+        return response.body;
+      }
     } on TimeoutException catch (e) {
       print('Timeout Error: $e');
     } on SocketException catch (e) {
       print('Socket Error: $e');
-     
     } on Error catch (e) {
       print('General Error: $e');
     }
-     
-      return '';
-   // return await rootBundle.loadString('lib/models/news/news.json');
+
+    return '';
+    // return await rootBundle.loadString('lib/models/news/news.json');
     // return await rootBundle.loadString('lib/models/alumni/alumni.json');
     // /home/evilknight/Desktop/Projects/LD/ld_alumni/lib/models/home/news.json
   }

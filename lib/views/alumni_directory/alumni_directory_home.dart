@@ -117,69 +117,144 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
     for (Alumni alumni in alumniProvider.alumni) {
       list.add(_buildSingleAlumni(alumni));
     }
-    list.add(!searchPressed
-        ? Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-            Container(
-                margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                child: ElevatedButton(
-                  onPressed: currentPageNumber <= 1
-                      ? null
-                      : () async {
-                          setState(() {
-                            isLoading = true;
-                            currentPageNumber -= 1;
-                          });
-                          await alumniProvider.loadMore(currentPageNumber);
-                          setState(() {
-                            isLoading = false;
-                          });
-                          // Navigator.pushNamed(context, 'alumni_directory_home',
-                          print("Previous");
-                          //     arguments: homeProvider.news);
-                        },
-                  child: FxText.b2("Previous", fontWeight: 600, color: theme.colorScheme.onBackground),
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(theme.colorScheme.onPrimary),
-                      padding: MaterialStateProperty.all(
-                          EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 0))),
-                )),
-            SizedBox(width: 20),
-            Container(
-              padding: EdgeInsets.all(10),
-              // color: Colors.grey.shade100,
-              child: Text(
-                currentPageNumber.toString(),
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+    if (alumniProvider.alumni.isNotEmpty) {
+      list.add(!searchPressed
+          ? Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+              Container(
+                  margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  child: ElevatedButton(
+                    onPressed: currentPageNumber <= 1
+                        ? null
+                        : () async {
+                            setState(() {
+                              isLoading = true;
+                              currentPageNumber -= 1;
+                            });
+                            await alumniProvider.loadMore(currentPageNumber);
+                            setState(() {
+                              isLoading = false;
+                            });
+                            // Navigator.pushNamed(context, 'alumni_directory_home',
+                            print("Previous");
+                            //     arguments: homeProvider.news);
+                          },
+                    child: FxText.b2("Previous", fontWeight: 600, color: theme.colorScheme.onBackground),
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(theme.colorScheme.onPrimary),
+                        padding: MaterialStateProperty.all(
+                            EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 0))),
+                  )),
+              SizedBox(width: 20),
+              Container(
+                padding: EdgeInsets.all(10),
+                // color: Colors.grey.shade100,
+                child: Text(
+                  currentPageNumber.toString(),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
               ),
-            ),
-            SizedBox(width: 20),
-            Container(
-                margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                child: ElevatedButton(
-                  onPressed: () async {
-                    print('1 Isloading: ' + isLoading.toString());
-                    setState(() {
-                      isLoading = true;
-                      currentPageNumber += 1;
-                    });
-                    print('2 Isloading: ' + isLoading.toString());
+              SizedBox(width: 20),
+              Container(
+                  margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      print('1 Isloading: ' + isLoading.toString());
+                      setState(() {
+                        isLoading = true;
+                        currentPageNumber += 1;
+                      });
+                      print('2 Isloading: ' + isLoading.toString());
 
-                    await alumniProvider.loadMore(currentPageNumber);
-                    // alumniProvider.alumni = [];
-                    setState(() {
-                      isLoading = false;
-                    });
-                    print('3 Isloading: ' + isLoading.toString());
-                    print("next");
-                  },
-                  child: FxText.b2("Next", fontWeight: 600, color: theme.colorScheme.onBackground),
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(theme.colorScheme.onPrimary),
-                      padding: MaterialStateProperty.all(
-                          EdgeInsets.only(left: 30, right: 30, top: 0, bottom: 0))),
-                )),
-          ])
-        : Container());
+                      await alumniProvider.loadMore(currentPageNumber);
+                      // alumniProvider.alumni = [];
+                      setState(() {
+                        isLoading = false;
+                      });
+                      print('3 Isloading: ' + isLoading.toString());
+                      print("next");
+                    },
+                    child: FxText.b2("Next", fontWeight: 600, color: theme.colorScheme.onBackground),
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(theme.colorScheme.onPrimary),
+                        padding: MaterialStateProperty.all(
+                            EdgeInsets.only(left: 30, right: 30, top: 0, bottom: 0))),
+                  )),
+            ])
+          : Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+              Container(
+                  margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  child: ElevatedButton(
+                    onPressed: currentPageNumber <= 1
+                        ? null
+                        : () async {
+                            setState(() {
+                              isLoading = true;
+                              currentPageNumber -= 1;
+                            });
+                            await alumniProvider.loadMoreSearch(currentPageNumber,
+                                name: searchEditingController.text,
+                                branch: selectedBranchValue,
+                                passoutYear: selectedYearValue,
+                                degree: selectedProgramValue);
+                            setState(() {
+                              isLoading = false;
+                            });
+                            // Navigator.pushNamed(context, 'alumni_directory_home',
+                            print("Previous");
+                            //     arguments: homeProvider.news);
+                          },
+                    child: FxText.b2("Previous", fontWeight: 600, color: theme.colorScheme.onBackground),
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(theme.colorScheme.onPrimary),
+                        padding: MaterialStateProperty.all(
+                            EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 0))),
+                  )),
+              SizedBox(width: 20),
+              Container(
+                padding: EdgeInsets.all(10),
+                // color: Colors.grey.shade100,
+                child: Text(
+                  currentPageNumber.toString(),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(width: 20),
+              Container(
+                  margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  child: ElevatedButton(
+                    onPressed: !alumniProvider.hasMoreSearchData
+                        ? null
+                        : () async {
+                            print('1 Isloading: ' + isLoading.toString());
+                            setState(() {
+                              isLoading = true;
+                              currentPageNumber += 1;
+                            });
+                            print('2 Isloading: ' + isLoading.toString());
+
+                            await alumniProvider.loadMoreSearch(currentPageNumber,
+                                name: searchEditingController.text,
+                                branch: selectedBranchValue,
+                                passoutYear: selectedYearValue,
+                                degree: selectedProgramValue);
+                            // alumniProvider.alumni = [];
+                            setState(() {
+                              isLoading = false;
+                            });
+                            print('3 Isloading: ' + isLoading.toString());
+                            print("next");
+                          },
+                    child: FxText.b2("Next", fontWeight: 600, color: theme.colorScheme.onBackground),
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(theme.colorScheme.onPrimary),
+                        padding: MaterialStateProperty.all(
+                            EdgeInsets.only(left: 30, right: 30, top: 0, bottom: 0))),
+                  )),
+            ]));
+    } else {
+      list.add(Container(alignment: Alignment.center,padding: EdgeInsets.only(top: 18), child: Text("No Records")));
+    }
+
     return list;
   }
 
@@ -328,6 +403,8 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
                                     .toList(),
                                 value: selectedYearValue,
                                 onChanged: (value) {
+                                  currentPageNumber = 1;
+
                                   setState(() {
                                     print(value);
                                     selectedYearValue = value as String;
@@ -370,6 +447,7 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
                                     .toList(),
                                 value: selectedProgramValue,
                                 onChanged: (value) {
+                                  currentPageNumber = 1;
                                   switch (value) {
                                     case 'B.E.':
                                       setState(() {
@@ -433,6 +511,7 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
                                 value: selectedBranchValue,
                                 onChanged: (value) {
                                   setState(() {
+                                    currentPageNumber = 1;
                                     selectedBranchValue = value as String;
                                   });
                                 },
@@ -461,17 +540,30 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
                             margin: EdgeInsets.fromLTRB(10, 0, 10, 20),
                             child: ElevatedButton(
                               onPressed: () async {
-                                if (searchEditingController.text.isNotEmpty) {
+                                FocusManager.instance.primaryFocus?.unfocus();
+
+                                print('Name: ' + searchEditingController.text);
+                                print('Year : ' + selectedYearValue.toString());
+                                print('Program : ' + selectedProgramValue.toString());
+                                print('Branch: ' + selectedBranchValue.toString());
+                                // print(membershipType);
+                                print(currentPageNumber);
+                                if (searchEditingController.text.isNotEmpty ||
+                                    selectedYearValue != null ||
+                                    selectedProgramValue != null ||
+                                    selectedBranchValue != null) {
                                   setState(() {
                                     isLoading = true;
                                     searchPressed = true;
                                     // currentPageNumber -= 1;
                                   });
                                   await alumniProvider.getSearchResults(
-                                      name: searchEditingController.text,
-                                      branch: selectedBranchValue,
-                                      passoutYear: selectedYearValue,
-                                      degree: selectedProgramValue);
+                                    name: searchEditingController.text,
+                                    branch: selectedBranchValue,
+                                    passoutYear: selectedYearValue,
+                                    degree: selectedProgramValue,
+                                    pageNumber: currentPageNumber,
+                                  );
                                   setState(() {
                                     isLoading = false;
                                   });
@@ -480,11 +572,12 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
                                     isLoading = true;
                                     // currentPageNumber += 1;
                                   });
-                                  await alumniProvider.getSearchResults(
-                                      name: searchEditingController.text,
-                                      branch: selectedBranchValue,
-                                      passoutYear: selectedYearValue,
-                                      degree: selectedProgramValue);
+                                  await alumniProvider.fetchData();
+                                  // await alumniProvider.getSearchResults(
+                                  //     name: searchEditingController.text,
+                                  //     branch: selectedBranchValue,
+                                  //     passoutYear: selectedYearValue,
+                                  //     degree: selectedProgramValue);
                                   // await alumniProvider.loadMore(1);
                                   setState(() {
                                     currentPageNumber = 1;
