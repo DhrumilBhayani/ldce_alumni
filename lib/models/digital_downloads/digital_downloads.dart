@@ -179,7 +179,7 @@ class DigitalDownloads {
 
   static Future<String> getMobileSkinData(pageSize, pageNumber) async {
     var url = Uri.parse(globals.BASE_API_URL +
-        'DigitalDowngload?Mobileskin&pageSize=' +
+        'DigitalDownload?Mobileskin&pageSize=' +
         pageSize.toString() +
         '&pageNumber=' +
         pageNumber.toString());
