@@ -541,6 +541,8 @@ class _SingleEventScreenState extends State<SingleEventScreen> {
                           physics: ClampingScrollPhysics(),
                           controller: eventsProvider.pageController,
                           onPageChanged: (int page) {
+                             thumbnailScrollController.animateTo(40 * page.toDouble(),
+                                duration: Duration(milliseconds: 600), curve: Curves.ease);
                             eventsProvider.onPageChanged(page);
                           },
                           children: _buildImage(),

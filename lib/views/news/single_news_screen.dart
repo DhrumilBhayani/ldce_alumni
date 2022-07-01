@@ -384,6 +384,8 @@ class _SingleNewsScreenState extends State<SingleNewsScreen> {
                             physics: ClampingScrollPhysics(),
                             controller: newsProvider.pageController,
                             onPageChanged: (int page) {
+                               thumbnailScrollController.animateTo(40 * page.toDouble(),
+                                duration: Duration(milliseconds: 600), curve: Curves.ease);
                               newsProvider.onPageChanged(page);
                             },
                             children: _buildImage(),
