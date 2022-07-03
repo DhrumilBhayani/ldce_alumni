@@ -4,10 +4,8 @@ import 'package:ldce_alumni/controllers/news/news_controller.dart';
 import 'package:ldce_alumni/core/card.dart';
 import 'package:ldce_alumni/core/full_image_screen.dart';
 import 'package:ldce_alumni/core/text.dart';
-// import 'package:flutkit/utils/generator.dart';
 import 'package:flutter/material.dart';
 import 'package:ldce_alumni/theme/themes.dart';
-// import 'package:flutx/flutx.dart';
 import 'package:provider/provider.dart';
 
 class SingleNewsScreen extends StatefulWidget {

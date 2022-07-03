@@ -1,10 +1,8 @@
-// import 'package:flutkit/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:ldce_alumni/core/button.dart';
 import 'package:ldce_alumni/core/text.dart';
 import 'package:ldce_alumni/theme/themes.dart';
-// import 'package:flutx/flutx.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class DropdownWidget extends StatefulWidget {

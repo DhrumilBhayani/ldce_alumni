@@ -1,5 +1,3 @@
-// import 'dart:html';
-
 import 'package:flutter/services.dart';
 import 'package:ldce_alumni/controllers/events/events_controller.dart';
 import 'package:ldce_alumni/views/events/event_past_screen.dart';
@@ -7,12 +5,10 @@ import 'package:ldce_alumni/views/events/event_upcoming_screen.dart';
 import 'package:ldce_alumni/views/loading_effect.dart';
 import 'package:ldce_alumni/views/widgets/app_bar_widget.dart';
 import 'package:ldce_alumni/views/widgets/app_drawer_widget.dart';
-// import 'package:flutkit/screens/event/event_filter_dialog.dart';
 import 'package:ldce_alumni/theme/app_notifier.dart';
 import 'package:ldce_alumni/theme/app_theme.dart';
 import 'package:ldce_alumni/theme/theme_type.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutx/flutx.dart';
 import 'package:provider/provider.dart';
 import 'package:ldce_alumni/core/globals.dart' as globals;
 

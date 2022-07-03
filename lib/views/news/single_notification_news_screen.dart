@@ -1,4 +1,3 @@
-// import 'package:ldce_alumni/screens/news/news_editor_profile_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ldce_alumni/controllers/news/news_controller.dart';
 import 'package:ldce_alumni/core/card.dart';
@@ -6,12 +5,10 @@ import 'package:ldce_alumni/core/text.dart';
 import 'package:ldce_alumni/models/news/news.dart';
 import 'package:ldce_alumni/theme/app_notifier.dart';
 import 'package:ldce_alumni/theme/app_theme.dart';
-// import 'package:flutkit/utils/generator.dart';
 import 'package:flutter/material.dart';
 import 'package:ldce_alumni/theme/theme_type.dart';
 import 'package:ldce_alumni/utils/local_notification_service.dart';
 import 'package:ldce_alumni/views/loading_effect.dart';
-// import 'package:flutx/flutx.dart';
 import 'package:provider/provider.dart';
 
 class SingleInternetNewsScreen extends StatefulWidget {

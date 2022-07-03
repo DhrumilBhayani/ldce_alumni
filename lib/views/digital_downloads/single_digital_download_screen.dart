@@ -2,10 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:ldce_alumni/controllers/events/events_controller.dart';
 import 'package:ldce_alumni/core/text.dart';
-// import 'package:flutkit/utils/generator.dart';
 import 'package:flutter/material.dart';
 import 'package:ldce_alumni/theme/themes.dart';
-// import 'package:flutx/flutx.dart';
 import 'package:provider/provider.dart';
 
 class SingleDigitalDownloadScreen extends StatefulWidget {
