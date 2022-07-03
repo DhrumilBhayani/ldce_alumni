@@ -2,6 +2,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ldce_alumni/controllers/news/news_controller.dart';
 import 'package:ldce_alumni/core/card.dart';
+import 'package:ldce_alumni/core/full_image_screen.dart';
 import 'package:ldce_alumni/core/text.dart';
 // import 'package:flutkit/utils/generator.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +45,16 @@ class _SingleNewsScreenState extends State<SingleNewsScreen> {
     // ));
   }
 
+  void _showFullImage(String imagePath, String imageTag) {
+    Navigator.of(context).push(PageRouteBuilder(
+        opaque: false,
+        pageBuilder: (BuildContext context, _, __) => FullImageScreen(
+              imagePath: imagePath,
+              imageTag: imageTag,
+              backgroundOpacity: 200,
+            )));
+  }
+
   List<Widget> _buildImage() {
     List<Widget> list = [];
     for (var i = 0; i < widget.attachmentList!.length; i++) {
@@ -53,10 +64,30 @@ class _SingleNewsScreenState extends State<SingleNewsScreen> {
         // clipBehavior: Clip.antiAliasWithSaveLayer,
         // padding: EdgeInsets.all(0),
         margin: EdgeInsets.symmetric(horizontal: 5),
-        child: CachedNetworkImage(
-          imageUrl: 'https://' + widget.attachmentList![i],
-          fit: BoxFit.contain,
-        ),
+        child: GestureDetector(
+            onScaleEnd: (details) {
+              _showFullImage('https://' + widget.attachmentList![i], 'imageTag-' + i.toString());
+            },
+            onDoubleTap: () {
+              _showFullImage('https://' + widget.attachmentList![i], 'imageTag-' + i.toString());
+            },
+            onTap: () {
+              _showFullImage('https://' + widget.attachmentList![i], 'imageTag-' + i.toString());
+            },
+            child: Container(
+              child: Hero(
+                tag: 'imageTag-' + i.toString(),
+                child: CachedNetworkImage(
+                  imageUrl: 'https://' + widget.attachmentList![i],
+                  fit: BoxFit.contain,
+                ),
+              ),
+            )),
+        // FullImageScreen(imagePath:'https://' + widget.attachmentList![i] ,imageTag: i.toString(),)
+        // CachedNetworkImage(
+        //   imageUrl: 'https://' + widget.attachmentList![i],
+        //   fit: BoxFit.contain,
+        // ),
       ));
     }
     return list;
@@ -384,8 +415,8 @@ class _SingleNewsScreenState extends State<SingleNewsScreen> {
                             physics: ClampingScrollPhysics(),
                             controller: newsProvider.pageController,
                             onPageChanged: (int page) {
-                               thumbnailScrollController.animateTo(40 * page.toDouble(),
-                                duration: Duration(milliseconds: 600), curve: Curves.ease);
+                              thumbnailScrollController.animateTo(40 * page.toDouble(),
+                                  duration: Duration(milliseconds: 600), curve: Curves.ease);
                               newsProvider.onPageChanged(page);
                             },
                             children: _buildImage(),
