@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:intl/intl.dart';
 import 'package:ldce_alumni/controllers/events/events_controller.dart';
+import 'package:ldce_alumni/core/card.dart';
 import 'package:ldce_alumni/core/text.dart';
 import 'package:ldce_alumni/core/text_style.dart';
 import 'package:ldce_alumni/models/events/events.dart';
@@ -39,7 +40,7 @@ class _SingleInternetEventScreenState extends State<SingleInternetEventScreen> {
   late ThemeData theme;
   late Events singleEvents;
   bool called = false;
-
+  ScrollController thumbnailScrollController = ScrollController();
   @override
   void initState() {
     super.initState();
@@ -71,6 +72,65 @@ class _SingleInternetEventScreenState extends State<SingleInternetEventScreen> {
     );
   }
 
+  List<Widget> _buildImage(EventsController myController) {
+    List<Widget> list = [];
+    for (var i = 0; i < myController.singleEvent.attachmentList!.length; i++) {
+      list.add(Container(
+        decoration:
+            BoxDecoration(color: Colors.transparent, borderRadius: BorderRadius.all(Radius.circular(4))),
+        // clipBehavior: Clip.antiAliasWithSaveLayer,
+        // padding: EdgeInsets.all(0),
+        margin: EdgeInsets.symmetric(horizontal: 5),
+        child: CachedNetworkImage(
+          imageUrl: 'https://' + myController.singleEvent.attachmentList![i],
+
+          // image: NetworkImage('https://' + widget.attachmentList![i]),
+          fit: BoxFit.contain,
+        ),
+      ));
+    }
+    return list;
+  }
+
+  List<Widget> _buildThumbnails(EventsController myController) {
+    List<Widget> list = [];
+
+    for (int i = 0; i < myController.singleEvent.attachmentList!.length; i++) {
+      bool selected = myController.currentPage == i;
+      list.add(Container(
+          padding: EdgeInsets.only(bottom: 10),
+          child: FxCard(
+            onTap: () {
+              myController.onPageChanged(i, fromUser: true);
+              print(i);
+              if (i > 6) {
+                thumbnailScrollController.animateTo(
+                  thumbnailScrollController.position.maxScrollExtent,
+                  duration: Duration(seconds: 1),
+                  curve: Curves.fastOutSlowIn,
+                );
+              }
+            },
+            borderRadiusAll: 4,
+            bordered: selected,
+            border: selected ? Border.all(color: theme.primaryColor, width: 3) : null,
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            color: Colors.transparent,
+            paddingAll: 0,
+            margin: EdgeInsets.symmetric(horizontal: 8),
+            child: Image(
+              height: 40,
+              width: 40,
+              image:
+                  CachedNetworkImageProvider('https://' + myController.singleEvent.attachmentList![i]),
+              fit: BoxFit.fill,
+            ),
+          )));
+    }
+
+    return list;
+  }
+
   Widget _buildBody() {
     // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     //     statusBarColor:Colors.white,
@@ -81,7 +141,6 @@ class _SingleInternetEventScreenState extends State<SingleInternetEventScreen> {
     return Consumer2<AppNotifier, EventsController>(
         builder: (BuildContext context, AppNotifier value, eventsProvider, Widget? child) {
       if (!called) {}
-      eventsProvider.getSingleEvent(args.id);
       called = true;
       // print("0 HomeProvider");
       // isDark = AppTheme.themeType == ThemeType.dark;
@@ -97,6 +156,7 @@ class _SingleInternetEventScreenState extends State<SingleInternetEventScreen> {
         });
       }
       if (eventsProvider.uiLoading) {
+        eventsProvider.getSingleEvent(args.id);
         // print("HomeProvider");
         print(args.id);
         print("uiLoading+ UI");
@@ -506,6 +566,46 @@ class _SingleInternetEventScreenState extends State<SingleInternetEventScreen> {
                               // ),
                             )
                           : Container(),
+                      if (singleEvents.attachmentList!.isNotEmpty)
+                        Container(
+                          margin: EdgeInsets.fromLTRB(24, 24, 24, 0),
+                          child: FxText.sh1("Event Images",
+                              fontWeight: 700, color: theme.colorScheme.onBackground),
+                        ),
+                      if (singleEvents.attachmentList!.isNotEmpty) Divider(),
+                      // SizedBox(height: 16),
+                      if (singleEvents.attachmentList!.isNotEmpty)
+                        Row(children: <Widget>[
+                          SingleChildScrollView(
+                            controller: thumbnailScrollController,
+                            scrollDirection: Axis.vertical,
+                            child: Column(
+                              children: _buildThumbnails(eventsProvider),
+                            ),
+                          ),
+                          Container(
+                            // padding: EdgeInsets.all(0),
+                            decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.all(Radius.circular(4))),
+                            clipBehavior: Clip.hardEdge,
+                            margin: EdgeInsets.all(0),
+                            height: 250,
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            child: PageView(
+                              allowImplicitScrolling: true,
+                              pageSnapping: true,
+                              physics: ClampingScrollPhysics(),
+                              controller: eventsProvider.pageController,
+                              onPageChanged: (int page) {
+                                thumbnailScrollController.animateTo(40 * page.toDouble(),
+                                    duration: Duration(milliseconds: 600), curve: Curves.ease);
+                                eventsProvider.onPageChanged(page);
+                              },
+                              children: _buildImage(eventsProvider),
+                            ),
+                          ),
+                        ]),
                       // Container(
                       //   margin: EdgeInsets.fromLTRB(24, 24, 24, 0),
                       //   child: FxText.sh1("Location",
