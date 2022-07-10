@@ -35,44 +35,49 @@ class _FullImageScreenState extends State<FullImageScreen> {
       onTap: () {
         Navigator.pop(context);
       },
-      onDoubleTap: () {
-        // Fluttertoast.showToast(
-        //   msg: "Pinch to Zoom",
-        //   toastLength: Toast.LENGTH_SHORT,
-        //   fontSize: 18.0,
-        // );
-      },
-      //  onDoubleTap: () {
-      //   final position = tapDownDetails!.localPosition;
-      //   final double scale = 3;
-      //   final x = -position.dx * (scale - 1);
-      //   final y = -position.dy * (scale-1.5);
-      //   final zoomed = Matrix4.identity()
-      //   ..translate(x,y)
-      //   ..scale(scale);
-      //   _transformationController.value = _transformationController.value.isIdentity()? zoomed : Matrix4.identity();
+      // onDoubleTap: () {
+      //   // Fluttertoast.showToast(
+      //   //   msg: "Pinch to Zoom",
+      //   //   toastLength: Toast.LENGTH_SHORT,
+      //   //   fontSize: 18.0,
+      //   // );
       // },
-      // onDoubleTapDown: (details) => tapDownDetails = details,
+      onDoubleTap: () {
+        final position = tapDownDetails!.localPosition;
+        final double scale = 3;
+        final x = -position.dx * (scale - 1);
+        final y = -position.dy * (scale - 1);
+        final zoomed = Matrix4.identity()
+          ..translate(x, y)
+          ..scale(scale);
+        _transformationController.value =
+            _transformationController.value.isIdentity() ? zoomed : Matrix4.identity();
+      },
+      onDoubleTapDown: (details) => tapDownDetails = details,
       child: Scaffold(
-        backgroundColor:
-            Colors.black.withAlpha(widget.backgroundOpacity == null ? 220 : widget.backgroundOpacity!),
-        body: Center(
-          child: Hero(
-            tag: widget.imageTag,
-            child: InteractiveViewer(
-              transformationController: _transformationController,
-              panEnabled: true,
-              boundaryMargin: EdgeInsets.all(100),
-              minScale: 0.5,
-              maxScale: 4,
-              child: CachedNetworkImage(
-                imageUrl: widget.imagePath,
-                fit: BoxFit.contain,
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(backgroundColor: Colors.transparent,automaticallyImplyLeading: false, elevation: 0,),
+          backgroundColor:
+              Colors.black.withAlpha(widget.backgroundOpacity == null ? 220 : widget.backgroundOpacity!),
+          body: Center(
+            child: Hero(
+              tag: widget.imageTag,
+              child: Container(
+                height: MediaQuery.of(context).size.height,
+                child: InteractiveViewer(
+                  transformationController: _transformationController,
+                  panEnabled: true,
+                  boundaryMargin: EdgeInsets.all(100),
+                  minScale: 0.5,
+                  maxScale: 4,
+                  child: CachedNetworkImage(
+                    imageUrl: widget.imagePath,
+                    fit: BoxFit.contain,
+                  ),
+                ),
               ),
             ),
-          ),
-        ),
-      ),
+          )),
     );
   }
 }
