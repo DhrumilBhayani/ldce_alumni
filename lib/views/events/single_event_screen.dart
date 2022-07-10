@@ -41,8 +41,8 @@ class _SingleEventScreenState extends State<SingleEventScreen> {
     super.initState();
     customTheme = AppTheme.customTheme;
     theme = AppTheme.theme;
-    print("Attachments:");
-    print(widget.attachmentList);
+    // print("Attachments:");
+    // print(widget.attachmentList);
   }
 
   List<Widget> _buildImage() {
