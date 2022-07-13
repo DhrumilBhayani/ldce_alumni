@@ -13,6 +13,7 @@ import 'package:ldce_alumni/views/loading_effect.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:ldce_alumni/core/readmore.dart';
 import 'package:provider/provider.dart';
+import 'package:ldce_alumni/core/globals.dart' as globals;
 
 class SingleInternetEventScreen extends StatefulWidget {
   // final String startDate, endDate, title, description, venue, contactPerson;
@@ -76,18 +77,31 @@ class _SingleInternetEventScreenState extends State<SingleInternetEventScreen> {
     List<Widget> list = [];
     for (var i = 0; i < myController.singleEvent.attachmentList!.length; i++) {
       list.add(Container(
-        decoration:
-            BoxDecoration(color: Colors.transparent, borderRadius: BorderRadius.all(Radius.circular(4))),
-        // clipBehavior: Clip.antiAliasWithSaveLayer,
-        // padding: EdgeInsets.all(0),
-        margin: EdgeInsets.symmetric(horizontal: 5),
-        child: CachedNetworkImage(
-          imageUrl: 'https://' + myController.singleEvent.attachmentList![i],
+          decoration: BoxDecoration(
+              color: Colors.transparent, borderRadius: BorderRadius.all(Radius.circular(4))),
+          // clipBehavior: Clip.antiAliasWithSaveLayer,
+          // padding: EdgeInsets.all(0),
+          margin: EdgeInsets.symmetric(horizontal: 5),
+          child: GestureDetector(
+            onScaleEnd: (details) {
+              globals.showFullImage('https://' + myController.singleEvent.attachmentList![i],
+                  'imageTag-' + i.toString(), context);
+            },
+            onDoubleTap: () {
+              globals.showFullImage('https://' + myController.singleEvent.attachmentList![i],
+                  'imageTag-' + i.toString(), context);
+            },
+            onTap: () {
+              globals.showFullImage('https://' + myController.singleEvent.attachmentList![i],
+                  'imageTag-' + i.toString(), context);
+            },
+            child: CachedNetworkImage(
+              imageUrl: 'https://' + myController.singleEvent.attachmentList![i],
 
-          // image: NetworkImage('https://' + widget.attachmentList![i]),
-          fit: BoxFit.contain,
-        ),
-      ));
+              // image: NetworkImage('https://' + widget.attachmentList![i]),
+              fit: BoxFit.contain,
+            ),
+          )));
     }
     return list;
   }
@@ -311,12 +325,28 @@ class _SingleInternetEventScreenState extends State<SingleInternetEventScreen> {
                             ],
                           )),
                       singleEvents.coverPhoto != "null"
-                          ? CachedNetworkImage(
-                              imageUrl: 'https://' + singleEvents.coverPhoto,
-                              fit: BoxFit.fill,
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height * 0.7,
-                            )
+                          ? GestureDetector(
+                              onScaleEnd: (details) {
+                                globals.showFullImage('https://' + singleEvents.coverPhoto,
+                                    'imageTag-' + singleEvents.coverPhoto, context);
+                              },
+                              onDoubleTap: () {
+                                globals.showFullImage('https://' + singleEvents.coverPhoto,
+                                    'imageTag-' + singleEvents.coverPhoto, context);
+                              },
+                              onTap: () {
+                                globals.showFullImage('https://' + singleEvents.coverPhoto,
+                                    'imageTag-' + singleEvents.coverPhoto, context);
+                              },
+                              child: Container(
+                                  margin: EdgeInsets.fromLTRB(24, 0, 24, 0),
+                                  child: Image(
+                                    image:
+                                        CachedNetworkImageProvider('https://' + singleEvents.coverPhoto),
+                                    fit: BoxFit.fill,
+                                    width: MediaQuery.of(context).size.width,
+                                    height: MediaQuery.of(context).size.height * 0.5,
+                                  )))
                           : Image(
                               image: AssetImage('./assets/images/no-image.jpg'),
                               fit: BoxFit.cover,

@@ -5,6 +5,7 @@ import 'package:ldce_alumni/core/text.dart';
 import 'package:flutter/material.dart';
 import 'package:ldce_alumni/theme/themes.dart';
 import 'package:provider/provider.dart';
+import 'package:ldce_alumni/core/globals.dart' as globals ;
 
 class SingleDigitalDownloadScreen extends StatefulWidget {
   final String title;
@@ -198,14 +199,27 @@ class _SingleDigitalDownloadScreenState extends State<SingleDigitalDownloadScree
                         ],
                       )),
                   widget.imageUrl != null
-                      ? CachedNetworkImage(
+                      ? GestureDetector(
+                            onScaleEnd: (details) {
+                              globals.showFullImage('https://' + widget.imageUrl!,
+                                  'imageTag-' + widget.imageUrl!, context);
+                            },
+                            onDoubleTap: () {
+                              globals.showFullImage('https://' + widget.imageUrl!,
+                                  'imageTag-' + widget.imageUrl!, context);
+                            },
+                            onTap: () {
+                              globals.showFullImage('https://' + widget.imageUrl!,
+                                  'imageTag-' + widget.imageUrl!, context);
+                            },
+                            child: CachedNetworkImage(
                           imageUrl: 'https://' + widget.imageUrl!,
                           fit: widget.pageTitle == "Mobile Skins" ? BoxFit.fill : BoxFit.contain,
                           width: MediaQuery.of(context).size.width,
                           height: widget.pageTitle == "Mobile Skins"
                               ? MediaQuery.of(context).size.height * 0.75
                               : null,
-                        )
+                        ))
                       : Image(
                           image: AssetImage('./assets/images/no-image.jpg'),
                           fit: BoxFit.cover,

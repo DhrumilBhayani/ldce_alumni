@@ -10,6 +10,7 @@ import 'package:ldce_alumni/theme/theme_type.dart';
 import 'package:ldce_alumni/utils/local_notification_service.dart';
 import 'package:ldce_alumni/views/loading_effect.dart';
 import 'package:provider/provider.dart';
+import 'package:ldce_alumni/core/globals.dart' as globals ;
 
 class SingleInternetNewsScreen extends StatefulWidget {
   // final String? id;
@@ -50,11 +51,24 @@ class _SingleInternetNewsScreenState extends State<SingleInternetNewsScreen> {
         // clipBehavior: Clip.antiAliasWithSaveLayer,
         // padding: EdgeInsets.all(0),
         margin: EdgeInsets.symmetric(horizontal: 5),
-        child: Image(
+        child: GestureDetector(
+            onScaleEnd: (details) {
+              globals.showFullImage(
+                  'https://' + singleNews.attachmentList![i], 'imageTag-' + i.toString(), context);
+            },
+            onDoubleTap: () {
+              globals.showFullImage(
+                  'https://' + singleNews.attachmentList![i], 'imageTag-' + i.toString(), context);
+            },
+            onTap: () {
+              globals.showFullImage(
+                  'https://' + singleNews.attachmentList![i], 'imageTag-' + i.toString(), context);
+            },
+            child:Image(
           image: CachedNetworkImageProvider('https://' + singleNews.attachmentList[i]),
           fit: BoxFit.cover,
         ),
-      ));
+      )));
     }
     return list;
   }
@@ -303,13 +317,26 @@ class _SingleInternetNewsScreenState extends State<SingleInternetNewsScreen> {
                         height: 10,
                       ),
                       singleNews.imageUrl != "null"
-                          ? ClipRRect(
+                          ? GestureDetector(
+                            onScaleEnd: (details) {
+                              globals.showFullImage('https://' + singleNews.imageUrl,
+                                  'imageTag-' + singleNews.imageUrl, context);
+                            },
+                            onDoubleTap: () {
+                              globals.showFullImage('https://' + singleNews.imageUrl,
+                                  'imageTag-' + singleNews.imageUrl, context);
+                            },
+                            onTap: () {
+                              globals.showFullImage('https://' + singleNews.imageUrl,
+                                  'imageTag-' + singleNews.imageUrl, context);
+                            },
+                            child: ClipRRect(
                               clipBehavior: Clip.antiAliasWithSaveLayer,
-                              borderRadius: BorderRadius.all(Radius.circular(24)),
-                              child: Image(
-                                image: CachedNetworkImageProvider('https://' + singleNews.imageUrl),
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                              child: CachedNetworkImage(
+                                imageUrl: 'https://' + singleNews.imageUrl,
                               ),
-                            )
+                            ))
                           : ClipRRect(
                               clipBehavior: Clip.antiAliasWithSaveLayer,
                               borderRadius: BorderRadius.all(Radius.circular(24)),

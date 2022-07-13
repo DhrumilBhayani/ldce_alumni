@@ -8,6 +8,7 @@ import 'package:ldce_alumni/theme/themes.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:ldce_alumni/core/readmore.dart';
 import 'package:provider/provider.dart';
+import 'package:ldce_alumni/core/globals.dart' as globals;
 
 class SingleEventScreen extends StatefulWidget {
   final String startDate, endDate, title, description, venue, contactPerson;
@@ -54,12 +55,25 @@ class _SingleEventScreenState extends State<SingleEventScreen> {
         // clipBehavior: Clip.antiAliasWithSaveLayer,
         // padding: EdgeInsets.all(0),
         margin: EdgeInsets.symmetric(horizontal: 5),
-        child: CachedNetworkImage(
-          imageUrl: 'https://' + widget.attachmentList![i],
-
-          // image: NetworkImage('https://' + widget.attachmentList![i]),
-          fit: BoxFit.contain,
-        ),
+        child: GestureDetector(
+            onScaleEnd: (details) {
+              globals.showFullImage(
+                  'https://' + widget.attachmentList![i], 'imageTag-' + i.toString(), context);
+            },
+            onDoubleTap: () {
+              globals.showFullImage(
+                  'https://' + widget.attachmentList![i], 'imageTag-' + i.toString(), context);
+            },
+            onTap: () {
+              globals.showFullImage(
+                  'https://' + widget.attachmentList![i], 'imageTag-' + i.toString(), context);
+            },
+            child: Container(
+              child: CachedNetworkImage(
+                imageUrl: 'https://' + widget.attachmentList![i],
+                fit: BoxFit.contain,
+              ),
+            )),
       ));
     }
     return list;
@@ -248,14 +262,27 @@ class _SingleEventScreenState extends State<SingleEventScreen> {
                         ],
                       )),
                   widget.imageUrl != null
-                      ? Container(
-                          margin: EdgeInsets.fromLTRB(24, 0, 24, 0),
-                          child: Image(
-                            image: CachedNetworkImageProvider('https://' + widget.imageUrl!),
-                            fit: BoxFit.fill,
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height * 0.5,
-                          ))
+                      ? GestureDetector(
+                          onScaleEnd: (details) {
+                            globals.showFullImage(
+                                'https://' + widget.imageUrl!, 'imageTag-' + widget.imageUrl!, context);
+                          },
+                          onDoubleTap: () {
+                            globals.showFullImage(
+                                'https://' + widget.imageUrl!, 'imageTag-' + widget.imageUrl!, context);
+                          },
+                          onTap: () {
+                            globals.showFullImage(
+                                'https://' + widget.imageUrl!, 'imageTag-' + widget.imageUrl!, context);
+                          },
+                          child: Container(
+                              margin: EdgeInsets.fromLTRB(24, 0, 24, 0),
+                              child: Image(
+                                image: CachedNetworkImageProvider('https://' + widget.imageUrl!),
+                                fit: BoxFit.fill,
+                                width: MediaQuery.of(context).size.width,
+                                height: MediaQuery.of(context).size.height * 0.5,
+                              )))
                       : Container(
                           margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
                           child: Image(
@@ -539,7 +566,7 @@ class _SingleEventScreenState extends State<SingleEventScreen> {
                           physics: ClampingScrollPhysics(),
                           controller: eventsProvider.pageController,
                           onPageChanged: (int page) {
-                             thumbnailScrollController.animateTo(40 * page.toDouble(),
+                            thumbnailScrollController.animateTo(40 * page.toDouble(),
                                 duration: Duration(milliseconds: 600), curve: Curves.ease);
                             eventsProvider.onPageChanged(page);
                           },

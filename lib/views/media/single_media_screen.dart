@@ -6,6 +6,7 @@ import 'package:ldce_alumni/core/text.dart';
 import 'package:flutter/material.dart';
 import 'package:ldce_alumni/theme/themes.dart';
 import 'package:provider/provider.dart';
+import 'package:ldce_alumni/core/globals.dart' as globals;
 
 class SingleMediaScreen extends StatefulWidget {
   final String title, description, shortDescription;
@@ -43,10 +44,23 @@ class _SingleMediaScreenState extends State<SingleMediaScreen> {
           // clipBehavior: Clip.antiAliasWithSaveLayer,
           // padding: EdgeInsets.all(0),
           margin: EdgeInsets.symmetric(horizontal: 5),
-          child: CachedNetworkImage(
-            imageUrl: 'https://' + widget.imageList[i]["Path"],
-            fit: BoxFit.cover,
-          )
+          child: GestureDetector(
+              onScaleEnd: (details) {
+                globals.showFullImage(
+                    'https://' + widget.imageList[i]["Path"], 'imageTag-' + i.toString(), context);
+              },
+              onDoubleTap: () {
+                globals.showFullImage(
+                    'https://' + widget.imageList[i]["Path"], 'imageTag-' + i.toString(), context);
+              },
+              onTap: () {
+                globals.showFullImage(
+                    'https://' + widget.imageList[i]["Path"], 'imageTag-' + i.toString(), context);
+              },
+              child: CachedNetworkImage(
+                imageUrl: 'https://' + widget.imageList[i]["Path"],
+                fit: BoxFit.cover,
+              ))
           // Image(
           //   image: CachedNetworkImageProvider('https://' + widget.imageList[i]["Path"]),
           //   fit: BoxFit.cover,

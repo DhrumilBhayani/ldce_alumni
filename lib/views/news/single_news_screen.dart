@@ -2,11 +2,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ldce_alumni/controllers/news/news_controller.dart';
 import 'package:ldce_alumni/core/card.dart';
-import 'package:ldce_alumni/core/full_image_screen.dart';
 import 'package:ldce_alumni/core/text.dart';
 import 'package:flutter/material.dart';
 import 'package:ldce_alumni/theme/themes.dart';
 import 'package:provider/provider.dart';
+import 'package:ldce_alumni/core/globals.dart' as globals;
 
 class SingleNewsScreen extends StatefulWidget {
   final String title, date, shortDescription, description, imageUrl;
@@ -43,16 +43,6 @@ class _SingleNewsScreenState extends State<SingleNewsScreen> {
     // ));
   }
 
-  void _showFullImage(String imagePath, String imageTag) {
-    Navigator.of(context).push(PageRouteBuilder(
-        opaque: false,
-        pageBuilder: (BuildContext context, _, __) => FullImageScreen(
-              imagePath: imagePath,
-              imageTag: imageTag,
-              backgroundOpacity: 200,
-            )));
-  }
-
   List<Widget> _buildImage() {
     List<Widget> list = [];
     for (var i = 0; i < widget.attachmentList!.length; i++) {
@@ -64,13 +54,16 @@ class _SingleNewsScreenState extends State<SingleNewsScreen> {
         margin: EdgeInsets.symmetric(horizontal: 5),
         child: GestureDetector(
             onScaleEnd: (details) {
-              _showFullImage('https://' + widget.attachmentList![i], 'imageTag-' + i.toString());
+              globals.showFullImage(
+                  'https://' + widget.attachmentList![i], 'imageTag-' + i.toString(), context);
             },
             onDoubleTap: () {
-              _showFullImage('https://' + widget.attachmentList![i], 'imageTag-' + i.toString());
+              globals.showFullImage(
+                  'https://' + widget.attachmentList![i], 'imageTag-' + i.toString(), context);
             },
             onTap: () {
-              _showFullImage('https://' + widget.attachmentList![i], 'imageTag-' + i.toString());
+              globals.showFullImage(
+                  'https://' + widget.attachmentList![i], 'imageTag-' + i.toString(), context);
             },
             child: Container(
               child: Hero(
@@ -81,11 +74,6 @@ class _SingleNewsScreenState extends State<SingleNewsScreen> {
                 ),
               ),
             )),
-        // FullImageScreen(imagePath:'https://' + widget.attachmentList![i] ,imageTag: i.toString(),)
-        // CachedNetworkImage(
-        //   imageUrl: 'https://' + widget.attachmentList![i],
-        //   fit: BoxFit.contain,
-        // ),
       ));
     }
     return list;
@@ -296,13 +284,26 @@ class _SingleNewsScreenState extends State<SingleNewsScreen> {
                           ],
                         )),
                     widget.imageUrl != "null"
-                        ? ClipRRect(
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            child: CachedNetworkImage(
-                              imageUrl: 'https://' + widget.imageUrl,
-                            ),
-                          )
+                        ? GestureDetector(
+                            onScaleEnd: (details) {
+                              globals.showFullImage('https://' + widget.imageUrl,
+                                  'imageTag-' + widget.imageUrl, context);
+                            },
+                            onDoubleTap: () {
+                              globals.showFullImage('https://' + widget.imageUrl,
+                                  'imageTag-' + widget.imageUrl, context);
+                            },
+                            onTap: () {
+                              globals.showFullImage('https://' + widget.imageUrl,
+                                  'imageTag-' + widget.imageUrl, context);
+                            },
+                            child: ClipRRect(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                              child: CachedNetworkImage(
+                                imageUrl: 'https://' + widget.imageUrl,
+                              ),
+                            ))
                         : ClipRRect(
                             clipBehavior: Clip.antiAliasWithSaveLayer,
                             borderRadius: BorderRadius.all(Radius.circular(24)),

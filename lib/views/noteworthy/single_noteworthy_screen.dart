@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ldce_alumni/core/text.dart';
 import 'package:ldce_alumni/theme/app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:ldce_alumni/core/globals.dart' as globals ;
 
 class SingleNoteworthyScreen extends StatefulWidget {
   SingleNoteworthyScreen(
@@ -180,13 +181,26 @@ class _SingleNoteworthyScreenState extends State<SingleNoteworthyScreen> {
                         ],
                       )),
                   widget.coverPhoto != "null"
-                      ? ClipRRect(
+                      ? GestureDetector(
+                              onScaleEnd: (details) {
+                                globals.showFullImage('https://' + widget.coverPhoto,
+                                    'imageTag-' + widget.coverPhoto, context);
+                              },
+                              onDoubleTap: () {
+                                globals.showFullImage('https://' + widget.coverPhoto,
+                                    'imageTag-' + widget.coverPhoto, context);
+                              },
+                              onTap: () {
+                                globals.showFullImage('https://' + widget.coverPhoto,
+                                    'imageTag-' + widget.coverPhoto, context);
+                              },
+                              child: ClipRRect(
                           clipBehavior: Clip.antiAliasWithSaveLayer,
                           borderRadius: BorderRadius.all(Radius.circular(24)),
                           child: Image(
                             image: CachedNetworkImageProvider('https://' + widget.coverPhoto),
                           ),
-                        )
+                        ))
                       : ClipRRect(
                           clipBehavior: Clip.antiAliasWithSaveLayer,
                           borderRadius: BorderRadius.all(Radius.circular(24)),
