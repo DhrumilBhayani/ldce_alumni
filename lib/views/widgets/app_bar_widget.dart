@@ -58,14 +58,16 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
                       padding: EdgeInsets.only(
                         top: 5,
                         left: 5,
+                        bottom: 5,
+                        right: 10
                       ),
                       child: Image.asset(
-                        "./assets/images/laa_logo_notext.png",
+                        "./assets/images/laa_logo.png",
                         height: 60,
                       )),
-                  SizedBox(
-                    width: 10,
-                  ),
+                  // SizedBox(
+                  //   width: 10,
+                  // ),
                   if (title == null)
                     Container(
                         padding: EdgeInsets.only(top: 5),
