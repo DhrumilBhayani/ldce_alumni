@@ -24,11 +24,11 @@ class _HomeTabState extends State<HomeTab> {
     return SingleChildScrollView(
         child: Container(
             child: Padding(
-      padding: EdgeInsets.all(24),
+      padding: EdgeInsets.only(bottom:24,left:24,right: 24,top: 10),
       child: Column(children: <Widget>[
-        SizedBox(
-          height: 10,
-        ),
+        // SizedBox(
+        //   height: 10,
+        // ),
         Align(
             alignment: Alignment.topLeft,
             child: Container(

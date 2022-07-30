@@ -218,7 +218,7 @@ class _HomeNewsTabState extends State<HomeNewsTab> {
                     Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                       Container(
                         margin: EdgeInsets.only(left: 15, top: 10),
-                        child: FxText.h6("News", color: Color(0xffd32a27), fontWeight: 800),
+                        child: FxText.h6("News", color: Color(0xffffca02), fontWeight: 800),
                       ),
                       Container(
                           margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -247,6 +247,7 @@ class _HomeNewsTabState extends State<HomeNewsTab> {
                           child: FxText.b1("View All News",
                               fontWeight: 600, color: theme.colorScheme.onPrimary),
                           style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(Color(0xffffca02)),
                               padding: MaterialStateProperty.all(
                                   EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 0))),
                         ))
