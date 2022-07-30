@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:intl/intl.dart';
 import 'package:ldce_alumni/controllers/events/events_controller.dart';
 import 'package:ldce_alumni/core/card.dart';
+import 'package:ldce_alumni/core/jumping_dots.dart';
 import 'package:ldce_alumni/core/text.dart';
 import 'package:flutter/material.dart';
 import 'package:ldce_alumni/theme/themes.dart';
@@ -70,6 +71,15 @@ class _SingleEventScreenState extends State<SingleEventScreen> {
             },
             child: Container(
               child: CachedNetworkImage(
+                progressIndicatorBuilder: (context, url, downloadProgress) => Container(
+                    margin: EdgeInsets.only(top: 0, bottom: 0),
+                    child: Container(
+                        height: 10,
+                        width: 10,
+                        child: JumpingDots(
+                          color: theme.colorScheme.primary,
+                          numberOfDots: 4,
+                        ))),
                 imageUrl: 'https://' + widget.attachmentList![i],
                 fit: BoxFit.contain,
               ),
@@ -105,10 +115,20 @@ class _SingleEventScreenState extends State<SingleEventScreen> {
             color: Colors.transparent,
             paddingAll: 0,
             margin: EdgeInsets.symmetric(horizontal: 8),
-            child: Image(
+            child: CachedNetworkImage(
+              // progressIndicatorBuilder: (context, url, downloadProgress) => Container(
+              //     margin: EdgeInsets.only(top: 0, bottom: 0),
+              //     child: Container(
+              //         height: 10,
+              //         width: 10,
+              //         child: JumpingDots(
+              //           radius: 2,
+              //           color: theme.colorScheme.primary,
+              //           numberOfDots: 3,
+              //         ))),
               height: 40,
               width: 40,
-              image: CachedNetworkImageProvider('https://' + widget.attachmentList![i]),
+              imageUrl: 'https://' + widget.attachmentList![i],
               fit: BoxFit.fill,
             ),
           )));

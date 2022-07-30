@@ -2,6 +2,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ldce_alumni/controllers/media/media_controller.dart';
 import 'package:ldce_alumni/core/card.dart';
+import 'package:ldce_alumni/core/jumping_dots.dart';
 import 'package:ldce_alumni/core/text.dart';
 import 'package:flutter/material.dart';
 import 'package:ldce_alumni/theme/themes.dart';
@@ -58,6 +59,15 @@ class _SingleMediaScreenState extends State<SingleMediaScreen> {
                     'https://' + widget.imageList[i]["Path"], 'imageTag-' + i.toString(), context);
               },
               child: CachedNetworkImage(
+                progressIndicatorBuilder: (context, url, downloadProgress) => Container(
+              margin: EdgeInsets.only(top: 0, bottom: 0),
+              child: Container(
+                  height: 10,
+                  width: 10,
+                  child: JumpingDots(
+                    color: theme.colorScheme.primary,
+                    numberOfDots: 4,
+                  ))),
                 imageUrl: 'https://' + widget.imageList[i]["Path"],
                 fit: BoxFit.cover,
               ))
@@ -95,6 +105,15 @@ class _SingleMediaScreenState extends State<SingleMediaScreen> {
         paddingAll: 0,
         margin: EdgeInsets.symmetric(horizontal: 8),
         child: CachedNetworkImage(
+          // progressIndicatorBuilder: (context, url, downloadProgress) => Container(
+          //     margin: EdgeInsets.only(top: 0, bottom: 0),
+          //     child: Container(
+          //         height: 10,
+          //         width: 10,
+          //         child: JumpingDots(
+          //           color: theme.colorScheme.primary,
+          //           numberOfDots: 4,
+          //         ))),
           imageUrl: 'https://' + widget.imageList[i]["Path"],
           height: 40,
           width: 40,

@@ -2,6 +2,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ldce_alumni/controllers/news/news_controller.dart';
 import 'package:ldce_alumni/core/card.dart';
+import 'package:ldce_alumni/core/jumping_dots.dart';
 import 'package:ldce_alumni/core/text.dart';
 import 'package:flutter/material.dart';
 import 'package:ldce_alumni/theme/themes.dart';
@@ -105,10 +106,19 @@ class _SingleNewsScreenState extends State<SingleNewsScreen> {
             color: Colors.transparent,
             paddingAll: 0,
             margin: EdgeInsets.symmetric(horizontal: 8),
-            child: Image(
+            child: CachedNetworkImage(
+              // progressIndicatorBuilder: (context, url, downloadProgress) => Container(
+              // margin: EdgeInsets.only(top: 0, bottom: 0),
+              // child: Container(
+              //     height: 10,
+              //     width: 10,
+              //     child: JumpingDots(
+              //       color: theme.colorScheme.primary,
+              //       numberOfDots: 4,
+              //     ))),
               height: 40,
               width: 40,
-              image: CachedNetworkImageProvider('https://' + widget.attachmentList![i]),
+              imageUrl: 'https://' + widget.attachmentList![i],
               fit: BoxFit.fill,
             ),
           )));
@@ -286,21 +296,30 @@ class _SingleNewsScreenState extends State<SingleNewsScreen> {
                     widget.imageUrl != "null"
                         ? GestureDetector(
                             onScaleEnd: (details) {
-                              globals.showFullImage('https://' + widget.imageUrl,
-                                  'imageTag-' + widget.imageUrl, context);
+                              globals.showFullImage(
+                                  'https://' + widget.imageUrl, 'imageTag-' + widget.imageUrl, context);
                             },
                             onDoubleTap: () {
-                              globals.showFullImage('https://' + widget.imageUrl,
-                                  'imageTag-' + widget.imageUrl, context);
+                              globals.showFullImage(
+                                  'https://' + widget.imageUrl, 'imageTag-' + widget.imageUrl, context);
                             },
                             onTap: () {
-                              globals.showFullImage('https://' + widget.imageUrl,
-                                  'imageTag-' + widget.imageUrl, context);
+                              globals.showFullImage(
+                                  'https://' + widget.imageUrl, 'imageTag-' + widget.imageUrl, context);
                             },
                             child: ClipRRect(
                               clipBehavior: Clip.antiAliasWithSaveLayer,
                               borderRadius: BorderRadius.all(Radius.circular(10)),
                               child: CachedNetworkImage(
+                                progressIndicatorBuilder: (context, url, downloadProgress) => Container(
+                                    margin: EdgeInsets.only(top: 0, bottom: 0),
+                                    child: Container(
+                                        height: 10,
+                                        width: 10,
+                                        child: JumpingDots(
+                                          color: theme.colorScheme.primary,
+                                          numberOfDots: 4,
+                                        ))),
                                 imageUrl: 'https://' + widget.imageUrl,
                               ),
                             ))
