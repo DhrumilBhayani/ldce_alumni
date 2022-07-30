@@ -43,7 +43,7 @@ enum FxTextType {
 }
 
 class FxTextStyle {
-  static Function _fontFamily = GoogleFonts.roboto;
+  static Function _fontFamily = GoogleFonts.montserrat;
 
   static Map<int, FontWeight> _defaultFontWeight = {
     100: FontWeight.w100,

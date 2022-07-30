@@ -68,7 +68,7 @@ class AppTheme {
   static final ThemeData lightTheme = ThemeData(
     /// Brightness
     brightness: Brightness.light,
-
+    fontFamily: 'Montserrat',
     /// Primary Color
     primaryColor: Color(0xff3C4EC5),
 
@@ -87,7 +87,7 @@ class AppTheme {
     cardTheme: CardTheme(color: Color(0xfff0f0f0)),
     cardColor: Color(0xfff0f0f0),
 
-    textTheme: TextTheme(headline6: GoogleFonts.aBeeZee(), bodyText1: GoogleFonts.abel()),
+    textTheme: TextTheme(headline6: GoogleFonts.montserrat(), bodyText1: GoogleFonts.montserrat()),
 
     /// Colorscheme
     colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff3C4EC5), brightness: Brightness.light),
