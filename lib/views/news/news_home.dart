@@ -1,5 +1,6 @@
 import 'package:ldce_alumni/controllers/home/home_controller.dart';
 import 'package:ldce_alumni/controllers/news/news_controller.dart';
+import 'package:ldce_alumni/core/text.dart';
 import 'package:ldce_alumni/models/news/news.dart';
 import 'package:ldce_alumni/theme/theme_type.dart';
 import 'package:ldce_alumni/theme/themes.dart';
@@ -225,39 +226,56 @@ class _NewsHomeScreenState extends State<NewsHomeScreen> {
                 // drawer: AppDrawerWidget(),
                 appBar: AppBarWidget(
                   scaffoldKey: _key,
-                  title: "News",
+                //  title: "News/Stories",
                 ),
-                body: ListView(
-                    controller: _controller,
-                    padding: EdgeInsets.only(top: AppBar().preferredSize.height * 0.3),
-                    children: <Widget>[
-                      Container(
-                          // margin: EdgeInsets.fromLTRB(24, 50, 24, 16),
-                          child: Column(children: <Widget>[
-                        Column(
-                          children: _buildNewsList(tempNews),
-                        ),
-                      ])),
+                body: Column(
+                  children: [
+                    MaterialBanner(
+                        content: FxText.b1("News/Stories",
+                            // fontSize: currentIndex == 0 ? 20 : null,
+                            textAlign: TextAlign.left,
+                            fontWeight: 600,
+                            color: theme.colorScheme.onPrimary),
+                        // contentTextStyle: const TextStyle(color: Colors.black, fontSize: 30),
+                        backgroundColor:  Colors.black.withAlpha(200),
+                        // leadingPadding: const EdgeInsets.only(right: 30),
+                        actions: [
+                          TextButton(onPressed: () {}, child: const Text('')),
+                        ]),
+                    Expanded(
+                        child: ListView(
+                            controller: _controller,
+                            padding: EdgeInsets.only(top: AppBar().preferredSize.height * 0.3),
+                            children: <Widget>[
+                          Container(
+                              // margin: EdgeInsets.fromLTRB(24, 50, 24, 16),
+                              child: Column(children: <Widget>[
+                            Column(
+                              children: _buildNewsList(tempNews),
+                            ),
+                          ])),
 
-                      // when the _loadMore function is running
-                      if (_isLoadMoreRunning == true)
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10, bottom: 10),
-                          child: Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                        ),
+                          // when the _loadMore function is running
+                          if (_isLoadMoreRunning == true)
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10, bottom: 10),
+                              child: Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            ),
 
-                      // When nothing else to load
-                      if (_hasNextPage == false)
-                        Container(
-                          padding: const EdgeInsets.only(top: 0, bottom: 40),
-                          // color: Colors.amber,
-                          child: Center(
-                            child: Text('No More News'),
-                          ),
-                        ),
-                    ]))
+                          // When nothing else to load
+                          if (_hasNextPage == false)
+                            Container(
+                              padding: const EdgeInsets.only(top: 0, bottom: 40),
+                              // color: Colors.amber,
+                              child: Center(
+                                child: Text('No More News'),
+                              ),
+                            ),
+                        ]))
+                  ],
+                ))
             : Scaffold(
                 extendBodyBehindAppBar: true,
                 appBar: AppBar(

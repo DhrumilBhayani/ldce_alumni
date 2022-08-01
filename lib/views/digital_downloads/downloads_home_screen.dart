@@ -1,6 +1,7 @@
 // import 'dart:html';
 
 import 'package:ldce_alumni/controllers/digital_downloads/digital_downloads_controller.dart';
+import 'package:ldce_alumni/core/text.dart';
 import 'package:ldce_alumni/views/digital_downloads/calendars_screen.dart';
 import 'package:ldce_alumni/views/digital_downloads/campaign_downloads_screen.dart';
 import 'package:ldce_alumni/views/digital_downloads/desktop_wallpapers_screen.dart';
@@ -92,7 +93,7 @@ class _DownloadsHomeScreenState extends State<DownloadsHomeScreen> with SingleTi
         //   customTheme = AppTheme.customTheme;
 
         return !digitalDownloadsProvider.exceptionCreated ? Scaffold(
-            extendBodyBehindAppBar: true,
+            // extendBodyBehindAppBar: true,
             key: _key,
             // key: homeController.scaffoldKey,
             // appBar: AppBar(
@@ -161,11 +162,23 @@ class _DownloadsHomeScreenState extends State<DownloadsHomeScreen> with SingleTi
             // drawer: AppDrawerWidget(),
             // resizeToAvoidBottomInset: false,
             body: Column(children: [
+              MaterialBanner(
+                        content: FxText.b1("Digital Downloads",
+                            // fontSize: currentIndex == 0 ? 20 : null,
+                            textAlign: TextAlign.left,
+                            fontWeight: 600,
+                            color: theme.colorScheme.onPrimary),
+                        // contentTextStyle: const TextStyle(color: Colors.black, fontSize: 30),
+                        backgroundColor:  Colors.black.withAlpha(200),
+                        // leadingPadding: const EdgeInsets.only(right: 30),
+                        actions: [
+                          TextButton(onPressed: () {}, child: const Text('')),
+                        ]),
               Container(
                   alignment: Alignment.center,
                   width: MediaQuery.of(context).size.width,
                   color: theme.cardColor,
-                  padding: EdgeInsets.only(top: AppBar().preferredSize.height * 1.8),
+                  // padding: EdgeInsets.only(top: AppBar().preferredSize.height * 1.8),
                   child: TabBar(
                     isScrollable: true,
                     labelStyle: TextStyle(

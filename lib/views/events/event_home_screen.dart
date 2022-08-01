@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:ldce_alumni/controllers/events/events_controller.dart';
+import 'package:ldce_alumni/core/text.dart';
 import 'package:ldce_alumni/views/events/event_past_screen.dart';
 import 'package:ldce_alumni/views/events/event_upcoming_screen.dart';
 import 'package:ldce_alumni/views/loading_effect.dart';
@@ -89,7 +90,7 @@ class _EventHomeScreenState extends State<EventHomeScreen> with SingleTickerProv
 
         return !eventsProvider.exceptionCreated
             ? Scaffold(
-                extendBodyBehindAppBar: true,
+                //extendBodyBehindAppBar: true,
                 key: _key,
                 // key: homeController.scaffoldKey,
                 // appBar: AppBar(
@@ -101,7 +102,7 @@ class _EventHomeScreenState extends State<EventHomeScreen> with SingleTickerProv
                 // ),
                 appBar: AppBarWidget(
                   scaffoldKey: _key,
-                  title: "Events",
+                //  title: "Events",
                 ),
                 // appBar: AppBar(
                 //     backgroundColor: Colors.black.withOpacity(0.5),
@@ -158,10 +159,22 @@ class _EventHomeScreenState extends State<EventHomeScreen> with SingleTickerProv
                 // drawer: AppDrawerWidget(),
                 // resizeToAvoidBottomInset: false,
                 body: Column(children: [
+                  MaterialBanner(
+                        content: FxText.b1("Events",
+                            // fontSize: currentIndex == 0 ? 20 : null,
+                            textAlign: TextAlign.left,
+                            fontWeight: 600,
+                            color: theme.colorScheme.onPrimary),
+                        // contentTextStyle: const TextStyle(color: Colors.black, fontSize: 30),
+                        backgroundColor:  Colors.black.withAlpha(200),
+                        // leadingPadding: const EdgeInsets.only(right: 30),
+                        actions: [
+                          TextButton(onPressed: () {}, child: const Text('')),
+                        ]),
                   //  Stack(children:[
                   Container(
                       color: theme.cardColor,
-                      padding: EdgeInsets.only(top: AppBar().preferredSize.height * 2),
+                   //   padding: EdgeInsets.only(top: AppBar().preferredSize.height * 2),
                       child: TabBar(
                         unselectedLabelColor: Colors.black.withOpacity(0.8),
                         labelColor: Colors.blue,

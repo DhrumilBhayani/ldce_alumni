@@ -218,7 +218,7 @@ class _HomeNewsTabState extends State<HomeNewsTab> {
                     Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                       Container(
                         margin: EdgeInsets.only(left: 15, top: 10),
-                        child: FxText.h6("News", color: Color(0xffffca02), fontWeight: 800),
+                        child: FxText.h6("News/Stories", color: Color(0xffffca02), fontWeight: 800),
                       ),
                       Container(
                           margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -244,7 +244,7 @@ class _HomeNewsTabState extends State<HomeNewsTab> {
                             // Navigator.pushNamed(context, 'alumni_directory_home',
                             //     arguments: homeProvider.news);
                           },
-                          child: FxText.b1("View All News",
+                          child: FxText.b1("View All News/Stories",
                               fontWeight: 600, color: theme.colorScheme.onPrimary),
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(Color(0xffffca02)),
