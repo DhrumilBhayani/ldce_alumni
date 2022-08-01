@@ -31,7 +31,27 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
       // SizedBox(height: 10),
       return AppBar(
         backwardsCompatibility: false,
-        bottom: bottom,
+        //   bottom: PreferredSize(
+        // child: Container(
+        //               color: Colors.black.withAlpha(200),
+        //               height: 43,
+        //               alignment: Alignment.center,
+        //               // margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+        //               // child: ElevatedButton(
+        //               //   onPressed: () {
+        //               //     Navigator.of(context).pushNamedAndRemoveUntil(
+        //               //         'alumni_directory_home', ModalRoute.withName('home'));
+        //               //     // Navigator.pushNamed(context, 'alumni_directory_home',
+        //               //     //     arguments: homeProvider.news);
+        //               //   },
+        //               child: FxText.b1("ALUMNI DIRECTORY",
+        //                   // fontSize: currentIndex == 0 ? 20 : null,
+        //                   textAlign: TextAlign.center,
+        //                   fontWeight: 600,
+        //                   color: theme.colorScheme.onPrimary),
+        //             ),
+        //             preferredSize: Size.fromHeight(1),
+        //             ),
         // toolbarHeight: AppBar().preferredSize.height,
         iconTheme: IconThemeData(color: Color.fromRGBO(255, 255, 255, 1)),
         backgroundColor: Colors.black.withOpacity(0.8),
@@ -53,22 +73,19 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
                     Navigator.of(context).pushNamedAndRemoveUntil('home', ModalRoute.withName('home'));
                   }
                 },
-                child: Row(children: [
-                  Container(
-                      padding: EdgeInsets.only(
-                        top: 5,
-                        left: 5,
-                        bottom: 5,
-                        right: 10
-                      ),
-                      child: Image.asset(
-                        "./assets/images/laa_logo.png",
-                        height: 60,
-                      )),
-                  // SizedBox(
-                  //   width: 10,
-                  // ),
-                  if (title == null)
+                child: Column(children: [
+                  Expanded(
+                      child: Row(children: [
+                    Container(
+                        padding: EdgeInsets.only(top: 5, left: 5, bottom: 5, right: 10),
+                        child: Image.asset(
+                          "./assets/images/laa_logo.png",
+                          height: 60,
+                        )),
+                    // SizedBox(
+                    //   width: 10,
+                    // ),
+
                     Container(
                         padding: EdgeInsets.only(top: 5),
                         child: FxText.t1(
@@ -78,17 +95,7 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
                           color: Colors.white,
                           fontWeight: 600,
                         )),
-                  if (title != null)
-                    Container(
-                        padding: EdgeInsets.only(top: 5, bottom: 5),
-                        child: FxText.t1(
-                          "LDCE Connect\n" + title!,
-                          // title ?? "",
-                          textScaleFactor: MediaQuery.of(context).textScaleFactor.clamp(1.0, 1.1),
-                          fontSize: 18,
-                          color: Colors.white,
-                          fontWeight: 600,
-                        )),
+                  ])),
                 ]))),
         // leading:  Row(children: [
         //       Image.asset("./assets/images/laa_logo_notext.png",height: 100,),
