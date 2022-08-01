@@ -1,5 +1,6 @@
 // import 'package:ldce_alumni/screens/news/news_editor_profile_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:ldce_alumni/controllers/media/media_controller.dart';
 import 'package:ldce_alumni/core/card.dart';
 import 'package:ldce_alumni/core/jumping_dots.dart';
@@ -60,14 +61,14 @@ class _SingleMediaScreenState extends State<SingleMediaScreen> {
               },
               child: CachedNetworkImage(
                 progressIndicatorBuilder: (context, url, downloadProgress) => Container(
-              margin: EdgeInsets.only(top: 0, bottom: 0),
-              child: Container(
-                  height: 10,
-                  width: 10,
-                  child: JumpingDots(
-                    color: theme.colorScheme.primary,
-                    numberOfDots: 4,
-                  ))),
+                    margin: EdgeInsets.only(top: 0, bottom: 0),
+                    child: Container(
+                        height: 10,
+                        width: 10,
+                        child: JumpingDots(
+                          color: theme.colorScheme.primary,
+                          numberOfDots: 4,
+                        ))),
                 imageUrl: 'https://' + widget.imageList[i]["Path"],
                 fit: BoxFit.cover,
               ))
@@ -375,11 +376,21 @@ class _SingleMediaScreenState extends State<SingleMediaScreen> {
                     widget.description != "null"
                         ? Container(
                             margin: EdgeInsets.only(top: 24),
-                            child: FxText(
-                              widget.description,
-                              textAlign: TextAlign.justify,
-                            ),
-                          )
+                            child: new Html(
+                              data: widget.description,
+                              style: {
+                                "*": Style(
+                                  textAlign: TextAlign.justify,
+                                  fontSize: FontSize.large,
+                                )
+                              },
+                            )
+
+                            // FxText(
+                            //   widget.description,
+                            //   textAlign: TextAlign.justify,
+                            // ),
+                            )
                         : Container(
                             margin: EdgeInsets.only(top: 24), child: FxText(widget.shortDescription)),
                   ],

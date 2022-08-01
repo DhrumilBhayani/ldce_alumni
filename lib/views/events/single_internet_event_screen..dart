@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:intl/intl.dart';
 import 'package:ldce_alumni/controllers/events/events_controller.dart';
 import 'package:ldce_alumni/core/card.dart';
@@ -569,19 +570,29 @@ class _SingleInternetEventScreenState extends State<SingleInternetEventScreen> {
                       singleEvents.description != "null"
                           ? Container(
                               margin: EdgeInsets.fromLTRB(24, 12, 24, 0),
-                              child: ReadMoreText(
-                                singleEvents.description,
-                                textAlign: TextAlign.justify,
-                                style: FxTextStyle.sh2(
-                                    color: theme.colorScheme.onBackground, muted: true, fontWeight: 500),
-                                trimLines: 5,
-                                colorClickableText: Colors.black,
-                                trimMode: TrimMode.Line,
-                                trimCollapsedText: 'Show more',
-                                trimExpandedText: 'Show less',
-                                moreStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                                lessStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                              ), // RichText(
+                              child: new Html(
+                                data: singleEvents.description,
+                                style: {
+                                  "*": Style(
+                                    textAlign: TextAlign.justify,
+                                    fontSize: FontSize.large,
+                                  )
+                                },
+                              )
+
+                              // ReadMoreText(
+                              //   singleEvents.description,
+                              //   textAlign: TextAlign.justify,
+                              //   style: FxTextStyle.sh2(
+                              //       color: theme.colorScheme.onBackground, muted: true, fontWeight: 500),
+                              //   trimLines: 5,
+                              //   colorClickableText: Colors.black,
+                              //   trimMode: TrimMode.Line,
+                              //   trimCollapsedText: 'Show more',
+                              //   trimExpandedText: 'Show less',
+                              //   moreStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                              //   lessStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                              // ), // RichText(
                               //   text: TextSpan(children: <TextSpan>[
                               //     TextSpan(
                               //         text:
@@ -594,7 +605,7 @@ class _SingleInternetEventScreenState extends State<SingleInternetEventScreen> {
                               //             FxTextStyle.caption(color: theme.colorScheme.primary, fontWeight: 600))
                               //   ]),
                               // ),
-                            )
+                              )
                           : Container(),
                       if (singleEvents.attachmentList!.isNotEmpty)
                         Container(

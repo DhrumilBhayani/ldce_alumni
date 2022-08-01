@@ -1,5 +1,6 @@
 // import 'package:ldce_alumni/screens/news/news_editor_profile_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:ldce_alumni/controllers/news/news_controller.dart';
 import 'package:ldce_alumni/core/card.dart';
 import 'package:ldce_alumni/core/jumping_dots.dart';
@@ -390,11 +391,21 @@ class _SingleNewsScreenState extends State<SingleNewsScreen> {
                     widget.description != "null"
                         ? Container(
                             margin: EdgeInsets.only(top: 24),
-                            child: FxText(
-                              widget.description,
-                              textAlign: TextAlign.justify,
-                            ),
-                          )
+                            child: new Html(
+                              data: widget.description,
+                              style: {
+                                "*": Style(
+                                  textAlign: TextAlign.justify,
+                                  fontSize: FontSize.large,
+                                )
+                              },
+                            )
+
+                            // FxText(
+                            //   widget.description,
+                            //   textAlign: TextAlign.justify,
+                            // ),
+                            )
                         : Container(
                             margin: EdgeInsets.only(top: 16),
                             child: Row(
