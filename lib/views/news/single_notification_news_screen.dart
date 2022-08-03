@@ -1,18 +1,17 @@
-// import 'package:ldce_alumni/screens/news/news_editor_profile_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:ldce_alumni/controllers/news/news_controller.dart';
 import 'package:ldce_alumni/core/card.dart';
 import 'package:ldce_alumni/core/text.dart';
 import 'package:ldce_alumni/models/news/news.dart';
 import 'package:ldce_alumni/theme/app_notifier.dart';
 import 'package:ldce_alumni/theme/app_theme.dart';
-// import 'package:flutkit/utils/generator.dart';
 import 'package:flutter/material.dart';
 import 'package:ldce_alumni/theme/theme_type.dart';
 import 'package:ldce_alumni/utils/local_notification_service.dart';
 import 'package:ldce_alumni/views/loading_effect.dart';
-// import 'package:flutx/flutx.dart';
 import 'package:provider/provider.dart';
+import 'package:ldce_alumni/core/globals.dart' as globals;
 
 class SingleInternetNewsScreen extends StatefulWidget {
   // final String? id;
@@ -48,16 +47,29 @@ class _SingleInternetNewsScreenState extends State<SingleInternetNewsScreen> {
     List<Widget> list = [];
     for (var i = 0; i < singleNews.attachmentList.length; i++) {
       list.add(Container(
-        decoration:
-            BoxDecoration(color: Colors.transparent, borderRadius: BorderRadius.all(Radius.circular(4))),
-        // clipBehavior: Clip.antiAliasWithSaveLayer,
-        // padding: EdgeInsets.all(0),
-        margin: EdgeInsets.symmetric(horizontal: 5),
-        child: Image(
-          image: CachedNetworkImageProvider('https://' + singleNews.attachmentList[i]),
-          fit: BoxFit.cover,
-        ),
-      ));
+          decoration: BoxDecoration(
+              color: Colors.transparent, borderRadius: BorderRadius.all(Radius.circular(4))),
+          // clipBehavior: Clip.antiAliasWithSaveLayer,
+          // padding: EdgeInsets.all(0),
+          margin: EdgeInsets.symmetric(horizontal: 5),
+          child: GestureDetector(
+            onScaleEnd: (details) {
+              globals.showFullImage(
+                  'https://' + singleNews.attachmentList![i], 'imageTag-' + i.toString(), context);
+            },
+            onDoubleTap: () {
+              globals.showFullImage(
+                  'https://' + singleNews.attachmentList![i], 'imageTag-' + i.toString(), context);
+            },
+            onTap: () {
+              globals.showFullImage(
+                  'https://' + singleNews.attachmentList![i], 'imageTag-' + i.toString(), context);
+            },
+            child: Image(
+              image: CachedNetworkImageProvider('https://' + singleNews.attachmentList[i]),
+              fit: BoxFit.cover,
+            ),
+          )));
     }
     return list;
   }
@@ -306,13 +318,26 @@ class _SingleInternetNewsScreenState extends State<SingleInternetNewsScreen> {
                         height: 10,
                       ),
                       singleNews.imageUrl != "null"
-                          ? ClipRRect(
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              borderRadius: BorderRadius.all(Radius.circular(24)),
-                              child: Image(
-                                image: CachedNetworkImageProvider('https://' + singleNews.imageUrl),
-                              ),
-                            )
+                          ? GestureDetector(
+                              onScaleEnd: (details) {
+                                globals.showFullImage('https://' + singleNews.imageUrl,
+                                    'imageTag-' + singleNews.imageUrl, context);
+                              },
+                              onDoubleTap: () {
+                                globals.showFullImage('https://' + singleNews.imageUrl,
+                                    'imageTag-' + singleNews.imageUrl, context);
+                              },
+                              onTap: () {
+                                globals.showFullImage('https://' + singleNews.imageUrl,
+                                    'imageTag-' + singleNews.imageUrl, context);
+                              },
+                              child: ClipRRect(
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                                child: CachedNetworkImage(
+                                  imageUrl: 'https://' + singleNews.imageUrl,
+                                ),
+                              ))
                           : ClipRRect(
                               clipBehavior: Clip.antiAliasWithSaveLayer,
                               borderRadius: BorderRadius.all(Radius.circular(24)),
@@ -381,11 +406,20 @@ class _SingleInternetNewsScreenState extends State<SingleInternetNewsScreen> {
                       singleNews.description != "null"
                           ? Container(
                               margin: EdgeInsets.only(top: 24),
-                              child: FxText(
-                                singleNews.description,
-                                textAlign: TextAlign.justify,
-                              ),
-                            )
+                              child: new Html(
+                                data: singleNews.description,
+                                style: {
+                                  "*": Style(
+                                    textAlign: TextAlign.justify,
+                                    fontSize: FontSize.large,
+                                  )
+                                },
+                              )
+                              //  FxText(
+                              //   singleNews.description,
+                              //   textAlign: TextAlign.justify,
+                              // ),
+                              )
                           : Container(
                               margin: EdgeInsets.only(top: 16),
                               child: Row(

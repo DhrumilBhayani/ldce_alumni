@@ -1,14 +1,8 @@
-// import 'package:ldce_alumni/screens/news/news_editor_profile_screen.dart';
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
-
 import 'package:ldce_alumni/controllers/news/news_controller.dart';
 import 'package:ldce_alumni/core/text.dart';
-// import 'package:flutkit/utils/generator.dart';
 import 'package:flutter/material.dart';
 import 'package:ldce_alumni/theme/themes.dart';
 import 'package:ldce_alumni/views/widgets/single_project_home_card_widget.dart';
-// import 'package:flutx/flutx.dart';
 import 'package:provider/provider.dart';
 
 class TreePlantationScreenTab extends StatefulWidget {
@@ -90,7 +84,7 @@ class _TreePlantationScreenTabState extends State<TreePlantationScreenTab> {
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Container(
                 margin: EdgeInsets.only(left: 15, top: 0),
-                child: FxText.h6("Projects", color: Color(0xffd32a27), fontWeight: 800),
+                child: FxText.h6("Projects", color: Color(0xffffca02), fontWeight: 800),
               ),
               Container(
                   margin: EdgeInsets.fromLTRB(10, 0, 10, 10),

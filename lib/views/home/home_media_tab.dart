@@ -211,7 +211,7 @@ class _HomeMediaTabState extends State<HomeMediaTab> {
                     Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                       Container(
                         margin: EdgeInsets.only(left: 10, top: 10),
-                        child: FxText.h6("Media Gallery", color: Color(0xffd32a27), fontWeight: 800),
+                        child: FxText.h6("Media Gallery", color: Color(0xff07a44d), fontWeight: 800),
                       ),
                       Container(
                           margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -240,6 +240,7 @@ class _HomeMediaTabState extends State<HomeMediaTab> {
                           child: FxText.b1("View All Media",
                               fontWeight: 600, color: theme.colorScheme.onPrimary),
                           style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(Color(0xff07a44d)),
                               padding: MaterialStateProperty.all(
                                   EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 0))),
                         ))

@@ -89,7 +89,7 @@ class _SomethingWrongScreenState extends State<SomethingWrongScreen> {
                     Container(
                       margin: EdgeInsets.only(top: 4),
                       child: FxText.b1(
-                        "Try again Later",
+                        "Please Try again",
                         letterSpacing: 0,
                         fontWeight: 500,
                         textAlign: TextAlign.center,
@@ -98,20 +98,20 @@ class _SomethingWrongScreenState extends State<SomethingWrongScreen> {
                   ],
                 ),
               ),
-              // Container(
-              //   margin: EdgeInsets.only(top: 24),
-              //   child: FxButton(
-              //       elevation: 0,
-              //       borderRadiusAll: 4,
-              //       onPressed: () {
-              //         checkInternet(context);
-              //         setState(() {
-              //           isLoading = true;
-              //         });
-              //       },
-              //       child: FxText.button("Try again",
-              //           fontWeight: 600, color: theme.colorScheme.onPrimary, letterSpacing: 0.5)),
-              // ),
+              Container(
+                margin: EdgeInsets.only(top: 24),
+                child: FxButton(
+                    elevation: 0,
+                    borderRadiusAll: 4,
+                    onPressed: () {
+                      checkInternet(context);
+                      setState(() {
+                        isLoading = true;
+                      });
+                    },
+                    child: FxText.button("Try again",
+                        fontWeight: 600, color: theme.colorScheme.onPrimary, letterSpacing: 0.5)),
+              ),
               if (isLoading) CircularProgressIndicator(),
             ],
           ),

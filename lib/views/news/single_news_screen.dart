@@ -1,13 +1,14 @@
 // import 'package:ldce_alumni/screens/news/news_editor_profile_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:ldce_alumni/controllers/news/news_controller.dart';
 import 'package:ldce_alumni/core/card.dart';
+import 'package:ldce_alumni/core/jumping_dots.dart';
 import 'package:ldce_alumni/core/text.dart';
-// import 'package:flutkit/utils/generator.dart';
 import 'package:flutter/material.dart';
 import 'package:ldce_alumni/theme/themes.dart';
-// import 'package:flutx/flutx.dart';
 import 'package:provider/provider.dart';
+import 'package:ldce_alumni/core/globals.dart' as globals;
 
 class SingleNewsScreen extends StatefulWidget {
   final String title, date, shortDescription, description, imageUrl;
@@ -53,10 +54,28 @@ class _SingleNewsScreenState extends State<SingleNewsScreen> {
         // clipBehavior: Clip.antiAliasWithSaveLayer,
         // padding: EdgeInsets.all(0),
         margin: EdgeInsets.symmetric(horizontal: 5),
-        child: CachedNetworkImage(
-          imageUrl: 'https://' + widget.attachmentList![i],
-          fit: BoxFit.contain,
-        ),
+        child: GestureDetector(
+            onScaleEnd: (details) {
+              globals.showFullImage(
+                  'https://' + widget.attachmentList![i], 'imageTag-' + i.toString(), context);
+            },
+            onDoubleTap: () {
+              globals.showFullImage(
+                  'https://' + widget.attachmentList![i], 'imageTag-' + i.toString(), context);
+            },
+            onTap: () {
+              globals.showFullImage(
+                  'https://' + widget.attachmentList![i], 'imageTag-' + i.toString(), context);
+            },
+            child: Container(
+              child: Hero(
+                tag: 'imageTag-' + i.toString(),
+                child: CachedNetworkImage(
+                  imageUrl: 'https://' + widget.attachmentList![i],
+                  fit: BoxFit.contain,
+                ),
+              ),
+            )),
       ));
     }
     return list;
@@ -88,10 +107,19 @@ class _SingleNewsScreenState extends State<SingleNewsScreen> {
             color: Colors.transparent,
             paddingAll: 0,
             margin: EdgeInsets.symmetric(horizontal: 8),
-            child: Image(
+            child: CachedNetworkImage(
+              // progressIndicatorBuilder: (context, url, downloadProgress) => Container(
+              // margin: EdgeInsets.only(top: 0, bottom: 0),
+              // child: Container(
+              //     height: 10,
+              //     width: 10,
+              //     child: JumpingDots(
+              //       color: theme.colorScheme.primary,
+              //       numberOfDots: 4,
+              //     ))),
               height: 40,
               width: 40,
-              image: CachedNetworkImageProvider('https://' + widget.attachmentList![i]),
+              imageUrl: 'https://' + widget.attachmentList![i],
               fit: BoxFit.fill,
             ),
           )));
@@ -267,13 +295,35 @@ class _SingleNewsScreenState extends State<SingleNewsScreen> {
                           ],
                         )),
                     widget.imageUrl != "null"
-                        ? ClipRRect(
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            child: CachedNetworkImage(
-                              imageUrl: 'https://' + widget.imageUrl,
-                            ),
-                          )
+                        ? GestureDetector(
+                            onScaleEnd: (details) {
+                              globals.showFullImage(
+                                  'https://' + widget.imageUrl, 'imageTag-' + widget.imageUrl, context);
+                            },
+                            onDoubleTap: () {
+                              globals.showFullImage(
+                                  'https://' + widget.imageUrl, 'imageTag-' + widget.imageUrl, context);
+                            },
+                            onTap: () {
+                              globals.showFullImage(
+                                  'https://' + widget.imageUrl, 'imageTag-' + widget.imageUrl, context);
+                            },
+                            child: ClipRRect(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                              child: CachedNetworkImage(
+                                progressIndicatorBuilder: (context, url, downloadProgress) => Container(
+                                    margin: EdgeInsets.only(top: 0, bottom: 0),
+                                    child: Container(
+                                        height: 10,
+                                        width: 10,
+                                        child: JumpingDots(
+                                          color: theme.colorScheme.primary,
+                                          numberOfDots: 4,
+                                        ))),
+                                imageUrl: 'https://' + widget.imageUrl,
+                              ),
+                            ))
                         : ClipRRect(
                             clipBehavior: Clip.antiAliasWithSaveLayer,
                             borderRadius: BorderRadius.all(Radius.circular(24)),
@@ -341,11 +391,21 @@ class _SingleNewsScreenState extends State<SingleNewsScreen> {
                     widget.description != "null"
                         ? Container(
                             margin: EdgeInsets.only(top: 24),
-                            child: FxText(
-                              widget.description,
-                              textAlign: TextAlign.justify,
-                            ),
-                          )
+                            child: new Html(
+                              data: widget.description,
+                              style: {
+                                "*": Style(
+                                  textAlign: TextAlign.justify,
+                                  fontSize: FontSize.large,
+                                )
+                              },
+                            )
+
+                            // FxText(
+                            //   widget.description,
+                            //   textAlign: TextAlign.justify,
+                            // ),
+                            )
                         : Container(
                             margin: EdgeInsets.only(top: 16),
                             child: Row(
@@ -384,8 +444,8 @@ class _SingleNewsScreenState extends State<SingleNewsScreen> {
                             physics: ClampingScrollPhysics(),
                             controller: newsProvider.pageController,
                             onPageChanged: (int page) {
-                               thumbnailScrollController.animateTo(40 * page.toDouble(),
-                                duration: Duration(milliseconds: 600), curve: Curves.ease);
+                              thumbnailScrollController.animateTo(40 * page.toDouble(),
+                                  duration: Duration(milliseconds: 600), curve: Curves.ease);
                               newsProvider.onPageChanged(page);
                             },
                             children: _buildImage(),

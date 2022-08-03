@@ -47,6 +47,7 @@ class EventsController with ChangeNotifier {
       singleEvent = await Events.getOneEvent(eventId: eventId);
       uiLoading = false;
       showLoading = false;
+      notifyListeners();
       return singleEvent;
     } on Exception catch (exception) {
       print("excep");

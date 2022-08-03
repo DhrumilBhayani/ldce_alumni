@@ -32,7 +32,7 @@ class _EventUpcomingScreenState extends State<EventUpcomingScreen> {
     theme = AppTheme.theme;
     //  print("Past");
     // print(widget.events);
-    _controller = new ScrollController(initialScrollOffset: AppBar().preferredSize.height * 1.5);
+    _controller = new ScrollController();
     // ..addListener(_loadMore);
     eventsProvider = EventsController();
     // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -55,6 +55,7 @@ class _EventUpcomingScreenState extends State<EventUpcomingScreen> {
     tempEvents = widget.events;
     // print(_controller.position);
     return ListView(
+      padding: EdgeInsets.only(top:10),
       controller: _controller,
       //padding: FxSpacing.top(FxSpacing.safeAreaTop(context) + 20),
       children: [

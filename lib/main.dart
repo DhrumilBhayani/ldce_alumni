@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:ldce_alumni/controllers/alumni/alumni_controller.dart';
 import 'package:ldce_alumni/controllers/digital_downloads/digital_downloads_controller.dart';
@@ -104,12 +105,15 @@ Future<void> main() async {
 
   FirebaseMessaging.instance.subscribeToTopic('all-dhrumil');
   if (kDebugMode) {
-    FirebaseMessaging.instance.subscribeToTopic('all-dhrumil-dev-1');
+    FirebaseMessaging.instance.subscribeToTopic('all-dhrumil-dev-11');
     FirebaseMessaging.instance.subscribeToTopic('all');
   }
   if (kReleaseMode) {
     // print = (Object object) {};
   }
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => AppNotifier()),
     ChangeNotifierProvider(create: (context) => HomeController()),

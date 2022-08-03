@@ -1,15 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:intl/intl.dart';
 import 'package:ldce_alumni/controllers/events/events_controller.dart';
 import 'package:ldce_alumni/core/card.dart';
+import 'package:ldce_alumni/core/jumping_dots.dart';
 import 'package:ldce_alumni/core/text.dart';
-// import 'package:flutkit/utils/generator.dart';
 import 'package:flutter/material.dart';
 import 'package:ldce_alumni/theme/themes.dart';
-// import 'package:flutx/flutx.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:ldce_alumni/core/readmore.dart';
 import 'package:provider/provider.dart';
+import 'package:ldce_alumni/core/globals.dart' as globals;
 
 class SingleEventScreen extends StatefulWidget {
   final String startDate, endDate, title, description, venue, contactPerson;
@@ -43,8 +44,8 @@ class _SingleEventScreenState extends State<SingleEventScreen> {
     super.initState();
     customTheme = AppTheme.customTheme;
     theme = AppTheme.theme;
-    print("Attachments:");
-    print(widget.attachmentList);
+    // print("Attachments:");
+    // print(widget.attachmentList);
   }
 
   List<Widget> _buildImage() {
@@ -56,12 +57,34 @@ class _SingleEventScreenState extends State<SingleEventScreen> {
         // clipBehavior: Clip.antiAliasWithSaveLayer,
         // padding: EdgeInsets.all(0),
         margin: EdgeInsets.symmetric(horizontal: 5),
-        child: CachedNetworkImage(
-          imageUrl: 'https://' + widget.attachmentList![i],
-
-          // image: NetworkImage('https://' + widget.attachmentList![i]),
-          fit: BoxFit.contain,
-        ),
+        child: GestureDetector(
+            onScaleEnd: (details) {
+              globals.showFullImage(
+                  'https://' + widget.attachmentList![i], 'imageTag-' + i.toString(), context);
+            },
+            onDoubleTap: () {
+              globals.showFullImage(
+                  'https://' + widget.attachmentList![i], 'imageTag-' + i.toString(), context);
+            },
+            onTap: () {
+              globals.showFullImage(
+                  'https://' + widget.attachmentList![i], 'imageTag-' + i.toString(), context);
+            },
+            child: Container(
+              child: CachedNetworkImage(
+                progressIndicatorBuilder: (context, url, downloadProgress) => Container(
+                    margin: EdgeInsets.only(top: 0, bottom: 0),
+                    child: Container(
+                        height: 10,
+                        width: 10,
+                        child: JumpingDots(
+                          color: theme.colorScheme.primary,
+                          numberOfDots: 4,
+                        ))),
+                imageUrl: 'https://' + widget.attachmentList![i],
+                fit: BoxFit.contain,
+              ),
+            )),
       ));
     }
     return list;
@@ -93,10 +116,20 @@ class _SingleEventScreenState extends State<SingleEventScreen> {
             color: Colors.transparent,
             paddingAll: 0,
             margin: EdgeInsets.symmetric(horizontal: 8),
-            child: Image(
+            child: CachedNetworkImage(
+              // progressIndicatorBuilder: (context, url, downloadProgress) => Container(
+              //     margin: EdgeInsets.only(top: 0, bottom: 0),
+              //     child: Container(
+              //         height: 10,
+              //         width: 10,
+              //         child: JumpingDots(
+              //           radius: 2,
+              //           color: theme.colorScheme.primary,
+              //           numberOfDots: 3,
+              //         ))),
               height: 40,
               width: 40,
-              image: CachedNetworkImageProvider('https://' + widget.attachmentList![i]),
+              imageUrl: 'https://' + widget.attachmentList![i],
               fit: BoxFit.fill,
             ),
           )));
@@ -250,14 +283,27 @@ class _SingleEventScreenState extends State<SingleEventScreen> {
                         ],
                       )),
                   widget.imageUrl != null
-                      ? Container(
-                          margin: EdgeInsets.fromLTRB(24, 0, 24, 0),
-                          child: Image(
-                            image: CachedNetworkImageProvider('https://' + widget.imageUrl!),
-                            fit: BoxFit.fill,
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height * 0.5,
-                          ))
+                      ? GestureDetector(
+                          onScaleEnd: (details) {
+                            globals.showFullImage(
+                                'https://' + widget.imageUrl!, 'imageTag-' + widget.imageUrl!, context);
+                          },
+                          onDoubleTap: () {
+                            globals.showFullImage(
+                                'https://' + widget.imageUrl!, 'imageTag-' + widget.imageUrl!, context);
+                          },
+                          onTap: () {
+                            globals.showFullImage(
+                                'https://' + widget.imageUrl!, 'imageTag-' + widget.imageUrl!, context);
+                          },
+                          child: Container(
+                              margin: EdgeInsets.fromLTRB(24, 0, 24, 0),
+                              child: Image(
+                                image: CachedNetworkImageProvider('https://' + widget.imageUrl!),
+                                fit: BoxFit.fill,
+                                width: MediaQuery.of(context).size.width,
+                                height: MediaQuery.of(context).size.height * 0.5,
+                              )))
                       : Container(
                           margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
                           child: Image(
@@ -481,20 +527,29 @@ class _SingleEventScreenState extends State<SingleEventScreen> {
                       : Container(),
                   widget.description != "null"
                       ? Container(
-                          margin: EdgeInsets.fromLTRB(24, 12, 24, 0),
-                          child: ReadMoreText(
-                            widget.description,
-                            textAlign: TextAlign.justify,
-                            style: FxTextStyle.sh2(
-                                color: theme.colorScheme.onBackground, muted: true, fontWeight: 500),
-                            trimLines: 10,
-                            colorClickableText: theme.colorScheme.onPrimary,
-                            trimMode: TrimMode.Line,
-                            trimCollapsedText: 'Show more',
-                            trimExpandedText: 'Show less',
-                            moreStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                            lessStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                          ), // RichText(
+                          margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          child: new Html(
+                            data: widget.description,
+                            style: {
+                              "*": Style(
+                                textAlign: TextAlign.justify,
+                                fontSize: FontSize.large,
+                              )
+                            },
+                          )
+                          // ReadMoreText(
+                          //   widget.description,
+                          //   textAlign: TextAlign.justify,
+                          //   style: FxTextStyle.sh2(
+                          //       color: theme.colorScheme.onBackground, muted: true, fontWeight: 500),
+                          //   trimLines: 10,
+                          //   colorClickableText: theme.colorScheme.primary,
+                          //   trimMode: TrimMode.Line,
+                          //   trimCollapsedText: 'Show more',
+                          //   trimExpandedText: 'Show less',
+                          //   moreStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                          //   lessStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                          // ), // RichText(
                           //   text: TextSpan(children: <TextSpan>[
                           //     TextSpan(
                           //         text:
@@ -507,7 +562,7 @@ class _SingleEventScreenState extends State<SingleEventScreen> {
                           //             FxTextStyle.caption(color: theme.colorScheme.primary, fontWeight: 600))
                           //   ]),
                           // ),
-                        )
+                          )
                       : Container(),
                   if (widget.attachmentList!.isNotEmpty)
                     Container(
@@ -541,7 +596,7 @@ class _SingleEventScreenState extends State<SingleEventScreen> {
                           physics: ClampingScrollPhysics(),
                           controller: eventsProvider.pageController,
                           onPageChanged: (int page) {
-                             thumbnailScrollController.animateTo(40 * page.toDouble(),
+                            thumbnailScrollController.animateTo(40 * page.toDouble(),
                                 duration: Duration(milliseconds: 600), curve: Curves.ease);
                             eventsProvider.onPageChanged(page);
                           },

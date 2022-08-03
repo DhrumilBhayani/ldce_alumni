@@ -1,10 +1,9 @@
-// import 'package:ldce_alumni/screens/news/news_editor_profile_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:ldce_alumni/core/text.dart';
 import 'package:ldce_alumni/theme/app_theme.dart';
-// import 'package:flutkit/utils/generator.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutx/flutx.dart';
+import 'package:ldce_alumni/core/globals.dart' as globals;
 
 class SingleNoteworthyScreen extends StatefulWidget {
   SingleNoteworthyScreen(
@@ -183,13 +182,26 @@ class _SingleNoteworthyScreenState extends State<SingleNoteworthyScreen> {
                         ],
                       )),
                   widget.coverPhoto != "null"
-                      ? ClipRRect(
-                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                          borderRadius: BorderRadius.all(Radius.circular(24)),
-                          child: Image(
-                            image: CachedNetworkImageProvider('https://' + widget.coverPhoto),
-                          ),
-                        )
+                      ? GestureDetector(
+                          onScaleEnd: (details) {
+                            globals.showFullImage('https://' + widget.coverPhoto,
+                                'imageTag-' + widget.coverPhoto, context);
+                          },
+                          onDoubleTap: () {
+                            globals.showFullImage('https://' + widget.coverPhoto,
+                                'imageTag-' + widget.coverPhoto, context);
+                          },
+                          onTap: () {
+                            globals.showFullImage('https://' + widget.coverPhoto,
+                                'imageTag-' + widget.coverPhoto, context);
+                          },
+                          child: ClipRRect(
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            borderRadius: BorderRadius.all(Radius.circular(24)),
+                            child: Image(
+                              image: CachedNetworkImageProvider('https://' + widget.coverPhoto),
+                            ),
+                          ))
                       : ClipRRect(
                           clipBehavior: Clip.antiAliasWithSaveLayer,
                           borderRadius: BorderRadius.all(Radius.circular(24)),
@@ -264,11 +276,20 @@ class _SingleNoteworthyScreenState extends State<SingleNoteworthyScreen> {
                   widget.description != "null"
                       ? Container(
                           margin: EdgeInsets.only(top: 24),
-                          child: FxText(
-                            widget.description,
-                            textAlign: TextAlign.justify,
-                          ),
-                        )
+                          child: new Html(
+                            data: widget.description,
+                            style: {
+                              "*": Style(
+                                textAlign: TextAlign.justify,
+                                fontSize: FontSize.large,
+                              )
+                            },
+                          )
+                          // FxText(
+                          //   widget.description,
+                          //   textAlign: TextAlign.justify,
+                          // ),
+                          )
                       : Container(
                           margin: EdgeInsets.only(top: 24), child: FxText(widget.shortDescription)),
                 ],

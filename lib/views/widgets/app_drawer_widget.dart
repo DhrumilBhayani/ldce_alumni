@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-// import 'package:flutkit/images.dart';
 import 'package:ldce_alumni/theme/app_notifier.dart';
 import 'package:ldce_alumni/theme/app_theme.dart';
 import 'package:ldce_alumni/theme/theme_type.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-// import 'package:flutx/flutx.dart';
 import 'package:provider/provider.dart';
 import 'package:ldce_alumni/core/text.dart';
 import 'package:package_info_plus/package_info_plus.dart';

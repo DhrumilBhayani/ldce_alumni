@@ -134,7 +134,7 @@ class _HomeNoteworthyTabState extends State<HomeNoteworthyTab> {
                       Container(
                         margin: EdgeInsets.only(left: 10, top: 10),
                         child:
-                            FxText.h6("Noteworthy Mentions", color: Color(0xffd32a27), fontWeight: 800),
+                            FxText.h6("Noteworthy Mentions", color: Color.fromARGB(255, 250, 38, 48), fontWeight: 800),
                       ),
                       Container(
                           margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -163,6 +163,7 @@ class _HomeNoteworthyTabState extends State<HomeNoteworthyTab> {
                           child: FxText.b1("View All Noteworthy Mentions",
                               fontWeight: 600, color: theme.colorScheme.onPrimary),
                           style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 250, 38, 48)),
                               padding: MaterialStateProperty.all(
                                   EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 0))),
                         ))

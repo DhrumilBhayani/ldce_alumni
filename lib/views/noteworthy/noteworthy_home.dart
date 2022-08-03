@@ -1,4 +1,5 @@
 import 'package:ldce_alumni/controllers/noteworthy/noteworthy_controller.dart';
+import 'package:ldce_alumni/core/text.dart';
 import 'package:ldce_alumni/models/noteworthy/noteworthy.dart';
 import 'package:ldce_alumni/theme/theme_type.dart';
 import 'package:ldce_alumni/theme/themes.dart';
@@ -175,15 +176,15 @@ class _NoteworthyHomeScreenState extends State<NoteworthyHomeScreen> {
       theme = AppTheme.theme;
       customTheme = AppTheme.customTheme;
       if (noteworthyProvider.exceptionCreated) {
-          print("Exception created block");
-          // Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
-          WidgetsBinding.instance!.addPostFrameCallback((_) {
-            print("Exception created block 1");
-            Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
-            noteworthyProvider.uiLoading = false;
-            // showSnackBarWithFloating();
-          });
-        }
+        print("Exception created block");
+        // Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
+        WidgetsBinding.instance!.addPostFrameCallback((_) {
+          print("Exception created block 1");
+          Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
+          noteworthyProvider.uiLoading = false;
+          // showSnackBarWithFloating();
+        });
+      }
       if (noteworthyProvider.uiLoading) {
         return Scaffold(
             extendBodyBehindAppBar: true,
@@ -202,52 +203,68 @@ class _NoteworthyHomeScreenState extends State<NoteworthyHomeScreen> {
         if (_hasNextPage == false) {
           noteworthyProvider.hasMoreData = false;
         }
-        return !noteworthyProvider.exceptionCreated ? Scaffold(
-            extendBodyBehindAppBar: true,
-            key: _key,
-            endDrawer: AppDrawerWidget(),
-            // drawer: AppDrawerWidget(),
-            appBar: AppBarWidget(
-              scaffoldKey: _key,
-              title: "Noteworthy Mentions",
-            ),
-            body: SafeArea(
-                child: ListView(controller: _controller, children: [
-              Container(
-                margin: EdgeInsets.fromLTRB(24, AppBar().preferredSize.height * 0.3, 24, 16),
-                child: Column(
-                  children: _buildNoteworthyList(),
+        return !noteworthyProvider.exceptionCreated
+            ? Scaffold(
+               
+                key: _key,
+                endDrawer: AppDrawerWidget(),
+                // drawer: AppDrawerWidget(),
+                appBar: AppBarWidget(
+                  scaffoldKey: _key,
+                  title: "Noteworthy Mentions",
                 ),
-              ),
-              if (_isLoadMoreRunning == true)
-                Padding(
-                  padding: const EdgeInsets.only(top: 10, bottom: 10),
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                ),
+                body: Column(children: [
+                  MaterialBanner(
+                        content: FxText.b1("Noteworthy Mentions",
+                            // fontSize: currentIndex == 0 ? 20 : null,
+                            textAlign: TextAlign.left,
+                            fontWeight: 600,
+                            color: theme.colorScheme.onPrimary),
+                        // contentTextStyle: const TextStyle(color: Colors.black, fontSize: 30),
+                        backgroundColor:  Colors.black.withAlpha(200),
+                        // leadingPadding: const EdgeInsets.only(right: 30),
+                        actions: [
+                          TextButton(onPressed: () {}, child: const Text('')),
+                        ]),
+                  Expanded(
+                      child: ListView(controller: _controller, children: [
+                    Container(
+                      margin: EdgeInsets.fromLTRB(24, AppBar().preferredSize.height * 0.3, 24, 16),
+                      child: Column(
+                        children: _buildNoteworthyList(),
+                      ),
+                    ),
+                    if (_isLoadMoreRunning == true)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10, bottom: 10),
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      ),
 
-              // When nothing else to load
-              if (_hasNextPage == false)
-                Container(
-                  padding: const EdgeInsets.only(top: 0, bottom: 40),
-                  // color: Colors.amber,
-                  child: Center(
-                    child: Text('No More Noteworthy Mentions'),
-                  ),
+                    // When nothing else to load
+                    if (_hasNextPage == false)
+                      Container(
+                        padding: const EdgeInsets.only(top: 0, bottom: 40),
+                        // color: Colors.amber,
+                        child: Center(
+                          child: Text('No More Noteworthy Mentions'),
+                        ),
+                      ),
+                  ]))
+                ]))
+            : Scaffold(
+                extendBodyBehindAppBar: true,
+                appBar: AppBar(
+                  automaticallyImplyLeading: false,
+                  elevation: 0,
                 ),
-            ]))): Scaffold(
-            extendBodyBehindAppBar: true,
-            appBar: AppBar(
-              automaticallyImplyLeading: false,
-              elevation: 0,
-            ),
-            backgroundColor: customTheme.card,
-            body: Container(
-                margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 20),
-                child: LoadingEffect.getMediaHomeLoadingScreen(
-                  context,
-                )));
+                backgroundColor: customTheme.card,
+                body: Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 20),
+                    child: LoadingEffect.getMediaHomeLoadingScreen(
+                      context,
+                    )));
       }
     });
   }

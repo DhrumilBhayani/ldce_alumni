@@ -1,4 +1,3 @@
-// // import 'package:flutkit/apps/ld_alumni/views/Events/event_home_screen.dart';
 // // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 //
 // import 'dart:convert';
@@ -24,7 +23,6 @@
 // import 'package:ldce_alumni/views/loading_effect.dart';
 // import 'package:ldce_alumni/theme/app_theme.dart';
 // import 'package:flutter/material.dart';
-// // import 'package:flutx/flutx.dart';
 // import 'package:ldce_alumni/views/widgets/single_grid_item.dart';
 // import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 // import 'package:ldce_alumni/models/news/news.dart';
@@ -922,7 +920,6 @@
 //     return list;
 //   }
 // }
-// import 'package:flutkit/apps/ld_alumni/views/Events/event_home_screen.dart';
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'dart:convert';

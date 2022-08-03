@@ -119,7 +119,7 @@ class _HomeEventstabState extends State<HomeEventstab> {
                     Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                       Container(
                         margin: EdgeInsets.only(left: 10, top: 10),
-                        child: FxText.h6("Events", color: Color(0xffd32a27), fontWeight: 800),
+                        child: FxText.h6("Events", color: Color(0xff1692d0), fontWeight: 800),
                       ),
                       Container(
                           margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -148,6 +148,7 @@ class _HomeEventstabState extends State<HomeEventstab> {
                           child: FxText.b1("View All Events",
                               fontWeight: 600, color: theme.colorScheme.onPrimary),
                           style: ButtonStyle(
+                             backgroundColor: MaterialStateProperty.all(Color(0xff1692d0)),
                               padding: MaterialStateProperty.all(
                                   EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 0))),
                         ))

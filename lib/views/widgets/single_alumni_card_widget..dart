@@ -1,5 +1,5 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ldce_alumni/core/jumping_dots.dart';
 import 'package:ldce_alumni/core/text.dart';
 import 'package:ldce_alumni/theme/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -88,8 +88,17 @@ class SingleAlumniCardWidget extends StatelessWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(2), topRight: Radius.circular(2)),
-                          child: Image(
-                            image: CachedNetworkImageProvider('https://' + imageUrl!),
+                          child: CachedNetworkImage(
+                            progressIndicatorBuilder: (context, url, downloadProgress) => Container(
+                                margin: EdgeInsets.only(top: 0, bottom: 0),
+                                child: Container(
+                                    height: 10,
+                                    width: 10,
+                                    child: JumpingDots(
+                                      color: theme.colorScheme.primary,
+                                      numberOfDots: 4,
+                                    ))),
+                            imageUrl: 'https://' + imageUrl!,
                             fit: BoxFit.fitWidth,
                             width: width,
                             height: width! * 0.7,

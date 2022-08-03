@@ -252,7 +252,8 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
                   )),
             ]));
     } else {
-      list.add(Container(alignment: Alignment.center,padding: EdgeInsets.only(top: 18), child: Text("No Records")));
+      list.add(Container(
+          alignment: Alignment.center, padding: EdgeInsets.only(top: 18), child: Text("No Records")));
     }
 
     return list;
@@ -332,6 +333,18 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
               // AlumniDirectoryExpansionWidget(
               //     "name", "passoutYear", "program", "branch", "membership", "profession", "email"),
               // Padding(padding: EdgeInsets.only(top: AppBar().preferredSize.height)),
+              MaterialBanner(
+                  content: FxText.b1("Alumni Directory",
+                      // fontSize: currentIndex == 0 ? 20 : null,
+                      textAlign: TextAlign.left,
+                      fontWeight: 600,
+                      color: theme.colorScheme.onPrimary),
+                  // contentTextStyle: const TextStyle(color: Colors.black, fontSize: 30),
+                  backgroundColor: Colors.black.withAlpha(200),
+                  // leadingPadding: const EdgeInsets.only(right: 30),
+                  actions: [
+                    TextButton(onPressed: () {}, child: const Text('')),
+                  ]),
 
               Expanded(
                   child: Container(

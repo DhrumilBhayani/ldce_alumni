@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:ldce_alumni/core/full_image_screen.dart';
 import 'package:ldce_alumni/views/general/no_internet_screen.dart';
 
 bool isAllUpcomingEventsLoaded = false;
@@ -46,3 +47,14 @@ checkInternet(buildContext) async {
         MaterialPageRoute(builder: (context) => NoInternetScreen()), (Route<dynamic> route) => false);
   }
 }
+
+
+  void showFullImage(String imagePath, String imageTag,BuildContext context) {
+    Navigator.of(context).push(PageRouteBuilder(
+        opaque: false,
+        pageBuilder: (context, _, __) => FullImageScreen(
+              imagePath: imagePath,
+              imageTag: imageTag,
+              backgroundOpacity: 200,
+            )));
+  }

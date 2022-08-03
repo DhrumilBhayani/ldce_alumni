@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:ldce_alumni/core/jumping_dots.dart';
 import 'package:ldce_alumni/core/text.dart';
 import 'package:ldce_alumni/views/news/single_news_screen.dart';
 // import 'package:flutx/flutx.dart';
@@ -40,12 +42,20 @@ class SingleNewsWidget extends StatelessWidget {
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 borderRadius: BorderRadius.all(Radius.circular(12)),
                 child: imageUrl != ''
-                    ? Image.network(
-                        imageUrl != '' ? 'https://' + imageUrl! : './assets/images/ld.jpg',
+                    ? CachedNetworkImage(
+                        progressIndicatorBuilder: (context, url, downloadProgress) => Container(
+                            margin: EdgeInsets.only(top: 0, bottom: 0),
+                            child: Container(
+                                height: 10,
+                                width: 10,
+                                child: JumpingDots(
+                                  color: theme.colorScheme.primary,
+                                  numberOfDots: 4,
+                                ))),
+                        imageUrl: 'https://' + imageUrl!,
                         width: 100,
                         height: 100,
-                        fit: BoxFit.cover,
-                      )
+                        fit: BoxFit.cover)
                     : Image.asset(
                         './assets/images/ld.jpg',
                         width: 100,

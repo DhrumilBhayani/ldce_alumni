@@ -1,3 +1,4 @@
+import 'package:ldce_alumni/core/text.dart';
 import 'package:ldce_alumni/theme/theme_type.dart';
 import 'package:ldce_alumni/theme/themes.dart';
 import 'package:ldce_alumni/views/loading_effect.dart';
@@ -177,15 +178,15 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
       theme = AppTheme.theme;
       customTheme = AppTheme.customTheme;
       if (mediaProvider.exceptionCreated) {
-          print("Exception created block");
-          // Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
-          WidgetsBinding.instance!.addPostFrameCallback((_) {
-            print("Exception created block 1");
-            Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
-            mediaProvider.uiLoading = false;
-            // showSnackBarWithFloating();
-          });
-        }
+        print("Exception created block");
+        // Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
+        WidgetsBinding.instance!.addPostFrameCallback((_) {
+          print("Exception created block 1");
+          Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
+          mediaProvider.uiLoading = false;
+          // showSnackBarWithFloating();
+        });
+      }
       if (mediaProvider.uiLoading) {
         return Scaffold(
             extendBodyBehindAppBar: true,
@@ -205,7 +206,7 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
           mediaProvider.hasMoreData = false;
         }
         return Scaffold(
-            extendBodyBehindAppBar: true,
+            // extendBodyBehindAppBar: true,
             key: _key,
             endDrawer: AppDrawerWidget(),
             // drawer: AppDrawerWidget(),
@@ -213,33 +214,47 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
               scaffoldKey: _key,
               title: "Media Gallery",
             ),
-            body: SafeArea(
-                child: ListView(controller: _controller, children: [
-              Container(
-                margin: EdgeInsets.fromLTRB(24, AppBar().preferredSize.height * 0.3, 24, 16),
-                child: Column(
-                  children: _buildMediaList(),
-                ),
-              ),
-              // when the _loadMore function is running
-              if (_isLoadMoreRunning == true)
-                Padding(
-                  padding: const EdgeInsets.only(top: 10, bottom: 10),
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                ),
-
-              // When nothing else to load
-              if (_hasNextPage == false)
+            body: Column(children: [
+              MaterialBanner(
+                        content: FxText.b1("Media Gallery",
+                            // fontSize: currentIndex == 0 ? 20 : null,
+                            textAlign: TextAlign.left,
+                            fontWeight: 600,
+                            color: theme.colorScheme.onPrimary),
+                        // contentTextStyle: const TextStyle(color: Colors.black, fontSize: 30),
+                        backgroundColor:  Colors.black.withAlpha(200),
+                        // leadingPadding: const EdgeInsets.only(right: 30),
+                        actions: [
+                          TextButton(onPressed: () {}, child: const Text('')),
+                        ]),
+              Expanded(
+                  child: ListView(controller: _controller, children: [
                 Container(
-                  padding: const EdgeInsets.only(top: 0, bottom: 40),
-                  // color: Colors.amber,
-                  child: Center(
-                    child: Text('No More Media'),
+                  margin: EdgeInsets.fromLTRB(24, AppBar().preferredSize.height * 0.3, 24, 16),
+                  child: Column(
+                    children: _buildMediaList(),
                   ),
                 ),
-            ])));
+                // when the _loadMore function is running
+                if (_isLoadMoreRunning == true)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10, bottom: 10),
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
+
+                // When nothing else to load
+                if (_hasNextPage == false)
+                  Container(
+                    padding: const EdgeInsets.only(top: 0, bottom: 40),
+                    // color: Colors.amber,
+                    child: Center(
+                      child: Text('No More Media'),
+                    ),
+                  ),
+              ]))
+            ]));
       }
     });
   }

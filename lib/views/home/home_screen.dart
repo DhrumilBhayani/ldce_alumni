@@ -23,7 +23,7 @@ import 'package:ldce_alumni/views/home/home_media_tab.dart';
 import 'package:ldce_alumni/views/home/home_news_tab.dart';
 import 'package:ldce_alumni/views/home/home_noteworthy_tab.dart';
 import 'package:ldce_alumni/views/loading_effect.dart';
-import 'package:ldce_alumni/views/projects/home_project_tab.dart';
+import 'package:ldce_alumni/views/home/home_project_tab.dart';
 import 'package:ldce_alumni/views/widgets/app_bar_widget.dart';
 import 'package:ldce_alumni/views/widgets/app_drawer_widget.dart';
 import 'package:ldce_alumni/views/widgets/simple_dialog.dart';
@@ -49,6 +49,13 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   late TabController tabController;
   late List<NavItem> navItems;
   String? selectedNotificationPayload;
+
+  List<Color> bgColors = [
+    Color.fromARGB(255, 250, 38, 48),
+    Color(0xffffca02),
+    Color(0xff1692d0),
+    Color(0xff07a44d)
+  ];
 
   bool isDark = false;
   TextDirection textDirection = TextDirection.ltr;
@@ -279,12 +286,11 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             // showSnackBarWithFloating();
           });
         }
-        if (homeProvider.uiLoading && !homeProvider.exceptionCreated ) {
+        if (homeProvider.uiLoading && !homeProvider.exceptionCreated) {
           // print("HomeProvider");
 
           // homeProvider.getNews();
           try {
-           
             homeProvider.fetchData();
           } on Exception catch (ex) {
             print(ex);
@@ -344,15 +350,47 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                       options: CarouselOptions(
                         height: 180.0,
                         // enlargeCenterPage: true,
-                        autoPlay: true,
+                        // autoPlay: true,
                         // aspectRatio: 16 / 9,
                         autoPlayCurve: Curves.fastOutSlowIn,
                         enableInfiniteScroll: true,
                         autoPlayAnimationDuration: Duration(milliseconds: 500),
                         viewportFraction: 2,
                       ),
-                      items: !homeProvider.exceptionCreated ? _buildSliderImage(homeProvider) : [Container()],
+                      items: !homeProvider.exceptionCreated
+                          ? _buildSliderImage(homeProvider)
+                          : [Container()],
                     ),
+                    // Positioned(
+                    //     top: MediaQuery.of(context).size.height * 0.04,
+                    //     // left: MediaQuery.of(context).size.width * 0.72,
+                    //     child: RotatedBox(
+                    //         quarterTurns: 1,
+                    //         child: Container(
+                    //             decoration: BoxDecoration(
+                    //                 borderRadius: BorderRadius.all(Radius.circular(8)),
+                    //                 color: bgColors[currentIndex < 4 ? currentIndex : currentIndex - 4]
+                    //                     .withAlpha(200)),
+                    //             // height: currentIndex == 0 ? 50 : null,
+                    //             margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                    //             child: ElevatedButton(
+                    //               onPressed: () {
+                    //                 Navigator.of(context).pushNamedAndRemoveUntil(
+                    //                     'alumni_directory_home', ModalRoute.withName('home'));
+                    //                 // Navigator.pushNamed(context, 'alumni_directory_home',
+                    //                 //     arguments: homeProvider.news);
+                    //               },
+                    //               child: FxText.b1("ALUMNI\nDIRECTORY",
+                    //                   // fontSize: currentIndex == 0 ? 20 : null,
+                    //                   textAlign: TextAlign.center,
+                    //                   fontWeight: 600,
+                    //                   color: theme.colorScheme.onPrimary),
+                    //               style: ButtonStyle(
+                    //                   elevation: MaterialStateProperty.all(0),
+                    //                   backgroundColor: MaterialStateProperty.all(Colors.transparent),
+                    //                   padding: MaterialStateProperty.all(
+                    //                       EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 0))),
+                    //             )))),
                     Positioned(
                         top: MediaQuery.of(context).size.height * 0.125,
                         left: MediaQuery.of(context).size.width * 0.72,
@@ -372,27 +410,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   ],
                 ),
 
-                Row(children: [
-                  Expanded(
-                      child: Container(
-                          height: currentIndex == 0 ? 50 : null,
-                          margin: EdgeInsets.fromLTRB(10, currentIndex == 0 ? 11 : 10, 10, 0),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).pushNamedAndRemoveUntil(
-                                  'alumni_directory_home', ModalRoute.withName('home'));
-                              // Navigator.pushNamed(context, 'alumni_directory_home',
-                              //     arguments: homeProvider.news);
-                            },
-                            child: FxText.b1("ALUMNI DIRECTORY",
-                                fontSize: currentIndex == 0 ? 20 : null,
-                                fontWeight: 600,
-                                color: theme.colorScheme.onPrimary),
-                            style: ButtonStyle(
-                                padding: MaterialStateProperty.all(
-                                    EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 0))),
-                          )))
-                ]),
                 Expanded(
                   child: TabBarView(
                       controller: tabController,
@@ -408,146 +425,175 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 //         top: BorderSide(width: 2, color: customTheme.border),
                 //       )),
                 //   child:
+
                 SafeArea(
                     child: PreferredSize(
                         preferredSize: new Size(200.0, 200.0),
                         child: new Container(
                             // height: 80,
                             // width: 200.0,
-                            child: TabBar(
-                                indicator: UnderlineTabIndicator(
-                                  borderSide: BorderSide(color: theme.colorScheme.secondary, width: 5.0),
-                                  insets: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 150.0),
-                                ),
-                                controller: tabController,
-                                isScrollable: true,
-                                indicatorSize: TabBarIndicatorSize.tab,
-                                indicatorColor: theme.colorScheme.primary,
-                                padding: EdgeInsets.zero,
-                                indicatorPadding: EdgeInsets.only(bottom: 5),
-                                labelPadding: EdgeInsets.zero,
-                                indicatorWeight: 0,
-                                tabs: [
-                              Container(
-                                  color: Color.fromARGB(255, 250, 38, 48),
-                                  constraints: BoxConstraints.expand(width: 80, height: 80),
-                                  height: 80,
-                                  child: Tab(
-                                    child: Tooltip(
-                                      height: 800,
-                                      message: "Home",
+                            child: Column(children: [
+                          Row(children: [
+                            Expanded(
+                                child: InkWell(
+                                    onTap: () {
+                                      Navigator.of(context).pushNamedAndRemoveUntil(
+                                          'alumni_directory_home', ModalRoute.withName('home'));
+                                    },
+                                    child: Container(
+                                      color: Colors.black.withAlpha(200),
+                                      height: 43,
+                                      alignment: Alignment.center,
+                                      // margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                      // child: ElevatedButton(
+                                      //   onPressed: () {
+                                      //     Navigator.of(context).pushNamedAndRemoveUntil(
+                                      //         'alumni_directory_home', ModalRoute.withName('home'));
+                                      //     // Navigator.pushNamed(context, 'alumni_directory_home',
+                                      //     //     arguments: homeProvider.news);
+                                      //   },
+                                      child: FxText.b1("ALUMNI DIRECTORY",
+                                          // fontSize: currentIndex == 0 ? 20 : null,
+                                          textAlign: TextAlign.center,
+                                          fontWeight: 600,
+                                          color: theme.colorScheme.onPrimary),
+                                    )))
+                          ]),
+                          TabBar(
+                              indicator: UnderlineTabIndicator(
+                                borderSide: BorderSide(color: theme.colorScheme.secondary, width: 5.0),
+                                insets: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 150.0),
+                              ),
+                              controller: tabController,
+                              isScrollable: true,
+                              indicatorSize: TabBarIndicatorSize.tab,
+                              indicatorColor: theme.colorScheme.primary,
+                              padding: EdgeInsets.zero,
+                              indicatorPadding: EdgeInsets.only(bottom: 5),
+                              labelPadding: EdgeInsets.zero,
+                              indicatorWeight: 0,
+                              tabs: [
+                                Container(
+                                    color: Color.fromARGB(255, 250, 38, 48),
+                                    constraints: BoxConstraints.expand(width: 80, height: 80),
+                                    height: 80,
+                                    child: Tab(
+                                      child: Tooltip(
+                                        height: 800,
+                                        message: "Home",
+                                        child: Container(
+                                            // constraints: BoxConstraints.expand(width: 100, height: 800),
+                                            color: Color.fromARGB(255, 250, 38, 48),
+                                            child: Icon(navItems[0].icon,
+                                                color: (currentIndex == 0)
+                                                    ? theme.colorScheme.onBackground
+                                                    : theme.colorScheme.onPrimary.withAlpha(500),
+                                                size: navItems[0].size * 1.5)),
+                                      ),
+                                    )),
+                                Container(
+                                    color: Color(0xffffca02),
+                                    constraints: BoxConstraints.expand(width: 80, height: 80),
+                                    height: 80,
+                                    child: Tab(
+                                        child: Tooltip(
+                                      message: "News",
                                       child: Container(
-                                          // constraints: BoxConstraints.expand(width: 100, height: 800),
-                                          color: Color.fromARGB(255, 250, 38, 48),
-                                          child: Icon(navItems[0].icon,
-                                              color: (currentIndex == 0)
+                                          constraints: BoxConstraints.expand(width: 80),
+                                          color: Color(0xffffca02),
+                                          child: Icon(navItems[1].icon,
+                                              color: (currentIndex == 1)
                                                   ? theme.colorScheme.onBackground
                                                   : theme.colorScheme.onPrimary.withAlpha(500),
-                                              size: navItems[0].size * 1.5)),
-                                    ),
-                                  )),
-                              Container(
-                                  color: Color(0xffffca02),
-                                  constraints: BoxConstraints.expand(width: 80, height: 80),
-                                  height: 80,
-                                  child: Tab(
-                                      child: Tooltip(
-                                    message: "News",
-                                    child: Container(
-                                        constraints: BoxConstraints.expand(width: 80),
-                                        color: Color(0xffffca02),
-                                        child: Icon(navItems[1].icon,
-                                            color: (currentIndex == 1)
-                                                ? theme.colorScheme.onBackground
-                                                : theme.colorScheme.onPrimary.withAlpha(500),
-                                            size: navItems[1].size * 1.5)),
-                                  ))),
-                              Container(
-                                  color: Color.fromARGB(255, 250, 38, 48),
-                                  constraints: BoxConstraints.expand(width: 80, height: 80),
-                                  height: 80,
-                                  child: Tab(
-                                      child: Tooltip(
-                                    message: "Events",
-                                    child: Container(
-                                        constraints: BoxConstraints.expand(
-                                          width: 80,
-                                        ),
-                                        color: Color(0xff1692d0),
-                                        child: Icon(navItems[2].icon,
-                                            color: (currentIndex == 2)
-                                                ? theme.colorScheme.onBackground
-                                                : theme.colorScheme.onPrimary.withAlpha(500),
-                                            size: navItems[2].size * 1.5)),
-                                  ))),
-                              Container(
-                                  color: Color.fromARGB(255, 250, 38, 48),
-                                  constraints: BoxConstraints.expand(width: 80, height: 80),
-                                  height: 80,
-                                  child: Tab(
-                                      child: Tooltip(
-                                    message: "Media Gallery",
-                                    child: Container(
-                                        constraints: BoxConstraints.expand(width: 80),
-                                        color: Color(0xff07a44d),
-                                        child: Icon(navItems[3].icon,
-                                            color: (currentIndex == 3)
-                                                ? theme.colorScheme.onBackground
-                                                : theme.colorScheme.onPrimary.withAlpha(500),
-                                            size: navItems[3].size * 1.5)),
-                                  ))),
-                              Container(
-                                  color: Color.fromARGB(255, 250, 38, 48),
-                                  constraints: BoxConstraints.expand(width: 80, height: 80),
-                                  height: 80,
-                                  child: Tab(
-                                      child: Tooltip(
-                                    message: "Noteworthy Mentions",
-                                    child: Container(
-                                        constraints: BoxConstraints.expand(width: 80),
-                                        color: Color.fromARGB(255, 250, 38, 48),
-                                        child: Icon(navItems[4].icon,
-                                            color: (currentIndex == 4)
-                                                ? theme.colorScheme.onBackground
-                                                : theme.colorScheme.onPrimary.withAlpha(500),
-                                            size: navItems[4].size * 1.5)),
-                                  ))),
-                              Container(
-                                  color: Color.fromARGB(255, 250, 38, 48),
-                                  constraints: BoxConstraints.expand(width: 80, height: 80),
-                                  height: 80,
-                                  child: Tab(
-                                      child: Tooltip(
-                                    message: "Projects",
-                                    child: Container(
-                                        constraints: BoxConstraints.expand(width: 80),
-                                        color: Color(0xffffca02),
-                                        child: Icon(navItems[5].icon,
-                                            color: (currentIndex == 5)
-                                                ? theme.colorScheme.onBackground
-                                                : theme.colorScheme.onPrimary.withAlpha(500),
-                                            size: navItems[5].size * 1.5)),
-                                  ))),
-                              Container(
-                                  color: Color.fromARGB(255, 250, 38, 48),
-                                  constraints: BoxConstraints.expand(width: 80, height: 80),
-                                  height: 80,
-                                  child: Tab(
-                                      child: Tooltip(
-                                    message: "Digital Downloads",
-                                    child: Container(
-                                        constraints: BoxConstraints.expand(width: 80),
-                                        color: Color(0xff1692d0),
-                                        child: Icon(navItems[6].icon,
-                                            color: (currentIndex == 6)
-                                                ? theme.colorScheme.onBackground
-                                                : theme.colorScheme.onPrimary.withAlpha(500),
-                                            size: navItems[6].size * 1.5)),
-                                  ))),
-                            ]
+                                              size: navItems[1].size * 1.5)),
+                                    ))),
+                                Container(
+                                    color: Color.fromARGB(255, 250, 38, 48),
+                                    constraints: BoxConstraints.expand(width: 80, height: 80),
+                                    height: 80,
+                                    child: Tab(
+                                        child: Tooltip(
+                                      message: "Events",
+                                      child: Container(
+                                          constraints: BoxConstraints.expand(
+                                            width: 80,
+                                          ),
+                                          color: Color(0xff1692d0),
+                                          child: Icon(navItems[2].icon,
+                                              color: (currentIndex == 2)
+                                                  ? theme.colorScheme.onBackground
+                                                  : theme.colorScheme.onPrimary.withAlpha(500),
+                                              size: navItems[2].size * 1.5)),
+                                    ))),
+                                Container(
+                                    color: Color.fromARGB(255, 250, 38, 48),
+                                    constraints: BoxConstraints.expand(width: 80, height: 80),
+                                    height: 80,
+                                    child: Tab(
+                                        child: Tooltip(
+                                      message: "Media Gallery",
+                                      child: Container(
+                                          constraints: BoxConstraints.expand(width: 80),
+                                          color: Color(0xff07a44d),
+                                          child: Icon(navItems[3].icon,
+                                              color: (currentIndex == 3)
+                                                  ? theme.colorScheme.onBackground
+                                                  : theme.colorScheme.onPrimary.withAlpha(500),
+                                              size: navItems[3].size * 1.5)),
+                                    ))),
+                                Container(
+                                    color: Color.fromARGB(255, 250, 38, 48),
+                                    constraints: BoxConstraints.expand(width: 80, height: 80),
+                                    height: 80,
+                                    child: Tab(
+                                        child: Tooltip(
+                                      message: "Noteworthy Mentions",
+                                      child: Container(
+                                          constraints: BoxConstraints.expand(width: 80),
+                                          color: Color.fromARGB(255, 250, 38, 48),
+                                          child: Icon(navItems[4].icon,
+                                              color: (currentIndex == 4)
+                                                  ? theme.colorScheme.onBackground
+                                                  : theme.colorScheme.onPrimary.withAlpha(500),
+                                              size: navItems[4].size * 1.5)),
+                                    ))),
+                                Container(
+                                    color: Color.fromARGB(255, 250, 38, 48),
+                                    constraints: BoxConstraints.expand(width: 80, height: 80),
+                                    height: 80,
+                                    child: Tab(
+                                        child: Tooltip(
+                                      message: "Projects",
+                                      child: Container(
+                                          constraints: BoxConstraints.expand(width: 80),
+                                          color: Color(0xffffca02),
+                                          child: Icon(navItems[5].icon,
+                                              color: (currentIndex == 5)
+                                                  ? theme.colorScheme.onBackground
+                                                  : theme.colorScheme.onPrimary.withAlpha(500),
+                                              size: navItems[5].size * 1.5)),
+                                    ))),
+                                Container(
+                                    color: Color.fromARGB(255, 250, 38, 48),
+                                    constraints: BoxConstraints.expand(width: 80, height: 80),
+                                    height: 80,
+                                    child: Tab(
+                                        child: Tooltip(
+                                      message: "Digital Downloads",
+                                      child: Container(
+                                          constraints: BoxConstraints.expand(width: 80),
+                                          color: Color(0xff1692d0),
+                                          child: Icon(navItems[6].icon,
+                                              color: (currentIndex == 6)
+                                                  ? theme.colorScheme.onBackground
+                                                  : theme.colorScheme.onPrimary.withAlpha(500),
+                                              size: navItems[6].size * 1.5)),
+                                    ))),
+                              ]
 
-                                // buildTab(),
-                                )))),
+                              // buildTab(),
+                              )
+                        ])))),
                 // )
               ],
             ),
