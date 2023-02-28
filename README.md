@@ -1,5 +1,7 @@
 # LDCE Connect
 
+# No Longer Maintaining this project.
+
 LDCE Connect - A personalised connection to your LDCE network, events, and alumni news — with you,  wherever you are, 24x7 with real-time updates and alerts. It provides easy access to:
 
 Alumni Directory – To help you find all your college friends and alumni, across batches and all branches! 
