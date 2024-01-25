@@ -57,11 +57,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
       return;
     }
 
+    var encId = await globals.FlutterSecureStorageObj.read(key: "encId");
     var token = await globals.FlutterSecureStorageObj.read(key: "access_token");
     var request = http.MultipartRequest(
       'POST',
       Uri.parse(
-        globals.BASE_API_URL + '/Alumni/UpdateProfilePicture/zqKj1GOvSjw=',
+        globals.BASE_API_URL + '/Alumni/UpdateProfilePicture/$encId',
       ),
     );
 
@@ -70,7 +71,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         'image',
         _image.readAsBytes().asStream(),
         _image.lengthSync(),
-        // filename: 'profile_image.jpg', // Specify the desired file name
+        filename: 'profile_image.jpg',
       ),
     );
     // request.headers['Authorization'] = 'Bearer ${token}';
@@ -86,7 +87,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
       print("Response status: ${response1.body}");
       if (response.statusCode == 200) {
-        print('Image uploaded successfully'); // 
+        var profile = new ProfileController();
+        profile.getProfile();
+        print('Image uploaded successfully'); //
       } else {
         print('Failed to upload image. Status code: ${response.statusCode}');
       }
