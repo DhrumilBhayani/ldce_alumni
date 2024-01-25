@@ -376,9 +376,9 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () async {
                                       final url = 'mailto:secretary@ldcealumni.net';
-                                      if (await canLaunch(url)) {
-                                        await launch(url);
-                                      }
+                                      if (await canLaunchUrl(Uri.parse(url))) {
+                                                await launchUrl(Uri.parse(url));
+                                              }
                                     },
                                 ),
                               ),

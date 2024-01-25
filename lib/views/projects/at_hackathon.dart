@@ -340,8 +340,8 @@ class _ATHackathonState extends State<ATHackathon> {
                                           recognizer: TapGestureRecognizer()
                                             ..onTap = () async {
                                               final url = 'https://www.voiceofsap.org/athackathon';
-                                              if (await canLaunch(url)) {
-                                                await launch(url);
+                                               if (await canLaunchUrl(Uri.parse(url))) {
+                                                await launchUrl(Uri.parse(url));
                                               }
                                             },
                                         ))),

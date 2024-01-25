@@ -6,7 +6,7 @@ import 'package:ldce_alumni/theme/theme_type.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
+class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
   final GlobalKey<ScaffoldState> scaffoldKey; // Create a key
   final PreferredSizeWidget? bottom;
@@ -30,7 +30,7 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
       // Text("data"),
       // SizedBox(height: 10),
       return AppBar(
-        backwardsCompatibility: false,
+        // backwardsCompatibility: false,
         //   bottom: PreferredSize(
         // child: Container(
         //               color: Colors.black.withAlpha(200),
@@ -57,8 +57,8 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
         backgroundColor: Colors.black.withOpacity(0.8),
         // backgroundColor: Colors.black.withOpacity(0.5),
         systemOverlayStyle: SystemUiOverlayStyle(
-            systemNavigationBarColor: Colors.red,
-            systemNavigationBarIconBrightness: Brightness.light,
+            // systemNavigationBarColor: Colors.red,
+            // systemNavigationBarIconBrightness: Brightness.light,
             statusBarColor: Colors.transparent.withOpacity(0.0),
             statusBarIconBrightness: Brightness.light,
             statusBarBrightness: Brightness.dark),

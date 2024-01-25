@@ -62,7 +62,7 @@ class _DownloadsHomeScreenState extends State<DownloadsHomeScreen> with SingleTi
       if (digitalDownloadsProvider.exceptionCreated) {
           print("Exception created block");
           // Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
-          WidgetsBinding.instance!.addPostFrameCallback((_) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
             print("Exception created block 1");
             Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
             digitalDownloadsProvider.uiLoading = false;
@@ -221,7 +221,7 @@ class _DownloadsHomeScreenState extends State<DownloadsHomeScreen> with SingleTi
                 margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 20),
                 child: LoadingEffect.getEventsHomeLoadingScreen(
                   context,
-                )));;
+                )));
       }
     });
   }

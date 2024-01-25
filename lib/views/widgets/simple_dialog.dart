@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ldce_alumni/core/button.dart';
 import 'package:ldce_alumni/core/text.dart';
 import 'package:ldce_alumni/theme/themes.dart';
-import 'package:ldce_alumni/utils/local_notification_service.dart';
+import 'package:ldce_alumni/views/widgets/screen_arguments.dart';
+// import 'package:ldce_alumni/utils/local_notification_service.dart.bk';
 
 class SimpleDialogWidget extends StatefulWidget {
   SimpleDialogWidget({required this.id, required this.type, required this.title, Key? key})
@@ -28,7 +29,7 @@ class _SimpleDialogWidgetState extends State<SimpleDialogWidget> {
       child: Container(
         padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: themeData.backgroundColor,
+          color: themeData.colorScheme.background,
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.circular(8),
           boxShadow: [
@@ -91,7 +92,7 @@ class _SimpleDialog extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: themeData.backgroundColor,
+          color: themeData.colorScheme.background,
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.circular(8),
           boxShadow: [
@@ -130,3 +131,4 @@ class _SimpleDialog extends StatelessWidget {
     );
   }
 }
+

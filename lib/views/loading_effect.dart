@@ -1223,4 +1223,145 @@ class LoadingEffect {
         ));
     return singleLoading;
   }
+
+    static Widget getProfileLoadingScreen(BuildContext context, {int itemCount = 1}) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarIconBrightness: Brightness.dark));
+
+    LoadingThemeData theme = LoadingThemeData.theme;
+    Widget singleLoading = Shimmer.fromColors(
+        baseColor: theme.shimmerBaseColor,
+        highlightColor: theme.shimmerHighlightColor,
+        child: Column(mainAxisSize: MainAxisSize.max, children: <Widget>[
+          Container(
+            height: MediaQuery.of(context).size.height * 0.05,
+            width: 380,
+            //color: Colors.grey,
+            decoration: BoxDecoration(
+              color: Colors.grey,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: Colors.grey),
+            ),
+          ),
+          SizedBox(
+            height: 25,
+          ),
+          Container(
+            height: MediaQuery.of(context).size.height * 0.2,
+            width: 380,
+            //color: Colors.grey,
+            decoration: BoxDecoration(
+              color: Colors.grey,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: Colors.grey),
+            ),
+          ),
+          SizedBox(
+            height: 25,
+          ),
+          Container(
+            height: MediaQuery.of(context).size.height * 0.2,
+            width: 380,
+            //color: Colors.grey,
+            decoration: BoxDecoration(
+              color: Colors.grey,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: Colors.grey),
+            ),
+          ),
+          SizedBox(
+            height: 25,
+          ),
+          Container(
+            height: MediaQuery.of(context).size.height * 0.2,
+            width: 380,
+            //color: Colors.grey,
+            decoration: BoxDecoration(
+              color: Colors.grey,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: Colors.grey),
+            ),
+          ),
+          SizedBox(
+            height: 25,
+          ),
+          Container(
+            height: MediaQuery.of(context).size.height * 0.1,
+            width: 380,
+            //color: Colors.grey,
+            decoration: BoxDecoration(
+              color: Colors.grey,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: Colors.grey),
+            ),
+          ),
+          // Padding(
+          //     padding: const EdgeInsets.all(15),
+          //     child: GridView.count(
+          //         shrinkWrap: true,
+          //         physics: const ClampingScrollPhysics(),
+          //         crossAxisCount: 2,
+          //         padding: EdgeInsets.zero,
+          //         mainAxisSpacing: 15,
+          //         childAspectRatio: 3 / 2,
+          //         crossAxisSpacing: 15,
+          //         children: <Widget>[
+          //           Container(
+          //             height: 100,
+          //             width: 100,
+          //             //color: Colors.grey,
+          //             decoration: BoxDecoration(
+          //               color: Colors.grey,
+          //               borderRadius: BorderRadius.circular(8),
+          //               border: Border.all(color: Colors.grey),
+          //             ),
+          //           ),
+          //           Container(
+          //             height: 100,
+          //             width: 100,
+          //             //color: Colors.grey,
+          //             decoration: BoxDecoration(
+          //               color: Colors.grey,
+          //               borderRadius: BorderRadius.circular(8),
+          //               border: Border.all(color: Colors.grey),
+          //             ),
+          //           ),
+          //           Container(
+          //             height: 100,
+          //             width: 100,
+          //             //color: Colors.grey,
+          //             decoration: BoxDecoration(
+          //               color: Colors.grey,
+          //               borderRadius: BorderRadius.circular(8),
+          //               border: Border.all(color: Colors.grey),
+          //             ),
+          //           ),
+          //           Container(
+          //             height: 100,
+          //             width: 100,
+          //             //color: Colors.grey,
+          //             decoration: BoxDecoration(
+          //               color: Colors.grey,
+          //               borderRadius: BorderRadius.circular(8),
+          //               border: Border.all(color: Colors.grey),
+          //             ),
+          //           ),
+          //         ])),
+          SizedBox(
+            height: 0,
+          ),
+          Container(
+            height: 0,
+            padding: EdgeInsets.all(16),
+            width: MediaQuery.of(context).size.width,
+          ),
+        ]));
+
+    List<Widget> list = [];
+    for (int i = 0; i < itemCount; i++) {
+      list.add(Container(padding: EdgeInsets.fromLTRB(16, 8, 16, 8), child: singleLoading));
+    }
+    return Column(
+      children: [singleLoading],
+    );
+  }
 }

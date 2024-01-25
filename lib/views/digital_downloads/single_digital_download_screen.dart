@@ -1,11 +1,17 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:gallery_saver/gallery_saver.dart';
+// import 'package:gallery_saver/gallery_saver.dart';
 import 'package:ldce_alumni/controllers/events/events_controller.dart';
 import 'package:ldce_alumni/core/text.dart';
 import 'package:flutter/material.dart';
 import 'package:ldce_alumni/theme/themes.dart';
 import 'package:provider/provider.dart';
 import 'package:ldce_alumni/core/globals.dart' as globals ;
+import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
+
+
 
 class SingleDigitalDownloadScreen extends StatefulWidget {
   final String title;
@@ -54,17 +60,41 @@ class _SingleDigitalDownloadScreenState extends State<SingleDigitalDownloadScree
       ),
     );
   }
-
+String extractFileNameFromUrl(String url) {
+  Uri uri = Uri.parse(url);
+  String path = uri.path;
+  List<String> segments = path.split('/');
+  return segments.isNotEmpty ? segments.last : '';
+}
   Future<void> _download(String url) async {
     showSnackBarWithFloating("Downloading.....", theme.primaryColor);
-    GallerySaver.saveImage(url).then((value) {
-      showSnackBarWithFloating("Saved To Gallery!", Colors.green);
+     String fileName = extractFileNameFromUrl(url);
+    var response = await http.get(Uri.parse(url));
+    final uint8List = response.bodyBytes;
 
-      print(value);
-      setState(() {
-        print('Image is saved');
-      });
-    });
+    final appDocDir = await getTemporaryDirectory();
+    final file = File('${appDocDir.path}/temp_image.jpg');
+    await file.writeAsBytes(uint8List);
+
+    // Use the Dart 'dart:io' library to copy the image to the gallery.
+    final galleryDir = Directory('/storage/emulated/0/DCIM'); // Android gallery directory
+    final newFile = await file.copy('${galleryDir.path}/${fileName}');
+
+    if (newFile.existsSync()) {
+      print('Image saved to gallery: ${newFile.path}');
+       showSnackBarWithFloating("Saved To Gallery!", Colors.green);
+    } else {
+       showSnackBarWithFloating("Unable to Save Image", Colors.red);
+      print('Failed to save image to gallery.');
+    }
+    // GallerySaver.saveImage(url).then((value) {
+    //   showSnackBarWithFloating("Saved To Gallery!", Colors.green);
+
+    //   print(value);
+    //   setState(() {
+    //     print('Image is saved');
+    //   });
+    // });
   }
 
   @override

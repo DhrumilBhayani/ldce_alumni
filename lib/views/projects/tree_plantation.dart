@@ -429,8 +429,8 @@ class _TreePlantationScreenState extends State<TreePlantationScreen> {
                                           recognizer: TapGestureRecognizer()
                                             ..onTap = () async {
                                               final url = 'https://www.ldcealumni.net/Home/Login';
-                                              if (await canLaunch(url)) {
-                                                await launch(url);
+                                              if (await canLaunchUrl(Uri.parse(url))) {
+                                                await launchUrl(Uri.parse(url));
                                               }
                                             },
                                         ))),

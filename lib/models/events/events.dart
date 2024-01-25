@@ -19,6 +19,7 @@
  */
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:ldce_alumni/core/globals.dart' as globals;
@@ -98,10 +99,10 @@ class Events {
 
     var url = Uri.parse(globals.BASE_API_URL + 'Events/' + eventsId.toString());
 
-     try {
+    try {
       var response = await http.get(url);
       if (response.statusCode == 200) {
-        
+        log(response.body);
         return response.body;
       }
     } on TimeoutException catch (e) {
@@ -111,8 +112,8 @@ class Events {
     } on Error catch (e) {
       print('General Error: $e');
     }
-      return '';
-      // return await rootBundle.loadString('lib/models/news/news.json');
+    return '';
+    // return await rootBundle.loadString('lib/models/news/news.json');
     // /home/evilknight/Desktop/Projects/LD/ld_alumni/lib/models/home/news.json
   }
 
@@ -171,7 +172,6 @@ class Events {
     try {
       var response = await http.get(url);
       if (response.statusCode == 200) {
-        
         return response.body;
       }
     } on TimeoutException catch (e) {
@@ -181,8 +181,8 @@ class Events {
     } on Error catch (e) {
       print('General Error: $e');
     }
-      return '';
-      // return await rootBundle.loadString('lib/models/news/news.json');
+    return '';
+    // return await rootBundle.loadString('lib/models/news/news.json');
     // /home/evilknight/Desktop/Projects/LD/ld_alumni/lib/models/home/news.json
   }
   // static Future<String> getData() async {

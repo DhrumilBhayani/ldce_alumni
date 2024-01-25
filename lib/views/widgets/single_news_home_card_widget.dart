@@ -34,8 +34,8 @@ class SingleHomeNewsCardWidget extends StatelessWidget {
     late CustomTheme customTheme;
     customTheme = AppTheme.customTheme;
     // inspect(theme);
-    bool isDark = false;
-    TextDirection textDirection = TextDirection.ltr;
+    // bool isDark = false;
+    // TextDirection textDirection = TextDirection.ltr;
     // return Consumer<AppNotifier>(builder: (BuildContext context, AppNotifier value, Widget? child) {
     //   isDark = AppTheme.themeType == ThemeType.dark;
     //   textDirection = AppTheme.textDirection;

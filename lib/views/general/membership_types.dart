@@ -125,9 +125,9 @@ class _MemberShipTypesState extends State<MemberShipTypes> {
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () async {
                                       final url = 'https://www.ldcealumni.net/Home/Registration';
-                                      if (await canLaunch(url)) {
-                                        await launch(url);
-                                      }
+                                      if (await canLaunchUrl(Uri.parse(url))) {
+                                                await launchUrl(Uri.parse(url));
+                                              }
                                     },
                                 ),
                                 TextSpan(

@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors, unnecessary_new
 
-import 'dart:convert';
+import 'dart:developer';
 import 'package:ldce_alumni/core/globals.dart' as globals;
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -8,14 +8,14 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:ldce_alumni/controllers/home/home_controller.dart';
 import 'package:ldce_alumni/core/text.dart';
 import 'package:ldce_alumni/models/home/home.dart';
 import 'package:ldce_alumni/theme/theme_type.dart';
 import 'package:ldce_alumni/theme/themes.dart';
 import 'package:ldce_alumni/utils/custom_badge_icons.dart';
-import 'package:ldce_alumni/utils/local_notification_service.dart';
+// import 'package:ldce_alumni/utils/local_notification_service.dart.bk';
 import 'package:ldce_alumni/views/home/home_downloads_tab.dart';
 import 'package:ldce_alumni/views/home/home_events_tab.dart';
 import 'package:ldce_alumni/views/home/home_home_tab.dart';
@@ -26,15 +26,16 @@ import 'package:ldce_alumni/views/loading_effect.dart';
 import 'package:ldce_alumni/views/home/home_project_tab.dart';
 import 'package:ldce_alumni/views/widgets/app_bar_widget.dart';
 import 'package:ldce_alumni/views/widgets/app_drawer_widget.dart';
+import 'package:ldce_alumni/views/widgets/screen_arguments.dart';
 import 'package:ldce_alumni/views/widgets/simple_dialog.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
-    this.notificationAppLaunchDetails,
+    // this.notificationAppLaunchDetails,
     Key? key,
   }) : super(key: key);
-  final NotificationAppLaunchDetails? notificationAppLaunchDetails;
+  // final NotificationAppLaunchDetails? notificationAppLaunchDetails;
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -87,17 +88,80 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
       setState(() {});
     });
-    print(widget.notificationAppLaunchDetails?.didNotificationLaunchApp);
-    if (widget.notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
-      selectedNotificationPayload = widget.notificationAppLaunchDetails!.payload;
-      print('##########################################################');
-      print(selectedNotificationPayload);
-      Map jsonPayload = json.decode(selectedNotificationPayload!);
+
+// noti launch code
+
+    // print(widget.notificationAppLaunchDetails?.didNotificationLaunchApp);
+    // if (widget.notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
+
+    //   selectedNotificationPayload = widget.notificationAppLaunchDetails!.notificationResponse?.payload;
+    //   print('##########################################################');
+    //   print(selectedNotificationPayload);
+    //   Map jsonPayload = json.decode(selectedNotificationPayload!);
+    //   if (jsonPayload["type"].toString().toLowerCase().contains('news')) {
+    //     print("NEWSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+    //     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    //         statusBarColor: Colors.white, statusBarIconBrightness: Brightness.dark));
+    //     WidgetsBinding.instance.addPostFrameCallback((_) {
+    //       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    //           statusBarColor: Colors.white, statusBarIconBrightness: Brightness.dark));
+    //       // Navigator.push(
+    //       //     context,
+    //       //     MaterialPageRoute(
+    //       //         builder: (context) => SingleInternetNewsScreen(
+    //       //               id: jsonPayload['id'],
+    //       //             )));
+    //       Navigator.pushNamed(context, 'single_internet_news_screen',
+    //           arguments: ScreenArguments(jsonPayload['id']));
+    //     });
+    //   }
+    //   if (jsonPayload["type"].toString().toLowerCase().contains('event') ||
+    //       jsonPayload["type"].toString().toLowerCase().contains('events')) {
+    //     // print("EVENTSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+    //     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    //         statusBarColor: Colors.white, statusBarIconBrightness: Brightness.dark));
+    //     WidgetsBinding.instance.addPostFrameCallback((_) {
+    //       //   Navigator.push(
+    //       //       context,
+    //       //       MaterialPageRoute(
+    //       //           builder: (context) => SingleInternetEventScreen(
+    //       //                 id:jsonPayload['id'],
+    //       //               )));
+    //       Navigator.pushNamed(context, 'single_internet_events_screen',
+    //           arguments: ScreenArguments(jsonPayload['id']));
+    //     });
+    //   }
+    //   print('##########################################################');
+    // }
+    // homeController = HomeController();
+
+    theme = AppTheme.theme;
+    customTheme = AppTheme.customTheme;
+
+    ///  Terminated State
+    /// 1. This method call when app in terminated state and you get a notification
+    // when you click on notification app open from terminated state and
+    // you can get notification data in this method
+
+    FirebaseMessaging.instance.getInitialMessage().then((message) {
+      print("FirebaseMessaging.instance.getInitialMessage teminated");
+      log(message.toString());
+      if (message != null) {
+        // Navigator.of(context).pushNamed(routeFromMessage);
+
+        print(message.notification!.title);
+        print(message.notification!.body);
+        print("Terminated Message Whole Data : ${message.data}");
+        print("Terminated Message Data : ${message.data["eventID"]}");
+        print("Terminated Message ID: ${message.data["_id"]}");
+        print("Terminated Notification message.data: ${message}");
+        // print("Notification: ${message.notification}");
+ Map jsonPayload = message.data;
       if (jsonPayload["type"].toString().toLowerCase().contains('news')) {
         print("NEWSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
         SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
             statusBarColor: Colors.white, statusBarIconBrightness: Brightness.dark));
-        WidgetsBinding.instance!.addPostFrameCallback((_) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
           SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
               statusBarColor: Colors.white, statusBarIconBrightness: Brightness.dark));
           // Navigator.push(
@@ -115,7 +179,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         // print("EVENTSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
         SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
             statusBarColor: Colors.white, statusBarIconBrightness: Brightness.dark));
-        WidgetsBinding.instance!.addPostFrameCallback((_) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
           //   Navigator.push(
           //       context,
           //       MaterialPageRoute(
@@ -126,31 +190,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               arguments: ScreenArguments(jsonPayload['id']));
         });
       }
-      print('##########################################################');
-    }
-    // homeController = HomeController();
-
-    theme = AppTheme.theme;
-    customTheme = AppTheme.customTheme;
-
-    ///  Terminated State
-    /// 1. This method call when app in terminated state and you get a notification
-    // when you click on notification app open from terminated state and
-    // you can get notification data in this method
-
-    FirebaseMessaging.instance.getInitialMessage().then((message) {
-      print("FirebaseMessaging.instance.getInitialMessage");
-      if (message != null) {
-        // Navigator.of(context).pushNamed(routeFromMessage);
-
-        print(message.notification!.title);
-        print(message.notification!.body);
-        print("Message Whole Data : ${message.data}");
-        print("Message Data : ${message.data["eventID"]}");
-        print("Terminated Message ID: ${message.data["_id"]}");
-        print("Notification message.data: ${message}");
-        // print("Notification: ${message.notification}");
-
         //////// In case of DemoScreen ///////////////////
         // if (message.data['_id'] != null) {
         //   Navigator.of(context).push(MaterialPageRoute(
@@ -183,7 +222,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     ///  Foreground State
     /// 2. This method only call when App in foreground it mean app must be opened
     FirebaseMessaging.onMessage.listen((message) {
-      print("FirebaseMessaging.onMessage.listen");
+      print("190 hms FirebaseMessaging.onMessage.listen");
       if (message.data != 'null') {
         // print(message.notification!.title);
         // print(message.notification!.body);
@@ -217,6 +256,42 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         print("Message Whole Data : ${message.data}");
         print("Message Data : ${message.data["type"]}");
         print("Message Data : ${message.data["type"].toString().toLowerCase()}");
+        // -------------
+        Map jsonPayload = message.data;
+      if (jsonPayload["type"].toString().toLowerCase().contains('news')) {
+        print("NEWSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+            statusBarColor: Colors.white, statusBarIconBrightness: Brightness.dark));
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+              statusBarColor: Colors.white, statusBarIconBrightness: Brightness.dark));
+          // Navigator.push(
+          //     context,
+          //     MaterialPageRoute(
+          //         builder: (context) => SingleInternetNewsScreen(
+          //               id: jsonPayload['id'],
+          //             )));
+          Navigator.pushNamed(context, 'single_internet_news_screen',
+              arguments: ScreenArguments(jsonPayload['id']));
+        });
+      }
+      if (jsonPayload["type"].toString().toLowerCase().contains('event') ||
+          jsonPayload["type"].toString().toLowerCase().contains('events')) {
+        // print("EVENTSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+            statusBarColor: Colors.white, statusBarIconBrightness: Brightness.dark));
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          //   Navigator.push(
+          //       context,
+          //       MaterialPageRoute(
+          //           builder: (context) => SingleInternetEventScreen(
+          //                 id:jsonPayload['id'],
+          //               )));
+          Navigator.pushNamed(context, 'single_internet_events_screen',
+              arguments: ScreenArguments(jsonPayload['id']));
+        });
+      }
+        // -------------
         // Navigator.pushNamed(context, "single_internet_news_screen");
         // if (message.data["type"].toString().toLowerCase().contains('news')) {
         //   print("NEWSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
@@ -279,7 +354,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         if (homeProvider.exceptionCreated) {
           print("Exception created block");
           // Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
-          WidgetsBinding.instance!.addPostFrameCallback((_) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
             print("Exception created block 1");
             Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
             homeProvider.uiLoading = false;
@@ -298,6 +373,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             print(e);
           }
           return Scaffold(
+            
               extendBodyBehindAppBar: true,
               appBar: AppBar(
                 automaticallyImplyLeading: false,

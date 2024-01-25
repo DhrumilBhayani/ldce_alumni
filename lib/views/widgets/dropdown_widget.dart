@@ -148,7 +148,7 @@ class _DropdownWidgetState extends State<DropdownWidget> {
                                 );
                               }).toList();
                             },
-                            color: theme.backgroundColor,
+                            color: theme.colorScheme.background,
                             child: Container(
                               padding: EdgeInsets.only(left: 12, right: 12, top: 8, bottom: 8),
                               decoration: BoxDecoration(

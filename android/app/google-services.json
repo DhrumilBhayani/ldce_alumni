@@ -29,6 +29,13 @@
             {
               "client_id": "560097527000-drrqi76ts2l2d5qq0aiv2abb54nieqrj.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "560097527000-g7jn3d4tb2uri1847dsopei0064i7i84.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "net.ldcealumni.app"
+              }
             }
           ]
         }

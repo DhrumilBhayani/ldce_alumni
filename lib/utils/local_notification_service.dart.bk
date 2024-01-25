@@ -9,16 +9,17 @@ class LocalNotificationService {
   static final FlutterLocalNotificationsPlugin _notificationsPlugin = FlutterLocalNotificationsPlugin();
 
   static void initialize(GlobalKey<NavigatorState> navKey) {
-    const IOSInitializationSettings initializationSettingsIOS = IOSInitializationSettings(
-      requestSoundPermission: true,
-      requestBadgePermission: true,
-      requestAlertPermission: true,
-      //onDidReceiveLocalNotification: onDidReceiveLocalNotification,
-    );
+     WidgetsFlutterBinding.ensureInitialized();
+    // const IOSInitializationSettings initializationSettingsIOS = IOSInitializationSettings(
+    //   requestSoundPermission: true,
+    //   requestBadgePermission: true,
+    //   requestAlertPermission: true,
+    //   //onDidReceiveLocalNotification: onDidReceiveLocalNotification,
+    // );
     // initializationSettings for Android
     const InitializationSettings initializationSettings = InitializationSettings(
       android: AndroidInitializationSettings("@drawable/ic_notification"),
-      iOS: initializationSettingsIOS,
+      // iOS: initializationSettingsIOS,
     );
 
     Future<dynamic> onSelectNotification(payload) async {
@@ -41,7 +42,7 @@ class LocalNotificationService {
       }
     }
 
-    _notificationsPlugin.initialize(initializationSettings, onSelectNotification: onSelectNotification);
+    _notificationsPlugin.initialize(initializationSettings, onDidReceiveNotificationResponse: onSelectNotification,onDidReceiveBackgroundNotificationResponse: onSelectNotification);
   }
 
   static void showStaticNotification(int id, String title, body) async {

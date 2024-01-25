@@ -71,9 +71,6 @@ class AppTheme {
     fontFamily: 'Montserrat',
     /// Primary Color
     primaryColor: Color(0xff3C4EC5),
-
-    /// Scaffold and Background color
-    backgroundColor: Color(0xffffffff),
     scaffoldBackgroundColor: Color(0xffffffff),
     canvasColor: Colors.transparent,
 
@@ -87,10 +84,7 @@ class AppTheme {
     cardTheme: CardTheme(color: Color(0xfff0f0f0)),
     cardColor: Color(0xfff0f0f0),
 
-    textTheme: TextTheme(headline6: GoogleFonts.montserrat(), bodyText1: GoogleFonts.montserrat()),
-
-    /// Colorscheme
-    colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff3C4EC5), brightness: Brightness.light),
+    textTheme: TextTheme(titleLarge: GoogleFonts.montserrat(), bodyLarge: GoogleFonts.montserrat()),
 
     /// Floating Action Theme
     floatingActionButtonTheme: FloatingActionButtonThemeData(
@@ -178,8 +172,7 @@ class AppTheme {
     /// Other Colors
     splashColor: Colors.white.withAlpha(100),
     indicatorColor: Color(0xffeeeeee),
-    highlightColor: Color(0xffeeeeee),
-    errorColor: Color(0xfff0323c),
+    highlightColor: Color(0xffeeeeee), colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff3C4EC5), brightness: Brightness.light).copyWith(background: Color(0xffffffff)).copyWith(error: Color(0xfff0323c)),
   );
 
   /// -------------------------- Dark Theme  -------------------------------------------- ///
@@ -192,7 +185,6 @@ class AppTheme {
 
     /// Scaffold and Background color
     scaffoldBackgroundColor: Color(0xff161616),
-    backgroundColor: Color(0xff161616),
     canvasColor: Colors.transparent,
 
     /// AppBar Theme
@@ -201,9 +193,6 @@ class AppTheme {
     /// Card Theme
     cardTheme: CardTheme(color: Color(0xff222327)),
     cardColor: Color(0xff222327),
-
-    /// Colorscheme
-    colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff069DEF), brightness: Brightness.dark),
 
     /// Input (Text-Field) Theme
     inputDecorationTheme: InputDecorationTheme(
@@ -296,8 +285,7 @@ class AppTheme {
     indicatorColor: Colors.white,
     disabledColor: Color(0xffa3a3a3),
     highlightColor: Colors.white.withAlpha(28),
-    errorColor: Colors.orange,
-    splashColor: Colors.white.withAlpha(56),
+    splashColor: Colors.white.withAlpha(56), colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff069DEF), brightness: Brightness.dark).copyWith(background: Color(0xff161616)).copyWith(error: Colors.orange),
   );
 
   static ThemeData createTheme(ColorScheme colorScheme) {

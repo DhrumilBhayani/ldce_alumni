@@ -297,7 +297,7 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
       if (alumniProvider.exceptionCreated) {
         print("Exception created block");
         // Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
-        WidgetsBinding.instance!.addPostFrameCallback((_) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
           print("Exception created block 1");
           Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
           alumniProvider.uiLoading = false;
@@ -391,7 +391,7 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
                               left: 20, right: 20, top: AppBar().preferredSize.height * 0.3),
                           child: Theme(
                             data: Theme.of(context).copyWith(
-                              canvasColor: theme.backgroundColor,
+                              canvasColor: theme.colorScheme.background,
                             ),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton2(
@@ -423,9 +423,11 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
                                     selectedYearValue = value as String;
                                   });
                                 },
-                                buttonHeight: 40,
-                                buttonWidth: MediaQuery.of(context).size.width * 0.89,
-                                itemHeight: 40,
+                                buttonStyleData: ButtonStyleData(height: 40, width: MediaQuery.of(context).size.width * 0.89),
+                                
+                                // buttonHeight: 40,
+                                // buttonWidth: MediaQuery.of(context).size.width * 0.89,
+                                // itemHeight: 40,
                               ),
                             ),
                           ),
@@ -435,7 +437,7 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
                           padding: EdgeInsets.only(left: 20, right: 20, top: 10),
                           child: Theme(
                             data: Theme.of(context).copyWith(
-                              canvasColor: theme.backgroundColor,
+                              canvasColor: theme.colorScheme.background,
                             ),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton2(
@@ -486,9 +488,7 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
                                     selectedProgramValue = value as String;
                                   });
                                 },
-                                buttonHeight: 40,
-                                buttonWidth: MediaQuery.of(context).size.width * 0.89,
-                                itemHeight: 40,
+                               buttonStyleData: ButtonStyleData(height: 40, width: MediaQuery.of(context).size.width * 0.89),
                               ),
                             ),
                           ),
@@ -498,7 +498,7 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
                           padding: EdgeInsets.only(left: 20, right: 20, top: 10),
                           child: Theme(
                             data: Theme.of(context).copyWith(
-                              canvasColor: theme.backgroundColor,
+                              canvasColor: theme.colorScheme.background,
                             ),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton2(
@@ -528,9 +528,8 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
                                     selectedBranchValue = value as String;
                                   });
                                 },
-                                buttonHeight: 40,
-                                buttonWidth: MediaQuery.of(context).size.width * 0.89,
-                                itemHeight: 40,
+                               buttonStyleData: ButtonStyleData(height: 40, width: MediaQuery.of(context).size.width * 0.89),
+                                // itemHeight: 40,
                               ),
                             ),
                           ),
@@ -620,7 +619,7 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
                             header: Container(
                               width: MediaQuery.of(context).size.width,
                               height: 50.0,
-                              color: theme.backgroundColor,
+                              color: theme.colorScheme.background,
                               // padding: EdgeInsets.symmetric(horizontal: 16.0),
                               alignment: Alignment.centerLeft,
                               child: Container(

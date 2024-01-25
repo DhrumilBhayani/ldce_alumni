@@ -177,7 +177,7 @@
 //       print("MyDartPrinter: " + call.method.toString());
 //     });
 //
-//     /// TODO Terminated State
+
 //     /// 1. This method call when app in terminated state and you get a notification
 //     // when you click on notification app open from terminated state and
 //     // you can get notification data in this method
@@ -929,15 +929,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 // import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:ldce_alumni/core/text.dart';
 import 'package:ldce_alumni/models/home/home.dart';
 import 'package:ldce_alumni/utils/local_notification_service.dart';
-import 'package:ldce_alumni/views/events/event_home_screen.dart';
-import 'package:ldce_alumni/views/events/single_internet_event_screen..dart';
 import 'package:ldce_alumni/views/general/no_internet_screen.dart';
-import 'package:ldce_alumni/views/news/single_notification_news_screen.dart';
 import 'package:ldce_alumni/views/widgets/app_bar_widget.dart';
 import 'package:ldce_alumni/views/widgets/app_drawer_widget.dart';
 import 'package:ldce_alumni/views/widgets/single_news_widget.dart';
@@ -958,7 +955,7 @@ import 'package:http/http.dart' as http;
 class HomeScreenOLD extends StatefulWidget {
   HomeScreenOLD({this.notificationAppLaunchDetails, Key? key}) : super(key: key);
 
-  NotificationAppLaunchDetails? notificationAppLaunchDetails;
+  // NotificationAppLaunchDetails? notificationAppLaunchDetails;
 
   @override
   _HomeScreenOLDState createState() => _HomeScreenOLDState();
@@ -993,12 +990,13 @@ class _HomeScreenOLDState extends State<HomeScreenOLD> {
   @override
   void initState() {
     super.initState();
-    SystemUiOverlayStyle(statusBarBrightness: Brightness.dark, statusBarColor: Colors.black);
+    SystemUiOverlayStyle(statusBarBrightness: Brightness.dark, statusBarColor: Colors.black,
+    systemNavigationBarColor: Colors.black, systemNavigationBarIconBrightness: Brightness.dark    );
     print("Home INIT");
     // newsController = FxControllerStore.putOrFind<NewsController>(NewsController());
     print(widget.notificationAppLaunchDetails?.didNotificationLaunchApp);
     if (widget.notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
-      selectedNotificationPayload = widget.notificationAppLaunchDetails!.payload;
+      selectedNotificationPayload = widget.notificationAppLaunchDetails!.notificationResponse?.payload;
       print('##########################################################');
       print(selectedNotificationPayload);
       Map jsonPayload = json.decode(selectedNotificationPayload!);
@@ -1006,7 +1004,7 @@ class _HomeScreenOLDState extends State<HomeScreenOLD> {
         print("NEWSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
         SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
             statusBarColor: Colors.white, statusBarIconBrightness: Brightness.dark));
-        WidgetsBinding.instance!.addPostFrameCallback((_) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
           SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
               statusBarColor: Colors.white, statusBarIconBrightness: Brightness.dark));
           // Navigator.push(
@@ -1024,7 +1022,7 @@ class _HomeScreenOLDState extends State<HomeScreenOLD> {
         print("EVENTSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
         SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
             statusBarColor: Colors.white, statusBarIconBrightness: Brightness.dark));
-        WidgetsBinding.instance!.addPostFrameCallback((_) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
           //   Navigator.push(
           //       context,
           //       MaterialPageRoute(
@@ -1051,7 +1049,7 @@ class _HomeScreenOLDState extends State<HomeScreenOLD> {
     // when you click on notification app open from terminated state and
     // you can get notification data in this method
     FirebaseMessaging.instance.getInitialMessage().then((message) {
-      print("FirebaseMessaging.instance.getInitialMessage");
+      print("FirebaseMessaging.instance.getInitialMessage old t");
       if (message != null) {
         final routeFromMessage = message.data["route"];
         // Navigator.of(context).pushNamed(routeFromMessage);
@@ -1463,17 +1461,17 @@ class _HomeScreenOLDState extends State<HomeScreenOLD> {
                                         navigation: 'news_home',
                                         title: "News",
                                       ),
-                                      const SinglePageItem(
+                                       SinglePageItem(
                                         iconData: MdiIcons.calendar,
                                         navigation: "events_home",
                                         title: "Events",
                                       ),
-                                      const SinglePageItem(
+                                       SinglePageItem(
                                         iconData: MdiIcons.image,
                                         navigation: "media_home",
                                         title: "Media Gallery",
                                       ),
-                                      const SinglePageItem(
+                                       SinglePageItem(
                                           iconData: MdiIcons.humanMale,
                                           navigation: "noteworthy_home",
                                           title: "Noteworthy Mentions"),

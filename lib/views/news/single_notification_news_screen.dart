@@ -8,8 +8,9 @@ import 'package:ldce_alumni/theme/app_notifier.dart';
 import 'package:ldce_alumni/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:ldce_alumni/theme/theme_type.dart';
-import 'package:ldce_alumni/utils/local_notification_service.dart';
+// import 'package:ldce_alumni/utils/local_notification_service.dart.bk';
 import 'package:ldce_alumni/views/loading_effect.dart';
+import 'package:ldce_alumni/views/widgets/screen_arguments.dart';
 import 'package:provider/provider.dart';
 import 'package:ldce_alumni/core/globals.dart' as globals;
 
@@ -151,7 +152,7 @@ class _SingleInternetNewsScreenState extends State<SingleInternetNewsScreen> {
       customTheme = AppTheme.customTheme;
       if (newsProvider.exceptionCreated) {
         print("Exception created block");
-        WidgetsBinding.instance!.addPostFrameCallback((_) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
           print("Exception created block 1");
           Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
           showSnackBarWithFloating();
@@ -488,6 +489,7 @@ class _SingleInternetNewsScreenState extends State<SingleInternetNewsScreen> {
     return _buildBody();
   }
 }
+
 
 
 

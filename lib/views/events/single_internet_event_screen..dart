@@ -4,15 +4,14 @@ import 'package:intl/intl.dart';
 import 'package:ldce_alumni/controllers/events/events_controller.dart';
 import 'package:ldce_alumni/core/card.dart';
 import 'package:ldce_alumni/core/text.dart';
-import 'package:ldce_alumni/core/text_style.dart';
 import 'package:ldce_alumni/models/events/events.dart';
 import 'package:ldce_alumni/theme/app_notifier.dart';
 import 'package:ldce_alumni/theme/app_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:ldce_alumni/utils/local_notification_service.dart';
+// import 'package:ldce_alumni/utils/local_notification_service.dart.bk';
 import 'package:ldce_alumni/views/loading_effect.dart';
+import 'package:ldce_alumni/views/widgets/screen_arguments.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:ldce_alumni/core/readmore.dart';
 import 'package:provider/provider.dart';
 import 'package:ldce_alumni/core/globals.dart' as globals;
 
@@ -164,7 +163,7 @@ class _SingleInternetEventScreenState extends State<SingleInternetEventScreen> {
       customTheme = AppTheme.customTheme;
       if (eventsProvider.exceptionCreated) {
         print("Exception created block");
-        WidgetsBinding.instance!.addPostFrameCallback((_) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
           print("Exception created block 1");
           Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
           showSnackBarWithFloating();
@@ -693,3 +692,4 @@ class _SingleInternetEventScreenState extends State<SingleInternetEventScreen> {
     return _buildBody();
   }
 }
+

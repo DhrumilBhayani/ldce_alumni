@@ -1,3 +1,5 @@
+// import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:ldce_alumni/theme/app_notifier.dart';
 import 'package:ldce_alumni/theme/app_theme.dart';
@@ -6,6 +8,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:provider/provider.dart';
 import 'package:ldce_alumni/core/text.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:ldce_alumni/core/globals.dart' as globals;
 
 class AppDrawerWidget extends StatefulWidget {
   const AppDrawerWidget({Key? key}) : super(key: key);
@@ -15,7 +18,7 @@ class AppDrawerWidget extends StatefulWidget {
 }
 
 class _AppDrawerWidgetState extends State<AppDrawerWidget> {
-   PackageInfo _packageInfo = PackageInfo(
+  PackageInfo _packageInfo = PackageInfo(
     appName: 'Unknown',
     packageName: 'Unknown',
     version: 'Unknown',
@@ -24,7 +27,8 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
   );
   late ThemeData theme = AppTheme.theme;
   bool isDark = false;
-  //  theme = AppTheme.theme;
+  //  theme = AppTheme.th
+  var token;
   TextDirection textDirection = TextDirection.ltr;
   late CustomTheme customTheme;
   bool isExpanded = false;
@@ -39,24 +43,28 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
     }
     setState(() {});
   }
-Future<void> _initPackageInfo() async {
+
+  Future<void> _initPackageInfo() async {
     final info = await PackageInfo.fromPlatform();
+    token = await globals.FlutterSecureStorageObj.read(key: "access_token");
     setState(() {
       _packageInfo = info;
     });
   }
+
   @override
   void initState() {
     super.initState();
     // theme = AppTheme.theme;
     scrollController = ScrollController();
-        _initPackageInfo();
-
+    _initPackageInfo();
   }
 
   @override
   Widget build(BuildContext context) {
     return Consumer<AppNotifier>(builder: (BuildContext context, AppNotifier value, Widget? child) {
+      // log(token.toString());
+      // log("message");
       isDark = AppTheme.themeType == ThemeType.dark;
       textDirection = AppTheme.textDirection;
       theme = AppTheme.theme;
@@ -114,6 +122,44 @@ Future<void> _initPackageInfo() async {
                     margin: EdgeInsets.only(left: 30, right: 20),
                     child: Column(
                       children: [
+                        if (token != null)
+                              ExpansionTile(
+                                onExpansionChanged: (value) async{
+                                  if (ModalRoute.of(context)!.settings.name != 'login') {
+                                    Navigator.pop(context);
+                                   Navigator.of(context)
+                                  .pushNamedAndRemoveUntil('profile', ModalRoute.withName('home'));
+                                  } else {
+                                    Navigator.pop(context);
+                                  }
+                                },
+                                title: FxText.b1("Profile"),
+                                tilePadding: EdgeInsets.all(0),
+                                trailing: SizedBox.shrink(),
+                                leading: Icon(
+                                  MdiIcons.account,
+                                  color: theme.colorScheme.primary,
+                                ),
+                              ),
+                         if (token == null)
+                              ExpansionTile(
+                                onExpansionChanged: (value) {
+                                  if (ModalRoute.of(context)!.settings.name != 'login') {
+                                    Navigator.pop(context);
+                                    Navigator.of(context)
+                                        .pushNamed('login');
+                                  } else {
+                                    Navigator.pop(context);
+                                  }
+                                },
+                                title: FxText.b1("Login"),
+                                tilePadding: EdgeInsets.all(0),
+                                trailing: SizedBox.shrink(),
+                                leading: Icon(
+                                  MdiIcons.login,
+                                  color: theme.colorScheme.primary,
+                                ),
+                              ),
                         ExpansionTile(
                           onExpansionChanged: (value) {
                             if (ModalRoute.of(context)!.settings.name != 'home') {
@@ -137,6 +183,7 @@ Future<void> _initPackageInfo() async {
                           onExpansionChanged: (value) {
                             if (ModalRoute.of(context)!.settings.name != 'events_home') {
                               Navigator.pop(context);
+                              
                               Navigator.of(context)
                                   .pushNamedAndRemoveUntil('events_home', ModalRoute.withName('home'));
                             } else {
@@ -438,9 +485,34 @@ Future<void> _initPackageInfo() async {
                                             )))
                                   ],
                                 )))),
+                            
                           ],
                         ),
-                        Text('v'+_packageInfo.version+' ('+_packageInfo.buildNumber+')'),
+                       
+                            if (token != null)
+                              ExpansionTile(
+                                onExpansionChanged: (value) async{
+                                  if (ModalRoute.of(context)!.settings.name != 'login') {
+                                    Navigator.pop(context);
+                                   await globals.FlutterSecureStorageObj.deleteAll();
+                                    const snackBar = SnackBar(
+                                      content: Text('Logged Out'),
+                                    );
+
+                                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                  } else {
+                                    Navigator.pop(context);
+                                  }
+                                },
+                                title: FxText.b1("Logout"),
+                                tilePadding: EdgeInsets.all(0),
+                                trailing: SizedBox.shrink(),
+                                leading: Icon(
+                                  MdiIcons.logout,
+                                  color: theme.colorScheme.primary,
+                                ),
+                              ),
+                        Text('v' + _packageInfo.version + ' (' + _packageInfo.buildNumber + ')'),
                       ],
                     ),
                   ),

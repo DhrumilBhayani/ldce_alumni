@@ -8,7 +8,6 @@ import 'package:ldce_alumni/core/text.dart';
 import 'package:flutter/material.dart';
 import 'package:ldce_alumni/theme/themes.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:ldce_alumni/core/readmore.dart';
 import 'package:provider/provider.dart';
 import 'package:ldce_alumni/core/globals.dart' as globals;
 

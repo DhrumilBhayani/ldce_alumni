@@ -145,7 +145,7 @@ class _HomeTabState extends State<HomeTab> {
         Container(
           margin: EdgeInsets.only(top: 10),
           child: Text(
-            "To raise and maintain high standards of education by interaction commerce.",
+            "To develop campus of global standards that complements academic excellence in natural mode, paving path for students' all-around development and professional growth.",
             textAlign: TextAlign.justify,
             // style: AppTheme.getTextStyle(
             //     themeData.textTheme.bodyText2,

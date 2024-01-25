@@ -192,7 +192,7 @@ class _NewsHomeScreenState extends State<NewsHomeScreen> {
       if (newsProvider.exceptionCreated) {
         print("Exception created block");
         // Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
-        WidgetsBinding.instance!.addPostFrameCallback((_) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
           print("Exception created block 1");
           Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
           newsProvider.uiLoading = false;

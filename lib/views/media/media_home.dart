@@ -180,7 +180,7 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
       if (mediaProvider.exceptionCreated) {
         print("Exception created block");
         // Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
-        WidgetsBinding.instance!.addPostFrameCallback((_) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
           print("Exception created block 1");
           Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
           mediaProvider.uiLoading = false;

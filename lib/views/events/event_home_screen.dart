@@ -55,7 +55,7 @@ class _EventHomeScreenState extends State<EventHomeScreen> with SingleTickerProv
       if (eventsProvider.exceptionCreated) {
         print("Exception created block");
         // Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
-        WidgetsBinding.instance!.addPostFrameCallback((_) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
           print("Exception created block 1");
           Navigator.pushNamedAndRemoveUntil(context, 'something_wrong', (route) => false);
           eventsProvider.uiLoading = false;
@@ -207,7 +207,7 @@ class _EventHomeScreenState extends State<EventHomeScreen> with SingleTickerProv
                     child: LoadingEffect.getEventsHomeLoadingScreen(
                       context,
                     )));
-        ;
+        
       }
     });
   }
