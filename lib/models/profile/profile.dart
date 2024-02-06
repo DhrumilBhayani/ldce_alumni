@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:ldce_alumni/core/globals.dart' as globals;
+
 class Profile {
   final bool Status;
   final String Message;
@@ -26,11 +27,11 @@ class Profile {
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
-  
+
     result.addAll({'Status': Status});
     result.addAll({'Message': Message});
     result.addAll({'Result': Result.toMap()});
-  
+
     return result;
   }
 
@@ -44,19 +45,19 @@ class Profile {
 
   String toJson() => json.encode(toMap());
 
-  factory Profile.fromJson(String source) => Profile.fromMap(json.decode(source));
+  factory Profile.fromJson(String source) =>
+      Profile.fromMap(json.decode(source));
 
   @override
-  String toString() => 'Profile(Status: $Status, Message: $Message, Result: $Result)';
+  String toString() =>
+      'Profile(Status: $Status, Message: $Message, Result: $Result)';
 
-    static Future<Profile> getProfileDetails({required encId}) async {
-   var encId = await globals.FlutterSecureStorageObj.read(key: "encId");
+  static Future<Profile> getProfileDetails({required encId}) async {
+    var encId = await globals.FlutterSecureStorageObj.read(key: "encId");
 
-    final http.Response response =
-        await http.get(Uri.parse('${globals.BASE_API_URL}/alumni?EncryptedId=$encId'), headers: <String, String>{
-      
-      'Accept': '*/*'
-    });
+    final http.Response response = await http.get(
+        Uri.parse('${globals.BASE_API_URL}/alumni?EncryptedId=$encId'),
+        headers: <String, String>{'Accept': '*/*'});
     log(response.body);
 
     var profileResponse = Profile.fromJson(response.body);
@@ -65,15 +66,16 @@ class Profile {
     return profileResponse;
   }
 
+  
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
+
     return other is Profile &&
-      other.Status == Status &&
-      other.Message == Message &&
-      other.Result == Result;
+        other.Status == Status &&
+        other.Message == Message &&
+        other.Result == Result;
   }
 
   @override
@@ -196,7 +198,7 @@ class ReqResult {
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
-  
+
     result.addAll({'EncryptedId': EncryptedId});
     result.addAll({'FirstName': FirstName});
     result.addAll({'MiddleName': MiddleName});
@@ -223,7 +225,7 @@ class ReqResult {
     result.addAll({'MembershipTypeId': MembershipTypeId});
     result.addAll({'Membership': Membership});
     result.addAll({'IsMembershipVerified': IsMembershipVerified});
-  
+
     return result;
   }
 
@@ -260,7 +262,8 @@ class ReqResult {
 
   String toJson() => json.encode(toMap());
 
-  factory ReqResult.fromJson(String source) => ReqResult.fromMap(json.decode(source));
+  factory ReqResult.fromJson(String source) =>
+      ReqResult.fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -270,63 +273,63 @@ class ReqResult {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
+
     return other is ReqResult &&
-      other.EncryptedId == EncryptedId &&
-      other.FirstName == FirstName &&
-      other.MiddleName == MiddleName &&
-      other.LastName == LastName &&
-      other.FullName == FullName &&
-      other.Gender == Gender &&
-      other.DOB == DOB &&
-      other.CountryId == CountryId &&
-      other.StateId == StateId &&
-      other.CityId == CityId &&
-      other.ProfilePicPath == ProfilePicPath &&
-      other.PrimaryAddress == PrimaryAddress &&
-      other.SecondaryAddress == SecondaryAddress &&
-      other.EmailAddress == EmailAddress &&
-      other.PinCode == PinCode &&
-      other.MobileNo == MobileNo &&
-      other.TelephoneNo == TelephoneNo &&
-      other.CompanyName == CompanyName &&
-      other.CompanyAddress == CompanyAddress &&
-      other.Designation == Designation &&
-      other.PassoutYear == PassoutYear &&
-      other.StreamId == StreamId &&
-      other.DegreeId == DegreeId &&
-      other.MembershipTypeId == MembershipTypeId &&
-      other.Membership == Membership &&
-      other.IsMembershipVerified == IsMembershipVerified;
+        other.EncryptedId == EncryptedId &&
+        other.FirstName == FirstName &&
+        other.MiddleName == MiddleName &&
+        other.LastName == LastName &&
+        other.FullName == FullName &&
+        other.Gender == Gender &&
+        other.DOB == DOB &&
+        other.CountryId == CountryId &&
+        other.StateId == StateId &&
+        other.CityId == CityId &&
+        other.ProfilePicPath == ProfilePicPath &&
+        other.PrimaryAddress == PrimaryAddress &&
+        other.SecondaryAddress == SecondaryAddress &&
+        other.EmailAddress == EmailAddress &&
+        other.PinCode == PinCode &&
+        other.MobileNo == MobileNo &&
+        other.TelephoneNo == TelephoneNo &&
+        other.CompanyName == CompanyName &&
+        other.CompanyAddress == CompanyAddress &&
+        other.Designation == Designation &&
+        other.PassoutYear == PassoutYear &&
+        other.StreamId == StreamId &&
+        other.DegreeId == DegreeId &&
+        other.MembershipTypeId == MembershipTypeId &&
+        other.Membership == Membership &&
+        other.IsMembershipVerified == IsMembershipVerified;
   }
 
   @override
   int get hashCode {
     return EncryptedId.hashCode ^
-      FirstName.hashCode ^
-      MiddleName.hashCode ^
-      LastName.hashCode ^
-      FullName.hashCode ^
-      Gender.hashCode ^
-      DOB.hashCode ^
-      CountryId.hashCode ^
-      StateId.hashCode ^
-      CityId.hashCode ^
-      ProfilePicPath.hashCode ^
-      PrimaryAddress.hashCode ^
-      SecondaryAddress.hashCode ^
-      EmailAddress.hashCode ^
-      PinCode.hashCode ^
-      MobileNo.hashCode ^
-      TelephoneNo.hashCode ^
-      CompanyName.hashCode ^
-      CompanyAddress.hashCode ^
-      Designation.hashCode ^
-      PassoutYear.hashCode ^
-      StreamId.hashCode ^
-      DegreeId.hashCode ^
-      MembershipTypeId.hashCode ^
-      Membership.hashCode ^
-      IsMembershipVerified.hashCode;
+        FirstName.hashCode ^
+        MiddleName.hashCode ^
+        LastName.hashCode ^
+        FullName.hashCode ^
+        Gender.hashCode ^
+        DOB.hashCode ^
+        CountryId.hashCode ^
+        StateId.hashCode ^
+        CityId.hashCode ^
+        ProfilePicPath.hashCode ^
+        PrimaryAddress.hashCode ^
+        SecondaryAddress.hashCode ^
+        EmailAddress.hashCode ^
+        PinCode.hashCode ^
+        MobileNo.hashCode ^
+        TelephoneNo.hashCode ^
+        CompanyName.hashCode ^
+        CompanyAddress.hashCode ^
+        Designation.hashCode ^
+        PassoutYear.hashCode ^
+        StreamId.hashCode ^
+        DegreeId.hashCode ^
+        MembershipTypeId.hashCode ^
+        Membership.hashCode ^
+        IsMembershipVerified.hashCode;
   }
 }
