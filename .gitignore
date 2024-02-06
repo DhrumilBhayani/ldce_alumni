@@ -4,3 +4,8 @@ google-services.json
 GoogleService-Info.plist
 .flutter-plugins-dependencies
 .packages
+.flutter-plugins
+.flutter-plugins-dependencies
+pubspec.lock
+windows/flutter/generated_plugin_registrant.cc
+windows/flutter/generated_plugins.cmake
