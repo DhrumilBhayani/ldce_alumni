@@ -27,11 +27,11 @@ class Profile {
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
-
+  
     result.addAll({'Status': Status});
     result.addAll({'Message': Message});
     result.addAll({'Result': Result.toMap()});
-
+  
     return result;
   }
 
@@ -42,17 +42,7 @@ class Profile {
       Result: ReqResult.fromMap(map['Result']),
     );
   }
-
-  String toJson() => json.encode(toMap());
-
-  factory Profile.fromJson(String source) =>
-      Profile.fromMap(json.decode(source));
-
-  @override
-  String toString() =>
-      'Profile(Status: $Status, Message: $Message, Result: $Result)';
-
-  static Future<Profile> getProfileDetails({required encId}) async {
+ static Future<Profile> getProfileDetails({required encId}) async {
     var encId = await globals.FlutterSecureStorageObj.read(key: "encId");
 
     final http.Response response = await http.get(
@@ -65,17 +55,21 @@ class Profile {
 
     return profileResponse;
   }
+  String toJson() => json.encode(toMap());
 
-  
+  factory Profile.fromJson(String source) => Profile.fromMap(json.decode(source));
+
+  @override
+  String toString() => 'Profile(Status: $Status, Message: $Message, Result: $Result)';
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-
+  
     return other is Profile &&
-        other.Status == Status &&
-        other.Message == Message &&
-        other.Result == Result;
+      other.Status == Status &&
+      other.Message == Message &&
+      other.Result == Result;
   }
 
   @override
@@ -93,6 +87,9 @@ class ReqResult {
   final int CountryId;
   final int StateId;
   final int CityId;
+  final String CountryName;
+  final String StateName;
+  final String CityName;
   final String ProfilePicPath;
   final String PrimaryAddress;
   final String SecondaryAddress;
@@ -106,6 +103,8 @@ class ReqResult {
   final String PassoutYear;
   final int StreamId;
   final int DegreeId;
+  final String StreamName;
+  final String DegreeName;
   final int MembershipTypeId;
   final String Membership;
   final bool IsMembershipVerified;
@@ -120,6 +119,9 @@ class ReqResult {
     required this.CountryId,
     required this.StateId,
     required this.CityId,
+    required this.CountryName,
+    required this.StateName,
+    required this.CityName,
     required this.ProfilePicPath,
     required this.PrimaryAddress,
     required this.SecondaryAddress,
@@ -133,6 +135,8 @@ class ReqResult {
     required this.PassoutYear,
     required this.StreamId,
     required this.DegreeId,
+    required this.StreamName,
+    required this.DegreeName,
     required this.MembershipTypeId,
     required this.Membership,
     required this.IsMembershipVerified,
@@ -149,6 +153,9 @@ class ReqResult {
     int? CountryId,
     int? StateId,
     int? CityId,
+    String? CountryName,
+    String? StateName,
+    String? CityName,
     String? ProfilePicPath,
     String? PrimaryAddress,
     String? SecondaryAddress,
@@ -162,6 +169,8 @@ class ReqResult {
     String? PassoutYear,
     int? StreamId,
     int? DegreeId,
+    String? StreamName,
+    String? DegreeName,
     int? MembershipTypeId,
     String? Membership,
     bool? IsMembershipVerified,
@@ -177,6 +186,9 @@ class ReqResult {
       CountryId: CountryId ?? this.CountryId,
       StateId: StateId ?? this.StateId,
       CityId: CityId ?? this.CityId,
+      CountryName: CountryName ?? this.CountryName,
+      StateName: StateName ?? this.StateName,
+      CityName: CityName ?? this.CityName,
       ProfilePicPath: ProfilePicPath ?? this.ProfilePicPath,
       PrimaryAddress: PrimaryAddress ?? this.PrimaryAddress,
       SecondaryAddress: SecondaryAddress ?? this.SecondaryAddress,
@@ -190,6 +202,8 @@ class ReqResult {
       PassoutYear: PassoutYear ?? this.PassoutYear,
       StreamId: StreamId ?? this.StreamId,
       DegreeId: DegreeId ?? this.DegreeId,
+      StreamName: StreamName ?? this.StreamName,
+      DegreeName: DegreeName ?? this.DegreeName,
       MembershipTypeId: MembershipTypeId ?? this.MembershipTypeId,
       Membership: Membership ?? this.Membership,
       IsMembershipVerified: IsMembershipVerified ?? this.IsMembershipVerified,
@@ -198,7 +212,7 @@ class ReqResult {
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
-
+  
     result.addAll({'EncryptedId': EncryptedId});
     result.addAll({'FirstName': FirstName});
     result.addAll({'MiddleName': MiddleName});
@@ -209,6 +223,9 @@ class ReqResult {
     result.addAll({'CountryId': CountryId});
     result.addAll({'StateId': StateId});
     result.addAll({'CityId': CityId});
+    result.addAll({'CountryName': CountryName});
+    result.addAll({'StateName': StateName});
+    result.addAll({'CityName': CityName});
     result.addAll({'ProfilePicPath': ProfilePicPath});
     result.addAll({'PrimaryAddress': PrimaryAddress});
     result.addAll({'SecondaryAddress': SecondaryAddress});
@@ -222,10 +239,12 @@ class ReqResult {
     result.addAll({'PassoutYear': PassoutYear});
     result.addAll({'StreamId': StreamId});
     result.addAll({'DegreeId': DegreeId});
+    result.addAll({'StreamName': StreamName});
+    result.addAll({'DegreeName': DegreeName});
     result.addAll({'MembershipTypeId': MembershipTypeId});
     result.addAll({'Membership': Membership});
     result.addAll({'IsMembershipVerified': IsMembershipVerified});
-
+  
     return result;
   }
 
@@ -241,6 +260,9 @@ class ReqResult {
       CountryId: map['CountryId']?.toInt() ?? 0,
       StateId: map['StateId']?.toInt() ?? 0,
       CityId: map['CityId']?.toInt() ?? 0,
+      CountryName: map['CountryName'] ?? '',
+      StateName: map['StateName'] ?? '',
+      CityName: map['CityName'] ?? '',
       ProfilePicPath: map['ProfilePicPath'] ?? '',
       PrimaryAddress: map['PrimaryAddress'] ?? '',
       SecondaryAddress: map['SecondaryAddress'] ?? '',
@@ -254,6 +276,8 @@ class ReqResult {
       PassoutYear: map['PassoutYear'] ?? '',
       StreamId: map['StreamId']?.toInt() ?? 0,
       DegreeId: map['DegreeId']?.toInt() ?? 0,
+      StreamName: map['StreamName'] ?? '',
+      DegreeName: map['DegreeName'] ?? '',
       MembershipTypeId: map['MembershipTypeId']?.toInt() ?? 0,
       Membership: map['Membership'] ?? '',
       IsMembershipVerified: map['IsMembershipVerified'] ?? false,
@@ -262,74 +286,83 @@ class ReqResult {
 
   String toJson() => json.encode(toMap());
 
-  factory ReqResult.fromJson(String source) =>
-      ReqResult.fromMap(json.decode(source));
+  factory ReqResult.fromJson(String source) => ReqResult.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'Result(EncryptedId: $EncryptedId, FirstName: $FirstName, MiddleName: $MiddleName, LastName: $LastName, FullName: $FullName, Gender: $Gender, DOB: $DOB, CountryId: $CountryId, StateId: $StateId, CityId: $CityId, ProfilePicPath: $ProfilePicPath, PrimaryAddress: $PrimaryAddress, SecondaryAddress: $SecondaryAddress, EmailAddress: $EmailAddress, PinCode: $PinCode, MobileNo: $MobileNo, TelephoneNo: $TelephoneNo, CompanyName: $CompanyName, CompanyAddress: $CompanyAddress, Designation: $Designation, PassoutYear: $PassoutYear, StreamId: $StreamId, DegreeId: $DegreeId, MembershipTypeId: $MembershipTypeId, Membership: $Membership, IsMembershipVerified: $IsMembershipVerified)';
+    return 'Result(EncryptedId: $EncryptedId, FirstName: $FirstName, MiddleName: $MiddleName, LastName: $LastName, FullName: $FullName, Gender: $Gender, DOB: $DOB, CountryId: $CountryId, StateId: $StateId, CityId: $CityId, CountryName: $CountryName, StateName: $StateName, CityName: $CityName, ProfilePicPath: $ProfilePicPath, PrimaryAddress: $PrimaryAddress, SecondaryAddress: $SecondaryAddress, EmailAddress: $EmailAddress, PinCode: $PinCode, MobileNo: $MobileNo, TelephoneNo: $TelephoneNo, CompanyName: $CompanyName, CompanyAddress: $CompanyAddress, Designation: $Designation, PassoutYear: $PassoutYear, StreamId: $StreamId, DegreeId: $DegreeId, StreamName: $StreamName, DegreeName: $DegreeName, MembershipTypeId: $MembershipTypeId, Membership: $Membership, IsMembershipVerified: $IsMembershipVerified)';
   }
-
+ 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-
+  
     return other is ReqResult &&
-        other.EncryptedId == EncryptedId &&
-        other.FirstName == FirstName &&
-        other.MiddleName == MiddleName &&
-        other.LastName == LastName &&
-        other.FullName == FullName &&
-        other.Gender == Gender &&
-        other.DOB == DOB &&
-        other.CountryId == CountryId &&
-        other.StateId == StateId &&
-        other.CityId == CityId &&
-        other.ProfilePicPath == ProfilePicPath &&
-        other.PrimaryAddress == PrimaryAddress &&
-        other.SecondaryAddress == SecondaryAddress &&
-        other.EmailAddress == EmailAddress &&
-        other.PinCode == PinCode &&
-        other.MobileNo == MobileNo &&
-        other.TelephoneNo == TelephoneNo &&
-        other.CompanyName == CompanyName &&
-        other.CompanyAddress == CompanyAddress &&
-        other.Designation == Designation &&
-        other.PassoutYear == PassoutYear &&
-        other.StreamId == StreamId &&
-        other.DegreeId == DegreeId &&
-        other.MembershipTypeId == MembershipTypeId &&
-        other.Membership == Membership &&
-        other.IsMembershipVerified == IsMembershipVerified;
+      other.EncryptedId == EncryptedId &&
+      other.FirstName == FirstName &&
+      other.MiddleName == MiddleName &&
+      other.LastName == LastName &&
+      other.FullName == FullName &&
+      other.Gender == Gender &&
+      other.DOB == DOB &&
+      other.CountryId == CountryId &&
+      other.StateId == StateId &&
+      other.CityId == CityId &&
+      other.CountryName == CountryName &&
+      other.StateName == StateName &&
+      other.CityName == CityName &&
+      other.ProfilePicPath == ProfilePicPath &&
+      other.PrimaryAddress == PrimaryAddress &&
+      other.SecondaryAddress == SecondaryAddress &&
+      other.EmailAddress == EmailAddress &&
+      other.PinCode == PinCode &&
+      other.MobileNo == MobileNo &&
+      other.TelephoneNo == TelephoneNo &&
+      other.CompanyName == CompanyName &&
+      other.CompanyAddress == CompanyAddress &&
+      other.Designation == Designation &&
+      other.PassoutYear == PassoutYear &&
+      other.StreamId == StreamId &&
+      other.DegreeId == DegreeId &&
+      other.StreamName == StreamName &&
+      other.DegreeName == DegreeName &&
+      other.MembershipTypeId == MembershipTypeId &&
+      other.Membership == Membership &&
+      other.IsMembershipVerified == IsMembershipVerified;
   }
 
   @override
   int get hashCode {
     return EncryptedId.hashCode ^
-        FirstName.hashCode ^
-        MiddleName.hashCode ^
-        LastName.hashCode ^
-        FullName.hashCode ^
-        Gender.hashCode ^
-        DOB.hashCode ^
-        CountryId.hashCode ^
-        StateId.hashCode ^
-        CityId.hashCode ^
-        ProfilePicPath.hashCode ^
-        PrimaryAddress.hashCode ^
-        SecondaryAddress.hashCode ^
-        EmailAddress.hashCode ^
-        PinCode.hashCode ^
-        MobileNo.hashCode ^
-        TelephoneNo.hashCode ^
-        CompanyName.hashCode ^
-        CompanyAddress.hashCode ^
-        Designation.hashCode ^
-        PassoutYear.hashCode ^
-        StreamId.hashCode ^
-        DegreeId.hashCode ^
-        MembershipTypeId.hashCode ^
-        Membership.hashCode ^
-        IsMembershipVerified.hashCode;
+      FirstName.hashCode ^
+      MiddleName.hashCode ^
+      LastName.hashCode ^
+      FullName.hashCode ^
+      Gender.hashCode ^
+      DOB.hashCode ^
+      CountryId.hashCode ^
+      StateId.hashCode ^
+      CityId.hashCode ^
+      CountryName.hashCode ^
+      StateName.hashCode ^
+      CityName.hashCode ^
+      ProfilePicPath.hashCode ^
+      PrimaryAddress.hashCode ^
+      SecondaryAddress.hashCode ^
+      EmailAddress.hashCode ^
+      PinCode.hashCode ^
+      MobileNo.hashCode ^
+      TelephoneNo.hashCode ^
+      CompanyName.hashCode ^
+      CompanyAddress.hashCode ^
+      Designation.hashCode ^
+      PassoutYear.hashCode ^
+      StreamId.hashCode ^
+      DegreeId.hashCode ^
+      StreamName.hashCode ^
+      DegreeName.hashCode ^
+      MembershipTypeId.hashCode ^
+      Membership.hashCode ^
+      IsMembershipVerified.hashCode;
   }
 }

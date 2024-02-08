@@ -4,9 +4,11 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:ldce_alumni/controllers/profile/profile_controller.dart';
 import 'package:ldce_alumni/core/text.dart';
-import 'package:ldce_alumni/models/country.dart';
+import 'package:ldce_alumni/models/masters/country/country.dart';
+import 'package:ldce_alumni/models/masters/country/lcountry.dart';
 import 'package:ldce_alumni/theme/themes.dart';
 import 'package:ldce_alumni/views/loading_effect.dart';
 import 'package:ldce_alumni/views/widgets/app_bar_widget.dart';
@@ -43,8 +45,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   TextEditingController mobileNumTEC = TextEditingController();
   TextEditingController altMobileNumTEC = TextEditingController();
 
-  late Country selectedCountry;
-
   @override
   void initState() {
     super.initState();
@@ -58,10 +58,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   late File _image;
-  Future<void> uploadImage() async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
-
+  Future<void> uploadImage(ProfileController profileProvider) async {
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    log(profileProvider.uploadingImage.toString());
     if (pickedFile != null) {
       setState(() {
         _image = File(pickedFile.path);
@@ -99,29 +98,46 @@ class _ProfileScreenState extends State<ProfileScreen> {
     };
     request.headers.addAll(headers);
 
+    profileProvider.uploadingImage = true;
+    profileProvider.notifyListeners();
+    log(profileProvider.uploadingImage.toString());
     try {
       var response = await request.send();
       var response1 = await http.Response.fromStream(response);
 
       print("Response status: ${response1.body}");
       if (response.statusCode == 200) {
-        var profile = new ProfileController();
-        profile.getProfile();
-        print('Image uploaded successfully'); //
+        profileProvider.getProfile();
+        print('Image uploaded successfully');
+        profileProvider.uploadingImage = false;
+        log(profileProvider.uploadingImage.toString());
+        profileProvider.notifyListeners();
+        //
       } else {
         print('Failed to upload image. Status code: ${response.statusCode}');
+        profileProvider.uploadingImage = false;
       }
     } catch (error) {
+      profileProvider.uploadingImage = false;
       print('Error uploading image: $error');
     }
   }
 
+  String dropdownvalue = 'Male';
+
+  // List of items in our dropdown menu
+  var items = [
+    'Male',
+    'Female',
+  ];
   @override
   Widget build(BuildContext context) {
+    LCountry? selectedCountry;
+
     const kSpacingUnit = 10;
-    return Consumer2<AppNotifier, ProfileController>(builder:
-        (BuildContext context, AppNotifier value, profileProvider,
-            Widget? child) {
+    return Consumer2<AppNotifier, ProfileController>(
+        builder: (BuildContext context, AppNotifier value, profileProvider, Widget? child) {
+      dropdownvalue = profileProvider.profileResponse.Result.Gender ? "Male" : "Female";
       return profileProvider.showLoading
           ? Scaffold(
               extendBodyBehindAppBar: true,
@@ -131,8 +147,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               backgroundColor: customTheme.card,
               body: Container(
-                  margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).padding.top + 20),
+                  margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 20),
                   child: LoadingEffect.getProfileLoadingScreen(
                     context,
                   )))
@@ -141,6 +156,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
               appBar: AppBarWidget(
                 scaffoldKey: _key,
                 // title: "About US",
+              ),
+              floatingActionButton: FloatingActionButton(
+                onPressed: () {
+                  profileProvider.getCountry();
+                },
+                child: Icon(Icons.refresh),
               ),
               endDrawer: AppDrawerWidget(),
               body: SingleChildScrollView(
@@ -152,15 +173,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       padding: EdgeInsets.only(
                           left: 24,
                           right: 24,
-                          top: profileProvider
-                                      .profileResponse.Result.ProfilePicPath !=
-                                  ""
-                              ? 0
-                              : 20),
+                          top: profileProvider.profileResponse.Result.ProfilePicPath != "" ? 0 : 20),
                       child: Column(children: <Widget>[
-                        if (profileProvider
-                                .profileResponse.Result.ProfilePicPath !=
-                            "")
+                        if (profileProvider.profileResponse.Result.ProfilePicPath != "")
                           Container(
                             height: kSpacingUnit * 10,
                             width: kSpacingUnit * 10,
@@ -170,9 +185,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 CircleAvatar(
                                   radius: kSpacingUnit * 5,
                                   backgroundImage: NetworkImage('https://' +
-                                      profileProvider
-                                          .profileResponse.Result.ProfilePicPath
-                                          .toString()),
+                                      profileProvider.profileResponse.Result.ProfilePicPath.toString()),
                                 ),
                                 // Align(
                                 //   alignment: Alignment.bottomRight,
@@ -197,15 +210,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ],
                             ),
                           ),
-                        ElevatedButton(
-                          onPressed: uploadImage,
-                          child: Text('Upload Image'),
-                        ),
+                        profileProvider.uploadingImage
+                            ? CircularProgressIndicator()
+                            : ElevatedButton(
+                                onPressed: () => uploadImage(profileProvider),
+                                child: Text('Upload Image'),
+                              ),
                         SizedBox(height: 10),
                         SizedBox(height: 10),
                         Text(
-                          profileProvider.profileResponse.Result.FullName
-                              .toString(),
+                          profileProvider.profileResponse.Result.FullName.toString(),
                           style: TextStyle(
                             fontSize: 25,
                             fontWeight: FontWeight.w600,
@@ -213,8 +227,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         SizedBox(height: 10),
                         Text(
-                          profileProvider.profileResponse.Result.EmailAddress
-                              .toString(),
+                          profileProvider.profileResponse.Result.EmailAddress.toString(),
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w400,
@@ -232,112 +245,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         //     profileController.getProfile();
                         //   },
                         // ),
-                        Theme(
-                            data: Theme.of(context)
-                                .copyWith(dividerColor: Colors.transparent),
-                            child: Align(
-                              alignment: Alignment.topLeft,
-                              child: Container(
-                                  margin: EdgeInsets.only(top: 0),
-                                  child: ExpansionTile(
-                                    initiallyExpanded: true,
-                                    title: FxText.h6("MEMBERSHIP INFORMATION",
-                                        fontSize: 18, fontWeight: 800),
-                                    children: [
-                                      Padding(
-                                          padding: EdgeInsets.only(left: 20),
-                                          child: Table(
-                                            children: [
-                                              TableRow(
-                                                children: [
-                                                  Container(
-                                                    padding: EdgeInsets.only(
-                                                        bottom:
-                                                            10), // Adjust the padding as needed
-                                                    child: Text(
-                                                      'Membership',
-                                                      textAlign: TextAlign.left,
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 15),
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    padding: EdgeInsets.only(
-                                                        bottom:
-                                                            10), // Adjust the padding as needed
-                                                    child: Text(
-                                                        profileProvider
-                                                            .profileResponse
-                                                            .Result
-                                                            .Membership
-                                                            .toString(),
-                                                        textAlign:
-                                                            TextAlign.left,
-                                                        style: TextStyle(
-                                                            fontSize: 15)),
-                                                  ),
-                                                ],
-                                              ),
-                                              TableRow(
-                                                children: [
-                                                  Container(
-                                                    // padding: EdgeInsets.only(bottom: 8), // Adjust the padding as needed
-                                                    child: Text(
-                                                      'Membership Verification Status',
-                                                      textAlign: TextAlign.left,
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 15),
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    padding: EdgeInsets.only(
-                                                        top:
-                                                            8.0), // Adjust the padding as needed
-                                                    child: Text(
-                                                        profileProvider
-                                                                .profileResponse
-                                                                .Result
-                                                                .IsMembershipVerified
-                                                            ? "Verified"
-                                                            : "Not Verified",
-                                                        textAlign:
-                                                            TextAlign.left,
-                                                        style: TextStyle(
-                                                            fontSize: 15)),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          )),
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          showMembershipInfo(context);
-                                        },
-                                        child: Text('Edit'),
-                                      ),
 
-                                      // SizedBox(
-                                      //   height: 20,
-                                      // ),
-                                    ],
-                                  )),
-                            )),
-                        SizedBox(height: 10),
                         Theme(
-                            data: Theme.of(context)
-                                .copyWith(dividerColor: Colors.transparent),
+                            data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
                             child: Align(
                               alignment: Alignment.topLeft,
                               child: Container(
                                   margin: EdgeInsets.only(top: 0),
                                   child: ExpansionTile(
-                                    initiallyExpanded: true,
-                                    title: FxText.h6("PERSONAL INFORMATION",
-                                        fontSize: 18, fontWeight: 800),
+                                    title:
+                                        FxText.h6("PERSONAL INFORMATION", fontSize: 18, fontWeight: 800),
                                     children: [
                                       Padding(
                                         padding: EdgeInsets.only(left: 20),
@@ -347,59 +264,113 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               children: [
                                                 Container(
                                                   padding: EdgeInsets.only(
-                                                      bottom:
-                                                          10), // Adjust the padding as needed
+                                                      bottom: 10), // Adjust the padding as needed
+                                                  child: Text(
+                                                    'First Name',
+                                                    textAlign: TextAlign.left,
+                                                    style: TextStyle(
+                                                        fontWeight: FontWeight.bold, fontSize: 15),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  padding: EdgeInsets.only(
+                                                      bottom: 10), // Adjust the padding as needed
+                                                  child: Text(
+                                                      profileProvider.profileResponse.Result.FirstName
+                                                          .toString(),
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(fontSize: 15)),
+                                                ),
+                                              ],
+                                            ),
+                                            TableRow(
+                                              children: [
+                                                Container(
+                                                  padding: EdgeInsets.only(
+                                                      bottom: 10), // Adjust the padding as needed
+                                                  child: Text(
+                                                    'Middle Name',
+                                                    textAlign: TextAlign.left,
+                                                    style: TextStyle(
+                                                        fontWeight: FontWeight.bold, fontSize: 15),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  padding: EdgeInsets.only(
+                                                      bottom: 10), // Adjust the padding as needed
+                                                  child: Text(
+                                                      profileProvider.profileResponse.Result.MiddleName
+                                                          .toString(),
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(fontSize: 15)),
+                                                ),
+                                              ],
+                                            ),
+                                            TableRow(
+                                              children: [
+                                                Container(
+                                                  padding: EdgeInsets.only(
+                                                      bottom: 10), // Adjust the padding as needed
+                                                  child: Text(
+                                                    'Last Name',
+                                                    textAlign: TextAlign.left,
+                                                    style: TextStyle(
+                                                        fontWeight: FontWeight.bold, fontSize: 15),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  padding: EdgeInsets.only(
+                                                      bottom: 10), // Adjust the padding as needed
+                                                  child: Text(
+                                                      profileProvider.profileResponse.Result.LastName
+                                                          .toString(),
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(fontSize: 15)),
+                                                ),
+                                              ],
+                                            ),
+                                            TableRow(
+                                              children: [
+                                                Container(
+                                                  padding: EdgeInsets.only(
+                                                      bottom: 10), // Adjust the padding as needed
                                                   child: Text(
                                                     'Full Name',
                                                     textAlign: TextAlign.left,
                                                     style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 15),
+                                                        fontWeight: FontWeight.bold, fontSize: 15),
                                                   ),
                                                 ),
                                                 Container(
                                                   padding: EdgeInsets.only(
-                                                      bottom:
-                                                          10), // Adjust the padding as needed
+                                                      bottom: 10), // Adjust the padding as needed
                                                   child: Text(
-                                                      profileProvider
-                                                          .profileResponse
-                                                          .Result
-                                                          .FullName
+                                                      profileProvider.profileResponse.Result.FullName
                                                           .toString(),
                                                       textAlign: TextAlign.left,
-                                                      style: TextStyle(
-                                                          fontSize: 15)),
+                                                      style: TextStyle(fontSize: 15)),
                                                 ),
                                               ],
                                             ),
                                             TableRow(
                                               children: [
                                                 Container(
-                                                  padding: EdgeInsets.only(
-                                                      bottom: 10),
+                                                  padding: EdgeInsets.only(bottom: 10),
                                                   child: Text(
                                                     'DOB',
                                                     textAlign: TextAlign.left,
                                                     style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 15),
+                                                        fontWeight: FontWeight.bold, fontSize: 15),
                                                   ),
                                                 ),
                                                 Container(
-                                                  padding: EdgeInsets.only(
-                                                      bottom: 10),
+                                                  padding: EdgeInsets.only(bottom: 10),
                                                   child: Text(
-                                                      profileProvider
-                                                          .profileResponse
-                                                          .Result
-                                                          .DOB
-                                                          .toString(),
+                                                      DateFormat('dd-MM-yyyy').format(DateTime.parse(
+                                                          profileProvider.profileResponse.Result.DOB
+                                                              .toString())),
                                                       textAlign: TextAlign.left,
-                                                      style: TextStyle(
-                                                          fontSize: 15)),
+                                                      style: TextStyle(fontSize: 15)),
                                                 ),
                                               ],
                                             ),
@@ -407,30 +378,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               children: [
                                                 Container(
                                                   padding: EdgeInsets.only(
-                                                      bottom:
-                                                          10), // Adjust the padding as needed
+                                                      bottom: 10), // Adjust the padding as needed
                                                   child: Text(
                                                     'Gender',
                                                     textAlign: TextAlign.left,
                                                     style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 15),
+                                                        fontWeight: FontWeight.bold, fontSize: 15),
                                                   ),
                                                 ),
                                                 Container(
                                                   padding: EdgeInsets.only(
-                                                      bottom:
-                                                          10), // Adjust the padding as needed
+                                                      bottom: 10), // Adjust the padding as needed
                                                   child: Text(
-                                                      profileProvider
-                                                          .profileResponse
-                                                          .Result
-                                                          .Gender
-                                                          .toString(),
+                                                      profileProvider.profileResponse.Result.Gender
+                                                          ? "Male"
+                                                          : "Female",
                                                       textAlign: TextAlign.left,
-                                                      style: TextStyle(
-                                                          fontSize: 15)),
+                                                      style: TextStyle(fontSize: 15)),
                                                 ),
                                               ],
                                             ),
@@ -438,30 +402,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               children: [
                                                 Container(
                                                   padding: EdgeInsets.only(
-                                                      bottom:
-                                                          10), // Adjust the padding as needed
+                                                      bottom: 10), // Adjust the padding as needed
                                                   child: Text(
                                                     'City',
                                                     textAlign: TextAlign.left,
                                                     style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 15),
+                                                        fontWeight: FontWeight.bold, fontSize: 15),
                                                   ),
                                                 ),
                                                 Container(
                                                   padding: EdgeInsets.only(
-                                                      bottom:
-                                                          10), // Adjust the padding as needed
+                                                      bottom: 10), // Adjust the padding as needed
                                                   child: Text(
-                                                      profileProvider
-                                                          .profileResponse
-                                                          .Result
-                                                          .CityId
+                                                      profileProvider.profileResponse.Result.CityName
                                                           .toString(),
                                                       textAlign: TextAlign.left,
-                                                      style: TextStyle(
-                                                          fontSize: 15)),
+                                                      style: TextStyle(fontSize: 15)),
                                                 ),
                                               ],
                                             ),
@@ -469,30 +425,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               children: [
                                                 Container(
                                                   padding: EdgeInsets.only(
-                                                      bottom:
-                                                          10), // Adjust the padding as needed
+                                                      bottom: 10), // Adjust the padding as needed
                                                   child: Text(
                                                     'State',
                                                     textAlign: TextAlign.left,
                                                     style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 15),
+                                                        fontWeight: FontWeight.bold, fontSize: 15),
                                                   ),
                                                 ),
                                                 Container(
                                                   padding: EdgeInsets.only(
-                                                      bottom:
-                                                          10), // Adjust the padding as needed
+                                                      bottom: 10), // Adjust the padding as needed
                                                   child: Text(
-                                                      profileProvider
-                                                          .profileResponse
-                                                          .Result
-                                                          .StateId
+                                                      profileProvider.profileResponse.Result.StateName
                                                           .toString(),
                                                       textAlign: TextAlign.left,
-                                                      style: TextStyle(
-                                                          fontSize: 15)),
+                                                      style: TextStyle(fontSize: 15)),
                                                 ),
                                               ],
                                             ),
@@ -500,30 +448,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               children: [
                                                 Container(
                                                   padding: EdgeInsets.only(
-                                                      bottom:
-                                                          10), // Adjust the padding as needed
+                                                      bottom: 10), // Adjust the padding as needed
                                                   child: Text(
                                                     'Country',
                                                     textAlign: TextAlign.left,
                                                     style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 15),
+                                                        fontWeight: FontWeight.bold, fontSize: 15),
                                                   ),
                                                 ),
                                                 Container(
                                                   padding: EdgeInsets.only(
-                                                      bottom:
-                                                          10), // Adjust the padding as needed
+                                                      bottom: 10), // Adjust the padding as needed
                                                   child: Text(
-                                                      profileProvider
-                                                          .profileResponse
-                                                          .Result
-                                                          .CountryId
+                                                      profileProvider.profileResponse.Result.CountryName
                                                           .toString(),
                                                       textAlign: TextAlign.left,
-                                                      style: TextStyle(
-                                                          fontSize: 15)),
+                                                      style: TextStyle(fontSize: 15)),
                                                 ),
                                               ],
                                             ),
@@ -533,128 +473,138 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       ElevatedButton(
                                         onPressed: () async {
                                           // showPersonalInfo(context);
-                                          fullNameTEC.text = profileProvider
-                                              .profileResponse.Result.FullName
-                                              .toString();
-                                          dobTEC.text = profileProvider
-                                              .profileResponse.Result.DOB
-                                              .toString();
-                                          genderTEC.text = profileProvider
-                                              .profileResponse.Result.Gender
-                                              .toString();
-                                          cityTEC.text = profileProvider
-                                              .profileResponse.Result.CityId
-                                              .toString();
-                                          stateTEC.text = profileProvider
-                                              .profileResponse.Result.StateId
-                                              .toString();
+                                          fullNameTEC.text =
+                                              profileProvider.profileResponse.Result.FullName.toString();
+                                          dobTEC.text =
+                                              profileProvider.profileResponse.Result.DOB.toString();
+                                          genderTEC.text =
+                                              profileProvider.profileResponse.Result.Gender.toString();
+                                          cityTEC.text =
+                                              profileProvider.profileResponse.Result.CityId.toString();
+                                          stateTEC.text =
+                                              profileProvider.profileResponse.Result.StateId.toString();
                                           countryTEC.text = profileProvider
                                               .profileResponse.Result.CountryId
                                               .toString();
-                                          log('Contry - ${profileProvider.country[0]}');
+                                          // log('Contry - ${profileProvider.country[0]}');
                                           await showDialog(
                                             context: context,
                                             builder: (context) {
-                                              return AlertDialog(
-                                                title: const Text(
-                                                    'Personal Information'),
-                                                content: SingleChildScrollView(
-                                                  scrollDirection:
-                                                      Axis.vertical,
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text('Full Name'),
-                                                      TextField(
-                                                        controller: fullNameTEC,
-                                                        decoration:
-                                                            InputDecoration(
-                                                                hintText:
-                                                                    "Full Name "),
-                                                      ),
-                                                      SizedBox(height: 10),
-                                                      Text('DOB'),
-                                                      TextField(
-                                                        controller: dobTEC,
-                                                        decoration: InputDecoration(
-                                                            hintText:
-                                                                "Date of birth"),
-                                                      ),
-                                                      SizedBox(height: 10),
-                                                      Text('Gender'),
-                                                      TextField(
-                                                        controller: genderTEC,
-                                                        decoration:
-                                                            InputDecoration(
-                                                                hintText:
-                                                                    "Gender"),
-                                                      ),
-                                                      SizedBox(height: 10),
-                                                      Text('City'),
-                                                      TextField(
-                                                        controller: cityTEC,
-                                                        decoration:
-                                                            InputDecoration(
-                                                                hintText:
-                                                                    "City"),
-                                                      ),
-                                                      SizedBox(height: 10),
-                                                      Text('State'),
-                                                      TextField(
-                                                        controller: stateTEC,
-                                                        decoration:
-                                                            InputDecoration(
-                                                                hintText:
-                                                                    "State"),
-                                                      ),
-                                                      SizedBox(height: 10),
-                                                      Text('Country'),
-                                                      // TextField(
-                                                      //   controller: countryTEC,
-                                                      //   decoration:
-                                                      //       InputDecoration(
-                                                      //           hintText:
-                                                      //               "Country"),
-                                                      // ),
-                                                      DropdownButtonFormField(
-                                                        // value: profileProvider
-                                                        //     .country[0],
-                                                        items: profileProvider
-                                                            .country.map((Country
-                                                                    country) =>
-                                                                DropdownMenuItem(
-                                                                    child: Text(
-                                                                        'Country'))),
-                                                        onChanged: (newValue) {
-                                                          setState(() {
-                                                            // selectedUser =
-                                                            //     newValue;
-                                                          });
-                                                        },
-                                                      )
-                                                    ],
+                                              return StatefulBuilder(
+                                                  builder: (BuildContext context, StateSetter setState) {
+                                                return AlertDialog(
+                                                  title: const Text('Personal Information'),
+                                                  insetPadding: EdgeInsets.all(0),
+                                                  content: SingleChildScrollView(
+                                                    scrollDirection: Axis.vertical,
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.min,
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text('Full Name'),
+                                                        TextField(
+                                                          controller: fullNameTEC,
+                                                          decoration:
+                                                              InputDecoration(hintText: "Full Name "),
+                                                        ),
+                                                        SizedBox(height: 10),
+                                                        Text('DOB'),
+                                                        TextField(
+                                                          controller: dobTEC,
+                                                          decoration:
+                                                              InputDecoration(hintText: "Date of birth"),
+                                                        ),
+                                                        SizedBox(height: 10),
+                                                        Text('Gender'),
+                                                        Theme(
+                                                            data: Theme.of(context).copyWith(
+                                                              canvasColor: Colors.blue.shade200,
+                                                            ),
+                                                            child: DropdownButton(
+                                                              style: TextStyle(color: Colors.black),
+
+                                                              // Initial Value
+                                                              value: dropdownvalue,
+
+                                                              // Down Arrow Icon
+                                                              icon:
+                                                                  const Icon(Icons.keyboard_arrow_down),
+
+                                                              // Array list of items
+                                                              items: items.map((String items) {
+                                                                return DropdownMenuItem(
+                                                                  value: items,
+                                                                  child: Text(items),
+                                                                );
+                                                              }).toList(),
+                                                              // After selecting the desired option,it will
+                                                              // change button value to selected value
+                                                              onChanged: (String? newValue) {
+                                                                setState(() {
+                                                                  dropdownvalue = newValue!;
+                                                                });
+                                                              },
+                                                            )),
+                                                        SizedBox(height: 10),
+                                                        Text('City'),
+                                                        TextField(
+                                                          controller: cityTEC,
+                                                          decoration: InputDecoration(hintText: "City"),
+                                                        ),
+                                                        SizedBox(height: 10),
+                                                        Text('State'),
+                                                        TextField(
+                                                          controller: stateTEC,
+                                                          decoration: InputDecoration(hintText: "State"),
+                                                        ),
+                                                        SizedBox(height: 10),
+                                                        Text('Country'),
+                                                        Theme(
+                                                            data: Theme.of(context).copyWith(
+                                                              canvasColor: Colors.blue.shade200,
+                                                            ),
+                                                            child: DropdownButton<LCountry>(
+                                                              value: selectedCountry ??
+                                                                  null, // Set the selected value to null initially
+                                                              hint: Text('Select a country'),
+                                                              onChanged: (LCountry? newValue) {
+                                                                if (newValue != null) {
+                                                                  setState(() {
+                                                                    selectedCountry = newValue;
+                                                                  });
+                                                                  print(
+                                                                      'Selected Country ID: ${newValue.id}');
+                                                                  print(
+                                                                      'Selected Country name: ${newValue.name}');
+                                                                }
+                                                              },
+                                                              items: profileProvider.countries
+                                                                  .map((LCountry country) {
+                                                                return DropdownMenuItem<LCountry>(
+                                                                  value: country,
+                                                                  child: Text(country.name),
+                                                                );
+                                                              }).toList(),
+                                                            ))
+                                                      ],
+                                                    ),
                                                   ),
-                                                ),
-                                                actions: <Widget>[
-                                                  TextButton(
-                                                    child: const Text('Cancel'),
-                                                    onPressed: () {
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                    },
-                                                  ),
-                                                  TextButton(
-                                                    child: const Text('Submit'),
-                                                    onPressed: () {
-                                                      // Handle the submit action
-                                                    },
-                                                  ),
-                                                ],
-                                              );
+                                                  actions: <Widget>[
+                                                    TextButton(
+                                                      child: const Text('Cancel'),
+                                                      onPressed: () {
+                                                        Navigator.of(context).pop();
+                                                      },
+                                                    ),
+                                                    TextButton(
+                                                      child: const Text('Submit'),
+                                                      onPressed: () {
+                                                        // Handle the submit action
+                                                      },
+                                                    ),
+                                                  ],
+                                                );
+                                              });
                                             },
                                           );
                                         },
@@ -668,15 +618,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             )),
                         SizedBox(height: 10),
                         Theme(
-                            data: Theme.of(context)
-                                .copyWith(dividerColor: Colors.transparent),
+                            data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
                             child: Align(
                               alignment: Alignment.topLeft,
                               child: Container(
                                   margin: EdgeInsets.only(top: 0),
                                   child: ExpansionTile(
-                                    title: FxText.h6("CONTACT INFORMATION",
-                                        fontSize: 18, fontWeight: 800),
+                                    title:
+                                        FxText.h6("CONTACT INFORMATION", fontSize: 18, fontWeight: 800),
                                     children: [
                                       Padding(
                                           padding: EdgeInsets.only(left: 20),
@@ -686,59 +635,43 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 children: [
                                                   Container(
                                                     padding: EdgeInsets.only(
-                                                        bottom:
-                                                            10), // Adjust the padding as needed
+                                                        bottom: 10), // Adjust the padding as needed
                                                     child: Text(
                                                       'Primary Address',
                                                       textAlign: TextAlign.left,
                                                       style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 15),
+                                                          fontWeight: FontWeight.bold, fontSize: 15),
                                                     ),
                                                   ),
                                                   Container(
                                                     padding: EdgeInsets.only(
-                                                        bottom:
-                                                            10), // Adjust the padding as needed
+                                                        bottom: 10), // Adjust the padding as needed
                                                     child: Text(
                                                         profileProvider
-                                                            .profileResponse
-                                                            .Result
-                                                            .PrimaryAddress,
-                                                        textAlign:
-                                                            TextAlign.left,
-                                                        style: TextStyle(
-                                                            fontSize: 15)),
+                                                            .profileResponse.Result.PrimaryAddress,
+                                                        textAlign: TextAlign.left,
+                                                        style: TextStyle(fontSize: 15)),
                                                   ),
                                                 ],
                                               ),
                                               TableRow(
                                                 children: [
                                                   Container(
-                                                    padding: EdgeInsets.only(
-                                                        bottom: 10),
+                                                    padding: EdgeInsets.only(bottom: 10),
                                                     child: Text(
                                                       'Secondary Address',
                                                       textAlign: TextAlign.left,
                                                       style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 15),
+                                                          fontWeight: FontWeight.bold, fontSize: 15),
                                                     ),
                                                   ),
                                                   Container(
-                                                    padding: EdgeInsets.only(
-                                                        bottom: 10),
+                                                    padding: EdgeInsets.only(bottom: 10),
                                                     child: Text(
                                                         profileProvider
-                                                            .profileResponse
-                                                            .Result
-                                                            .SecondaryAddress,
-                                                        textAlign:
-                                                            TextAlign.left,
-                                                        style: TextStyle(
-                                                            fontSize: 15)),
+                                                            .profileResponse.Result.SecondaryAddress,
+                                                        textAlign: TextAlign.left,
+                                                        style: TextStyle(fontSize: 15)),
                                                   ),
                                                 ],
                                               ),
@@ -746,30 +679,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 children: [
                                                   Container(
                                                     padding: EdgeInsets.only(
-                                                        bottom:
-                                                            10), // Adjust the padding as needed
+                                                        bottom: 10), // Adjust the padding as needed
                                                     child: Text(
                                                       'Email Address',
                                                       textAlign: TextAlign.left,
                                                       style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 15),
+                                                          fontWeight: FontWeight.bold, fontSize: 15),
                                                     ),
                                                   ),
                                                   Container(
                                                     padding: EdgeInsets.only(
-                                                        bottom:
-                                                            10), // Adjust the padding as needed
+                                                        bottom: 10), // Adjust the padding as needed
                                                     child: Text(
                                                         profileProvider
-                                                            .profileResponse
-                                                            .Result
-                                                            .EmailAddress,
-                                                        textAlign:
-                                                            TextAlign.left,
-                                                        style: TextStyle(
-                                                            fontSize: 15)),
+                                                            .profileResponse.Result.EmailAddress,
+                                                        textAlign: TextAlign.left,
+                                                        style: TextStyle(fontSize: 15)),
                                                   ),
                                                 ],
                                               ),
@@ -777,30 +702,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 children: [
                                                   Container(
                                                     padding: EdgeInsets.only(
-                                                        bottom:
-                                                            10), // Adjust the padding as needed
+                                                        bottom: 10), // Adjust the padding as needed
                                                     child: Text(
                                                       'Pincode',
                                                       textAlign: TextAlign.left,
                                                       style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 15),
+                                                          fontWeight: FontWeight.bold, fontSize: 15),
                                                     ),
                                                   ),
                                                   Container(
                                                     padding: EdgeInsets.only(
-                                                        bottom:
-                                                            10), // Adjust the padding as needed
+                                                        bottom: 10), // Adjust the padding as needed
                                                     child: Text(
-                                                        profileProvider
-                                                            .profileResponse
-                                                            .Result
-                                                            .PinCode,
-                                                        textAlign:
-                                                            TextAlign.left,
-                                                        style: TextStyle(
-                                                            fontSize: 15)),
+                                                        profileProvider.profileResponse.Result.PinCode,
+                                                        textAlign: TextAlign.left,
+                                                        style: TextStyle(fontSize: 15)),
                                                   ),
                                                 ],
                                               ),
@@ -808,30 +724,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 children: [
                                                   Container(
                                                     padding: EdgeInsets.only(
-                                                        bottom:
-                                                            10), // Adjust the padding as needed
+                                                        bottom: 10), // Adjust the padding as needed
                                                     child: Text(
                                                       'Mobile Number',
                                                       textAlign: TextAlign.left,
                                                       style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 15),
+                                                          fontWeight: FontWeight.bold, fontSize: 15),
                                                     ),
                                                   ),
                                                   Container(
                                                     padding: EdgeInsets.only(
-                                                        bottom:
-                                                            10), // Adjust the padding as needed
+                                                        bottom: 10), // Adjust the padding as needed
                                                     child: Text(
-                                                        profileProvider
-                                                            .profileResponse
-                                                            .Result
-                                                            .MobileNo,
-                                                        textAlign:
-                                                            TextAlign.left,
-                                                        style: TextStyle(
-                                                            fontSize: 15)),
+                                                        profileProvider.profileResponse.Result.MobileNo,
+                                                        textAlign: TextAlign.left,
+                                                        style: TextStyle(fontSize: 15)),
                                                   ),
                                                 ],
                                               ),
@@ -839,30 +746,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 children: [
                                                   Container(
                                                     padding: EdgeInsets.only(
-                                                        bottom:
-                                                            10), // Adjust the padding as needed
+                                                        bottom: 10), // Adjust the padding as needed
                                                     child: Text(
                                                       'Alternate Number',
                                                       textAlign: TextAlign.left,
                                                       style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 15),
+                                                          fontWeight: FontWeight.bold, fontSize: 15),
                                                     ),
                                                   ),
                                                   Container(
                                                     padding: EdgeInsets.only(
-                                                        bottom:
-                                                            10), // Adjust the padding as needed
+                                                        bottom: 10), // Adjust the padding as needed
                                                     child: Text(
                                                         profileProvider
-                                                            .profileResponse
-                                                            .Result
-                                                            .TelephoneNo,
-                                                        textAlign:
-                                                            TextAlign.left,
-                                                        style: TextStyle(
-                                                            fontSize: 15)),
+                                                            .profileResponse.Result.TelephoneNo,
+                                                        textAlign: TextAlign.left,
+                                                        style: TextStyle(fontSize: 15)),
                                                   ),
                                                 ],
                                               ),
@@ -879,15 +778,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             )),
                         SizedBox(height: 10),
                         Theme(
-                            data: Theme.of(context)
-                                .copyWith(dividerColor: Colors.transparent),
+                            data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
                             child: Align(
                               alignment: Alignment.topLeft,
                               child: Container(
                                   margin: EdgeInsets.only(top: 0),
                                   child: ExpansionTile(
-                                    title: FxText.h6("COMPANY INFORMATION",
-                                        fontSize: 18, fontWeight: 800),
+                                    title:
+                                        FxText.h6("COMPANY INFORMATION", fontSize: 18, fontWeight: 800),
                                     children: [
                                       Padding(
                                           padding: EdgeInsets.only(left: 20),
@@ -897,59 +795,43 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 children: [
                                                   Container(
                                                     padding: EdgeInsets.only(
-                                                        bottom:
-                                                            10), // Adjust the padding as needed
+                                                        bottom: 10), // Adjust the padding as needed
                                                     child: Text(
                                                       'Current Company',
                                                       textAlign: TextAlign.left,
                                                       style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 15),
+                                                          fontWeight: FontWeight.bold, fontSize: 15),
                                                     ),
                                                   ),
                                                   Container(
                                                     padding: EdgeInsets.only(
-                                                        bottom:
-                                                            10), // Adjust the padding as needed
+                                                        bottom: 10), // Adjust the padding as needed
                                                     child: Text(
                                                         profileProvider
-                                                            .profileResponse
-                                                            .Result
-                                                            .CompanyName,
-                                                        textAlign:
-                                                            TextAlign.left,
-                                                        style: TextStyle(
-                                                            fontSize: 15)),
+                                                            .profileResponse.Result.CompanyName,
+                                                        textAlign: TextAlign.left,
+                                                        style: TextStyle(fontSize: 15)),
                                                   ),
                                                 ],
                                               ),
                                               TableRow(
                                                 children: [
                                                   Container(
-                                                    padding: EdgeInsets.only(
-                                                        bottom: 10),
+                                                    padding: EdgeInsets.only(bottom: 10),
                                                     child: Text(
                                                       'Company Address',
                                                       textAlign: TextAlign.left,
                                                       style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 15),
+                                                          fontWeight: FontWeight.bold, fontSize: 15),
                                                     ),
                                                   ),
                                                   Container(
-                                                    padding: EdgeInsets.only(
-                                                        bottom: 10),
+                                                    padding: EdgeInsets.only(bottom: 10),
                                                     child: Text(
                                                         profileProvider
-                                                            .profileResponse
-                                                            .Result
-                                                            .CompanyAddress,
-                                                        textAlign:
-                                                            TextAlign.left,
-                                                        style: TextStyle(
-                                                            fontSize: 15)),
+                                                            .profileResponse.Result.CompanyAddress,
+                                                        textAlign: TextAlign.left,
+                                                        style: TextStyle(fontSize: 15)),
                                                   ),
                                                 ],
                                               ),
@@ -957,30 +839,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 children: [
                                                   Container(
                                                     padding: EdgeInsets.only(
-                                                        bottom:
-                                                            10), // Adjust the padding as needed
+                                                        bottom: 10), // Adjust the padding as needed
                                                     child: Text(
                                                       'Current Designation',
                                                       textAlign: TextAlign.left,
                                                       style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 15),
+                                                          fontWeight: FontWeight.bold, fontSize: 15),
                                                     ),
                                                   ),
                                                   Container(
                                                     padding: EdgeInsets.only(
-                                                        bottom:
-                                                            10), // Adjust the padding as needed
+                                                        bottom: 10), // Adjust the padding as needed
                                                     child: Text(
                                                         profileProvider
-                                                            .profileResponse
-                                                            .Result
-                                                            .Designation,
-                                                        textAlign:
-                                                            TextAlign.left,
-                                                        style: TextStyle(
-                                                            fontSize: 15)),
+                                                            .profileResponse.Result.Designation,
+                                                        textAlign: TextAlign.left,
+                                                        style: TextStyle(fontSize: 15)),
                                                   ),
                                                 ],
                                               ),
@@ -991,14 +865,96 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             )),
                         SizedBox(height: 10),
                         Theme(
-                            data: Theme.of(context)
-                                .copyWith(dividerColor: Colors.transparent),
+                            data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
                             child: Align(
                               alignment: Alignment.topLeft,
                               child: Container(
                                   margin: EdgeInsets.only(top: 0),
                                   child: ExpansionTile(
-                                    title: FxText.h6("ACADEMIC INFORMATION",
+                                    title:
+                                        FxText.h6("ACADEMIC INFORMATION", fontSize: 18, fontWeight: 800),
+                                    children: [
+                                      Padding(
+                                          padding: EdgeInsets.only(left: 20),
+                                          child: Table(
+                                            children: [
+                                              TableRow(
+                                                children: [
+                                                  Container(
+                                                    padding: EdgeInsets.only(
+                                                        bottom: 10), // Adjust the padding as needed
+                                                    child: Text(
+                                                      'Program',
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(
+                                                          fontWeight: FontWeight.bold, fontSize: 15),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    padding: EdgeInsets.only(
+                                                        bottom: 10), // Adjust the padding as needed
+                                                    child: Text('B.E.',
+                                                        textAlign: TextAlign.left,
+                                                        style: TextStyle(fontSize: 15)),
+                                                  ),
+                                                ],
+                                              ),
+                                              TableRow(
+                                                children: [
+                                                  Container(
+                                                    padding: EdgeInsets.only(bottom: 10),
+                                                    child: Text(
+                                                      'Passout Year',
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(
+                                                          fontWeight: FontWeight.bold, fontSize: 15),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    padding: EdgeInsets.only(bottom: 10),
+                                                    child: Text(
+                                                        profileProvider
+                                                            .profileResponse.Result.PassoutYear,
+                                                        textAlign: TextAlign.left,
+                                                        style: TextStyle(fontSize: 15)),
+                                                  ),
+                                                ],
+                                              ),
+                                              TableRow(
+                                                children: [
+                                                  Container(
+                                                    padding: EdgeInsets.only(
+                                                        bottom: 10), // Adjust the padding as needed
+                                                    child: Text(
+                                                      'Branch',
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(
+                                                          fontWeight: FontWeight.bold, fontSize: 15),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    padding: EdgeInsets.only(
+                                                        bottom: 10), // Adjust the padding as needed
+                                                    child: Text('Information Technology',
+                                                        textAlign: TextAlign.left,
+                                                        style: TextStyle(fontSize: 15)),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          )),
+                                    ],
+                                  )),
+                            )),
+                        SizedBox(height: 10),
+                        Theme(
+                            data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+                            child: Align(
+                              alignment: Alignment.topLeft,
+                              child: Container(
+                                  margin: EdgeInsets.only(top: 0),
+                                  child: ExpansionTile(
+                                    title: FxText.h6("MEMBERSHIP INFORMATION",
                                         fontSize: 18, fontWeight: 800),
                                     children: [
                                       Padding(
@@ -1009,88 +965,61 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 children: [
                                                   Container(
                                                     padding: EdgeInsets.only(
-                                                        bottom:
-                                                            10), // Adjust the padding as needed
+                                                        bottom: 10), // Adjust the padding as needed
                                                     child: Text(
-                                                      'Program',
+                                                      'Membership',
                                                       textAlign: TextAlign.left,
                                                       style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 15),
+                                                          fontWeight: FontWeight.bold, fontSize: 15),
                                                     ),
                                                   ),
                                                   Container(
                                                     padding: EdgeInsets.only(
-                                                        bottom:
-                                                            10), // Adjust the padding as needed
-                                                    child: Text('B.E.',
-                                                        textAlign:
-                                                            TextAlign.left,
-                                                        style: TextStyle(
-                                                            fontSize: 15)),
+                                                        bottom: 10), // Adjust the padding as needed
+                                                    child: Text(
+                                                        profileProvider.profileResponse.Result.Membership
+                                                            .toString(),
+                                                        textAlign: TextAlign.left,
+                                                        style: TextStyle(fontSize: 15)),
                                                   ),
                                                 ],
                                               ),
                                               TableRow(
                                                 children: [
                                                   Container(
-                                                    padding: EdgeInsets.only(
-                                                        bottom: 10),
+                                                    // padding: EdgeInsets.only(bottom: 8), // Adjust the padding as needed
                                                     child: Text(
-                                                      'Passout Year',
+                                                      'Membership Verification Status',
                                                       textAlign: TextAlign.left,
                                                       style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 15),
+                                                          fontWeight: FontWeight.bold, fontSize: 15),
                                                     ),
                                                   ),
                                                   Container(
                                                     padding: EdgeInsets.only(
-                                                        bottom: 10),
+                                                        top: 8.0), // Adjust the padding as needed
                                                     child: Text(
-                                                        profileProvider
-                                                            .profileResponse
-                                                            .Result
-                                                            .PassoutYear,
-                                                        textAlign:
-                                                            TextAlign.left,
-                                                        style: TextStyle(
-                                                            fontSize: 15)),
-                                                  ),
-                                                ],
-                                              ),
-                                              TableRow(
-                                                children: [
-                                                  Container(
-                                                    padding: EdgeInsets.only(
-                                                        bottom:
-                                                            10), // Adjust the padding as needed
-                                                    child: Text(
-                                                      'Branch',
-                                                      textAlign: TextAlign.left,
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 15),
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    padding: EdgeInsets.only(
-                                                        bottom:
-                                                            10), // Adjust the padding as needed
-                                                    child: Text(
-                                                        'Information Technology',
-                                                        textAlign:
-                                                            TextAlign.left,
-                                                        style: TextStyle(
-                                                            fontSize: 15)),
+                                                        profileProvider.profileResponse.Result
+                                                                .IsMembershipVerified
+                                                            ? "Verified"
+                                                            : "Not Verified",
+                                                        textAlign: TextAlign.left,
+                                                        style: TextStyle(fontSize: 15)),
                                                   ),
                                                 ],
                                               ),
                                             ],
                                           )),
+                                      // ElevatedButton(
+                                      //   onPressed: () {
+                                      //     showMembershipInfo(context);
+                                      //   },
+                                      //   child: Text('Edit'),
+                                      // ),
+
+                                      // SizedBox(
+                                      //   height: 20,
+                                      // ),
                                     ],
                                   )),
                             )),
@@ -1106,16 +1035,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Map<String, dynamic> alumni = {};
   Future<void> fetchAlumniData() async {
     var encId = await globals.FlutterSecureStorageObj.read(key: "encId");
-    final response = await http
-        .get(Uri.parse(globals.BASE_API_URL + '/alumni?EncryptedId=$encId'));
+    final response = await http.get(Uri.parse(globals.BASE_API_URL + '/alumni?EncryptedId=$encId'));
     if (response.statusCode == 200) {
       setState(() {
         alumni = json.decode(response.body)['Result'];
         log('alumni data: - ${alumni}');
       });
     } else {
-      print(
-          'Failed to fetch current data. Status code: ${response.statusCode}');
+      print('Failed to fetch current data. Status code: ${response.statusCode}');
     }
   }
 
@@ -1135,8 +1062,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: [
                   Text('Membership'),
                   TextFormField(
-                    decoration:
-                        InputDecoration(hintText: "Enter your input here"),
+                    decoration: InputDecoration(hintText: "Enter your input here"),
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'Enter a valid value!';
@@ -1147,8 +1073,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   SizedBox(height: 10),
                   Text('Verification Status'),
                   TextFormField(
-                    decoration:
-                        InputDecoration(hintText: "Enter your input here"),
+                    decoration: InputDecoration(hintText: "Enter your input here"),
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'Enter a valid value!';
@@ -1319,10 +1244,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             TextButton(
               child: const Text('Submit'),
               onPressed: () async {
-                var encId =
-                    await globals.FlutterSecureStorageObj.read(key: "encId");
-                var token = await globals.FlutterSecureStorageObj.read(
-                    key: "access_token");
+                var encId = await globals.FlutterSecureStorageObj.read(key: "encId");
+                var token = await globals.FlutterSecureStorageObj.read(key: "access_token");
                 try {
                   alumni['FullName'] = fullNameTEC.text;
                   alumni['DOB'] = dobTEC.text;
@@ -1333,8 +1256,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   log('FullName data - ${alumni['FullName']}');
                   log('Update data - $alumni');
                   var response = await http.post(
-                      Uri.parse(globals.BASE_API_URL +
-                          '/Alumni/Update?EncryptedId=$encId'),
+                      Uri.parse(globals.BASE_API_URL + '/Alumni/Update?EncryptedId=$encId'),
                       headers: <String, String>{
                         "Authorization": "Bearer $token",
                         "Content-type": "application/json"
@@ -1355,8 +1277,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     setState(() {});
                     Navigator.pop(context);
                   } else {
-                    print(
-                        'Failed to update data. Status code: ${response.statusCode}');
+                    print('Failed to update data. Status code: ${response.statusCode}');
                   }
                 } catch (e) {
                   print('Failed to update data. $e');
@@ -1485,14 +1406,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
             TextButton(
               child: const Text('Submit'),
               onPressed: () async {
-                var encId =
-                    await globals.FlutterSecureStorageObj.read(key: "encId");
-                var token = await globals.FlutterSecureStorageObj.read(
-                    key: "access_token");
+                var encId = await globals.FlutterSecureStorageObj.read(key: "encId");
+                var token = await globals.FlutterSecureStorageObj.read(key: "access_token");
                 try {
                   var response = await http.post(
-                      Uri.parse(globals.BASE_API_URL +
-                          '/Alumni/Update?EncryptedId=$encId'),
+                      Uri.parse(globals.BASE_API_URL + '/Alumni/Update?EncryptedId=$encId'),
                       headers: <String, String>{
                         "Authorization": "Bearer $token",
                         "Content-type": "application/json"
@@ -1509,8 +1427,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     await fetchAlumniData();
                     Navigator.pop(context);
                   } else {
-                    print(
-                        'Failed to update data. Status code: ${response.statusCode}');
+                    print('Failed to update data. Status code: ${response.statusCode}');
                   }
                 } catch (e) {
                   print('Failed to update data. $e');

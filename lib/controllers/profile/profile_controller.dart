@@ -4,7 +4,8 @@ import 'dart:developer';
 import 'package:ldce_alumni/core/globals.dart' as globals;
 
 import 'package:flutter/material.dart';
-import 'package:ldce_alumni/models/country.dart';
+import 'package:ldce_alumni/models/masters/country/country.dart';
+import 'package:ldce_alumni/models/masters/country/lcountry.dart';
 import 'package:ldce_alumni/models/profile/profile.dart';
 
 class ProfileController with ChangeNotifier {
@@ -12,7 +13,8 @@ class ProfileController with ChangeNotifier {
       uiLoading = true,
       hasMoreUpcomingData = true,
       hasMorePastData = true,
-      exceptionCreated = false;
+      exceptionCreated = false,
+      uploadingImage = false;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -34,8 +36,9 @@ class ProfileController with ChangeNotifier {
   TextEditingController altMobileNumTEC = TextEditingController();
 
   late Profile profileResponse;
-  late Country countryResponse;
-  var country;
+  late String countryResponse;
+  late Map<String, String> country;
+  List<LCountry> countries = [];
   // Country selectedCountry=country[0];
   // = [];
 
@@ -62,9 +65,13 @@ class ProfileController with ChangeNotifier {
   Future getCountry() async {
     try {
       countryResponse = await Country.getCountryDetails();
-      country = await jsonDecode(countryResponse.toString());
-      log("Country Json: $countryResponse");
-      print('Con - $country');
+      // country = await jsonDecode(countryResponse.toString());
+      List<dynamic> jsonList = json.decode(countryResponse)['Result'];
+      countries = jsonList.map((json) {
+        return LCountry(id: json['Id'], name: json['Name']);
+      }).toList();
+      // log("Country Json: $countryResponse");
+      log('Con - $countries');
       notifyListeners();
       // setState(() {});
     } catch (e) {
