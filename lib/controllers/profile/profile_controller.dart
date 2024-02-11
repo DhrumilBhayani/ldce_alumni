@@ -4,9 +4,18 @@ import 'dart:developer';
 import 'package:ldce_alumni/core/globals.dart' as globals;
 
 import 'package:flutter/material.dart';
+import 'package:ldce_alumni/models/masters/branch/branch.dart';
+import 'package:ldce_alumni/models/masters/branch/lbranch.dart';
 import 'package:ldce_alumni/models/masters/country/country.dart';
 import 'package:ldce_alumni/models/masters/country/lcountry.dart';
+import 'package:ldce_alumni/models/masters/program/lprogam.dart';
+import 'package:ldce_alumni/models/masters/program/program.dart';
+import 'package:ldce_alumni/models/masters/state/state.dart';
+import 'package:ldce_alumni/models/masters/state/lstate.dart';
+import 'package:ldce_alumni/models/masters/city/city.dart';
+import 'package:ldce_alumni/models/masters/city/lcity.dart';
 import 'package:ldce_alumni/models/profile/profile.dart';
+import 'package:ldce_alumni/models/update%20profile/updateprofile.dart';
 
 class ProfileController with ChangeNotifier {
   bool showLoading = true,
@@ -22,7 +31,9 @@ class ProfileController with ChangeNotifier {
   TextEditingController newPasswordController = TextEditingController();
   TextEditingController reTypePasswordController = TextEditingController();
 
-  TextEditingController fullNameTEC = TextEditingController();
+  TextEditingController firstNameTEC = TextEditingController();
+  TextEditingController middleNameTEC = TextEditingController();
+  TextEditingController lastNameTEC = TextEditingController();
   TextEditingController dobTEC = TextEditingController();
   TextEditingController genderTEC = TextEditingController();
   TextEditingController cityTEC = TextEditingController();
@@ -34,29 +45,104 @@ class ProfileController with ChangeNotifier {
   TextEditingController pincodeTEC = TextEditingController();
   TextEditingController mobileNumTEC = TextEditingController();
   TextEditingController altMobileNumTEC = TextEditingController();
+  TextEditingController companyNameTEC = TextEditingController();
+  TextEditingController companyAddTEC = TextEditingController();
+  TextEditingController designationTEC = TextEditingController();
+  TextEditingController degreeNameTEC = TextEditingController();
+  TextEditingController passoutYearTEC = TextEditingController();
+  TextEditingController streamNameTEC = TextEditingController();
+  TextEditingController membershipTEC = TextEditingController();
+  TextEditingController membershipVerificationStatusTEC = TextEditingController();
 
   late Profile profileResponse;
   late String countryResponse;
   late Map<String, String> country;
   List<LCountry> countries = [];
+  late String stateResponse;
+  List<LState> states = [];
+  late String cityResponse;
+  List<LCity> cities = [];
+  late String programResponse;
+  List<LProgram> programs = [];
+  late String branchResponse;
+  List<LBranch> branches = [];
   // Country selectedCountry=country[0];
   // = [];
+  late UpdateProfile updatePofileResponse;
+  Map<String, dynamic> profileData = {};
+
+  LCountry? selectedCountry;
+  LState? selectedState;
+  LCity? selectedCity;
+  LProgram? selectedProgram;
+  LBranch? selectedBranch;
+
+  // int selectedProgramId=0;
 
   ProfileController() {
     getProfile();
+    // getCity();
     getCountry();
+    // getState();
+    getProgram();
+    getBranch();
   }
 
   Future getProfile() async {
     var encId = await globals.FlutterSecureStorageObj.read(key: "encId");
     if (encId != null) {
       profileResponse = await Profile.getProfileDetails(encId: encId);
+      profileData = json.decode(profileResponse.Result.toJson());
     } else {
       log("encId is null");
       return null;
     }
     // profileResponse = await
     log("profileResponse: $profileResponse");
+    log("profileData: $profileData");
+    showLoading = false;
+    notifyListeners();
+  }
+
+  Future updateProfile() async {
+    var encId = await globals.FlutterSecureStorageObj.read(key: "encId");
+    var token = await globals.FlutterSecureStorageObj.read(key: "access_token");
+    if (encId != null || token != null) {
+      // profileData['FullName'] = fullNameTEC.text.isNotEmpty ? fullNameTEC.text : profileData['FullName'];
+      profileData['FullName'] = firstNameTEC.text.isNotEmpty ? firstNameTEC.text : profileData['FullName'];
+      profileData['DOB'] = dobTEC.text.isNotEmpty ? dobTEC.text : profileData['DOB'];
+      profileData['Gender'] = genderTEC.text.isNotEmpty ? genderTEC.text : profileData['Gender'];
+      profileData['CityName'] = cityTEC.text.isNotEmpty ? cityTEC.text : profileData['CityName'];
+      profileData['StateName'] = stateTEC.text.isNotEmpty ? stateTEC.text : profileData['StateName'];
+      profileData['CountryName'] = countryTEC.text.isNotEmpty ? countryTEC.text : profileData['CountryName'];
+      profileData['PrimaryAddress'] = primaryAddTEC.text.isNotEmpty ? primaryAddTEC.text : profileData['PrimaryAddress'];
+      profileData['SecondaryAddress'] = secondaryAddTEC.text.isNotEmpty ? secondaryAddTEC.text : profileData['SecondaryAddress'];
+      profileData['EmailAddress'] = emailTEC.text.isNotEmpty ? emailTEC.text : profileData['EmailAddress'];
+      profileData['PinCode'] = pincodeTEC.text.isNotEmpty ? pincodeTEC.text : profileData['PinCode'];
+      profileData['MobileNo'] = mobileNumTEC.text.isNotEmpty ? mobileNumTEC.text : profileData['MobileNo'];
+      profileData['TelephoneNo'] = altMobileNumTEC.text.isNotEmpty ? altMobileNumTEC.text : profileData['TelephoneNo'];
+      profileData['CompanyName'] = companyNameTEC.text.isNotEmpty ? companyNameTEC.text : profileData['CompanyName'];
+      profileData['CompanyAddress'] = companyAddTEC.text.isNotEmpty ? companyAddTEC.text : profileData['CompanyAddress'];
+      profileData['Designation'] = designationTEC.text.isNotEmpty ? designationTEC.text : profileData['Designation'];
+      profileData['PassoutYear'] = passoutYearTEC.text.isNotEmpty ? passoutYearTEC.text : profileData['PassoutYear'];
+      profileData['DegreeId'] = selectedProgram?.id.toInt() != 0 ? selectedProgram?.id : profileData['DegreeId'];
+      profileData['DegreeName'] = selectedProgram!.name.isNotEmpty ? selectedProgram?.name : profileData['DegreeName'];
+      profileData['StreamId'] = selectedBranch?.id.toInt() != 0 ? selectedBranch?.id : profileData['StreamId'];
+      profileData['StreamName'] = selectedBranch!.name.isNotEmpty ? selectedBranch?.name : profileData['StreamName'];
+      log('profileData: 104 $profileData');
+      updatePofileResponse = await UpdateProfile.updateProfileDetails(
+        encId: encId,
+        token: token,
+        dataBody: profileData,
+      );
+      profileData = json.decode(updatePofileResponse.toJson());
+      log('profileData: 111 $profileData');
+    } else {
+      log("encId/token is null");
+      return null;
+    }
+    log("updatePofileResponse: $updatePofileResponse");
+    await getProfile();
     showLoading = false;
     notifyListeners();
   }
@@ -74,6 +160,64 @@ class ProfileController with ChangeNotifier {
       log('Con - $countries');
       notifyListeners();
       // setState(() {});
+    } catch (e) {
+      print('Error loading dropdown data: $e');
+    }
+  }
+
+  Future getState() async {
+    try {
+      stateResponse = await States.getStateDetails();
+      List<dynamic> jsonList = json.decode(stateResponse)['Result'];
+      states = jsonList.map((json) {
+        return LState(id: json['Id'], name: json['Name']);
+      }).toList();
+      // log("Country Json: $countryResponse");
+      log('State - $states');
+      notifyListeners();
+      // setState(() {});
+    } catch (e) {
+      print('Error loading dropdown data: $e');
+    }
+  }
+
+  Future getCity() async {
+    try {
+      cityResponse = await City.getCityDetails();
+      List<dynamic> jsonList = json.decode(cityResponse)['Result'];
+      cities = jsonList.map((json) {
+        return LCity(id: json['Id'], name: json['Name']);
+      }).toList();
+      log('Cities - $cities');
+      notifyListeners();
+    } catch (e) {
+      print('Error loading dropdown data: $e');
+    }
+  }
+
+  Future getProgram() async {
+    try {
+      programResponse = await Program.getProgramDetails();
+      List<dynamic> jsonList = json.decode(programResponse)['Result'];
+      programs = jsonList.map((json) {
+        return LProgram(id: json['Id'], name: json['Name']);
+      }).toList();
+      log('Program - $programs');
+      notifyListeners();
+    } catch (e) {
+      print('Error loading dropdown data: $e');
+    }
+  }
+
+  Future getBranch() async {
+    try {
+      branchResponse = await Branch.getBranchDetails();
+      List<dynamic> jsonList = json.decode(branchResponse)['Result'];
+      branches = jsonList.map((json) {
+        return LBranch(id: json['Id'], name: json['Name']);
+      }).toList();
+      log('Branch - $branches');
+      notifyListeners();
     } catch (e) {
       print('Error loading dropdown data: $e');
     }
