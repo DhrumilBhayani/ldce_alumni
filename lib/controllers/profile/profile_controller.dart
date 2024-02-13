@@ -35,7 +35,7 @@ class ProfileController with ChangeNotifier {
   TextEditingController middleNameTEC = TextEditingController();
   TextEditingController lastNameTEC = TextEditingController();
   TextEditingController dobTEC = TextEditingController();
-  TextEditingController genderTEC = TextEditingController();
+  // TextEditingController genderTEC = TextEditingController();
   TextEditingController cityTEC = TextEditingController();
   TextEditingController stateTEC = TextEditingController();
   TextEditingController countryTEC = TextEditingController();
@@ -53,6 +53,8 @@ class ProfileController with ChangeNotifier {
   TextEditingController streamNameTEC = TextEditingController();
   TextEditingController membershipTEC = TextEditingController();
   TextEditingController membershipVerificationStatusTEC = TextEditingController();
+  String genderValue = 'Male';
+  // String genderValue = profileResponse.Result.Gender ? "Male" : "Female";
 
   late Profile profileResponse;
   late String countryResponse;
@@ -108,13 +110,24 @@ class ProfileController with ChangeNotifier {
     var encId = await globals.FlutterSecureStorageObj.read(key: "encId");
     var token = await globals.FlutterSecureStorageObj.read(key: "access_token");
     if (encId != null || token != null) {
+      log('DOB - C - ${dobTEC.text}');
+      log('selectedCountry - C - ${selectedCountry?.name}');
       // profileData['FullName'] = fullNameTEC.text.isNotEmpty ? fullNameTEC.text : profileData['FullName'];
-      profileData['FullName'] = firstNameTEC.text.isNotEmpty ? firstNameTEC.text : profileData['FullName'];
+      profileData['FirstName'] = firstNameTEC.text.isNotEmpty ? firstNameTEC.text : profileData['FirstName'];
+      profileData['MiddleName'] = middleNameTEC.text.isNotEmpty ? middleNameTEC.text : profileData['MiddleName'];
+      profileData['LastName'] = lastNameTEC.text.isNotEmpty ? lastNameTEC.text : profileData['LastName'];
       profileData['DOB'] = dobTEC.text.isNotEmpty ? dobTEC.text : profileData['DOB'];
-      profileData['Gender'] = genderTEC.text.isNotEmpty ? genderTEC.text : profileData['Gender'];
+      // profileData['Gender'] = genderTEC.text.isNotEmpty ? genderTEC.text : profileData['Gender'];
+      profileData['Gender'] = genderValue.isNotEmpty
+          ? genderValue == "Male"
+              ? true
+              : false
+          : profileData['Gender'];
       profileData['CityName'] = cityTEC.text.isNotEmpty ? cityTEC.text : profileData['CityName'];
       profileData['StateName'] = stateTEC.text.isNotEmpty ? stateTEC.text : profileData['StateName'];
-      profileData['CountryName'] = countryTEC.text.isNotEmpty ? countryTEC.text : profileData['CountryName'];
+      // profileData['CountryName'] = countryTEC.text.isNotEmpty ? countryTEC.text : profileData['CountryName'];
+      // profileData['CountryName'] = selectedCountry!.name.isNotEmpty ? selectedCountry?.name : profileData['CountryName'];
+      profileData['CountryName'] = selectedCountry?.name != '' ? selectedCountry?.name : profileData['CountryName'];
       profileData['PrimaryAddress'] = primaryAddTEC.text.isNotEmpty ? primaryAddTEC.text : profileData['PrimaryAddress'];
       profileData['SecondaryAddress'] = secondaryAddTEC.text.isNotEmpty ? secondaryAddTEC.text : profileData['SecondaryAddress'];
       profileData['EmailAddress'] = emailTEC.text.isNotEmpty ? emailTEC.text : profileData['EmailAddress'];
@@ -126,9 +139,11 @@ class ProfileController with ChangeNotifier {
       profileData['Designation'] = designationTEC.text.isNotEmpty ? designationTEC.text : profileData['Designation'];
       profileData['PassoutYear'] = passoutYearTEC.text.isNotEmpty ? passoutYearTEC.text : profileData['PassoutYear'];
       profileData['DegreeId'] = selectedProgram?.id.toInt() != 0 ? selectedProgram?.id : profileData['DegreeId'];
-      profileData['DegreeName'] = selectedProgram!.name.isNotEmpty ? selectedProgram?.name : profileData['DegreeName'];
+      // profileData['DegreeName'] = selectedProgram!.name.isNotEmpty ? selectedProgram?.name : profileData['DegreeName'];
+      profileData['DegreeName'] = selectedProgram?.name != '' ? selectedProgram?.name : profileData['DegreeName'];
       profileData['StreamId'] = selectedBranch?.id.toInt() != 0 ? selectedBranch?.id : profileData['StreamId'];
-      profileData['StreamName'] = selectedBranch!.name.isNotEmpty ? selectedBranch?.name : profileData['StreamName'];
+      // profileData['StreamName'] = selectedBranch!.name.isNotEmpty ? selectedBranch?.name : profileData['StreamName'];
+      profileData['StreamName'] = selectedBranch?.name != '' ? selectedBranch?.name : profileData['StreamName'];
       log('profileData: 104 $profileData');
       updatePofileResponse = await UpdateProfile.updateProfileDetails(
         encId: encId,

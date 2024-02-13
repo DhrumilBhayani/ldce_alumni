@@ -39,10 +39,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   // TextEditingController countryTEC = TextEditingController();
   late CustomTheme customTheme;
   // TextEditingController dobTEC = TextEditingController();
-  String dropdownvalue = 'Male';
   // TextEditingController firstNameTEC = TextEditingController();
   // TextEditingController genderTEC = TextEditingController();
-  // List of items in our dropdown menu
+
+  String dropdownvalue = 'Male';
   var items = [
     'Male',
     'Female',
@@ -586,7 +586,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     const kSpacingUnit = 10;
     return Consumer2<AppNotifier, ProfileController>(builder: (BuildContext context, AppNotifier value, profileProvider, Widget? child) {
-      dropdownvalue = profileProvider.profileResponse.Result.Gender ? "Male" : "Female";
+      // dropdownvalue = profileProvider.profileResponse.Result.Gender ? "Male" : "Female";
+      profileProvider.genderValue = profileProvider.profileResponse.Result.Gender ? "Male" : "Female";
       return profileProvider.showLoading
           ? Scaffold(
               extendBodyBehindAppBar: true,
@@ -874,7 +875,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           profileProvider.dobTEC.text = DateFormat('dd-MM-yyyy')
                                               .format(DateTime.parse(profileProvider.profileResponse.Result.DOB.toString()));
                                           // profileProvider.profileResponse.Result.DOB.toString();
-                                          profileProvider.genderTEC.text = profileProvider.profileResponse.Result.Gender.toString();
+                                          // profileProvider.genderTEC.text = profileProvider.profileResponse.Result.Gender.toString();
                                           profileProvider.cityTEC.text = profileProvider.profileResponse.Result.CityName.toString();
                                           profileProvider.stateTEC.text = profileProvider.profileResponse.Result.StateName.toString();
                                           profileProvider.countryTEC.text = profileProvider.profileResponse.Result.CountryName.toString();
@@ -1010,6 +1011,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                               final DateTime? picked = await showDatePicker(
                                                                 context: context,
                                                                 initialDate: DateTime.now(),
+                                                                // DateTime.parse(profileProvider.profileResponse.Result.DOB) ,
                                                                 firstDate: DateTime(1900),
                                                                 lastDate: DateTime.now(),
                                                               );
@@ -1020,7 +1022,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                                   profileProvider.dobTEC.text =
                                                                       DateFormat('dd-MM-yyyy').format(DateTime.parse(picked.toString()));
                                                                   selectedDate = picked;
+                                                                  print(
+                                                                      'DOB - ${picked} & ${profileProvider.dobTEC.text} & ${selectedDate}');
                                                                 });
+                                                              } else {
+                                                                print("Date is not selected");
                                                               }
                                                             },
                                                           ),
@@ -1032,7 +1038,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                           DropdownButtonFormField<String>(
                                                             dropdownColor: Colors.white,
                                                             isExpanded: true,
-                                                            value: dropdownvalue,
+                                                            value: profileProvider.genderValue,
+                                                            // profileProvider.profileResponse.Result.Gender ? "Male" : "Female" ,
                                                             icon: const Icon(Icons.keyboard_arrow_down),
                                                             decoration: InputDecoration(
                                                               focusedBorder: UnderlineInputBorder(
@@ -1053,8 +1060,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                               );
                                                             }).toList(),
                                                             onChanged: (String? newValue) {
+                                                              log('gender new value - $newValue');
                                                               setState(() {
-                                                                dropdownvalue = newValue!;
+                                                                profileProvider.genderValue = newValue!;
                                                               });
                                                             },
                                                           ),
@@ -1095,10 +1103,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                             dropdownColor: Colors.white,
                                                             isExpanded: true,
                                                             icon: const Icon(Icons.keyboard_arrow_down),
-                                                            // underline: Container(
-                                                            //   height: 1,
-                                                            //   color: Colors.grey,
-                                                            // ),
                                                             value: profileProvider.selectedCountry ?? null,
                                                             hint: Text('Select a country'),
                                                             decoration: InputDecoration(
@@ -1117,6 +1121,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                               if (newValue != null) {
                                                                 setState(() {
                                                                   profileProvider.selectedCountry = newValue;
+                                                                  profileProvider.countryTEC.text = newValue.name;
                                                                 });
                                                                 print('Selected Country ID: ${newValue.id}');
                                                                 print('Selected Country name: ${newValue.name}');
@@ -1246,22 +1251,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     TextButton(
                                                       child: const Text('Cancel'),
                                                       onPressed: () {
-                                                        // firstNameTEC.text = "";
-                                                        // middleNameTEC.text = "";
-                                                        // lastNameTEC.text = "";
-                                                        // dobTEC.text = "";
-                                                        // genderTEC.text = "";
-                                                        // cityTEC.text = "";
-                                                        // stateTEC.text = "";
-                                                        // countryTEC.text = "";
                                                         setState(() {});
                                                         Navigator.of(context).pop();
                                                       },
                                                     ),
                                                     TextButton(
                                                       child: const Text('Submit'),
-                                                      onPressed: () {
-                                                        // Handle the submit action
+                                                      onPressed: () async {
+                                                        await profileProvider.updateProfile();
+                                                        Navigator.of(context).pop();
                                                       },
                                                     ),
                                                   ],
@@ -1844,7 +1842,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 ),
                                                 Container(
                                                   padding: EdgeInsets.only(bottom: 10), // Adjust the padding as needed
-                                                  child: Text(profileProvider.profileResponse.Result.DegreeName, textAlign: TextAlign.left, style: TextStyle(fontSize: 15)), //'B.E.'
+                                                  child: Text(profileProvider.profileResponse.Result.DegreeName,
+                                                      textAlign: TextAlign.left, style: TextStyle(fontSize: 15)), //'B.E.'
                                                 ),
                                               ],
                                             ),
@@ -1887,10 +1886,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       ),
                                       ElevatedButton(
                                         onPressed: () async {
-                                          profileProvider.passoutYearTEC.text =
-                                              profileProvider.profileResponse.Result.PassoutYear.toString();
-                                          profileProvider.degreeNameTEC.text = profileProvider.profileResponse.Result.DegreeName.toString();
-                                          profileProvider.streamNameTEC.text = profileProvider.profileResponse.Result.StreamName.toString();
+                                          // profileProvider.passoutYearTEC.text =
+                                          //     profileProvider.profileResponse.Result.PassoutYear.toString();
+                                          // profileProvider.degreeNameTEC.text = profileProvider.profileResponse.Result.DegreeName.toString();
+                                          // profileProvider.streamNameTEC.text = profileProvider.profileResponse.Result.StreamName.toString();
                                           setState(() {
                                             profileProvider.programs.map((LProgram program) {
                                               if (program.name.toString() == profileProvider.profileResponse.Result.DegreeName.toString()) {
@@ -1919,78 +1918,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                         mainAxisSize: MainAxisSize.min,
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
-                                                          /*Text(
-                                                            'First Name',
-                                                            style: TextStyle(fontWeight: FontWeight.bold),
-                                                          ),
-                                                          TextFormField(
-                                                            controller: firstNameTEC,
-                                                            decoration: InputDecoration(
-                                                              hintText: "First Name ",
-                                                              focusedBorder: UnderlineInputBorder(
-                                                                borderSide: BorderSide(width: 1, color: Colors.black),
-                                                              ),
-                                                            ),
-                                                            keyboardType: TextInputType.text,
-                                                            textInputAction: TextInputAction.next,
-                                                            cursorColor: kPrimaryColor,
-                                                            autovalidateMode: AutovalidateMode.onUserInteraction,
-                                                            validator: (value) {
-                                                              if (value!.isEmpty || value.trim() == '') {
-                                                                return 'Enter a valid first Name!';
-                                                              }
-                                                              return null;
-                                                            },
-                                                          ),
-                                                          SizedBox(height: 10),
-                                                          Text(
-                                                            'Middle Name',
-                                                            style: TextStyle(fontWeight: FontWeight.bold),
-                                                          ),
-                                                          TextFormField(
-                                                            controller: middleNameTEC,
-                                                            decoration: InputDecoration(
-                                                              hintText: "Middle name ",
-                                                              focusedBorder: UnderlineInputBorder(
-                                                                borderSide: BorderSide(width: 1, color: Colors.black),
-                                                              ),
-                                                            ),
-                                                            keyboardType: TextInputType.text,
-                                                            textInputAction: TextInputAction.next,
-                                                            cursorColor: kPrimaryColor,
-                                                            autovalidateMode: AutovalidateMode.onUserInteraction,
-                                                            validator: (value) {
-                                                              if (value!.isEmpty || value.trim() == '') {
-                                                                return 'Enter a valid middle Name!';
-                                                              }
-                                                              return null;
-                                                            },
-                                                          ),
-                                                          SizedBox(height: 10),
-                                                          Text(
-                                                            'Last Name',
-                                                            style: TextStyle(fontWeight: FontWeight.bold),
-                                                          ),
-                                                          TextFormField(
-                                                            controller: lastNameTEC,
-                                                            decoration: InputDecoration(
-                                                              hintText: "Last name",
-                                                              focusedBorder: UnderlineInputBorder(
-                                                                borderSide: BorderSide(width: 1, color: Colors.black),
-                                                              ),
-                                                            ),
-                                                            keyboardType: TextInputType.text,
-                                                            textInputAction: TextInputAction.next,
-                                                            cursorColor: kPrimaryColor,
-                                                            autovalidateMode: AutovalidateMode.onUserInteraction,
-                                                            validator: (value) {
-                                                              if (value!.isEmpty || value.trim() == '') {
-                                                                return 'Enter a valid last Name!';
-                                                              }
-                                                              return null;
-                                                            },
-                                                          ),
-                                                          SizedBox(height: 10),*/
                                                           Text(
                                                             'Passout Year',
                                                             style: TextStyle(fontWeight: FontWeight.bold),
@@ -2077,41 +2004,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                             },
                                                           ),
                                                           SizedBox(height: 10),
-
-                                                          /*Text(
-                                                            'Gender',
-                                                            style: TextStyle(fontWeight: FontWeight.bold),
-                                                          ),
-                                                          DropdownButtonFormField<String>(
-                                                            dropdownColor: Colors.white,
-                                                            isExpanded: true,
-                                                            value: dropdownvalue,
-                                                            icon: const Icon(Icons.keyboard_arrow_down),
-                                                            decoration: InputDecoration(
-                                                              focusedBorder: UnderlineInputBorder(
-                                                                borderSide: BorderSide(width: 1, color: Colors.black),
-                                                              ),
-                                                            ),
-                                                            autovalidateMode: AutovalidateMode.onUserInteraction,
-                                                            validator: (value) {
-                                                              if (value == null || value.isEmpty || value.trim() == '') {
-                                                                return 'Please select your gender';
-                                                              }
-                                                              return null;
-                                                            },
-                                                            items: items.map((String items) {
-                                                              return DropdownMenuItem(
-                                                                value: items,
-                                                                child: Text(items),
-                                                              );
-                                                            }).toList(),
-                                                            onChanged: (String? newValue) {
-                                                              setState(() {
-                                                                dropdownvalue = newValue!;
-                                                              });
-                                                            },
-                                                          ),
-                                                          SizedBox(height: 10),*/
                                                           Text(
                                                             'Program',
                                                             style: TextStyle(fontWeight: FontWeight.bold),
@@ -2238,14 +2130,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     TextButton(
                                                       child: const Text('Cancel'),
                                                       onPressed: () {
-                                                        // firstNameTEC.text = "";
-                                                        // middleNameTEC.text = "";
-                                                        // lastNameTEC.text = "";
-                                                        // dobTEC.text = "";
-                                                        // genderTEC.text = "";
-                                                        // cityTEC.text = "";
-                                                        // stateTEC.text = "";
-                                                        // countryTEC.text = "";
                                                         setState(() {});
                                                         Navigator.of(context).pop();
                                                       },
