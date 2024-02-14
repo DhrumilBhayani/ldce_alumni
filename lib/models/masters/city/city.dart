@@ -54,8 +54,8 @@ class City {
   @override
   String toString() => 'City(Status: $Status, Message: $Message, Result: $Result)';
 
-  static Future<String> getCityDetails() async {
-    final http.Response response = await http.get(Uri.parse('${globals.BASE_API_URL}/City'));
+  static Future<String> getCityDetails(int stateId) async {
+    final http.Response response = await http.get(Uri.parse('${globals.BASE_API_URL}/City?StateId=$stateId'));
     // print("countryResponse- ${response.body}");
     log(response.statusCode.toString());
     if (response.statusCode.toString() == "200") {

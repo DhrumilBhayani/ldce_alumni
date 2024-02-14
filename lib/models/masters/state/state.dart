@@ -47,9 +47,9 @@ class States {
     );
   }
 
-  static Future<String> getStateDetails() async {
+  static Future<String> getStateDetails(int countryId) async {
     final http.Response response =
-        await http.get(Uri.parse('${globals.BASE_API_URL}/State'));
+        await http.get(Uri.parse('${globals.BASE_API_URL}/State?CountryId=$countryId'));
 
     if (response.statusCode.toString() == "200") {
       var stateResponse = States.fromJson(response.body);

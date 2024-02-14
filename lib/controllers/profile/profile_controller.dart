@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:intl/intl.dart';
 import 'package:ldce_alumni/core/globals.dart' as globals;
 
 import 'package:flutter/material.dart';
@@ -82,10 +83,15 @@ class ProfileController with ChangeNotifier {
   // int selectedProgramId=0;
 
   ProfileController() {
-    getProfile();
+    getaAllDetails();
+  }
+  Future getaAllDetails() async {
+    await getProfile();
     // getCity();
     getCountry();
-    // getState();
+
+    getState(profileResponse.Result.CountryId);
+    getCity(profileResponse.Result.StateId);
     getProgram();
     getBranch();
   }
@@ -116,7 +122,11 @@ class ProfileController with ChangeNotifier {
       profileData['FirstName'] = firstNameTEC.text.isNotEmpty ? firstNameTEC.text : profileData['FirstName'];
       profileData['MiddleName'] = middleNameTEC.text.isNotEmpty ? middleNameTEC.text : profileData['MiddleName'];
       profileData['LastName'] = lastNameTEC.text.isNotEmpty ? lastNameTEC.text : profileData['LastName'];
-      profileData['DOB'] = dobTEC.text.isNotEmpty ? dobTEC.text : profileData['DOB'];
+      profileData['DOB'] = dobTEC.text.isNotEmpty
+          ? DateFormat('yyyy-MM-dd').format(DateFormat('dd-MM-yyyy').parseStrict(dobTEC.text))
+          : profileData['DOB'];
+      profileData['DOB'] = profileData['DOB'].toString() + "T00:00:00";
+      log('DOB - 90 - ${profileData['DOB']}');
       // profileData['Gender'] = genderTEC.text.isNotEmpty ? genderTEC.text : profileData['Gender'];
       profileData['Gender'] = genderValue.isNotEmpty
           ? genderValue == "Male"
@@ -128,14 +138,17 @@ class ProfileController with ChangeNotifier {
       // profileData['CountryName'] = countryTEC.text.isNotEmpty ? countryTEC.text : profileData['CountryName'];
       // profileData['CountryName'] = selectedCountry!.name.isNotEmpty ? selectedCountry?.name : profileData['CountryName'];
       profileData['CountryName'] = selectedCountry?.name != '' ? selectedCountry?.name : profileData['CountryName'];
-      profileData['PrimaryAddress'] = primaryAddTEC.text.isNotEmpty ? primaryAddTEC.text : profileData['PrimaryAddress'];
-      profileData['SecondaryAddress'] = secondaryAddTEC.text.isNotEmpty ? secondaryAddTEC.text : profileData['SecondaryAddress'];
+      profileData['PrimaryAddress'] =
+          primaryAddTEC.text.isNotEmpty ? primaryAddTEC.text : profileData['PrimaryAddress'];
+      profileData['SecondaryAddress'] =
+          secondaryAddTEC.text.isNotEmpty ? secondaryAddTEC.text : profileData['SecondaryAddress'];
       profileData['EmailAddress'] = emailTEC.text.isNotEmpty ? emailTEC.text : profileData['EmailAddress'];
       profileData['PinCode'] = pincodeTEC.text.isNotEmpty ? pincodeTEC.text : profileData['PinCode'];
       profileData['MobileNo'] = mobileNumTEC.text.isNotEmpty ? mobileNumTEC.text : profileData['MobileNo'];
       profileData['TelephoneNo'] = altMobileNumTEC.text.isNotEmpty ? altMobileNumTEC.text : profileData['TelephoneNo'];
       profileData['CompanyName'] = companyNameTEC.text.isNotEmpty ? companyNameTEC.text : profileData['CompanyName'];
-      profileData['CompanyAddress'] = companyAddTEC.text.isNotEmpty ? companyAddTEC.text : profileData['CompanyAddress'];
+      profileData['CompanyAddress'] =
+          companyAddTEC.text.isNotEmpty ? companyAddTEC.text : profileData['CompanyAddress'];
       profileData['Designation'] = designationTEC.text.isNotEmpty ? designationTEC.text : profileData['Designation'];
       profileData['PassoutYear'] = passoutYearTEC.text.isNotEmpty ? passoutYearTEC.text : profileData['PassoutYear'];
       profileData['DegreeId'] = selectedProgram?.id.toInt() != 0 ? selectedProgram?.id : profileData['DegreeId'];
@@ -180,15 +193,17 @@ class ProfileController with ChangeNotifier {
     }
   }
 
-  Future getState() async {
+  Future getState(int countryId) async {
+    log("getState - $countryId");
     try {
-      stateResponse = await States.getStateDetails();
+      stateResponse = await States.getStateDetails(countryId);
       List<dynamic> jsonList = json.decode(stateResponse)['Result'];
+      states = [];
       states = jsonList.map((json) {
         return LState(id: json['Id'], name: json['Name']);
       }).toList();
       // log("Country Json: $countryResponse");
-      log('State - $states');
+      log('State - ${states[6].name}');
       notifyListeners();
       // setState(() {});
     } catch (e) {
@@ -196,9 +211,10 @@ class ProfileController with ChangeNotifier {
     }
   }
 
-  Future getCity() async {
+  Future getCity(int stateId) async {
+    log("getCity - $stateId");
     try {
-      cityResponse = await City.getCityDetails();
+      cityResponse = await City.getCityDetails(stateId);
       List<dynamic> jsonList = json.decode(cityResponse)['Result'];
       cities = jsonList.map((json) {
         return LCity(id: json['Id'], name: json['Name']);

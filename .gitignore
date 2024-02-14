@@ -9,3 +9,6 @@ GoogleService-Info.plist
 pubspec.lock
 windows/flutter/generated_plugin_registrant.cc
 windows/flutter/generated_plugins.cmake
+.flutter-plugins
+.flutter-plugins
+devtools_options.yaml
