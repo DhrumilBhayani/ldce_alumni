@@ -51,12 +51,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   late List<NavItem> navItems;
   String? selectedNotificationPayload;
 
-  List<Color> bgColors = [
-    Color.fromARGB(255, 250, 38, 48),
-    Color(0xffffca02),
-    Color(0xff1692d0),
-    Color(0xff07a44d)
-  ];
+  List<Color> bgColors = [Color.fromARGB(255, 250, 38, 48), Color(0xffffca02), Color(0xff1692d0), Color(0xff07a44d)];
 
   bool isDark = false;
   TextDirection textDirection = TextDirection.ltr;
@@ -156,40 +151,39 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         print("Terminated Message ID: ${message.data["_id"]}");
         print("Terminated Notification message.data: ${message}");
         // print("Notification: ${message.notification}");
- Map jsonPayload = message.data;
-      if (jsonPayload["type"].toString().toLowerCase().contains('news')) {
-        print("NEWSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
-        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-            statusBarColor: Colors.white, statusBarIconBrightness: Brightness.dark));
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-              statusBarColor: Colors.white, statusBarIconBrightness: Brightness.dark));
-          // Navigator.push(
-          //     context,
-          //     MaterialPageRoute(
-          //         builder: (context) => SingleInternetNewsScreen(
-          //               id: jsonPayload['id'],
-          //             )));
-          Navigator.pushNamed(context, 'single_internet_news_screen',
-              arguments: ScreenArguments(jsonPayload['id']));
-        });
-      }
-      if (jsonPayload["type"].toString().toLowerCase().contains('event') ||
-          jsonPayload["type"].toString().toLowerCase().contains('events')) {
-        // print("EVENTSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
-        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-            statusBarColor: Colors.white, statusBarIconBrightness: Brightness.dark));
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          //   Navigator.push(
-          //       context,
-          //       MaterialPageRoute(
-          //           builder: (context) => SingleInternetEventScreen(
-          //                 id:jsonPayload['id'],
-          //               )));
-          Navigator.pushNamed(context, 'single_internet_events_screen',
-              arguments: ScreenArguments(jsonPayload['id']));
-        });
-      }
+        Map jsonPayload = message.data;
+        if (jsonPayload["type"].toString().toLowerCase().contains('news')) {
+          print("NEWSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+          SystemChrome.setSystemUIOverlayStyle(
+              SystemUiOverlayStyle(statusBarColor: Colors.white, statusBarIconBrightness: Brightness.dark));
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            SystemChrome.setSystemUIOverlayStyle(
+                SystemUiOverlayStyle(statusBarColor: Colors.white, statusBarIconBrightness: Brightness.dark));
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (context) => SingleInternetNewsScreen(
+            //               id: jsonPayload['id'],
+            //             )));
+            Navigator.pushNamed(context, 'single_internet_news_screen', arguments: ScreenArguments(jsonPayload['id']));
+          });
+        }
+        if (jsonPayload["type"].toString().toLowerCase().contains('event') ||
+            jsonPayload["type"].toString().toLowerCase().contains('events')) {
+          // print("EVENTSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+          SystemChrome.setSystemUIOverlayStyle(
+              SystemUiOverlayStyle(statusBarColor: Colors.white, statusBarIconBrightness: Brightness.dark));
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            //   Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //           builder: (context) => SingleInternetEventScreen(
+            //                 id:jsonPayload['id'],
+            //               )));
+            Navigator.pushNamed(context, 'single_internet_events_screen',
+                arguments: ScreenArguments(jsonPayload['id']));
+          });
+        }
         //////// In case of DemoScreen ///////////////////
         // if (message.data['_id'] != null) {
         //   Navigator.of(context).push(MaterialPageRoute(
@@ -258,39 +252,38 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         print("Message Data : ${message.data["type"].toString().toLowerCase()}");
         // -------------
         Map jsonPayload = message.data;
-      if (jsonPayload["type"].toString().toLowerCase().contains('news')) {
-        print("NEWSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
-        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-            statusBarColor: Colors.white, statusBarIconBrightness: Brightness.dark));
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-              statusBarColor: Colors.white, statusBarIconBrightness: Brightness.dark));
-          // Navigator.push(
-          //     context,
-          //     MaterialPageRoute(
-          //         builder: (context) => SingleInternetNewsScreen(
-          //               id: jsonPayload['id'],
-          //             )));
-          Navigator.pushNamed(context, 'single_internet_news_screen',
-              arguments: ScreenArguments(jsonPayload['id']));
-        });
-      }
-      if (jsonPayload["type"].toString().toLowerCase().contains('event') ||
-          jsonPayload["type"].toString().toLowerCase().contains('events')) {
-        // print("EVENTSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
-        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-            statusBarColor: Colors.white, statusBarIconBrightness: Brightness.dark));
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          //   Navigator.push(
-          //       context,
-          //       MaterialPageRoute(
-          //           builder: (context) => SingleInternetEventScreen(
-          //                 id:jsonPayload['id'],
-          //               )));
-          Navigator.pushNamed(context, 'single_internet_events_screen',
-              arguments: ScreenArguments(jsonPayload['id']));
-        });
-      }
+        if (jsonPayload["type"].toString().toLowerCase().contains('news')) {
+          print("NEWSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+          SystemChrome.setSystemUIOverlayStyle(
+              SystemUiOverlayStyle(statusBarColor: Colors.white, statusBarIconBrightness: Brightness.dark));
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            SystemChrome.setSystemUIOverlayStyle(
+                SystemUiOverlayStyle(statusBarColor: Colors.white, statusBarIconBrightness: Brightness.dark));
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (context) => SingleInternetNewsScreen(
+            //               id: jsonPayload['id'],
+            //             )));
+            Navigator.pushNamed(context, 'single_internet_news_screen', arguments: ScreenArguments(jsonPayload['id']));
+          });
+        }
+        if (jsonPayload["type"].toString().toLowerCase().contains('event') ||
+            jsonPayload["type"].toString().toLowerCase().contains('events')) {
+          // print("EVENTSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+          SystemChrome.setSystemUIOverlayStyle(
+              SystemUiOverlayStyle(statusBarColor: Colors.white, statusBarIconBrightness: Brightness.dark));
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            //   Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //           builder: (context) => SingleInternetEventScreen(
+            //                 id:jsonPayload['id'],
+            //               )));
+            Navigator.pushNamed(context, 'single_internet_events_screen',
+                arguments: ScreenArguments(jsonPayload['id']));
+          });
+        }
         // -------------
         // Navigator.pushNamed(context, "single_internet_news_screen");
         // if (message.data["type"].toString().toLowerCase().contains('news')) {
@@ -373,7 +366,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             print(e);
           }
           return Scaffold(
-            
               extendBodyBehindAppBar: true,
               appBar: AppBar(
                 automaticallyImplyLeading: false,
@@ -433,9 +425,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                         autoPlayAnimationDuration: Duration(milliseconds: 500),
                         viewportFraction: 2,
                       ),
-                      items: !homeProvider.exceptionCreated
-                          ? _buildSliderImage(homeProvider)
-                          : [Container()],
+                      items: !homeProvider.exceptionCreated ? _buildSliderImage(homeProvider) : [Container()],
                     ),
                     // Positioned(
                     //     top: MediaQuery.of(context).size.height * 0.04,
@@ -475,8 +465,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                           height: 50,
                           width: 90,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(8)),
-                              color: Colors.black.withAlpha(150)),
+                              borderRadius: BorderRadius.all(Radius.circular(8)), color: Colors.black.withAlpha(150)),
                           child: Image(
                             image: AssetImage("./assets/images/75.png"),
                             height: 100,
@@ -488,8 +477,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
                 Expanded(
                   child: TabBarView(
-                      controller: tabController,
-                      children: navItems.map((navItem) => navItem.screen).toList()),
+                      controller: tabController, children: navItems.map((navItem) => navItem.screen).toList()),
                 ),
                 // Container(
                 //   padding: EdgeInsets.only(left: 12, right: 12, top: 16, bottom: 16),
@@ -541,11 +529,12 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                 insets: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 150.0),
                               ),
                               controller: tabController,
+                              tabAlignment: TabAlignment.start,
                               isScrollable: true,
                               indicatorSize: TabBarIndicatorSize.tab,
                               indicatorColor: theme.colorScheme.primary,
                               padding: EdgeInsets.zero,
-                              indicatorPadding: EdgeInsets.only(bottom: 5),
+                              indicatorPadding: EdgeInsets.zero,
                               labelPadding: EdgeInsets.zero,
                               indicatorWeight: 0,
                               tabs: [
@@ -686,9 +675,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       tabs.add(Container(
           color: Colors.red,
           child: Icon(navItems[i].icon,
-              color: (currentIndex == i)
-                  ? theme.colorScheme.primary
-                  : theme.colorScheme.onBackground.withAlpha(220),
+              color: (currentIndex == i) ? theme.colorScheme.primary : theme.colorScheme.onBackground.withAlpha(220),
               size: navItems[i].size)));
     }
     return tabs;

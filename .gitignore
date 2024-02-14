@@ -12,3 +12,4 @@ windows/flutter/generated_plugins.cmake
 .flutter-plugins
 .flutter-plugins
 devtools_options.yaml
+.flutter-plugins-dependencies
