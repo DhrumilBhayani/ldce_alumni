@@ -24,7 +24,8 @@ class ProfileController with ChangeNotifier {
       hasMoreUpcomingData = true,
       hasMorePastData = true,
       exceptionCreated = false,
-      uploadingImage = false;
+      uploadingImage = false,
+      isEditMode = false;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -44,7 +45,9 @@ class ProfileController with ChangeNotifier {
   TextEditingController secondaryAddTEC = TextEditingController();
   TextEditingController emailTEC = TextEditingController();
   TextEditingController pincodeTEC = TextEditingController();
+  TextEditingController prefixMobileNumTEC = TextEditingController();
   TextEditingController mobileNumTEC = TextEditingController();
+  TextEditingController prefixAltMobileNumTEC = TextEditingController();
   TextEditingController altMobileNumTEC = TextEditingController();
   TextEditingController companyNameTEC = TextEditingController();
   TextEditingController companyAddTEC = TextEditingController();
@@ -55,6 +58,9 @@ class ProfileController with ChangeNotifier {
   TextEditingController membershipTEC = TextEditingController();
   TextEditingController membershipVerificationStatusTEC = TextEditingController();
   String genderValue = 'Male';
+  String fullMobileNumber = '';
+  String fullAltMobileNumber = '';
+
   // String genderValue = profileResponse.Result.Gender ? "Male" : "Female";
 
   late Profile profileResponse;
@@ -105,7 +111,6 @@ class ProfileController with ChangeNotifier {
       log("encId is null");
       return null;
     }
-    // profileResponse = await
     log("profileResponse: $profileResponse");
     log("profileData: $profileData");
     showLoading = false;
@@ -115,56 +120,49 @@ class ProfileController with ChangeNotifier {
   Future updateProfile() async {
     var encId = await globals.FlutterSecureStorageObj.read(key: "encId");
     var token = await globals.FlutterSecureStorageObj.read(key: "access_token");
+
     if (encId != null || token != null) {
-      log('DOB - C - ${dobTEC.text}');
-      log('selectedCountry - C - ${selectedCountry?.name}');
-      // profileData['FullName'] = fullNameTEC.text.isNotEmpty ? fullNameTEC.text : profileData['FullName'];
+      
       profileData['FirstName'] = firstNameTEC.text.isNotEmpty ? firstNameTEC.text : profileData['FirstName'];
       profileData['MiddleName'] = middleNameTEC.text.isNotEmpty ? middleNameTEC.text : profileData['MiddleName'];
       profileData['LastName'] = lastNameTEC.text.isNotEmpty ? lastNameTEC.text : profileData['LastName'];
-      profileData['DOB'] = dobTEC.text.isNotEmpty
-          ? DateFormat('yyyy-MM-dd').format(DateFormat('dd-MM-yyyy').parseStrict(dobTEC.text))
-          : profileData['DOB'];
+      profileData['DOB'] =
+          dobTEC.text.isNotEmpty ? DateFormat('yyyy-MM-dd').format(DateFormat('dd-MM-yyyy').parseStrict(dobTEC.text)) : profileData['DOB'];
       profileData['DOB'] = profileData['DOB'].toString() + "T00:00:00";
       log('DOB - 90 - ${profileData['DOB']}');
-      // profileData['Gender'] = genderTEC.text.isNotEmpty ? genderTEC.text : profileData['Gender'];
       profileData['Gender'] = genderValue.isNotEmpty
           ? genderValue == "Male"
               ? true
               : false
           : profileData['Gender'];
-      profileData['CityName'] = cityTEC.text.isNotEmpty ? cityTEC.text : profileData['CityName'];
-      profileData['StateName'] = stateTEC.text.isNotEmpty ? stateTEC.text : profileData['StateName'];
-      // profileData['CountryName'] = countryTEC.text.isNotEmpty ? countryTEC.text : profileData['CountryName'];
-      // profileData['CountryName'] = selectedCountry!.name.isNotEmpty ? selectedCountry?.name : profileData['CountryName'];
+      profileData['CityId'] = selectedCity?.id.toInt() != 0 ? selectedCity?.id : profileData['CityId'];
+      profileData['CityName'] = selectedCity?.name != '' ? selectedCity?.name : profileData['CityName'];
+      profileData['StateId'] = selectedState?.id.toInt() != 0 ? selectedState?.id : profileData['StateId'];
+      profileData['StateName'] = selectedState?.name != '' ? selectedState?.name : profileData['StateName'];
+      profileData['CountryId'] = selectedCountry?.id.toInt() != 0 ? selectedCountry?.id : profileData['CountryId'];
       profileData['CountryName'] = selectedCountry?.name != '' ? selectedCountry?.name : profileData['CountryName'];
-      profileData['PrimaryAddress'] =
-          primaryAddTEC.text.isNotEmpty ? primaryAddTEC.text : profileData['PrimaryAddress'];
-      profileData['SecondaryAddress'] =
-          secondaryAddTEC.text.isNotEmpty ? secondaryAddTEC.text : profileData['SecondaryAddress'];
+      profileData['PrimaryAddress'] = primaryAddTEC.text.isNotEmpty ? primaryAddTEC.text : profileData['PrimaryAddress'];
+      profileData['SecondaryAddress'] = secondaryAddTEC.text.isNotEmpty ? secondaryAddTEC.text : profileData['SecondaryAddress'];
       profileData['EmailAddress'] = emailTEC.text.isNotEmpty ? emailTEC.text : profileData['EmailAddress'];
       profileData['PinCode'] = pincodeTEC.text.isNotEmpty ? pincodeTEC.text : profileData['PinCode'];
-      profileData['MobileNo'] = mobileNumTEC.text.isNotEmpty ? mobileNumTEC.text : profileData['MobileNo'];
-      profileData['TelephoneNo'] = altMobileNumTEC.text.isNotEmpty ? altMobileNumTEC.text : profileData['TelephoneNo'];
+      // profileData['MobileNo'] = mobileNumTEC.text.isNotEmpty ? mobileNumTEC.text : profileData['MobileNo'];
+      profileData['MobileNo'] = fullMobileNumber != '' ? fullMobileNumber : profileData['MobileNo'];
+      // profileData['TelephoneNo'] = altMobileNumTEC.text.isNotEmpty ? altMobileNumTEC.text : profileData['TelephoneNo'];
+      profileData['TelephoneNo'] = fullAltMobileNumber != '' ? fullAltMobileNumber : profileData['TelephoneNo'];
       profileData['CompanyName'] = companyNameTEC.text.isNotEmpty ? companyNameTEC.text : profileData['CompanyName'];
-      profileData['CompanyAddress'] =
-          companyAddTEC.text.isNotEmpty ? companyAddTEC.text : profileData['CompanyAddress'];
+      profileData['CompanyAddress'] = companyAddTEC.text.isNotEmpty ? companyAddTEC.text : profileData['CompanyAddress'];
       profileData['Designation'] = designationTEC.text.isNotEmpty ? designationTEC.text : profileData['Designation'];
       profileData['PassoutYear'] = passoutYearTEC.text.isNotEmpty ? passoutYearTEC.text : profileData['PassoutYear'];
       profileData['DegreeId'] = selectedProgram?.id.toInt() != 0 ? selectedProgram?.id : profileData['DegreeId'];
-      // profileData['DegreeName'] = selectedProgram!.name.isNotEmpty ? selectedProgram?.name : profileData['DegreeName'];
       profileData['DegreeName'] = selectedProgram?.name != '' ? selectedProgram?.name : profileData['DegreeName'];
       profileData['StreamId'] = selectedBranch?.id.toInt() != 0 ? selectedBranch?.id : profileData['StreamId'];
-      // profileData['StreamName'] = selectedBranch!.name.isNotEmpty ? selectedBranch?.name : profileData['StreamName'];
       profileData['StreamName'] = selectedBranch?.name != '' ? selectedBranch?.name : profileData['StreamName'];
-      log('profileData: 104 $profileData');
       updatePofileResponse = await UpdateProfile.updateProfileDetails(
         encId: encId,
         token: token,
         dataBody: profileData,
       );
       profileData = json.decode(updatePofileResponse.toJson());
-      log('profileData: 111 $profileData');
     } else {
       log("encId/token is null");
       return null;
