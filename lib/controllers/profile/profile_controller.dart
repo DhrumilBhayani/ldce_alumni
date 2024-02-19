@@ -25,7 +25,9 @@ class ProfileController with ChangeNotifier {
       hasMorePastData = true,
       exceptionCreated = false,
       uploadingImage = false,
-      isEditMode = false;
+      isEditMode = false,
+      editLoading = false;
+    
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -157,18 +159,22 @@ class ProfileController with ChangeNotifier {
       profileData['DegreeName'] = selectedProgram?.name != '' ? selectedProgram?.name : profileData['DegreeName'];
       profileData['StreamId'] = selectedBranch?.id.toInt() != 0 ? selectedBranch?.id : profileData['StreamId'];
       profileData['StreamName'] = selectedBranch?.name != '' ? selectedBranch?.name : profileData['StreamName'];
+      editLoading = true;
       updatePofileResponse = await UpdateProfile.updateProfileDetails(
         encId: encId,
         token: token,
         dataBody: profileData,
       );
       profileData = json.decode(updatePofileResponse.toJson());
+      editLoading = false;
     } else {
       log("encId/token is null");
+      editLoading = false;
       return null;
     }
     log("updatePofileResponse: $updatePofileResponse");
     await getProfile();
+    editLoading = false;
     showLoading = false;
     notifyListeners();
   }
