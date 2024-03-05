@@ -97,9 +97,7 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Image(
-                          image: AssetImage(!isDark
-                              ? "assets/images/laa_logo_black.png"
-                              : "assets/images/laa_logo.png"),
+                          image: AssetImage(!isDark ? "assets/images/laa_logo_black.png" : "assets/images/laa_logo.png"),
                           height: 102,
                           width: 102,
                         ),
@@ -123,49 +121,46 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                     child: Column(
                       children: [
                         if (token != null)
-                              ExpansionTile(
-                                onExpansionChanged: (value) async{
-                                  if (ModalRoute.of(context)!.settings.name != 'login') {
-                                    Navigator.pop(context);
-                                   Navigator.of(context)
-                                  .pushNamedAndRemoveUntil('profile', ModalRoute.withName('home'));
-                                  } else {
-                                    Navigator.pop(context);
-                                  }
-                                },
-                                title: FxText.b1("Profile"),
-                                tilePadding: EdgeInsets.all(0),
-                                trailing: SizedBox.shrink(),
-                                leading: Icon(
-                                  MdiIcons.account,
-                                  color: theme.colorScheme.primary,
-                                ),
-                              ),
-                         if (token == null)
-                              ExpansionTile(
-                                onExpansionChanged: (value) {
-                                  if (ModalRoute.of(context)!.settings.name != 'login') {
-                                    Navigator.pop(context);
-                                    Navigator.of(context)
-                                        .pushNamed('login');
-                                  } else {
-                                    Navigator.pop(context);
-                                  }
-                                },
-                                title: FxText.b1("Login"),
-                                tilePadding: EdgeInsets.all(0),
-                                trailing: SizedBox.shrink(),
-                                leading: Icon(
-                                  MdiIcons.login,
-                                  color: theme.colorScheme.primary,
-                                ),
-                              ),
+                          ExpansionTile(
+                            onExpansionChanged: (value) async {
+                              if (ModalRoute.of(context)!.settings.name != 'login') {
+                                Navigator.pop(context);
+                                Navigator.of(context).pushNamedAndRemoveUntil('profile', ModalRoute.withName('home'));
+                              } else {
+                                Navigator.pop(context);
+                              }
+                            },
+                            title: FxText.b1("Profile"),
+                            tilePadding: EdgeInsets.all(0),
+                            trailing: SizedBox.shrink(),
+                            leading: Icon(
+                              MdiIcons.account,
+                              color: theme.colorScheme.primary,
+                            ),
+                          ),
+                        if (token == null)
+                          ExpansionTile(
+                            onExpansionChanged: (value) {
+                              if (ModalRoute.of(context)!.settings.name != 'login') {
+                                Navigator.pop(context);
+                                Navigator.of(context).pushNamed('login');
+                              } else {
+                                Navigator.pop(context);
+                              }
+                            },
+                            title: FxText.b1("Login"),
+                            tilePadding: EdgeInsets.all(0),
+                            trailing: SizedBox.shrink(),
+                            leading: Icon(
+                              MdiIcons.login,
+                              color: theme.colorScheme.primary,
+                            ),
+                          ),
                         ExpansionTile(
                           onExpansionChanged: (value) {
                             if (ModalRoute.of(context)!.settings.name != 'home') {
                               Navigator.pop(context);
-                              Navigator.of(context)
-                                  .pushNamedAndRemoveUntil('home', ModalRoute.withName('home'));
+                              Navigator.of(context).pushNamedAndRemoveUntil('home', ModalRoute.withName('home'));
                             } else {
                               Navigator.pop(context);
                             }
@@ -183,9 +178,8 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                           onExpansionChanged: (value) {
                             if (ModalRoute.of(context)!.settings.name != 'events_home') {
                               Navigator.pop(context);
-                              
-                              Navigator.of(context)
-                                  .pushNamedAndRemoveUntil('events_home', ModalRoute.withName('home'));
+
+                              Navigator.of(context).pushNamedAndRemoveUntil('events_home', ModalRoute.withName('home'));
                             } else {
                               Navigator.pop(context);
                             }
@@ -203,8 +197,7 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                           onExpansionChanged: (value) {
                             if (ModalRoute.of(context)!.settings.name != 'media_home') {
                               Navigator.pop(context);
-                              Navigator.of(context)
-                                  .pushNamedAndRemoveUntil('media_home', ModalRoute.withName('home'));
+                              Navigator.of(context).pushNamedAndRemoveUntil('media_home', ModalRoute.withName('home'));
                             } else {
                               Navigator.pop(context);
                             }
@@ -222,8 +215,7 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                           onExpansionChanged: (value) {
                             if (ModalRoute.of(context)!.settings.name != 'alumni_directory_home') {
                               Navigator.pop(context);
-                              Navigator.of(context).pushNamedAndRemoveUntil(
-                                  'alumni_directory_home', ModalRoute.withName('home'));
+                              Navigator.of(context).pushNamedAndRemoveUntil('alumni_directory_home', ModalRoute.withName('home'));
                             } else {
                               Navigator.pop(context);
                             }
@@ -264,8 +256,7 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                                     InkWell(
                                         onTap: () {
                                           print("TREE");
-                                          if (ModalRoute.of(context)!.settings.name !=
-                                              'tree_plantation') {
+                                          if (ModalRoute.of(context)!.settings.name != 'tree_plantation') {
                                             Navigator.pop(context);
 
                                             // Navigator.pushNamedAndRemoveUntil(
@@ -273,8 +264,7 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                                             //   'alumni_directory_home',
                                             //   (route) => true,
                                             // );
-                                            Navigator.of(context).pushNamedAndRemoveUntil(
-                                                'tree_plantation', ModalRoute.withName('home'));
+                                            Navigator.of(context).pushNamedAndRemoveUntil('tree_plantation', ModalRoute.withName('home'));
                                           } else {
                                             Navigator.pop(context);
                                           }
@@ -303,8 +293,7 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                                             //   'alumni_directory_home',
                                             //   (route) => true,
                                             // );
-                                            Navigator.of(context).pushNamedAndRemoveUntil(
-                                                'at_hackathon', ModalRoute.withName('home'));
+                                            Navigator.of(context).pushNamedAndRemoveUntil('at_hackathon', ModalRoute.withName('home'));
                                           } else {
                                             Navigator.pop(context);
                                           }
@@ -337,8 +326,7 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                           onExpansionChanged: (value) {
                             if (ModalRoute.of(context)!.settings.name != 'noteworthy_home') {
                               Navigator.pop(context);
-                              Navigator.of(context).pushNamedAndRemoveUntil(
-                                  'noteworthy_home', ModalRoute.withName('home'));
+                              Navigator.of(context).pushNamedAndRemoveUntil('noteworthy_home', ModalRoute.withName('home'));
                             } else {
                               Navigator.pop(context);
                             }
@@ -356,8 +344,7 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                           onExpansionChanged: (value) {
                             if (ModalRoute.of(context)!.settings.name != 'downloads_home') {
                               Navigator.pop(context);
-                              Navigator.of(context).pushNamedAndRemoveUntil(
-                                  'downloads_home', ModalRoute.withName('home'));
+                              Navigator.of(context).pushNamedAndRemoveUntil('downloads_home', ModalRoute.withName('home'));
                             } else {
                               Navigator.pop(context);
                             }
@@ -375,8 +362,7 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                           onExpansionChanged: (value) {
                             if (ModalRoute.of(context)!.settings.name != 'news_home') {
                               Navigator.pop(context);
-                              Navigator.of(context)
-                                  .pushNamedAndRemoveUntil('news_home', ModalRoute.withName('home'));
+                              Navigator.of(context).pushNamedAndRemoveUntil('news_home', ModalRoute.withName('home'));
                             } else {
                               Navigator.pop(context);
                             }
@@ -434,8 +420,7 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                                             //   'alumni_directory_home',
                                             //   (route) => true,
                                             // );
-                                            Navigator.of(context).pushNamedAndRemoveUntil(
-                                                'about_us', ModalRoute.withName('home'));
+                                            Navigator.of(context).pushNamedAndRemoveUntil('about_us', ModalRoute.withName('home'));
                                           } else {
                                             Navigator.pop(context);
                                           }
@@ -456,8 +441,7 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                                     InkWell(
                                         onTap: () {
                                           // print("AT Hackathon");
-                                          if (ModalRoute.of(context)!.settings.name !=
-                                              'membership_types') {
+                                          if (ModalRoute.of(context)!.settings.name != 'membership_types') {
                                             Navigator.pop(context);
 
                                             // Navigator.pushNamedAndRemoveUntil(
@@ -465,8 +449,7 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                                             //   'alumni_directory_home',
                                             //   (route) => true,
                                             // );
-                                            Navigator.of(context).pushNamedAndRemoveUntil(
-                                                'membership_types', ModalRoute.withName('home'));
+                                            Navigator.of(context).pushNamedAndRemoveUntil('membership_types', ModalRoute.withName('home'));
                                           } else {
                                             Navigator.pop(context);
                                           }
@@ -485,33 +468,32 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                                             )))
                                   ],
                                 )))),
-                            
                           ],
                         ),
-                       
-                            if (token != null)
-                              ExpansionTile(
-                                onExpansionChanged: (value) async{
-                                  if (ModalRoute.of(context)!.settings.name != 'login') {
-                                    Navigator.pop(context);
-                                   await globals.FlutterSecureStorageObj.deleteAll();
-                                    const snackBar = SnackBar(
-                                      content: Text('Logged Out'),
-                                    );
+                        if (token != null)
+                          ExpansionTile(
+                            onExpansionChanged: (value) async {
+                              if (ModalRoute.of(context)!.settings.name != 'login') {
+                                // Navigator.pop(context);
+                                await globals.FlutterSecureStorageObj.deleteAll();
+                                Navigator.of(context).pushNamedAndRemoveUntil('home', ModalRoute.withName('home'));
+                                const snackBar = SnackBar(
+                                  content: Text('Logged Out'),
+                                );
 
-                                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                                  } else {
-                                    Navigator.pop(context);
-                                  }
-                                },
-                                title: FxText.b1("Logout"),
-                                tilePadding: EdgeInsets.all(0),
-                                trailing: SizedBox.shrink(),
-                                leading: Icon(
-                                  MdiIcons.logout,
-                                  color: theme.colorScheme.primary,
-                                ),
-                              ),
+                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                              } else {
+                                Navigator.pop(context);
+                              }
+                            },
+                            title: FxText.b1("Logout"),
+                            tilePadding: EdgeInsets.all(0),
+                            trailing: SizedBox.shrink(),
+                            leading: Icon(
+                              MdiIcons.logout,
+                              color: theme.colorScheme.primary,
+                            ),
+                          ),
                         Text('v' + _packageInfo.version + ' (' + _packageInfo.buildNumber + ')'),
                       ],
                     ),
