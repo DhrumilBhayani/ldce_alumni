@@ -9,14 +9,17 @@ import 'package:ldce_alumni/models/masters/branch/branch.dart';
 import 'package:ldce_alumni/models/masters/branch/lbranch.dart';
 import 'package:ldce_alumni/models/masters/country/country.dart';
 import 'package:ldce_alumni/models/masters/country/lcountry.dart';
+import 'package:ldce_alumni/models/masters/membership/membershiptypes.dart';
 import 'package:ldce_alumni/models/masters/program/lprogam.dart';
 import 'package:ldce_alumni/models/masters/program/program.dart';
 import 'package:ldce_alumni/models/masters/state/state.dart';
 import 'package:ldce_alumni/models/masters/state/lstate.dart';
 import 'package:ldce_alumni/models/masters/city/city.dart';
 import 'package:ldce_alumni/models/masters/city/lcity.dart';
+import 'package:ldce_alumni/models/masters/updatemembershiptype/updatemembershiptype.dart';
 import 'package:ldce_alumni/models/profile/profile.dart';
 import 'package:ldce_alumni/models/update%20profile/updateprofile.dart';
+// import 'package:ldce_alumni/views/general/membership_types.dart';
 
 class ProfileController with ChangeNotifier {
   bool showLoading = true,
@@ -27,7 +30,7 @@ class ProfileController with ChangeNotifier {
       uploadingImage = false,
       isEditMode = false,
       editLoading = false;
-    
+
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -88,6 +91,8 @@ class ProfileController with ChangeNotifier {
   LProgram? selectedProgram;
   LBranch? selectedBranch;
 
+  late MembershipTypes membershipTypeResponse;
+  late UpdateMembershipType updateMembershipTypeResponse;
   // int selectedProgramId=0;
 
   ProfileController() {
@@ -102,6 +107,7 @@ class ProfileController with ChangeNotifier {
     getCity(profileResponse.Result.StateId);
     getProgram();
     getBranch();
+    getMembershipType();
   }
 
   Future getProfile() async {
@@ -124,7 +130,6 @@ class ProfileController with ChangeNotifier {
     var token = await globals.FlutterSecureStorageObj.read(key: "access_token");
 
     if (encId != null || token != null) {
-      
       profileData['FirstName'] = firstNameTEC.text.isNotEmpty ? firstNameTEC.text : profileData['FirstName'];
       profileData['MiddleName'] = middleNameTEC.text.isNotEmpty ? middleNameTEC.text : profileData['MiddleName'];
       profileData['LastName'] = lastNameTEC.text.isNotEmpty ? lastNameTEC.text : profileData['LastName'];
@@ -179,7 +184,6 @@ class ProfileController with ChangeNotifier {
     notifyListeners();
   }
 
-  // Future<void>
   Future getCountry() async {
     try {
       countryResponse = await Country.getCountryDetails();
@@ -188,10 +192,8 @@ class ProfileController with ChangeNotifier {
       countries = jsonList.map((json) {
         return LCountry(id: json['Id'], name: json['Name']);
       }).toList();
-      // log("Country Json: $countryResponse");
       log('Con - $countries');
       notifyListeners();
-      // setState(() {});
     } catch (e) {
       print('Error loading dropdown data: $e');
     }
@@ -258,17 +260,22 @@ class ProfileController with ChangeNotifier {
     }
   }
 
-  // Map<String, dynamic> profiledata = {};
-  // Future getProfileData() async {
-  //   var encId = await globals.FlutterSecureStorageObj.read(key: "encId");
-  //   if (encId != null) {
-  //     profileResponse = await Profile.getProfileDetails(encId: encId);
-  //     // profiledata = profileResponse;
-  //   } else {
-  //     log("encId is null");
-  //     return null;
-  //   }
-  //   showLoading = false;
-  //   notifyListeners();
-  // }
+  Future getMembershipType() async {
+    membershipTypeResponse = await MembershipTypes.getMembershipTypeDetails();
+    log('membershipTypeResponse con ${membershipTypeResponse}');
+    notifyListeners();
+    // return null;
+  }
+
+  Future updateMembershipType(int membsershipId) async {
+    var encId = await globals.FlutterSecureStorageObj.read(key: "encId");
+    if (encId != null) {
+      updateMembershipTypeResponse = await UpdateMembershipType.updateMembershipTypeDetails(encId: encId, membershipId: membsershipId);
+      // profileData = json.decode(profileResponse.Result.toJson());
+      log('updateMembershipTypeResponse ${updateMembershipTypeResponse}');
+    } else {
+      log("encId is null");
+      return null;
+    }
+  }
 }

@@ -41,6 +41,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       // Text("data"),
       // SizedBox(height: 10),
       return AppBar(
+        automaticallyImplyLeading:  false,
         // backwardsCompatibility: false,
         //   bottom: PreferredSize(
         // child: Container(
