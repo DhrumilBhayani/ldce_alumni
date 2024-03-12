@@ -1,12 +1,22 @@
 import 'package:flutter/services.dart';
+import 'package:ldce_alumni/controllers/profile/profile_controller.dart';
 import 'package:ldce_alumni/core/text.dart';
 import 'package:ldce_alumni/theme/app_notifier.dart';
 import 'package:ldce_alumni/theme/app_theme.dart';
 import 'package:ldce_alumni/theme/theme_type.dart';
 import 'package:flutter/material.dart';
+import 'package:ldce_alumni/views/loading_effect.dart';
 import 'package:provider/provider.dart';
+import 'package:ldce_alumni/core/globals.dart' as globals;
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
+  // var token;
+  Future<String?> _getToken() async {
+    // token = await globals.FlutterSecureStorageObj.read(key: "access_token");
+    return await globals.FlutterSecureStorageObj.read(key: "access_token");
+    // return token;
+  }
+
   final String? title;
   final GlobalKey<ScaffoldState> scaffoldKey; // Create a key
   final PreferredSizeWidget? bottom;
@@ -19,7 +29,8 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
     late CustomTheme customTheme;
     bool isDark = false;
     TextDirection textDirection = TextDirection.ltr;
-    return Consumer<AppNotifier>(builder: (BuildContext context, AppNotifier value, Widget? child) {
+    // return Consumer<AppNotifier>(builder: (BuildContext context, AppNotifier value, Widget? child) {
+    return Consumer2<AppNotifier, ProfileController>(builder: (BuildContext context, AppNotifier value, profileProvider, Widget? child) {
       isDark = AppTheme.themeType == ThemeType.dark;
       textDirection = AppTheme.textDirection;
       theme = AppTheme.theme;
@@ -30,6 +41,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       // Text("data"),
       // SizedBox(height: 10),
       return AppBar(
+        automaticallyImplyLeading:  false,
         // backwardsCompatibility: false,
         //   bottom: PreferredSize(
         // child: Container(
@@ -118,22 +130,103 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
         //         ),
         //     ]),
         actions: [
-          Builder(
-            builder: (BuildContext context) {
-              return IconButton(
-                icon: const Icon(
-                  Icons.menu,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  print("object");
-                  print(scaffoldKey);
-                  scaffoldKey.currentState!.openEndDrawer();
+          // Column(children: [
+          //   Expanded(child: Row(children: [],))
+          // ],)
+
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              profileProvider.showLoading
+                  ? Container()
+                  : FutureBuilder<String?>(
+                      future: _getToken(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return CircularProgressIndicator(
+                            color: Colors.white,
+                          );
+                        } else if (snapshot.hasError || snapshot.data == null) {
+                          // return Text('Error fetching token: ${snapshot.error}');
+                          return SizedBox();
+                        } else {
+                          final token = snapshot.data;
+                          print('token 160 $token');
+                          if (token != null)
+                            return SizedBox(
+                                width: 50,
+                                height: 40,
+                                child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.of(context).pushNamedAndRemoveUntil('profile', ModalRoute.withName('home'));
+                                    },
+                                    child: profileProvider.profileResponse.Result.ProfilePicPath.toString().isNotEmpty
+                                        ? CircleAvatar(
+                                            backgroundColor: Colors.transparent,
+                                            radius: 100,
+                                            backgroundImage:
+                                                NetworkImage('https://' + profileProvider.profileResponse.Result.ProfilePicPath.toString()),
+                                          )
+                                        : Icon(
+                                            Icons.person,
+                                            color: Colors.white,
+                                          )));
+                          // if (token == null)
+                          //   return SizedBox(
+                          //       width: 50,
+                          //       child: CircleAvatar(
+                          //           backgroundColor: Colors.transparent,
+                          //           radius: 100,
+                          //           child: Icon(
+                          //             Icons.person,
+                          //             color: Colors.white,
+                          //           )));
+                        }
+                        return Text('');
+                      },
+                    ),
+              // if (token != null)
+              //   SizedBox(
+              //       width: 50,
+              //       child: CircleAvatar(
+              //         backgroundColor: Colors.transparent,
+              //         radius: 100,
+              //         backgroundImage: NetworkImage(
+              //             'https://media.istockphoto.com/id/1393750072/vector/flat-white-icon-man-for-web-design-silhouette-flat-illustration-vector-illustration-stock.jpg?s=612x612&w=0&k=20&c=s9hO4SpyvrDIfELozPpiB_WtzQV9KhoMUP9R9gVohoU='),
+              //         // NetworkImage('https://' + profileCtrl!.profileResponse.Result.ProfilePicPath.toString()),
+              //         // Text(
+              //         //   'GeeksForGeeks',
+              //         //   style: TextStyle(fontSize: 10, color: Colors.white),
+              //         // ), //Text
+              //       )),
+              // if (token == null)
+              //   SizedBox(
+              //       width: 50,
+              //       child: CircleAvatar(
+              //           backgroundColor: Colors.transparent,
+              //           radius: 100,
+              //           child: Icon(
+              //             Icons.person,
+              //             color: Colors.white,
+              //           ))),
+              Builder(
+                builder: (BuildContext context) {
+                  return IconButton(
+                    icon: const Icon(
+                      Icons.menu,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      print("object");
+                      print(scaffoldKey);
+                      scaffoldKey.currentState!.openEndDrawer();
+                    },
+                    tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+                  );
                 },
-                tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-              );
-            },
-          ),
+              ),
+            ],
+          )
         ],
 
         // toolbar0Height: 40,

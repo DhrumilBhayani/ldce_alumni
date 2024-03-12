@@ -157,10 +157,46 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                               color: theme.colorScheme.primary,
                             ),
                           ),
+                          ExpansionTile(
+                            onExpansionChanged: (value) async {
+                              if (ModalRoute.of(context)!.settings.name != 'login') {
+                                Navigator.pop(context);
+                                Navigator.of(context).pushNamedAndRemoveUntil('profile', ModalRoute.withName('home'));
+                              } else {
+                                Navigator.pop(context);
+                              }
+                            },
+                            title: FxText.b1("Profile"),
+                            tilePadding: EdgeInsets.all(0),
+                            trailing: SizedBox.shrink(),
+                            leading: Icon(
+                              MdiIcons.account,
+                              color: theme.colorScheme.primary,
+                            ),
+                          ),
+                        if (token == null)
+                          ExpansionTile(
+                            onExpansionChanged: (value) {
+                              if (ModalRoute.of(context)!.settings.name != 'login') {
+                                Navigator.pop(context);
+                                Navigator.of(context).pushNamed('login');
+                              } else {
+                                Navigator.pop(context);
+                              }
+                            },
+                            title: FxText.b1("Login"),
+                            tilePadding: EdgeInsets.all(0),
+                            trailing: SizedBox.shrink(),
+                            leading: Icon(
+                              MdiIcons.login,
+                              color: theme.colorScheme.primary,
+                            ),
+                          ),
                         ExpansionTile(
                           onExpansionChanged: (value) {
                             if (ModalRoute.of(context)!.settings.name != 'home') {
                               Navigator.pop(context);
+                              Navigator.of(context).pushNamedAndRemoveUntil('home', ModalRoute.withName('home'));
                               Navigator.of(context).pushNamedAndRemoveUntil('home', ModalRoute.withName('home'));
                             } else {
                               Navigator.pop(context);
@@ -181,6 +217,8 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                               Navigator.pop(context);
 
                               Navigator.of(context).pushNamedAndRemoveUntil('events_home', ModalRoute.withName('home'));
+
+                              Navigator.of(context).pushNamedAndRemoveUntil('events_home', ModalRoute.withName('home'));
                             } else {
                               Navigator.pop(context);
                             }
@@ -198,6 +236,7 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                           onExpansionChanged: (value) {
                             if (ModalRoute.of(context)!.settings.name != 'media_home') {
                               Navigator.pop(context);
+                              Navigator.of(context).pushNamedAndRemoveUntil('media_home', ModalRoute.withName('home'));
                               Navigator.of(context).pushNamedAndRemoveUntil('media_home', ModalRoute.withName('home'));
                             } else {
                               Navigator.pop(context);
@@ -266,8 +305,7 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                                             //   'alumni_directory_home',
                                             //   (route) => true,
                                             // );
-                                            Navigator.of(context).pushNamedAndRemoveUntil(
-                                                'tree_plantation', ModalRoute.withName('home'));
+                                            Navigator.of(context).pushNamedAndRemoveUntil('tree_plantation', ModalRoute.withName('home'));
                                           } else {
                                             Navigator.pop(context);
                                           }
@@ -369,6 +407,7 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                             if (ModalRoute.of(context)!.settings.name != 'news_home') {
                               Navigator.pop(context);
                               Navigator.of(context).pushNamedAndRemoveUntil('news_home', ModalRoute.withName('home'));
+                              Navigator.of(context).pushNamedAndRemoveUntil('news_home', ModalRoute.withName('home'));
                             } else {
                               Navigator.pop(context);
                             }
@@ -449,6 +488,7 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                                         onTap: () {
                                           // print("AT Hackathon");
                                           if (ModalRoute.of(context)!.settings.name != 'membership_types') {
+                                          if (ModalRoute.of(context)!.settings.name != 'membership_types') {
                                             Navigator.pop(context);
 
                                             // Navigator.pushNamedAndRemoveUntil(
@@ -456,8 +496,7 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                                             //   'alumni_directory_home',
                                             //   (route) => true,
                                             // );
-                                            Navigator.of(context).pushNamedAndRemoveUntil(
-                                                'membership_types', ModalRoute.withName('home'));
+                                            Navigator.of(context).pushNamedAndRemoveUntil('membership_types', ModalRoute.withName('home'));
                                           } else {
                                             Navigator.pop(context);
                                           }
