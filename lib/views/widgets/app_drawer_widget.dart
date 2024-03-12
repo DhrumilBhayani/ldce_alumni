@@ -97,8 +97,7 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Image(
-                          image:
-                              AssetImage(!isDark ? "assets/images/laa_logo_black.png" : "assets/images/laa_logo.png"),
+                          image: AssetImage(!isDark ? "assets/images/laa_logo_black.png" : "assets/images/laa_logo.png"),
                           height: 102,
                           width: 102,
                         ),
@@ -157,7 +156,7 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                               color: theme.colorScheme.primary,
                             ),
                           ),
-                          ExpansionTile(
+                        /*  ExpansionTile(
                             onExpansionChanged: (value) async {
                               if (ModalRoute.of(context)!.settings.name != 'login') {
                                 Navigator.pop(context);
@@ -192,6 +191,7 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                               color: theme.colorScheme.primary,
                             ),
                           ),
+                        */
                         ExpansionTile(
                           onExpansionChanged: (value) {
                             if (ModalRoute.of(context)!.settings.name != 'home') {
@@ -255,8 +255,7 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                           onExpansionChanged: (value) {
                             if (ModalRoute.of(context)!.settings.name != 'alumni_directory_home') {
                               Navigator.pop(context);
-                              Navigator.of(context)
-                                  .pushNamedAndRemoveUntil('alumni_directory_home', ModalRoute.withName('home'));
+                              Navigator.of(context).pushNamedAndRemoveUntil('alumni_directory_home', ModalRoute.withName('home'));
                             } else {
                               Navigator.pop(context);
                             }
@@ -334,8 +333,7 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                                             //   'alumni_directory_home',
                                             //   (route) => true,
                                             // );
-                                            Navigator.of(context)
-                                                .pushNamedAndRemoveUntil('at_hackathon', ModalRoute.withName('home'));
+                                            Navigator.of(context).pushNamedAndRemoveUntil('at_hackathon', ModalRoute.withName('home'));
                                           } else {
                                             Navigator.pop(context);
                                           }
@@ -368,8 +366,7 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                           onExpansionChanged: (value) {
                             if (ModalRoute.of(context)!.settings.name != 'noteworthy_home') {
                               Navigator.pop(context);
-                              Navigator.of(context)
-                                  .pushNamedAndRemoveUntil('noteworthy_home', ModalRoute.withName('home'));
+                              Navigator.of(context).pushNamedAndRemoveUntil('noteworthy_home', ModalRoute.withName('home'));
                             } else {
                               Navigator.pop(context);
                             }
@@ -387,8 +384,7 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                           onExpansionChanged: (value) {
                             if (ModalRoute.of(context)!.settings.name != 'downloads_home') {
                               Navigator.pop(context);
-                              Navigator.of(context)
-                                  .pushNamedAndRemoveUntil('downloads_home', ModalRoute.withName('home'));
+                              Navigator.of(context).pushNamedAndRemoveUntil('downloads_home', ModalRoute.withName('home'));
                             } else {
                               Navigator.pop(context);
                             }
@@ -465,8 +461,7 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                                             //   'alumni_directory_home',
                                             //   (route) => true,
                                             // );
-                                            Navigator.of(context)
-                                                .pushNamedAndRemoveUntil('about_us', ModalRoute.withName('home'));
+                                            Navigator.of(context).pushNamedAndRemoveUntil('about_us', ModalRoute.withName('home'));
                                           } else {
                                             Navigator.pop(context);
                                           }
@@ -516,18 +511,17 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                                 )))),
                           ],
                         ),
-                       
-                            if (token != null)
-                              ExpansionTile(
-                                onExpansionChanged: (value) async{
-                                  if (ModalRoute.of(context)!.settings.name != 'login') {
-                                    Navigator.pop(context);
-                                   await globals.FlutterSecureStorageObj.deleteAll();
-                                    const snackBar = SnackBar(
-                                      content: Text('Logged Out'),
-                                    );
-
+                        if (token != null)
+                          ExpansionTile(
+                            onExpansionChanged: (value) async {
+                              if (ModalRoute.of(context)!.settings.name != 'login') {
+                                Navigator.pop(context);
+                                await globals.FlutterSecureStorageObj.deleteAll();
+                                const snackBar = SnackBar(
+                                  content: Text('Logged Out'),
+                                );
                                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                Navigator.of(context).pushNamedAndRemoveUntil('home', ModalRoute.withName('home'));
                               } else {
                                 Navigator.pop(context);
                               }

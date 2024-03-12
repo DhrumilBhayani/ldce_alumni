@@ -49,11 +49,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     'Female',
   ];
 
-  // TextEditingController lastNameTEC = TextEditingController();
-  // TextEditingController middleNameTEC = TextEditingController();
   DateTime selectedDate = DateTime.now();
   DateTime selectedYear = DateTime.now(); //DateTime(DateTime.now().year); //DateTime.now();
-  // TextEditingController stateTEC = TextEditingController();
+
   late ThemeData theme;
 
   final _academicInfo = GlobalKey<FormState>();
@@ -63,13 +61,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   late File _image;
   final GlobalKey<ScaffoldState> _key = GlobalKey(); // Create a key
   final _personalInfo = GlobalKey<FormState>();
-
-  // TextEditingController primaryAddTEC = TextEditingController();
-  // TextEditingController secondaryAddTEC = TextEditingController();
-  // TextEditingController emailTEC = TextEditingController();
-  // TextEditingController pincodeTEC = TextEditingController();
-  // TextEditingController mobileNumTEC = TextEditingController();
-  // TextEditingController altMobileNumTEC = TextEditingController();
 
   @override
   void initState() {
@@ -589,18 +580,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   bool contactInfoLoading = false;
   bool editLoading = false;
-
   @override
   Widget build(BuildContext context) {
-    // LCountry? selectedCountry;
-    // LState? selectedState;
-    // LCity? selectedCity;
-    // LProgram? selectedProgram;
-    // LBranch? selectedBranch;
-
     const kSpacingUnit = 10;
-    return Consumer2<AppNotifier, ProfileController>(
-        builder: (BuildContext context, AppNotifier value, profileProvider, Widget? child) {
+    return Consumer2<AppNotifier, ProfileController>(builder: (BuildContext context, AppNotifier value, profileProvider, Widget? child) {
       // dropdownvalue = profileProvider.profileResponse.Result.Gender ? "Male" : "Female";
       String? validateMobInput() {
         if (profileProvider.prefixMobileNumTEC.text.isEmpty || profileProvider.mobileNumTEC.text.isEmpty) {
@@ -642,10 +625,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: <Widget>[
                     Container(
                         child: Padding(
-                      padding: EdgeInsets.only(
-                          left: 24,
-                          right: 24,
-                          top: profileProvider.profileResponse.Result.ProfilePicPath != "" ? 0 : 20),
+                      padding:
+                          EdgeInsets.only(left: 24, right: 24, top: profileProvider.profileResponse.Result.ProfilePicPath != "" ? 0 : 20),
                       child: Column(children: <Widget>[
                         if (profileProvider.profileResponse.Result.ProfilePicPath != "")
                           Container(
@@ -656,8 +637,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               children: <Widget>[
                                 CircleAvatar(
                                   radius: kSpacingUnit * 5,
-                                  backgroundImage: NetworkImage(
-                                      'https://' + profileProvider.profileResponse.Result.ProfilePicPath.toString()),
+                                  backgroundImage:
+                                      NetworkImage('https://' + profileProvider.profileResponse.Result.ProfilePicPath.toString()),
                                 ),
                                 // Align(
                                 //   alignment: Alignment.bottomRight,
@@ -684,9 +665,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         profileProvider.uploadingImage
                             ? CircularProgressIndicator()
-                            : ElevatedButton(
-                                onPressed: () => uploadImage(profileProvider),
-                                child: Text('Upload Image'),
+                            : Container(
+                                margin: EdgeInsets.only(top: 24),
+                                child: FxButton(
+                                  elevation: 0,
+                                  borderRadiusAll: 4,
+                                  onPressed: () => uploadImage(profileProvider),
+                                  child: FxText.button("Upload Image",
+                                      fontWeight: 600, color: theme.colorScheme.onPrimary, letterSpacing: 0.5),
+                                ),
                               ),
                         SizedBox(height: 10),
                         SizedBox(height: 10),
@@ -743,10 +730,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 ),
                                                 Container(
                                                   padding: EdgeInsets.only(bottom: 10), // Adjust the padding as needed
-                                                  child: Text(
-                                                      profileProvider.profileResponse.Result.FirstName.toString(),
-                                                      textAlign: TextAlign.left,
-                                                      style: TextStyle(fontSize: 15)),
+                                                  child: Text(profileProvider.profileResponse.Result.FirstName.toString(),
+                                                      textAlign: TextAlign.left, style: TextStyle(fontSize: 15)),
                                                 ),
                                               ],
                                             ),
@@ -762,10 +747,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 ),
                                                 Container(
                                                   padding: EdgeInsets.only(bottom: 10), // Adjust the padding as needed
-                                                  child: Text(
-                                                      profileProvider.profileResponse.Result.MiddleName.toString(),
-                                                      textAlign: TextAlign.left,
-                                                      style: TextStyle(fontSize: 15)),
+                                                  child: Text(profileProvider.profileResponse.Result.MiddleName.toString(),
+                                                      textAlign: TextAlign.left, style: TextStyle(fontSize: 15)),
                                                 ),
                                               ],
                                             ),
@@ -781,10 +764,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 ),
                                                 Container(
                                                   padding: EdgeInsets.only(bottom: 10), // Adjust the padding as needed
-                                                  child: Text(
-                                                      profileProvider.profileResponse.Result.LastName.toString(),
-                                                      textAlign: TextAlign.left,
-                                                      style: TextStyle(fontSize: 15)),
+                                                  child: Text(profileProvider.profileResponse.Result.LastName.toString(),
+                                                      textAlign: TextAlign.left, style: TextStyle(fontSize: 15)),
                                                 ),
                                               ],
                                             ),
@@ -800,10 +781,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 ),
                                                 Container(
                                                   padding: EdgeInsets.only(bottom: 10), // Adjust the padding as needed
-                                                  child: Text(
-                                                      profileProvider.profileResponse.Result.FullName.toString(),
-                                                      textAlign: TextAlign.left,
-                                                      style: TextStyle(fontSize: 15)),
+                                                  child: Text(profileProvider.profileResponse.Result.FullName.toString(),
+                                                      textAlign: TextAlign.left, style: TextStyle(fontSize: 15)),
                                                 ),
                                               ],
                                             ),
@@ -820,8 +799,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 Container(
                                                   padding: EdgeInsets.only(bottom: 10),
                                                   child: Text(
-                                                      DateFormat('dd-MM-yyyy').format(DateTime.parse(
-                                                          profileProvider.profileResponse.Result.DOB.toString())),
+                                                      DateFormat('dd-MM-yyyy')
+                                                          .format(DateTime.parse(profileProvider.profileResponse.Result.DOB.toString())),
                                                       textAlign: TextAlign.left,
                                                       style: TextStyle(fontSize: 15)),
                                                 ),
@@ -839,10 +818,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 ),
                                                 Container(
                                                   padding: EdgeInsets.only(bottom: 10), // Adjust the padding as needed
-                                                  child: Text(
-                                                      profileProvider.profileResponse.Result.Gender ? "Male" : "Female",
-                                                      textAlign: TextAlign.left,
-                                                      style: TextStyle(fontSize: 15)),
+                                                  child: Text(profileProvider.profileResponse.Result.Gender ? "Male" : "Female",
+                                                      textAlign: TextAlign.left, style: TextStyle(fontSize: 15)),
                                                 ),
                                               ],
                                             ),
@@ -858,10 +835,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 ),
                                                 Container(
                                                   padding: EdgeInsets.only(bottom: 10), // Adjust the padding as needed
-                                                  child: Text(
-                                                      profileProvider.profileResponse.Result.CityName.toString(),
-                                                      textAlign: TextAlign.left,
-                                                      style: TextStyle(fontSize: 15)),
+                                                  child: Text(profileProvider.profileResponse.Result.CityName.toString(),
+                                                      textAlign: TextAlign.left, style: TextStyle(fontSize: 15)),
                                                 ),
                                               ],
                                             ),
@@ -877,10 +852,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 ),
                                                 Container(
                                                   padding: EdgeInsets.only(bottom: 10), // Adjust the padding as needed
-                                                  child: Text(
-                                                      profileProvider.profileResponse.Result.StateName.toString(),
-                                                      textAlign: TextAlign.left,
-                                                      style: TextStyle(fontSize: 15)),
+                                                  child: Text(profileProvider.profileResponse.Result.StateName.toString(),
+                                                      textAlign: TextAlign.left, style: TextStyle(fontSize: 15)),
                                                 ),
                                               ],
                                             ),
@@ -896,367 +869,356 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 ),
                                                 Container(
                                                   padding: EdgeInsets.only(bottom: 10), // Adjust the padding as needed
-                                                  child: Text(
-                                                      profileProvider.profileResponse.Result.CountryName.toString(),
-                                                      textAlign: TextAlign.left,
-                                                      style: TextStyle(fontSize: 15)),
+                                                  child: Text(profileProvider.profileResponse.Result.CountryName.toString(),
+                                                      textAlign: TextAlign.left, style: TextStyle(fontSize: 15)),
                                                 ),
                                               ],
                                             ),
                                           ],
                                         ),
                                       ),
-                                      ElevatedButton(
-                                        onPressed: () async {
-                                          // showPersonalInfo(context);
-                                          profileProvider.firstNameTEC.text =
-                                              profileProvider.profileResponse.Result.FirstName.toString();
-                                          profileProvider.middleNameTEC.text =
-                                              profileProvider.profileResponse.Result.MiddleName.toString();
-                                          profileProvider.lastNameTEC.text =
-                                              profileProvider.profileResponse.Result.LastName.toString();
-                                          profileProvider.dobTEC.text = DateFormat('dd-MM-yyyy').format(
-                                              DateTime.parse(profileProvider.profileResponse.Result.DOB.toString()));
-                                          // profileProvider.profileResponse.Result.DOB.toString();
-                                          // profileProvider.genderTEC.text = profileProvider.profileResponse.Result.Gender.toString();
-                                          profileProvider.cityTEC.text =
-                                              profileProvider.profileResponse.Result.CityName.toString();
-                                          profileProvider.stateTEC.text =
-                                              profileProvider.profileResponse.Result.StateName.toString();
-                                          profileProvider.countryTEC.text =
-                                              profileProvider.profileResponse.Result.CountryName.toString();
-                                          setState(() {
-                                            profileProvider.countries.map((LCountry country) {
-                                              if (country.name.toString() ==
-                                                  profileProvider.profileResponse.Result.CountryName.toString()) {
-                                                log("Country Name - ${country.name}");
-                                                profileProvider.selectedCountry = country;
-                                              }
-                                            }).toList();
-                                            profileProvider.states.map((LState state) {
-                                              if (state.name.toString() ==
-                                                  profileProvider.profileResponse.Result.StateName.toString()) {
-                                                profileProvider.selectedState = state;
-                                              }
-                                            }).toList();
-                                            profileProvider.cities.map((LCity city) {
-                                              if (city.name.toString() ==
-                                                  profileProvider.profileResponse.Result.CityName.toString()) {
-                                                profileProvider.selectedCity = city;
-                                              }
-                                            }).toList();
-                                          });
-                                          await showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return StatefulBuilder(
-                                                  builder: (BuildContext context, StateSetter setState) {
-                                                return Consumer2<AppNotifier, ProfileController>(builder:
-                                                    (BuildContext context, AppNotifier value, profileProvider,
-                                                        Widget? child) {
-                                                  log("States Length: " + profileProvider.states.length.toString());
-                                                  return AlertDialog(
-                                                    title: FxText.h6("PERSONAL INFORMATION",
-                                                        fontSize: 18, fontWeight: 800),
-                                                    // insetPadding: EdgeInsets.all(30),
-                                                    content: SingleChildScrollView(
-                                                      scrollDirection: Axis.vertical,
-                                                      child: Form(
-                                                        key: _personalInfo,
-                                                        child: Column(
-                                                          mainAxisSize: MainAxisSize.min,
-                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                          children: [
-                                                            Text(
-                                                              'First Name',
-                                                              style: TextStyle(fontWeight: FontWeight.bold),
-                                                            ),
-                                                            TextFormField(
-                                                              controller: profileProvider.firstNameTEC,
-                                                              decoration: InputDecoration(
-                                                                hintText: "First Name ",
-                                                                focusedBorder: UnderlineInputBorder(
-                                                                  borderSide: BorderSide(width: 1, color: Colors.black),
-                                                                ),
+                                      Container(
+                                        margin: EdgeInsets.only(top: 24),
+                                        child: FxButton(
+                                          elevation: 0,
+                                          borderRadiusAll: 4,
+                                          onPressed: () async {
+                                            // showPersonalInfo(context);
+                                            profileProvider.firstNameTEC.text = profileProvider.profileResponse.Result.FirstName.toString();
+                                            profileProvider.middleNameTEC.text =
+                                                profileProvider.profileResponse.Result.MiddleName.toString();
+                                            profileProvider.lastNameTEC.text = profileProvider.profileResponse.Result.LastName.toString();
+                                            profileProvider.dobTEC.text = DateFormat('dd-MM-yyyy')
+                                                .format(DateTime.parse(profileProvider.profileResponse.Result.DOB.toString()));
+                                            // profileProvider.profileResponse.Result.DOB.toString();
+                                            // profileProvider.genderTEC.text = profileProvider.profileResponse.Result.Gender.toString();
+                                            profileProvider.cityTEC.text = profileProvider.profileResponse.Result.CityName.toString();
+                                            profileProvider.stateTEC.text = profileProvider.profileResponse.Result.StateName.toString();
+                                            profileProvider.countryTEC.text = profileProvider.profileResponse.Result.CountryName.toString();
+                                            setState(() {
+                                              profileProvider.countries.map((LCountry country) {
+                                                if (country.name.toString() ==
+                                                    profileProvider.profileResponse.Result.CountryName.toString()) {
+                                                  log("Country Name - ${country.name}");
+                                                  profileProvider.selectedCountry = country;
+                                                }
+                                              }).toList();
+                                              profileProvider.states.map((LState state) {
+                                                if (state.name.toString() == profileProvider.profileResponse.Result.StateName.toString()) {
+                                                  profileProvider.selectedState = state;
+                                                }
+                                              }).toList();
+                                              profileProvider.cities.map((LCity city) {
+                                                if (city.name.toString() == profileProvider.profileResponse.Result.CityName.toString()) {
+                                                  profileProvider.selectedCity = city;
+                                                }
+                                              }).toList();
+                                            });
+                                            await showDialog(
+                                              context: context,
+                                              builder: (context) {
+                                                return StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
+                                                  return Consumer2<AppNotifier, ProfileController>(
+                                                      builder: (BuildContext context, AppNotifier value, profileProvider, Widget? child) {
+                                                    log("States Length: " + profileProvider.states.length.toString());
+                                                    return AlertDialog(
+                                                      title: FxText.h6("PERSONAL INFORMATION", fontSize: 18, fontWeight: 800),
+                                                      // insetPadding: EdgeInsets.all(30),
+                                                      content: SingleChildScrollView(
+                                                        scrollDirection: Axis.vertical,
+                                                        child: Form(
+                                                          key: _personalInfo,
+                                                          child: Column(
+                                                            mainAxisSize: MainAxisSize.min,
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            children: [
+                                                              Text(
+                                                                'First Name',
+                                                                style: TextStyle(fontWeight: FontWeight.bold),
                                                               ),
-                                                              keyboardType: TextInputType.text,
-                                                              textInputAction: TextInputAction.next,
-                                                              cursorColor: kPrimaryColor,
-                                                              autovalidateMode: AutovalidateMode.onUserInteraction,
-                                                              validator: (value) {
-                                                                if (value!.isEmpty || value.trim() == '') {
-                                                                  return 'Enter a valid first Name!';
-                                                                }
-                                                                return null;
-                                                              },
-                                                            ),
-                                                            SizedBox(height: 10),
-                                                            Text(
-                                                              'Middle Name',
-                                                              style: TextStyle(fontWeight: FontWeight.bold),
-                                                            ),
-                                                            TextFormField(
-                                                              controller: profileProvider.middleNameTEC,
-                                                              decoration: InputDecoration(
-                                                                hintText: "Middle name ",
-                                                                focusedBorder: UnderlineInputBorder(
-                                                                  borderSide: BorderSide(width: 1, color: Colors.black),
+                                                              TextFormField(
+                                                                controller: profileProvider.firstNameTEC,
+                                                                decoration: InputDecoration(
+                                                                  hintText: "First Name ",
+                                                                  focusedBorder: UnderlineInputBorder(
+                                                                    borderSide: BorderSide(width: 1, color: Colors.black),
+                                                                  ),
                                                                 ),
+                                                                keyboardType: TextInputType.text,
+                                                                textInputAction: TextInputAction.next,
+                                                                cursorColor: kPrimaryColor,
+                                                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                                                validator: (value) {
+                                                                  if (value!.isEmpty || value.trim() == '') {
+                                                                    return 'Enter a valid first Name!';
+                                                                  }
+                                                                  return null;
+                                                                },
                                                               ),
-                                                              keyboardType: TextInputType.text,
-                                                              textInputAction: TextInputAction.next,
-                                                              cursorColor: kPrimaryColor,
-                                                              autovalidateMode: AutovalidateMode.onUserInteraction,
-                                                              validator: (value) {
-                                                                if (value!.isEmpty || value.trim() == '') {
-                                                                  return 'Enter a valid middle Name!';
-                                                                }
-                                                                return null;
-                                                              },
-                                                            ),
-                                                            SizedBox(height: 10),
-                                                            Text(
-                                                              'Last Name',
-                                                              style: TextStyle(fontWeight: FontWeight.bold),
-                                                            ),
-                                                            TextFormField(
-                                                              controller: profileProvider.lastNameTEC,
-                                                              decoration: InputDecoration(
-                                                                hintText: "Last name",
-                                                                focusedBorder: UnderlineInputBorder(
-                                                                  borderSide: BorderSide(width: 1, color: Colors.black),
+                                                              SizedBox(height: 10),
+                                                              Text(
+                                                                'Middle Name',
+                                                                style: TextStyle(fontWeight: FontWeight.bold),
+                                                              ),
+                                                              TextFormField(
+                                                                controller: profileProvider.middleNameTEC,
+                                                                decoration: InputDecoration(
+                                                                  hintText: "Middle name ",
+                                                                  focusedBorder: UnderlineInputBorder(
+                                                                    borderSide: BorderSide(width: 1, color: Colors.black),
+                                                                  ),
                                                                 ),
+                                                                keyboardType: TextInputType.text,
+                                                                textInputAction: TextInputAction.next,
+                                                                cursorColor: kPrimaryColor,
+                                                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                                                validator: (value) {
+                                                                  if (value!.isEmpty || value.trim() == '') {
+                                                                    return 'Enter a valid middle Name!';
+                                                                  }
+                                                                  return null;
+                                                                },
                                                               ),
-                                                              keyboardType: TextInputType.text,
-                                                              textInputAction: TextInputAction.next,
-                                                              cursorColor: kPrimaryColor,
-                                                              autovalidateMode: AutovalidateMode.onUserInteraction,
-                                                              validator: (value) {
-                                                                if (value!.isEmpty || value.trim() == '') {
-                                                                  return 'Enter a valid last Name!';
-                                                                }
-                                                                return null;
-                                                              },
-                                                            ),
-                                                            SizedBox(height: 10),
-                                                            Text(
-                                                              'DOB',
-                                                              style: TextStyle(fontWeight: FontWeight.bold),
-                                                            ),
-                                                            TextFormField(
-                                                              controller: profileProvider.dobTEC,
-                                                              decoration: InputDecoration(
-                                                                hintText: "Date of birth",
-                                                                focusedBorder: UnderlineInputBorder(
-                                                                  borderSide: BorderSide(width: 1, color: Colors.black),
+                                                              SizedBox(height: 10),
+                                                              Text(
+                                                                'Last Name',
+                                                                style: TextStyle(fontWeight: FontWeight.bold),
+                                                              ),
+                                                              TextFormField(
+                                                                controller: profileProvider.lastNameTEC,
+                                                                decoration: InputDecoration(
+                                                                  hintText: "Last name",
+                                                                  focusedBorder: UnderlineInputBorder(
+                                                                    borderSide: BorderSide(width: 1, color: Colors.black),
+                                                                  ),
                                                                 ),
+                                                                keyboardType: TextInputType.text,
+                                                                textInputAction: TextInputAction.next,
+                                                                cursorColor: kPrimaryColor,
+                                                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                                                validator: (value) {
+                                                                  if (value!.isEmpty || value.trim() == '') {
+                                                                    return 'Enter a valid last Name!';
+                                                                  }
+                                                                  return null;
+                                                                },
                                                               ),
-                                                              keyboardType: TextInputType.datetime,
-                                                              textInputAction: TextInputAction.next,
-                                                              cursorColor: kPrimaryColor,
-                                                              autovalidateMode: AutovalidateMode.onUserInteraction,
-                                                              validator: (value) {
-                                                                if (value!.isEmpty || value.trim() == '') {
-                                                                  return 'Enter a valid date of birth!';
-                                                                }
-                                                                return null;
-                                                              },
-                                                              onTap: () async {
-                                                                final DateTime? picked = await showDatePicker(
-                                                                  context: context,
-                                                                  initialDate: DateTime.now(),
-                                                                  // DateTime.parse(profileProvider.profileResponse.Result.DOB) ,
-                                                                  firstDate: DateTime(1900),
-                                                                  lastDate: DateTime.now(),
-                                                                );
-                                                                // lastDate: DateTime(3000));
-                                                                if (picked != null && picked != selectedDate) {
+                                                              SizedBox(height: 10),
+                                                              Text(
+                                                                'DOB',
+                                                                style: TextStyle(fontWeight: FontWeight.bold),
+                                                              ),
+                                                              TextFormField(
+                                                                controller: profileProvider.dobTEC,
+                                                                decoration: InputDecoration(
+                                                                  hintText: "Date of birth",
+                                                                  focusedBorder: UnderlineInputBorder(
+                                                                    borderSide: BorderSide(width: 1, color: Colors.black),
+                                                                  ),
+                                                                ),
+                                                                keyboardType: TextInputType.datetime,
+                                                                textInputAction: TextInputAction.next,
+                                                                cursorColor: kPrimaryColor,
+                                                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                                                validator: (value) {
+                                                                  if (value!.isEmpty || value.trim() == '') {
+                                                                    return 'Enter a valid date of birth!';
+                                                                  }
+                                                                  return null;
+                                                                },
+                                                                onTap: () async {
+                                                                  final DateTime? picked = await showDatePicker(
+                                                                    context: context,
+                                                                    initialDate: DateTime.now(),
+                                                                    // DateTime.parse(profileProvider.profileResponse.Result.DOB) ,
+                                                                    firstDate: DateTime(1900),
+                                                                    lastDate: DateTime.now(),
+                                                                  );
+                                                                  // lastDate: DateTime(3000));
+                                                                  if (picked != null && picked != selectedDate) {
+                                                                    setState(() {
+                                                                      // dobTEC.text = picked.toString();
+                                                                      profileProvider.dobTEC.text = DateFormat('dd-MM-yyyy')
+                                                                          .format(DateTime.parse(picked.toString()));
+                                                                      selectedDate = picked;
+                                                                      print(
+                                                                          'DOB - ${picked} & ${profileProvider.dobTEC.text} & ${selectedDate}');
+                                                                    });
+                                                                  } else {
+                                                                    print("Date is not selected");
+                                                                  }
+                                                                },
+                                                              ),
+                                                              SizedBox(height: 10),
+                                                              Text(
+                                                                'Gender',
+                                                                style: TextStyle(fontWeight: FontWeight.bold),
+                                                              ),
+                                                              DropdownButtonFormField<String>(
+                                                                dropdownColor: Colors.white,
+                                                                isExpanded: true,
+                                                                value: profileProvider.genderValue,
+                                                                // profileProvider.profileResponse.Result.Gender ? "Male" : "Female" ,
+                                                                icon: const Icon(Icons.keyboard_arrow_down),
+                                                                decoration: InputDecoration(
+                                                                  focusedBorder: UnderlineInputBorder(
+                                                                    borderSide: BorderSide(width: 1, color: Colors.black),
+                                                                  ),
+                                                                ),
+                                                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                                                validator: (value) {
+                                                                  if (value == null || value.isEmpty || value.trim() == '') {
+                                                                    return 'Please select your gender';
+                                                                  }
+                                                                  return null;
+                                                                },
+                                                                items: items.map((String items) {
+                                                                  return DropdownMenuItem(
+                                                                    value: items,
+                                                                    child: Text(items),
+                                                                  );
+                                                                }).toList(),
+                                                                onChanged: (String? newValue) {
+                                                                  log('gender new value - $newValue');
                                                                   setState(() {
-                                                                    // dobTEC.text = picked.toString();
-                                                                    profileProvider.dobTEC.text =
-                                                                        DateFormat('dd-MM-yyyy')
-                                                                            .format(DateTime.parse(picked.toString()));
-                                                                    selectedDate = picked;
-                                                                    print(
-                                                                        'DOB - ${picked} & ${profileProvider.dobTEC.text} & ${selectedDate}');
+                                                                    profileProvider.genderValue = newValue!;
                                                                   });
-                                                                } else {
-                                                                  print("Date is not selected");
-                                                                }
-                                                              },
-                                                            ),
-                                                            SizedBox(height: 10),
-                                                            Text(
-                                                              'Gender',
-                                                              style: TextStyle(fontWeight: FontWeight.bold),
-                                                            ),
-                                                            DropdownButtonFormField<String>(
-                                                              dropdownColor: Colors.white,
-                                                              isExpanded: true,
-                                                              value: profileProvider.genderValue,
-                                                              // profileProvider.profileResponse.Result.Gender ? "Male" : "Female" ,
-                                                              icon: const Icon(Icons.keyboard_arrow_down),
-                                                              decoration: InputDecoration(
-                                                                focusedBorder: UnderlineInputBorder(
-                                                                  borderSide: BorderSide(width: 1, color: Colors.black),
-                                                                ),
+                                                                },
                                                               ),
-                                                              autovalidateMode: AutovalidateMode.onUserInteraction,
-                                                              validator: (value) {
-                                                                if (value == null ||
-                                                                    value.isEmpty ||
-                                                                    value.trim() == '') {
-                                                                  return 'Please select your gender';
-                                                                }
-                                                                return null;
-                                                              },
-                                                              items: items.map((String items) {
-                                                                return DropdownMenuItem(
-                                                                  value: items,
-                                                                  child: Text(items),
-                                                                );
-                                                              }).toList(),
-                                                              onChanged: (String? newValue) {
-                                                                log('gender new value - $newValue');
-                                                                setState(() {
-                                                                  profileProvider.genderValue = newValue!;
-                                                                });
-                                                              },
-                                                            ),
-                                                            SizedBox(height: 10),
-                                                            Text(
-                                                              'Country',
-                                                              style: TextStyle(fontWeight: FontWeight.bold),
-                                                            ),
-                                                            DropdownButtonFormField<LCountry>(
-                                                              dropdownColor: Colors.white,
-                                                              isExpanded: true,
-                                                              icon: const Icon(Icons.keyboard_arrow_down),
-                                                              value: profileProvider.selectedCountry ?? null,
-                                                              hint: Text('Select a country'),
-                                                              decoration: InputDecoration(
-                                                                focusedBorder: UnderlineInputBorder(
-                                                                  borderSide: BorderSide(width: 1, color: Colors.black),
-                                                                ),
+                                                              SizedBox(height: 10),
+                                                              Text(
+                                                                'Country',
+                                                                style: TextStyle(fontWeight: FontWeight.bold),
                                                               ),
-                                                              autovalidateMode: AutovalidateMode.onUserInteraction,
-                                                              validator: (value) {
-                                                                if (value == null) {
-                                                                  return 'Please select your country';
-                                                                }
-                                                                return null;
-                                                              },
-                                                              onChanged: (LCountry? newValue) {
-                                                                if (newValue != null) {
-                                                                  setState(() {
-                                                                    profileProvider.selectedCountry = newValue;
-                                                                  });
-                                                                  print('Selected Country ID: ${newValue.id}');
-                                                                  print('Selected Country name: ${newValue.name}');
-                                                                  profileProvider.getState(newValue.id);
-                                                                  profileProvider.selectedState = null;
-                                                                  profileProvider.selectedCity = null;
-                                                                }
-                                                              },
-                                                              items: profileProvider.countries.map((LCountry country) {
-                                                                log('Country Name - ${country.name}');
-                                                                return DropdownMenuItem<LCountry>(
-                                                                  value: country,
-                                                                  child: Text(country.name),
-                                                                );
-                                                              }).toList(),
-                                                            ),
-                                                            SizedBox(height: 10),
-                                                            Text(
-                                                              'State',
-                                                              style: TextStyle(fontWeight: FontWeight.bold),
-                                                            ),
-                                                            DropdownButtonFormField<LState>(
-                                                              dropdownColor: Colors.white,
-                                                              isExpanded: true,
-                                                              icon: const Icon(Icons.keyboard_arrow_down),
-                                                              value: profileProvider.selectedState ?? null,
-                                                              hint: Text('Select a state'),
-                                                              decoration: InputDecoration(
-                                                                focusedBorder: UnderlineInputBorder(
-                                                                  borderSide: BorderSide(width: 1, color: Colors.black),
+                                                              DropdownButtonFormField<LCountry>(
+                                                                dropdownColor: Colors.white,
+                                                                isExpanded: true,
+                                                                icon: const Icon(Icons.keyboard_arrow_down),
+                                                                value: profileProvider.selectedCountry ?? null,
+                                                                hint: Text('Select a country'),
+                                                                decoration: InputDecoration(
+                                                                  focusedBorder: UnderlineInputBorder(
+                                                                    borderSide: BorderSide(width: 1, color: Colors.black),
+                                                                  ),
                                                                 ),
+                                                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                                                validator: (value) {
+                                                                  if (value == null) {
+                                                                    return 'Please select your country';
+                                                                  }
+                                                                  return null;
+                                                                },
+                                                                onChanged: (LCountry? newValue) {
+                                                                  if (newValue != null) {
+                                                                    setState(() {
+                                                                      profileProvider.selectedCountry = newValue;
+                                                                    });
+                                                                    print('Selected Country ID: ${newValue.id}');
+                                                                    print('Selected Country name: ${newValue.name}');
+                                                                    profileProvider.getState(newValue.id);
+                                                                    profileProvider.selectedState = null;
+                                                                    profileProvider.selectedCity = null;
+                                                                  }
+                                                                },
+                                                                items: profileProvider.countries.map((LCountry country) {
+                                                                  log('Country Name - ${country.name}');
+                                                                  return DropdownMenuItem<LCountry>(
+                                                                    value: country,
+                                                                    child: Text(country.name),
+                                                                  );
+                                                                }).toList(),
                                                               ),
-                                                              autovalidateMode: AutovalidateMode.onUserInteraction,
-                                                              validator: (value) {
-                                                                if (value == null) {
-                                                                  return 'Please select your state';
-                                                                }
-                                                                return null;
-                                                              },
-                                                              onChanged: (LState? newValue) {
-                                                                if (newValue != null) {
-                                                                  setState(() {
-                                                                    profileProvider.selectedState = newValue;
-                                                                  });
-                                                                  print('Selected State ID: ${newValue.id}');
-                                                                  print('Selected State name: ${newValue.name}');
-                                                                  profileProvider.getCity(newValue.id);
-                                                                  profileProvider.selectedCity = null;
-                                                                }
-                                                              },
-                                                              items: profileProvider.states.map((LState state) {
-                                                                log('State Name - ${state.name}');
-                                                                return DropdownMenuItem<LState>(
-                                                                  value: state,
-                                                                  child: Text(state.name),
-                                                                );
-                                                              }).toList(),
-                                                            ),
-                                                            SizedBox(height: 10),
-                                                            Text(
-                                                              'City',
-                                                              style: TextStyle(fontWeight: FontWeight.bold),
-                                                            ),
-                                                            DropdownButtonFormField<LCity>(
-                                                              dropdownColor: Colors.white,
-                                                              isExpanded: true,
-                                                              icon: const Icon(Icons.keyboard_arrow_down),
-                                                              value: profileProvider.selectedCity ?? null,
-                                                              hint: Text('Select a city'),
-                                                              decoration: InputDecoration(
-                                                                focusedBorder: UnderlineInputBorder(
-                                                                  borderSide: BorderSide(width: 1, color: Colors.black),
+                                                              SizedBox(height: 10),
+                                                              Text(
+                                                                'State',
+                                                                style: TextStyle(fontWeight: FontWeight.bold),
+                                                              ),
+                                                              DropdownButtonFormField<LState>(
+                                                                dropdownColor: Colors.white,
+                                                                isExpanded: true,
+                                                                icon: const Icon(Icons.keyboard_arrow_down),
+                                                                value: profileProvider.selectedState ?? null,
+                                                                hint: Text('Select a state'),
+                                                                decoration: InputDecoration(
+                                                                  focusedBorder: UnderlineInputBorder(
+                                                                    borderSide: BorderSide(width: 1, color: Colors.black),
+                                                                  ),
                                                                 ),
+                                                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                                                validator: (value) {
+                                                                  if (value == null) {
+                                                                    return 'Please select your state';
+                                                                  }
+                                                                  return null;
+                                                                },
+                                                                onChanged: (LState? newValue) {
+                                                                  if (newValue != null) {
+                                                                    setState(() {
+                                                                      profileProvider.selectedState = newValue;
+                                                                    });
+                                                                    print('Selected State ID: ${newValue.id}');
+                                                                    print('Selected State name: ${newValue.name}');
+                                                                    profileProvider.getCity(newValue.id);
+                                                                    profileProvider.selectedCity = null;
+                                                                  }
+                                                                },
+                                                                items: profileProvider.states.map((LState state) {
+                                                                  log('State Name - ${state.name}');
+                                                                  return DropdownMenuItem<LState>(
+                                                                    value: state,
+                                                                    child: Text(state.name),
+                                                                  );
+                                                                }).toList(),
                                                               ),
-                                                              autovalidateMode: AutovalidateMode.onUserInteraction,
-                                                              validator: (value) {
-                                                                if (value == null) {
-                                                                  return 'Please select your city';
-                                                                }
-                                                                return null;
-                                                              },
-                                                              onChanged: (LCity? newValue) {
-                                                                if (newValue != null) {
-                                                                  setState(() {
-                                                                    profileProvider.selectedCity = newValue;
-                                                                  });
-                                                                  print('Selected City ID: ${newValue.id}');
-                                                                  print('Selected City name: ${newValue.name}');
-                                                                }
-                                                              },
-                                                              items: profileProvider.cities.map((LCity city) {
-                                                                log('City Name - ${city.name}');
-                                                                return DropdownMenuItem<LCity>(
-                                                                  value: city,
-                                                                  child: Text(city.name),
-                                                                );
-                                                              }).toList(),
-                                                            ),
-                                                            // TextField(
-                                                            //   controller: cityTEC,
-                                                            //   decoration: InputDecoration(hintText: "City"),
-                                                            // ),
-                                                            // TextField(
-                                                            //   controller: stateTEC,
-                                                            //   decoration: InputDecoration(hintText: "State"),
-                                                            // ),
-                                                            /* Theme(
+                                                              SizedBox(height: 10),
+                                                              Text(
+                                                                'City',
+                                                                style: TextStyle(fontWeight: FontWeight.bold),
+                                                              ),
+                                                              DropdownButtonFormField<LCity>(
+                                                                dropdownColor: Colors.white,
+                                                                isExpanded: true,
+                                                                icon: const Icon(Icons.keyboard_arrow_down),
+                                                                value: profileProvider.selectedCity ?? null,
+                                                                hint: Text('Select a city'),
+                                                                decoration: InputDecoration(
+                                                                  focusedBorder: UnderlineInputBorder(
+                                                                    borderSide: BorderSide(width: 1, color: Colors.black),
+                                                                  ),
+                                                                ),
+                                                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                                                validator: (value) {
+                                                                  if (value == null) {
+                                                                    return 'Please select your city';
+                                                                  }
+                                                                  return null;
+                                                                },
+                                                                onChanged: (LCity? newValue) {
+                                                                  if (newValue != null) {
+                                                                    setState(() {
+                                                                      profileProvider.selectedCity = newValue;
+                                                                    });
+                                                                    print('Selected City ID: ${newValue.id}');
+                                                                    print('Selected City name: ${newValue.name}');
+                                                                  }
+                                                                },
+                                                                items: profileProvider.cities.map((LCity city) {
+                                                                  log('City Name - ${city.name}');
+                                                                  return DropdownMenuItem<LCity>(
+                                                                    value: city,
+                                                                    child: Text(city.name),
+                                                                  );
+                                                                }).toList(),
+                                                              ),
+                                                              // TextField(
+                                                              //   controller: cityTEC,
+                                                              //   decoration: InputDecoration(hintText: "City"),
+                                                              // ),
+                                                              // TextField(
+                                                              //   controller: stateTEC,
+                                                              //   decoration: InputDecoration(hintText: "State"),
+                                                              // ),
+                                                              /* Theme(
                                                         //     data: Theme.of(context).copyWith(
                                                         //       canvasColor: Colors.white,
                                                         //     ),
@@ -1279,48 +1241,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                         //         );
                                                         //       }).toList(),
                                                              ))*/
-                                                          ],
+                                                            ],
+                                                          ),
                                                         ),
                                                       ),
-                                                    ),
-                                                    actions: <Widget>[
-                                                      editLoading
-                                                          ? Container()
-                                                          : TextButton(
-                                                              child: const Text('Cancel'),
-                                                              onPressed: () {
-                                                                setState(() {});
-                                                                Navigator.of(context).pop();
-                                                              },
-                                                            ),
-                                                      editLoading
-                                                          ? CircularProgressIndicator()
-                                                          : TextButton(
-                                                              child: const Text('Submit'),
-                                                              onPressed: () async {
-                                                                setState(() {
-                                                                  editLoading = true;
-                                                                });
-                                                                await profileProvider.updateProfile();
-                                                                setState(() {
-                                                                  editLoading = false;
-                                                                  profileProvider.editLoading = false;
-                                                                });
-                                                                Navigator.of(context).pop();
-                                                              },
-                                                            ),
-                                                    ],
-                                                  );
+                                                      actions: <Widget>[
+                                                        editLoading
+                                                            ? Container()
+                                                            : TextButton(
+                                                                child: const Text('Cancel'),
+                                                                onPressed: () {
+                                                                  setState(() {});
+                                                                  Navigator.of(context).pop();
+                                                                },
+                                                              ),
+                                                        editLoading
+                                                            ? CircularProgressIndicator()
+                                                            : TextButton(
+                                                                child: const Text('Submit'),
+                                                                onPressed: () async {
+                                                                  setState(() {
+                                                                    editLoading = true;
+                                                                  });
+                                                                  await profileProvider.updateProfile();
+                                                                  setState(() {
+                                                                    editLoading = false;
+                                                                    profileProvider.editLoading = false;
+                                                                  });
+                                                                  Navigator.of(context).pop();
+                                                                },
+                                                              ),
+                                                      ],
+                                                    );
+                                                  });
                                                 });
-                                              });
-                                            },
-                                          );
-                                        },
-                                        child: Text('Edit'),
-                                      ),
-                                      // SizedBox(
-                                      //   height: 20,
-                                      // )
+                                              },
+                                            );
+                                          },
+                                          child: FxText.button("Edit",
+                                              fontWeight: 600, color: theme.colorScheme.onPrimary, letterSpacing: 0.5),
+                                        ),
+                                      )
                                     ],
                                   )),
                             )),
@@ -1341,8 +1302,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               TableRow(
                                                 children: [
                                                   Container(
-                                                    padding:
-                                                        EdgeInsets.only(bottom: 10), // Adjust the padding as needed
+                                                    padding: EdgeInsets.only(bottom: 10), // Adjust the padding as needed
                                                     child: Text(
                                                       'Primary Address',
                                                       textAlign: TextAlign.left,
@@ -1350,8 +1310,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     ),
                                                   ),
                                                   Container(
-                                                    padding:
-                                                        EdgeInsets.only(bottom: 10), // Adjust the padding as needed
+                                                    padding: EdgeInsets.only(bottom: 10), // Adjust the padding as needed
                                                     child: Text(profileProvider.profileResponse.Result.PrimaryAddress,
                                                         textAlign: TextAlign.left, style: TextStyle(fontSize: 15)),
                                                   ),
@@ -1377,8 +1336,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               TableRow(
                                                 children: [
                                                   Container(
-                                                    padding:
-                                                        EdgeInsets.only(bottom: 10), // Adjust the padding as needed
+                                                    padding: EdgeInsets.only(bottom: 10), // Adjust the padding as needed
                                                     child: Text(
                                                       'Email Address',
                                                       textAlign: TextAlign.left,
@@ -1386,8 +1344,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     ),
                                                   ),
                                                   Container(
-                                                    padding:
-                                                        EdgeInsets.only(bottom: 10), // Adjust the padding as needed
+                                                    padding: EdgeInsets.only(bottom: 10), // Adjust the padding as needed
                                                     child: Text(profileProvider.profileResponse.Result.EmailAddress,
                                                         textAlign: TextAlign.left, style: TextStyle(fontSize: 15)),
                                                   ),
@@ -1396,8 +1353,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               TableRow(
                                                 children: [
                                                   Container(
-                                                    padding:
-                                                        EdgeInsets.only(bottom: 10), // Adjust the padding as needed
+                                                    padding: EdgeInsets.only(bottom: 10), // Adjust the padding as needed
                                                     child: Text(
                                                       'Pincode',
                                                       textAlign: TextAlign.left,
@@ -1405,8 +1361,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     ),
                                                   ),
                                                   Container(
-                                                    padding:
-                                                        EdgeInsets.only(bottom: 10), // Adjust the padding as needed
+                                                    padding: EdgeInsets.only(bottom: 10), // Adjust the padding as needed
                                                     child: Text(profileProvider.profileResponse.Result.PinCode,
                                                         textAlign: TextAlign.left, style: TextStyle(fontSize: 15)),
                                                   ),
@@ -1415,8 +1370,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               TableRow(
                                                 children: [
                                                   Container(
-                                                    padding:
-                                                        EdgeInsets.only(bottom: 10), // Adjust the padding as needed
+                                                    padding: EdgeInsets.only(bottom: 10), // Adjust the padding as needed
                                                     child: Text(
                                                       'Mobile Number',
                                                       textAlign: TextAlign.left,
@@ -1424,8 +1378,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     ),
                                                   ),
                                                   Container(
-                                                    padding:
-                                                        EdgeInsets.only(bottom: 10), // Adjust the padding as needed
+                                                    padding: EdgeInsets.only(bottom: 10), // Adjust the padding as needed
                                                     child: Text(profileProvider.profileResponse.Result.MobileNo,
                                                         textAlign: TextAlign.left, style: TextStyle(fontSize: 15)),
                                                   ),
@@ -1434,8 +1387,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               TableRow(
                                                 children: [
                                                   Container(
-                                                    padding:
-                                                        EdgeInsets.only(bottom: 10), // Adjust the padding as needed
+                                                    padding: EdgeInsets.only(bottom: 10), // Adjust the padding as needed
                                                     child: Text(
                                                       'Alternate Number',
                                                       textAlign: TextAlign.left,
@@ -1443,8 +1395,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     ),
                                                   ),
                                                   Container(
-                                                    padding:
-                                                        EdgeInsets.only(bottom: 10), // Adjust the padding as needed
+                                                    padding: EdgeInsets.only(bottom: 10), // Adjust the padding as needed
                                                     child: Text(profileProvider.profileResponse.Result.TelephoneNo,
                                                         textAlign: TextAlign.left, style: TextStyle(fontSize: 15)),
                                                   ),
@@ -1452,250 +1403,231 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               ),
                                             ],
                                           )),
-                                      ElevatedButton(
-                                        onPressed: () async {
-                                          profileProvider.primaryAddTEC.text =
-                                              profileProvider.profileResponse.Result.PrimaryAddress.toString();
-                                          profileProvider.secondaryAddTEC.text =
-                                              profileProvider.profileResponse.Result.SecondaryAddress.toString();
-                                          profileProvider.emailTEC.text =
-                                              profileProvider.profileResponse.Result.EmailAddress.toString();
-                                          profileProvider.pincodeTEC.text =
-                                              profileProvider.profileResponse.Result.PinCode.toString();
-                                          // profileProvider.mobileNumTEC.text = profileProvider.profileResponse.Result.MobileNo.toString();
-                                          List<String> splitPhoneNumber = profileProvider
-                                              .profileResponse.Result.MobileNo
-                                              .toString()
-                                              .substring(1)
-                                              .split("-");
-                                          profileProvider.prefixMobileNumTEC.text = splitPhoneNumber[0];
-                                          profileProvider.mobileNumTEC.text = splitPhoneNumber[1];
-                                          profileProvider.altMobileNumTEC.text =
-                                              profileProvider.profileResponse.Result.TelephoneNo.toString();
-                                          // List<String> splitAltPhoneNumber =
-                                          //     profileProvider.profileResponse.Result.TelephoneNo.toString().substring(1).split("-");
-                                          // profileProvider.prefixAltMobileNumTEC.text = splitAltPhoneNumber[0];
-                                          // profileProvider.altMobileNumTEC.text = splitAltPhoneNumber[1];
+                                      Container(
+                                        margin: EdgeInsets.only(top: 24),
+                                        child: FxButton(
+                                          elevation: 0,
+                                          borderRadiusAll: 4,
+                                          onPressed: () async {
+                                            profileProvider.primaryAddTEC.text =
+                                                profileProvider.profileResponse.Result.PrimaryAddress.toString();
+                                            profileProvider.secondaryAddTEC.text =
+                                                profileProvider.profileResponse.Result.SecondaryAddress.toString();
+                                            profileProvider.emailTEC.text = profileProvider.profileResponse.Result.EmailAddress.toString();
+                                            profileProvider.pincodeTEC.text = profileProvider.profileResponse.Result.PinCode.toString();
+                                            // profileProvider.mobileNumTEC.text = profileProvider.profileResponse.Result.MobileNo.toString();
+                                            List<String> splitPhoneNumber =
+                                                profileProvider.profileResponse.Result.MobileNo.toString().substring(1).split("-");
+                                            profileProvider.prefixMobileNumTEC.text = splitPhoneNumber[0];
+                                            profileProvider.mobileNumTEC.text = splitPhoneNumber[1];
+                                            profileProvider.altMobileNumTEC.text =
+                                                profileProvider.profileResponse.Result.TelephoneNo.toString();
+                                            // List<String> splitAltPhoneNumber =
+                                            //     profileProvider.profileResponse.Result.TelephoneNo.toString().substring(1).split("-");
+                                            // profileProvider.prefixAltMobileNumTEC.text = splitAltPhoneNumber[0];
+                                            // profileProvider.altMobileNumTEC.text = splitAltPhoneNumber[1];
 
-                                          await showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return AlertDialog(
-                                                title: FxText.h6("CONTACT INFORMATION", fontSize: 18, fontWeight: 800),
-                                                content: contactInfoLoading
-                                                    ? Center(child: CircularProgressIndicator())
-                                                    : SingleChildScrollView(
-                                                        scrollDirection: Axis.vertical,
-                                                        child: profileProvider.isEditMode
-                                                            ? CircularProgressIndicator()
-                                                            : Form(
-                                                                key: _contactInfo,
-                                                                child: Column(
-                                                                  mainAxisSize: MainAxisSize.min,
-                                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                                  children: [
-                                                                    Text(
-                                                                      'Primary Address',
-                                                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                                                    ),
-                                                                    TextFormField(
-                                                                      controller: profileProvider.primaryAddTEC,
-                                                                      decoration: InputDecoration(
-                                                                        hintText: "Primary Address",
-                                                                        focusedBorder: UnderlineInputBorder(
-                                                                          borderSide:
-                                                                              BorderSide(width: 1, color: Colors.black),
-                                                                        ),
-                                                                      ),
-                                                                      keyboardType: TextInputType.text,
-                                                                      textInputAction: TextInputAction.next,
-                                                                      cursorColor: kPrimaryColor,
-                                                                      autovalidateMode:
-                                                                          AutovalidateMode.onUserInteraction,
-                                                                      validator: (value) {
-                                                                        if (value!.isEmpty || value.trim() == '') {
-                                                                          return 'Enter a valid primary address!';
-                                                                        }
-                                                                        return null;
-                                                                      },
-                                                                    ),
-                                                                    SizedBox(height: 10),
-                                                                    Text(
-                                                                      'Secondary Address',
-                                                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                                                    ),
-                                                                    TextFormField(
-                                                                      controller: profileProvider.secondaryAddTEC,
-                                                                      keyboardType: TextInputType.text,
-                                                                      decoration: InputDecoration(
-                                                                        hintText: "Secondary Address",
-                                                                        focusedBorder: UnderlineInputBorder(
-                                                                          borderSide:
-                                                                              BorderSide(width: 1, color: Colors.black),
-                                                                        ),
-                                                                      ),
-                                                                      textInputAction: TextInputAction.next,
-                                                                      cursorColor: kPrimaryColor,
-                                                                      autovalidateMode:
-                                                                          AutovalidateMode.onUserInteraction,
-                                                                      validator: (value) {
-                                                                        if (value!.isEmpty || value.trim() == '') {
-                                                                          return 'Enter a valid secondary Address!';
-                                                                        }
-                                                                        return null;
-                                                                      },
-                                                                    ),
-                                                                    SizedBox(height: 10),
-                                                                    Text(
-                                                                      'Email Address',
-                                                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                                                    ),
-                                                                    TextFormField(
-                                                                      controller: profileProvider.emailTEC,
-                                                                      keyboardType: TextInputType.emailAddress,
-                                                                      decoration: InputDecoration(
-                                                                        hintText: "Email",
-                                                                        focusedBorder: UnderlineInputBorder(
-                                                                          borderSide:
-                                                                              BorderSide(width: 1, color: Colors.black),
-                                                                        ),
-                                                                      ),
-                                                                      textInputAction: TextInputAction.next,
-                                                                      cursorColor: kPrimaryColor,
-                                                                      autovalidateMode:
-                                                                          AutovalidateMode.onUserInteraction,
-                                                                      validator: (value) {
-                                                                        if (value!.isEmpty ||
-                                                                            !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                                                                .hasMatch(value)) {
-                                                                          return 'Enter a valid email!';
-                                                                        }
-                                                                        return null;
-                                                                      },
-                                                                    ),
-                                                                    SizedBox(height: 10),
-                                                                    Text(
-                                                                      'Pincode',
-                                                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                                                    ),
-                                                                    TextFormField(
-                                                                      controller: profileProvider.pincodeTEC,
-                                                                      keyboardType: TextInputType.number,
-                                                                      decoration: InputDecoration(
-                                                                        hintText: "Pincode",
-                                                                        focusedBorder: UnderlineInputBorder(
-                                                                          borderSide:
-                                                                              BorderSide(width: 1, color: Colors.black),
-                                                                        ),
-                                                                      ),
-                                                                      textInputAction: TextInputAction.next,
-                                                                      cursorColor: kPrimaryColor,
-                                                                      autovalidateMode:
-                                                                          AutovalidateMode.onUserInteraction,
-                                                                      validator: (value) {
-                                                                        if (value!.isEmpty || value.trim() == '') {
-                                                                          return 'Enter a valid pincode!';
-                                                                        }
-                                                                        return null;
-                                                                      },
-                                                                    ),
-                                                                    SizedBox(height: 10),
-                                                                    Text(
-                                                                      'Mobile Number',
-                                                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                                                    ),
-                                                                    Row(
-                                                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                                                      children: [
-                                                                        Text('+', style: TextStyle(fontSize: 20)),
-                                                                        SizedBox(width: 5),
-                                                                        Expanded(
-                                                                          child: Row(
-                                                                            crossAxisAlignment:
-                                                                                CrossAxisAlignment.start,
-                                                                            children: [
-                                                                              SizedBox(
-                                                                                width:
-                                                                                    MediaQuery.of(context).size.width *
-                                                                                        0.16,
-                                                                                child: TextFormField(
-                                                                                  controller: profileProvider
-                                                                                      .prefixMobileNumTEC,
-                                                                                  keyboardType: TextInputType.phone,
-                                                                                  decoration: InputDecoration(
-                                                                                    hintText: "1",
-                                                                                    focusedBorder: UnderlineInputBorder(
-                                                                                      borderSide: BorderSide(
-                                                                                          width: 1,
-                                                                                          color: Colors.black),
-                                                                                    ),
-                                                                                  ),
-                                                                                  textInputAction: TextInputAction.next,
-                                                                                  cursorColor: kPrimaryColor,
-                                                                                  autovalidateMode: AutovalidateMode
-                                                                                      .onUserInteraction,
-                                                                                  validator: validateMobileInput,
-                                                                                  // (value) {
-                                                                                  //   if (value!.isEmpty || value.trim() == '') {
-                                                                                  //     return 'Enter a valid mobile number!';
-                                                                                  //   }
-                                                                                  //   return null;
-                                                                                  // },
-                                                                                ),
-                                                                              ),
-                                                                              SizedBox(width: 5),
-                                                                              Expanded(
-                                                                                child: TextFormField(
-                                                                                  controller:
-                                                                                      profileProvider.mobileNumTEC,
-                                                                                  keyboardType: TextInputType.phone,
-                                                                                  decoration: InputDecoration(
-                                                                                    hintText: "0200850323",
-                                                                                    focusedBorder: UnderlineInputBorder(
-                                                                                      borderSide: BorderSide(
-                                                                                          width: 1,
-                                                                                          color: Colors.black),
-                                                                                    ),
-                                                                                  ),
-                                                                                  textInputAction: TextInputAction.next,
-                                                                                  cursorColor: kPrimaryColor,
-                                                                                  autovalidateMode: AutovalidateMode
-                                                                                      .onUserInteraction,
-                                                                                  validator: validateMobileInput,
-                                                                                  // (value) {
-                                                                                  //   if (value!.isEmpty || value.trim() == '') {
-                                                                                  //     return 'Enter a valid mobile number!';
-                                                                                  //   }
-                                                                                  //   return null;
-                                                                                  // },
-                                                                                ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        )
-                                                                      ],
-                                                                    ),
-                                                                    if (_errorMessage != null)
+                                            await showDialog(
+                                              context: context,
+                                              builder: (context) {
+                                                return AlertDialog(
+                                                  title: FxText.h6("CONTACT INFORMATION", fontSize: 18, fontWeight: 800),
+                                                  content: contactInfoLoading
+                                                      ? Center(child: CircularProgressIndicator())
+                                                      : SingleChildScrollView(
+                                                          scrollDirection: Axis.vertical,
+                                                          child: profileProvider.isEditMode
+                                                              ? CircularProgressIndicator()
+                                                              : Form(
+                                                                  key: _contactInfo,
+                                                                  child: Column(
+                                                                    mainAxisSize: MainAxisSize.min,
+                                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                                    children: [
                                                                       Text(
-                                                                        _errorMessage!,
-                                                                        style: TextStyle(color: Colors.red),
+                                                                        'Primary Address',
+                                                                        style: TextStyle(fontWeight: FontWeight.bold),
                                                                       ),
-                                                                    SizedBox(height: 10),
-                                                                    Text(
-                                                                      'Alternate Number',
-                                                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                                                    ),
-                                                                    Row(
-                                                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                                                      children: [
-                                                                        /*Text('+', style: TextStyle(fontSize: 20)),
+                                                                      TextFormField(
+                                                                        controller: profileProvider.primaryAddTEC,
+                                                                        decoration: InputDecoration(
+                                                                          hintText: "Primary Address",
+                                                                          focusedBorder: UnderlineInputBorder(
+                                                                            borderSide: BorderSide(width: 1, color: Colors.black),
+                                                                          ),
+                                                                        ),
+                                                                        keyboardType: TextInputType.text,
+                                                                        textInputAction: TextInputAction.next,
+                                                                        cursorColor: kPrimaryColor,
+                                                                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                                                                        validator: (value) {
+                                                                          if (value!.isEmpty || value.trim() == '') {
+                                                                            return 'Enter a valid primary address!';
+                                                                          }
+                                                                          return null;
+                                                                        },
+                                                                      ),
+                                                                      SizedBox(height: 10),
+                                                                      Text(
+                                                                        'Secondary Address',
+                                                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                                                      ),
+                                                                      TextFormField(
+                                                                        controller: profileProvider.secondaryAddTEC,
+                                                                        keyboardType: TextInputType.text,
+                                                                        decoration: InputDecoration(
+                                                                          hintText: "Secondary Address",
+                                                                          focusedBorder: UnderlineInputBorder(
+                                                                            borderSide: BorderSide(width: 1, color: Colors.black),
+                                                                          ),
+                                                                        ),
+                                                                        textInputAction: TextInputAction.next,
+                                                                        cursorColor: kPrimaryColor,
+                                                                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                                                                        validator: (value) {
+                                                                          if (value!.isEmpty || value.trim() == '') {
+                                                                            return 'Enter a valid secondary Address!';
+                                                                          }
+                                                                          return null;
+                                                                        },
+                                                                      ),
+                                                                      SizedBox(height: 10),
+                                                                      Text(
+                                                                        'Email Address',
+                                                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                                                      ),
+                                                                      TextFormField(
+                                                                        controller: profileProvider.emailTEC,
+                                                                        keyboardType: TextInputType.emailAddress,
+                                                                        decoration: InputDecoration(
+                                                                          hintText: "Email",
+                                                                          focusedBorder: UnderlineInputBorder(
+                                                                            borderSide: BorderSide(width: 1, color: Colors.black),
+                                                                          ),
+                                                                        ),
+                                                                        textInputAction: TextInputAction.next,
+                                                                        cursorColor: kPrimaryColor,
+                                                                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                                                                        validator: (value) {
+                                                                          if (value!.isEmpty ||
+                                                                              !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                                                                  .hasMatch(value)) {
+                                                                            return 'Enter a valid email!';
+                                                                          }
+                                                                          return null;
+                                                                        },
+                                                                      ),
+                                                                      SizedBox(height: 10),
+                                                                      Text(
+                                                                        'Pincode',
+                                                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                                                      ),
+                                                                      TextFormField(
+                                                                        controller: profileProvider.pincodeTEC,
+                                                                        keyboardType: TextInputType.number,
+                                                                        decoration: InputDecoration(
+                                                                          hintText: "Pincode",
+                                                                          focusedBorder: UnderlineInputBorder(
+                                                                            borderSide: BorderSide(width: 1, color: Colors.black),
+                                                                          ),
+                                                                        ),
+                                                                        textInputAction: TextInputAction.next,
+                                                                        cursorColor: kPrimaryColor,
+                                                                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                                                                        validator: (value) {
+                                                                          if (value!.isEmpty || value.trim() == '') {
+                                                                            return 'Enter a valid pincode!';
+                                                                          }
+                                                                          return null;
+                                                                        },
+                                                                      ),
+                                                                      SizedBox(height: 10),
+                                                                      Text(
+                                                                        'Mobile Number',
+                                                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                                                      ),
+                                                                      Row(
+                                                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                                                        children: [
+                                                                          Text('+', style: TextStyle(fontSize: 20)),
+                                                                          SizedBox(width: 5),
+                                                                          Expanded(
+                                                                            child: Row(
+                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                              children: [
+                                                                                SizedBox(
+                                                                                  width: MediaQuery.of(context).size.width * 0.16,
+                                                                                  child: TextFormField(
+                                                                                    controller: profileProvider.prefixMobileNumTEC,
+                                                                                    keyboardType: TextInputType.phone,
+                                                                                    decoration: InputDecoration(
+                                                                                      hintText: "1",
+                                                                                      focusedBorder: UnderlineInputBorder(
+                                                                                        borderSide:
+                                                                                            BorderSide(width: 1, color: Colors.black),
+                                                                                      ),
+                                                                                    ),
+                                                                                    textInputAction: TextInputAction.next,
+                                                                                    cursorColor: kPrimaryColor,
+                                                                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                                                                    validator: validateMobileInput,
+                                                                                    // (value) {
+                                                                                    //   if (value!.isEmpty || value.trim() == '') {
+                                                                                    //     return 'Enter a valid mobile number!';
+                                                                                    //   }
+                                                                                    //   return null;
+                                                                                    // },
+                                                                                  ),
+                                                                                ),
+                                                                                SizedBox(width: 5),
+                                                                                Expanded(
+                                                                                  child: TextFormField(
+                                                                                    controller: profileProvider.mobileNumTEC,
+                                                                                    keyboardType: TextInputType.phone,
+                                                                                    decoration: InputDecoration(
+                                                                                      hintText: "0200850323",
+                                                                                      focusedBorder: UnderlineInputBorder(
+                                                                                        borderSide:
+                                                                                            BorderSide(width: 1, color: Colors.black),
+                                                                                      ),
+                                                                                    ),
+                                                                                    textInputAction: TextInputAction.next,
+                                                                                    cursorColor: kPrimaryColor,
+                                                                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                                                                    validator: validateMobileInput,
+                                                                                    // (value) {
+                                                                                    //   if (value!.isEmpty || value.trim() == '') {
+                                                                                    //     return 'Enter a valid mobile number!';
+                                                                                    //   }
+                                                                                    //   return null;
+                                                                                    // },
+                                                                                  ),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          )
+                                                                        ],
+                                                                      ),
+                                                                      if (_errorMessage != null)
+                                                                        Text(
+                                                                          _errorMessage!,
+                                                                          style: TextStyle(color: Colors.red),
+                                                                        ),
+                                                                      SizedBox(height: 10),
+                                                                      Text(
+                                                                        'Alternate Number',
+                                                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                                                      ),
+                                                                      Row(
+                                                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                                                        children: [
+                                                                          /*Text('+', style: TextStyle(fontSize: 20)),
                                                                         SizedBox(width: 5),*/
-                                                                        Expanded(
-                                                                          child: Row(
-                                                                            crossAxisAlignment:
-                                                                                CrossAxisAlignment.start,
-                                                                            children: [
-                                                                              /*SizedBox(
+                                                                          Expanded(
+                                                                            child: Row(
+                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                              children: [
+                                                                                /*SizedBox(
                                                                                 width: MediaQuery.of(context).size.width * 0.16,
                                                                                 child: TextFormField(
                                                                                   controller: profileProvider.prefixAltMobileNumTEC,
@@ -1719,92 +1651,90 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                                                 ),
                                                                               ),
                                                                               SizedBox(width: 5),*/
-                                                                              Expanded(
-                                                                                child: TextFormField(
-                                                                                  controller:
-                                                                                      profileProvider.altMobileNumTEC,
-                                                                                  keyboardType: TextInputType.number,
-                                                                                  decoration: InputDecoration(
-                                                                                    hintText: "Alternate Number",
-                                                                                    focusedBorder: UnderlineInputBorder(
-                                                                                      borderSide: BorderSide(
-                                                                                          width: 1,
-                                                                                          color: Colors.black),
+                                                                                Expanded(
+                                                                                  child: TextFormField(
+                                                                                    controller: profileProvider.altMobileNumTEC,
+                                                                                    keyboardType: TextInputType.number,
+                                                                                    decoration: InputDecoration(
+                                                                                      hintText: "Alternate Number",
+                                                                                      focusedBorder: UnderlineInputBorder(
+                                                                                        borderSide:
+                                                                                            BorderSide(width: 1, color: Colors.black),
+                                                                                      ),
                                                                                     ),
+                                                                                    textInputAction: TextInputAction.next,
+                                                                                    cursorColor: kPrimaryColor,
+                                                                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                                                                    validator: (value) {
+                                                                                      if (value!.isEmpty || value.trim() == '') {
+                                                                                        return 'Enter a valid alternate number!';
+                                                                                      }
+                                                                                      return null;
+                                                                                    },
                                                                                   ),
-                                                                                  textInputAction: TextInputAction.next,
-                                                                                  cursorColor: kPrimaryColor,
-                                                                                  autovalidateMode: AutovalidateMode
-                                                                                      .onUserInteraction,
-                                                                                  validator: (value) {
-                                                                                    if (value!.isEmpty ||
-                                                                                        value.trim() == '') {
-                                                                                      return 'Enter a valid alternate number!';
-                                                                                    }
-                                                                                    return null;
-                                                                                  },
                                                                                 ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        )
-                                                                      ],
-                                                                    ),
-                                                                  ],
+                                                                              ],
+                                                                            ),
+                                                                          )
+                                                                        ],
+                                                                      ),
+                                                                    ],
+                                                                  ),
                                                                 ),
-                                                              ),
-                                                      ),
-                                                actions: <Widget>[
-                                                  editLoading
-                                                      ? Container()
-                                                      : TextButton(
-                                                          child: const Text('Cancel'),
-                                                          onPressed: () {
-                                                            // setState(() {
-                                                            //   _errorMessage = null;
-                                                            // });
-                                                            Navigator.of(context).pop();
-                                                          },
                                                         ),
-                                                  editLoading
-                                                      ? CircularProgressIndicator()
-                                                      : TextButton(
-                                                          child: const Text('Submit'),
-                                                          onPressed: () async {
-                                                            setState(() {
-                                                              editLoading = true;
-                                                            });
-                                                            await Future.delayed(Duration(seconds: 2));
-                                                            if (_contactInfo.currentState!.validate()) {
-                                                              setState(() {
-                                                                _errorMessage = null;
-                                                              });
-                                                              profileProvider.fullMobileNumber =
-                                                                  '+${profileProvider.prefixMobileNumTEC.text}-${profileProvider.mobileNumTEC.text}';
-                                                              profileProvider.fullAltMobileNumber =
-                                                                  '${profileProvider.altMobileNumTEC.text}'; // +${profileProvider.prefixAltMobileNumTEC.text}-
-                                                              await profileProvider.updateProfile();
-                                                              setState(() {
-                                                                editLoading = false;
-                                                              });
+                                                  actions: <Widget>[
+                                                    editLoading
+                                                        ? Container()
+                                                        : TextButton(
+                                                            child: const Text('Cancel'),
+                                                            onPressed: () {
+                                                              // setState(() {
+                                                              //   _errorMessage = null;
+                                                              // });
                                                               Navigator.of(context).pop();
-                                                            }
-                                                            // else {
-                                                            // setState(() {
-                                                            //   _errorMessage = validateMobInput();
-                                                            //   log('In else $_errorMessage');
-                                                            // });
-                                                            // }
-                                                          },
-                                                        ),
-                                                ],
-                                              );
-                                            },
-                                          );
-                                          // }
-                                        },
-                                        child: Text('Edit'),
-                                      ),
+                                                            },
+                                                          ),
+                                                    editLoading
+                                                        ? CircularProgressIndicator()
+                                                        : TextButton(
+                                                            child: const Text('Submit'),
+                                                            onPressed: () async {
+                                                              setState(() {
+                                                                editLoading = true;
+                                                              });
+                                                              await Future.delayed(Duration(seconds: 2));
+                                                              if (_contactInfo.currentState!.validate()) {
+                                                                setState(() {
+                                                                  _errorMessage = null;
+                                                                });
+                                                                profileProvider.fullMobileNumber =
+                                                                    '+${profileProvider.prefixMobileNumTEC.text}-${profileProvider.mobileNumTEC.text}';
+                                                                profileProvider.fullAltMobileNumber =
+                                                                    '${profileProvider.altMobileNumTEC.text}'; // +${profileProvider.prefixAltMobileNumTEC.text}-
+                                                                await profileProvider.updateProfile();
+                                                                setState(() {
+                                                                  editLoading = false;
+                                                                });
+                                                                Navigator.of(context).pop();
+                                                              }
+                                                              // else {
+                                                              // setState(() {
+                                                              //   _errorMessage = validateMobInput();
+                                                              //   log('In else $_errorMessage');
+                                                              // });
+                                                              // }
+                                                            },
+                                                          ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                            // }
+                                          },
+                                          child: FxText.button("Edit",
+                                              fontWeight: 600, color: theme.colorScheme.onPrimary, letterSpacing: 0.5),
+                                        ),
+                                      )
                                     ],
                                   )),
                             )),
@@ -1825,8 +1755,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               TableRow(
                                                 children: [
                                                   Container(
-                                                    padding:
-                                                        EdgeInsets.only(bottom: 10), // Adjust the padding as needed
+                                                    padding: EdgeInsets.only(bottom: 10), // Adjust the padding as needed
                                                     child: Text(
                                                       'Current Company',
                                                       textAlign: TextAlign.left,
@@ -1834,8 +1763,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     ),
                                                   ),
                                                   Container(
-                                                    padding:
-                                                        EdgeInsets.only(bottom: 10), // Adjust the padding as needed
+                                                    padding: EdgeInsets.only(bottom: 10), // Adjust the padding as needed
                                                     child: Text(profileProvider.profileResponse.Result.CompanyName,
                                                         textAlign: TextAlign.left, style: TextStyle(fontSize: 15)),
                                                   ),
@@ -1861,8 +1789,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               TableRow(
                                                 children: [
                                                   Container(
-                                                    padding:
-                                                        EdgeInsets.only(bottom: 10), // Adjust the padding as needed
+                                                    padding: EdgeInsets.only(bottom: 10), // Adjust the padding as needed
                                                     child: Text(
                                                       'Current Designation',
                                                       textAlign: TextAlign.left,
@@ -1870,8 +1797,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     ),
                                                   ),
                                                   Container(
-                                                    padding:
-                                                        EdgeInsets.only(bottom: 10), // Adjust the padding as needed
+                                                    padding: EdgeInsets.only(bottom: 10), // Adjust the padding as needed
                                                     child: Text(profileProvider.profileResponse.Result.Designation,
                                                         textAlign: TextAlign.left, style: TextStyle(fontSize: 15)),
                                                   ),
@@ -1879,140 +1805,143 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               ),
                                             ],
                                           )),
-                                      ElevatedButton(
-                                        onPressed: () async {
-                                          profileProvider.companyNameTEC.text =
-                                              profileProvider.profileResponse.Result.CompanyName.toString();
-                                          profileProvider.companyAddTEC.text =
-                                              profileProvider.profileResponse.Result.CompanyAddress.toString();
-                                          profileProvider.designationTEC.text =
-                                              profileProvider.profileResponse.Result.Designation.toString();
+                                      Container(
+                                        margin: EdgeInsets.only(top: 24),
+                                        child: FxButton(
+                                          elevation: 0,
+                                          borderRadiusAll: 4,
+                                          onPressed: () async {
+                                            profileProvider.companyNameTEC.text =
+                                                profileProvider.profileResponse.Result.CompanyName.toString();
+                                            profileProvider.companyAddTEC.text =
+                                                profileProvider.profileResponse.Result.CompanyAddress.toString();
+                                            profileProvider.designationTEC.text =
+                                                profileProvider.profileResponse.Result.Designation.toString();
 
-                                          await showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return AlertDialog(
-                                                title: FxText.h6("COMPANY INFORMATION", fontSize: 18, fontWeight: 800),
-                                                content: profileProvider.showLoading
-                                                    ? CircularProgressIndicator()
-                                                    : SingleChildScrollView(
-                                                        scrollDirection: Axis.vertical,
-                                                        child: Form(
-                                                          key: _companyInfo,
-                                                          child: Column(
-                                                            mainAxisSize: MainAxisSize.min,
-                                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                                            children: [
-                                                              Text(
-                                                                'Current Company',
-                                                                style: TextStyle(fontWeight: FontWeight.bold),
-                                                              ),
-                                                              TextFormField(
-                                                                controller: profileProvider.companyNameTEC,
-                                                                decoration: InputDecoration(
-                                                                  hintText: "Current Company",
-                                                                  focusedBorder: UnderlineInputBorder(
-                                                                    borderSide:
-                                                                        BorderSide(width: 1, color: Colors.black),
-                                                                  ),
+                                            await showDialog(
+                                              context: context,
+                                              builder: (context) {
+                                                return AlertDialog(
+                                                  title: FxText.h6("COMPANY INFORMATION", fontSize: 18, fontWeight: 800),
+                                                  content: profileProvider.showLoading
+                                                      ? CircularProgressIndicator()
+                                                      : SingleChildScrollView(
+                                                          scrollDirection: Axis.vertical,
+                                                          child: Form(
+                                                            key: _companyInfo,
+                                                            child: Column(
+                                                              mainAxisSize: MainAxisSize.min,
+                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                              children: [
+                                                                Text(
+                                                                  'Current Company',
+                                                                  style: TextStyle(fontWeight: FontWeight.bold),
                                                                 ),
-                                                                keyboardType: TextInputType.text,
-                                                                textInputAction: TextInputAction.next,
-                                                                cursorColor: kPrimaryColor,
-                                                                autovalidateMode: AutovalidateMode.onUserInteraction,
-                                                                validator: (value) {
-                                                                  if (value!.isEmpty || value.trim() == '') {
-                                                                    return 'Enter a valid current company name!';
-                                                                  }
-                                                                  return null;
-                                                                },
-                                                              ),
-                                                              SizedBox(height: 10),
-                                                              Text(
-                                                                'Company Address',
-                                                                style: TextStyle(fontWeight: FontWeight.bold),
-                                                              ),
-                                                              TextFormField(
-                                                                controller: profileProvider.companyAddTEC,
-                                                                keyboardType: TextInputType.text,
-                                                                decoration: InputDecoration(
-                                                                  hintText: "Company Address",
-                                                                  focusedBorder: UnderlineInputBorder(
-                                                                    borderSide:
-                                                                        BorderSide(width: 1, color: Colors.black),
+                                                                TextFormField(
+                                                                  controller: profileProvider.companyNameTEC,
+                                                                  decoration: InputDecoration(
+                                                                    hintText: "Current Company",
+                                                                    focusedBorder: UnderlineInputBorder(
+                                                                      borderSide: BorderSide(width: 1, color: Colors.black),
+                                                                    ),
                                                                   ),
+                                                                  keyboardType: TextInputType.text,
+                                                                  textInputAction: TextInputAction.next,
+                                                                  cursorColor: kPrimaryColor,
+                                                                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                                                                  validator: (value) {
+                                                                    if (value!.isEmpty || value.trim() == '') {
+                                                                      return 'Enter a valid current company name!';
+                                                                    }
+                                                                    return null;
+                                                                  },
                                                                 ),
-                                                                textInputAction: TextInputAction.next,
-                                                                cursorColor: kPrimaryColor,
-                                                                autovalidateMode: AutovalidateMode.onUserInteraction,
-                                                                validator: (value) {
-                                                                  if (value!.isEmpty || value.trim() == '') {
-                                                                    return 'Enter a valid company Address!';
-                                                                  }
-                                                                  return null;
-                                                                },
-                                                              ),
-                                                              SizedBox(height: 10),
-                                                              Text(
-                                                                'Current Designation',
-                                                                style: TextStyle(fontWeight: FontWeight.bold),
-                                                              ),
-                                                              TextFormField(
-                                                                controller: profileProvider.designationTEC,
-                                                                keyboardType: TextInputType.text,
-                                                                decoration: InputDecoration(
-                                                                  hintText: "Current Designation",
-                                                                  focusedBorder: UnderlineInputBorder(
-                                                                    borderSide:
-                                                                        BorderSide(width: 1, color: Colors.black),
+                                                                SizedBox(height: 10),
+                                                                Text(
+                                                                  'Company Address',
+                                                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                                                ),
+                                                                TextFormField(
+                                                                  controller: profileProvider.companyAddTEC,
+                                                                  keyboardType: TextInputType.text,
+                                                                  decoration: InputDecoration(
+                                                                    hintText: "Company Address",
+                                                                    focusedBorder: UnderlineInputBorder(
+                                                                      borderSide: BorderSide(width: 1, color: Colors.black),
+                                                                    ),
                                                                   ),
+                                                                  textInputAction: TextInputAction.next,
+                                                                  cursorColor: kPrimaryColor,
+                                                                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                                                                  validator: (value) {
+                                                                    if (value!.isEmpty || value.trim() == '') {
+                                                                      return 'Enter a valid company Address!';
+                                                                    }
+                                                                    return null;
+                                                                  },
                                                                 ),
-                                                                textInputAction: TextInputAction.next,
-                                                                cursorColor: kPrimaryColor,
-                                                                autovalidateMode: AutovalidateMode.onUserInteraction,
-                                                                validator: (value) {
-                                                                  if (value!.isEmpty || value.trim() == '') {
-                                                                    return 'Enter a valid company Address!';
-                                                                  }
-                                                                  return null;
-                                                                },
-                                                              ),
-                                                            ],
+                                                                SizedBox(height: 10),
+                                                                Text(
+                                                                  'Current Designation',
+                                                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                                                ),
+                                                                TextFormField(
+                                                                  controller: profileProvider.designationTEC,
+                                                                  keyboardType: TextInputType.text,
+                                                                  decoration: InputDecoration(
+                                                                    hintText: "Current Designation",
+                                                                    focusedBorder: UnderlineInputBorder(
+                                                                      borderSide: BorderSide(width: 1, color: Colors.black),
+                                                                    ),
+                                                                  ),
+                                                                  textInputAction: TextInputAction.next,
+                                                                  cursorColor: kPrimaryColor,
+                                                                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                                                                  validator: (value) {
+                                                                    if (value!.isEmpty || value.trim() == '') {
+                                                                      return 'Enter a valid company Address!';
+                                                                    }
+                                                                    return null;
+                                                                  },
+                                                                ),
+                                                              ],
+                                                            ),
                                                           ),
                                                         ),
-                                                      ),
-                                                actions: <Widget>[
-                                                  editLoading
-                                                      ? Container()
-                                                      : TextButton(
-                                                          child: const Text('Cancel'),
-                                                          onPressed: () {
-                                                            Navigator.of(context).pop();
-                                                          },
-                                                        ),
-                                                  editLoading
-                                                      ? CircularProgressIndicator()
-                                                      : TextButton(
-                                                          child: const Text('Submit'),
-                                                          onPressed: () async {
-                                                            setState(() {
-                                                              editLoading = true;
-                                                            });
-                                                            await profileProvider.updateProfile();
-                                                            setState(() {
-                                                              editLoading = false;
-                                                            });
-                                                            Navigator.of(context).pop();
-                                                          },
-                                                        ),
-                                                ],
-                                              );
-                                            },
-                                          );
-                                          // }
-                                        },
-                                        child: Text('Edit'),
-                                      ),
+                                                  actions: <Widget>[
+                                                    editLoading
+                                                        ? Container()
+                                                        : TextButton(
+                                                            child: const Text('Cancel'),
+                                                            onPressed: () {
+                                                              Navigator.of(context).pop();
+                                                            },
+                                                          ),
+                                                    editLoading
+                                                        ? CircularProgressIndicator()
+                                                        : TextButton(
+                                                            child: const Text('Submit'),
+                                                            onPressed: () async {
+                                                              setState(() {
+                                                                editLoading = true;
+                                                              });
+                                                              await profileProvider.updateProfile();
+                                                              setState(() {
+                                                                editLoading = false;
+                                                              });
+                                                              Navigator.of(context).pop();
+                                                            },
+                                                          ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                            // }
+                                          },
+                                          child: FxText.button("Edit",
+                                              fontWeight: 600, color: theme.colorScheme.onPrimary, letterSpacing: 0.5),
+                                        ),
+                                      )
                                     ],
                                   )),
                             )),
@@ -2043,8 +1972,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 Container(
                                                   padding: EdgeInsets.only(bottom: 10), // Adjust the padding as needed
                                                   child: Text(profileProvider.profileResponse.Result.DegreeName,
-                                                      textAlign: TextAlign.left,
-                                                      style: TextStyle(fontSize: 15)), //'B.E.'
+                                                      textAlign: TextAlign.left, style: TextStyle(fontSize: 15)), //'B.E.'
                                                 ),
                                               ],
                                             ),
@@ -2085,70 +2013,70 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           ],
                                         ),
                                       ),
-                                      ElevatedButton(
-                                        onPressed: () async {
-                                          profileProvider.passoutYearTEC.text =
-                                              profileProvider.profileResponse.Result.PassoutYear.toString();
-                                          // profileProvider.degreeNameTEC.text = profileProvider.profileResponse.Result.DegreeName.toString();
-                                          // profileProvider.streamNameTEC.text = profileProvider.profileResponse.Result.StreamName.toString();
-                                          setState(() {
-                                            profileProvider.programs.map((LProgram program) {
-                                              if (program.name.toString() ==
-                                                  profileProvider.profileResponse.Result.DegreeName.toString()) {
-                                                log("Program Name -${program.id} ${program.name}");
-                                                profileProvider.selectedProgram = program;
-                                              }
-                                            }).toList();
-                                            profileProvider.branches.map((LBranch branch) {
-                                              if (branch.name.toString() ==
-                                                  profileProvider.profileResponse.Result.StreamName.toString()) {
-                                                profileProvider.selectedBranch = branch;
-                                              }
-                                            }).toList();
-                                          });
+                                      Container(
+                                        margin: EdgeInsets.only(top: 24),
+                                        child: FxButton(
+                                          elevation: 0,
+                                          borderRadiusAll: 4,
+                                          onPressed: () async {
+                                            profileProvider.passoutYearTEC.text =
+                                                profileProvider.profileResponse.Result.PassoutYear.toString();
+                                            setState(() {
+                                              profileProvider.programs.map((LProgram program) {
+                                                if (program.name.toString() ==
+                                                    profileProvider.profileResponse.Result.DegreeName.toString()) {
+                                                  log("Program Name -${program.id} ${program.name}");
+                                                  profileProvider.selectedProgram = program;
+                                                }
+                                              }).toList();
+                                              profileProvider.branches.map((LBranch branch) {
+                                                if (branch.name.toString() ==
+                                                    profileProvider.profileResponse.Result.StreamName.toString()) {
+                                                  profileProvider.selectedBranch = branch;
+                                                }
+                                              }).toList();
+                                            });
 
-                                          await showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return StatefulBuilder(
-                                                  builder: (BuildContext context, StateSetter setState) {
-                                                return AlertDialog(
-                                                  title:
-                                                      FxText.h6("ACADEMIC INFORMATION", fontSize: 18, fontWeight: 800),
-                                                  content: SingleChildScrollView(
-                                                    scrollDirection: Axis.vertical,
-                                                    child: Form(
-                                                      key: _academicInfo,
-                                                      child: Column(
-                                                        mainAxisSize: MainAxisSize.min,
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          Text(
-                                                            'Passout Year',
-                                                            style: TextStyle(fontWeight: FontWeight.bold),
-                                                          ),
-                                                          TextFormField(
-                                                            controller: profileProvider.passoutYearTEC,
-                                                            decoration: InputDecoration(
-                                                              hintText: "Passout year",
-                                                              focusedBorder: UnderlineInputBorder(
-                                                                borderSide: BorderSide(width: 1, color: Colors.black),
-                                                              ),
+                                            await showDialog(
+                                              context: context,
+                                              builder: (context) {
+                                                return StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
+                                                  return AlertDialog(
+                                                    title: FxText.h6("ACADEMIC INFORMATION", fontSize: 18, fontWeight: 800),
+                                                    content: SingleChildScrollView(
+                                                      scrollDirection: Axis.vertical,
+                                                      child: Form(
+                                                        key: _academicInfo,
+                                                        child: Column(
+                                                          mainAxisSize: MainAxisSize.min,
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            Text(
+                                                              'Passout Year',
+                                                              style: TextStyle(fontWeight: FontWeight.bold),
                                                             ),
-                                                            keyboardType: TextInputType.datetime,
-                                                            textInputAction: TextInputAction.next,
-                                                            cursorColor: kPrimaryColor,
-                                                            autovalidateMode: AutovalidateMode.onUserInteraction,
-                                                            validator: (value) {
-                                                              if (value!.isEmpty || value.trim() == '') {
-                                                                return 'Enter a valid passout year!';
-                                                              }
-                                                              return null;
-                                                            },
-                                                            onTap: () async {
-                                                              var passoutYear = profileProvider.passoutYearTEC;
-                                                              await selectYear(context, passoutYear);
-                                                              /* final DateTime? picked = await showDatePicker(
+                                                            TextFormField(
+                                                              controller: profileProvider.passoutYearTEC,
+                                                              decoration: InputDecoration(
+                                                                hintText: "Passout year",
+                                                                focusedBorder: UnderlineInputBorder(
+                                                                  borderSide: BorderSide(width: 1, color: Colors.black),
+                                                                ),
+                                                              ),
+                                                              keyboardType: TextInputType.datetime,
+                                                              textInputAction: TextInputAction.next,
+                                                              cursorColor: kPrimaryColor,
+                                                              autovalidateMode: AutovalidateMode.onUserInteraction,
+                                                              validator: (value) {
+                                                                if (value!.isEmpty || value.trim() == '') {
+                                                                  return 'Enter a valid passout year!';
+                                                                }
+                                                                return null;
+                                                              },
+                                                              onTap: () async {
+                                                                var passoutYear = profileProvider.passoutYearTEC;
+                                                                await selectYear(context, passoutYear);
+                                                                /* final DateTime? picked = await showDatePicker(
                                                                 context: context,
                                                                 initialDatePickerMode: DatePickerMode.year,
                                                                 initialEntryMode:  DatePickerEntryMode.calendarOnly,
@@ -2165,7 +2093,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                                   selectedYear = picked;
                                                                 });
                                                               }*/
-                                                              /*final YearPicker picked = await YearPicker(
+                                                                /*final YearPicker picked = await YearPicker(
                                                                   // context: context,
                                                                   firstDate: DateTime(1900),
                                                                   lastDate: DateTime(DateTime.now().year),
@@ -2206,164 +2134,125 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                                   selectedDate = picked;
                                                                 });
                                                               }*/
-                                                            },
-                                                          ),
-                                                          SizedBox(height: 10),
-                                                          Text(
-                                                            'Program',
-                                                            style: TextStyle(fontWeight: FontWeight.bold),
-                                                          ),
-                                                          DropdownButtonFormField<LProgram>(
-                                                            dropdownColor: Colors.white,
-                                                            isExpanded: true,
-                                                            icon: const Icon(Icons.keyboard_arrow_down),
-                                                            value: profileProvider.selectedProgram ?? null,
-                                                            hint: Text('Select a program'),
-                                                            decoration: InputDecoration(
-                                                              focusedBorder: UnderlineInputBorder(
-                                                                borderSide: BorderSide(width: 1, color: Colors.black),
-                                                              ),
+                                                              },
                                                             ),
-                                                            autovalidateMode: AutovalidateMode.onUserInteraction,
-                                                            validator: (value) {
-                                                              if (value == null) {
-                                                                return 'Please select your program';
-                                                              }
-                                                              return null;
-                                                            },
-                                                            onChanged: (LProgram? newValue) {
-                                                              if (newValue != null) {
-                                                                setState(() {
-                                                                  profileProvider.selectedProgram = newValue;
-                                                                });
-                                                                print('Selected Program ID: ${newValue.id}');
-                                                                print('Selected Program name: ${newValue.name}');
-                                                              }
-                                                            },
-                                                            items: profileProvider.programs.map((LProgram program) {
-                                                              return DropdownMenuItem<LProgram>(
-                                                                value: program,
-                                                                child: Text(program.name),
-                                                              );
-                                                            }).toList(),
-                                                          ),
-                                                          SizedBox(height: 10),
-                                                          Text(
-                                                            'Branch',
-                                                            style: TextStyle(fontWeight: FontWeight.bold),
-                                                          ),
-                                                          DropdownButtonFormField<LBranch>(
-                                                            dropdownColor: Colors.white,
-                                                            isExpanded: true,
-                                                            icon: const Icon(Icons.keyboard_arrow_down),
-                                                            value: profileProvider.selectedBranch ?? null,
-                                                            hint: Text('Select a branch'),
-                                                            decoration: InputDecoration(
-                                                              focusedBorder: UnderlineInputBorder(
-                                                                borderSide: BorderSide(width: 1, color: Colors.black),
-                                                              ),
+                                                            SizedBox(height: 10),
+                                                            Text(
+                                                              'Program',
+                                                              style: TextStyle(fontWeight: FontWeight.bold),
                                                             ),
-                                                            autovalidateMode: AutovalidateMode.onUserInteraction,
-                                                            validator: (value) {
-                                                              if (value == null) {
-                                                                return 'Please select your branch';
-                                                              }
-                                                              return null;
-                                                            },
-                                                            onChanged: (LBranch? newValue) {
-                                                              if (newValue != null) {
-                                                                setState(() {
-                                                                  profileProvider.selectedBranch = newValue;
-                                                                });
-                                                                print('Selected Branch ID: ${newValue.id}');
-                                                                print('Selected Branch name: ${newValue.name}');
-                                                              }
-                                                            },
-                                                            items: profileProvider.branches.map((LBranch branch) {
-                                                              return DropdownMenuItem<LBranch>(
-                                                                value: branch,
-                                                                child: Text(branch.name),
-                                                              );
-                                                            }).toList(),
-                                                          ),
-
-                                                          /*SizedBox(height: 10),
-                                                          Text(
-                                                            'City',
-                                                            style: TextStyle(fontWeight: FontWeight.bold),
-                                                          ),
-                                                          DropdownButtonFormField<LCity>(
-                                                            dropdownColor: Colors.white,
-                                                            isExpanded: true,
-                                                            icon: const Icon(Icons.keyboard_arrow_down),
-                                                            value: selectedCity ?? null,
-                                                            hint: Text('Select a city'),
-                                                            decoration: InputDecoration(
-                                                              focusedBorder: UnderlineInputBorder(
-                                                                borderSide: BorderSide(width: 1, color: Colors.black),
+                                                            DropdownButtonFormField<LProgram>(
+                                                              dropdownColor: Colors.white,
+                                                              isExpanded: true,
+                                                              icon: const Icon(Icons.keyboard_arrow_down),
+                                                              value: profileProvider.selectedProgram ?? null,
+                                                              hint: Text('Select a program'),
+                                                              decoration: InputDecoration(
+                                                                focusedBorder: UnderlineInputBorder(
+                                                                  borderSide: BorderSide(width: 1, color: Colors.black),
+                                                                ),
                                                               ),
+                                                              autovalidateMode: AutovalidateMode.onUserInteraction,
+                                                              validator: (value) {
+                                                                if (value == null) {
+                                                                  return 'Please select your program';
+                                                                }
+                                                                return null;
+                                                              },
+                                                              onChanged: (LProgram? newValue) {
+                                                                if (newValue != null) {
+                                                                  setState(() {
+                                                                    profileProvider.selectedProgram = newValue;
+                                                                  });
+                                                                  print('Selected Program ID: ${newValue.id}');
+                                                                  print('Selected Program name: ${newValue.name}');
+                                                                }
+                                                              },
+                                                              items: profileProvider.programs.map((LProgram program) {
+                                                                return DropdownMenuItem<LProgram>(
+                                                                  value: program,
+                                                                  child: Text(program.name),
+                                                                );
+                                                              }).toList(),
                                                             ),
-                                                            autovalidateMode: AutovalidateMode.onUserInteraction,
-                                                            validator: (value) {
-                                                              if (value == null) {
-                                                                return 'Please select your city';
-                                                              }
-                                                              return null;
-                                                            },
-                                                            onChanged: (LCity? newValue) {
-                                                              if (newValue != null) {
-                                                                setState(() {
-                                                                  selectedCity = newValue;
-                                                                });
-                                                                print('Selected City ID: ${newValue.id}');
-                                                                print('Selected City name: ${newValue.name}');
-                                                              }
-                                                            },
-                                                            items: profileProvider.cities.map((LCity city) {
-                                                              return DropdownMenuItem<LCity>(
-                                                                value: city,
-                                                                child: Text(city.name),
-                                                              );
-                                                            }).toList(),
-                                                          ),
-                                                          */
-                                                        ],
+                                                            SizedBox(height: 10),
+                                                            Text(
+                                                              'Branch',
+                                                              style: TextStyle(fontWeight: FontWeight.bold),
+                                                            ),
+                                                            DropdownButtonFormField<LBranch>(
+                                                              dropdownColor: Colors.white,
+                                                              isExpanded: true,
+                                                              icon: const Icon(Icons.keyboard_arrow_down),
+                                                              value: profileProvider.selectedBranch ?? null,
+                                                              hint: Text('Select a branch'),
+                                                              decoration: InputDecoration(
+                                                                focusedBorder: UnderlineInputBorder(
+                                                                  borderSide: BorderSide(width: 1, color: Colors.black),
+                                                                ),
+                                                              ),
+                                                              autovalidateMode: AutovalidateMode.onUserInteraction,
+                                                              validator: (value) {
+                                                                if (value == null) {
+                                                                  return 'Please select your branch';
+                                                                }
+                                                                return null;
+                                                              },
+                                                              onChanged: (LBranch? newValue) {
+                                                                if (newValue != null) {
+                                                                  setState(() {
+                                                                    profileProvider.selectedBranch = newValue;
+                                                                  });
+                                                                  print('Selected Branch ID: ${newValue.id}');
+                                                                  print('Selected Branch name: ${newValue.name}');
+                                                                }
+                                                              },
+                                                              items: profileProvider.branches.map((LBranch branch) {
+                                                                return DropdownMenuItem<LBranch>(
+                                                                  value: branch,
+                                                                  child: Text(branch.name),
+                                                                );
+                                                              }).toList(),
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  actions: <Widget>[
-                                                    editLoading
-                                                        ? Container()
-                                                        : TextButton(
-                                                            child: const Text('Cancel'),
-                                                            onPressed: () {
-                                                              setState(() {});
-                                                              Navigator.of(context).pop();
-                                                            },
-                                                          ),
-                                                    editLoading
-                                                        ? CircularProgressIndicator()
-                                                        : TextButton(
-                                                            child: const Text('Submit'),
-                                                            onPressed: () async {
-                                                              setState(() {
-                                                                editLoading = true;
-                                                              });
-                                                              await profileProvider.updateProfile();
-                                                              setState(() {
-                                                                editLoading = false;
-                                                              });
-                                                              Navigator.of(context).pop();
-                                                            },
-                                                          ),
-                                                  ],
-                                                );
-                                              });
-                                            },
-                                          );
-                                        },
-                                        child: Text('Edit'),
-                                      ),
+                                                    actions: <Widget>[
+                                                      editLoading
+                                                          ? Container()
+                                                          : TextButton(
+                                                              child: const Text('Cancel'),
+                                                              onPressed: () {
+                                                                setState(() {});
+                                                                Navigator.of(context).pop();
+                                                              },
+                                                            ),
+                                                      editLoading
+                                                          ? CircularProgressIndicator()
+                                                          : TextButton(
+                                                              child: const Text('Submit'),
+                                                              onPressed: () async {
+                                                                setState(() {
+                                                                  editLoading = true;
+                                                                });
+                                                                await profileProvider.updateProfile();
+                                                                setState(() {
+                                                                  editLoading = false;
+                                                                });
+                                                                Navigator.of(context).pop();
+                                                              },
+                                                            ),
+                                                    ],
+                                                  );
+                                                });
+                                              },
+                                            );
+                                          },
+                                          child: FxText.button("Edit",
+                                              fontWeight: 600, color: theme.colorScheme.onPrimary, letterSpacing: 0.5),
+                                        ),
+                                      )
                                     ],
                                   )),
                             )),
@@ -2384,8 +2273,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               TableRow(
                                                 children: [
                                                   Container(
-                                                    padding:
-                                                        EdgeInsets.only(bottom: 10), // Adjust the padding as needed
+                                                    padding: EdgeInsets.only(bottom: 10), // Adjust the padding as needed
                                                     child: Text(
                                                       'Membership',
                                                       textAlign: TextAlign.left,
@@ -2393,12 +2281,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     ),
                                                   ),
                                                   Container(
-                                                    padding:
-                                                        EdgeInsets.only(bottom: 10), // Adjust the padding as needed
-                                                    child: Text(
-                                                        profileProvider.profileResponse.Result.Membership.toString(),
-                                                        textAlign: TextAlign.left,
-                                                        style: TextStyle(fontSize: 15)),
+                                                    padding: EdgeInsets.only(bottom: 10), // Adjust the padding as needed
+                                                    child: Text(profileProvider.profileResponse.Result.Membership.toString(),
+                                                        textAlign: TextAlign.left, style: TextStyle(fontSize: 15)),
                                                   ),
                                                 ],
                                               ),
@@ -2426,151 +2311,124 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             ],
                                           )),
                                       if (profileProvider.profileResponse.Result.IsEligibleForChangeMembership)
-                                       Container(
-                margin: EdgeInsets.only(top: 24),
-                child: FxButton(
-                    elevation: 0,
-                    borderRadiusAll: 4,
-                    onPressed: () async{
-                      profileProvider.passoutYearTEC.text =
-                                                profileProvider.profileResponse.Result.PassoutYear.toString();
-                                            // profileProvider.degreeNameTEC.text = profileProvider.profileResponse.Result.DegreeName.toString();
-                                            // profileProvider.streamNameTEC.text = profileProvider.profileResponse.Result.StreamName.toString();
-                                            setState(() {
-                                              profileProvider.programs.map((LProgram program) {
-                                                if (program.name.toString() ==
-                                                    profileProvider.profileResponse.Result.DegreeName.toString()) {
-                                                  log("Program Name -${program.id} ${program.name}");
-                                                  profileProvider.selectedProgram = program;
-                                                }
-                                              }).toList();
-                                              profileProvider.branches.map((LBranch branch) {
-                                                if (branch.name.toString() ==
-                                                    profileProvider.profileResponse.Result.StreamName.toString()) {
-                                                  profileProvider.selectedBranch = branch;
-                                                }
-                                              }).toList();
-                                            });
+                                        Container(
+                                          margin: EdgeInsets.only(top: 24),
+                                          child: FxButton(
+                                              elevation: 0,
+                                              borderRadiusAll: 4,
+                                              onPressed: () async {
+                                                // int? selected; //attention
+                                                int selected=0; //attention
 
-                                            await showDialog(
-                                              context: context,
-                                              builder: (context) {
-                                                return StatefulBuilder(
-                                                    builder: (BuildContext context, StateSetter setState) {
-                                                  return AlertDialog(
-                                                    title: FxText.h6("MEMBERSHIP INFORMATION",
-                                                        fontSize: 18, fontWeight: 800),
-                                                    content: SizedBox(
-                                                      width: double.maxFinite,
-                                                      height: MediaQuery.of(context).size.height * .45,
-                                                      child: SingleChildScrollView(
-                                                          scrollDirection: Axis.vertical,
-                                                          child: SizedBox(
-                                                              width: double.infinity,
-                                                              height: MediaQuery.of(context).size.height * .45,
-                                                              child: Theme(
-                                                                data: Theme.of(context)
-                                                                    .copyWith(dividerColor: Colors.transparent),
-                                                                child: ListView.builder(
-                                                                    itemCount: profileProvider
-                                                                        .membershipTypeResponse.Result.length,
-                                                                    itemBuilder: (BuildContext context, int index) {
-                                                                      return Container(
-                                                                        // margin: EdgeInsets.all(0),
-                                                                        // padding: EdgeInsets.all(0),
-                                                                        // alignment: Alignment.topLeft,
-                                                                        child: ExpansionTile(
-                                                                          title: FxText.h6(
-                                                                              profileProvider.membershipTypeResponse
-                                                                                  .Result[index].Name,
-                                                                              fontSize: 16,
-                                                                              fontWeight: 700),
-                                                                          children: [
-                                                                            Padding(
-                                                                              padding:
-                                                                                  EdgeInsets.only(left: 20, top: 10),
-                                                                              child: Table(children: [
-                                                                                TableRow(
-                                                                                  children: [
-                                                                                    Container(
-                                                                                      padding: EdgeInsets.only(
-                                                                                          bottom:
-                                                                                              10), // Adjust the padding as needed
-                                                                                      child: Text(
-                                                                                        'Fees',
-                                                                                        textAlign: TextAlign.left,
-                                                                                        style: TextStyle(
-                                                                                            fontWeight: FontWeight.bold,
-                                                                                            fontSize: 15),
-                                                                                      ),
+                                                await showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
+                                                      return AlertDialog(
+                                                        title: FxText.h6("MEMBERSHIP INFORMATION", fontSize: 18, fontWeight: 800),
+                                                        content: SizedBox(
+                                                          width: double.maxFinite,
+                                                          // height: MediaQuery.of(context).size.height * .5,
+                                                          child: SingleChildScrollView(
+                                                              scrollDirection: Axis.vertical,
+                                                              child: SizedBox(
+                                                                  width: double.infinity,
+                                                                  height: MediaQuery.of(context).size.height * .5,
+                                                                  child: Theme(
+                                                                    data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+                                                                    child: ListView.builder(
+                                                                        key: Key('builder ${selected.toString()}'), //attention
+                                                                        itemCount: profileProvider.membershipTypeResponse.Result.length,
+                                                                        itemBuilder: (BuildContext context, int index) {
+                                                                          return Container(
+                                                                            // margin: EdgeInsets.all(0),
+                                                                            // padding: EdgeInsets.all(0),
+                                                                            // alignment: Alignment.topLeft,
+                                                                            child: ExpansionTile(
+                                                                              key: Key(index.toString()), //attention
+                                                                              initiallyExpanded: index == selected, //attention
+                                                                              title: FxText.h6(
+                                                                                  profileProvider.membershipTypeResponse.Result[index].Name,
+                                                                                  fontSize: 16,
+                                                                                  fontWeight: 700),
+                                                                              children: [
+                                                                                Padding(
+                                                                                  padding: EdgeInsets.only(left: 20, top: 10),
+                                                                                  child: Table(children: [
+                                                                                    TableRow(
+                                                                                      children: [
+                                                                                        Container(
+                                                                                          padding: EdgeInsets.only(bottom: 10),
+                                                                                          child: Text(
+                                                                                            'Fees',
+                                                                                            textAlign: TextAlign.left,
+                                                                                            style: TextStyle(
+                                                                                                fontWeight: FontWeight.bold, fontSize: 15),
+                                                                                          ),
+                                                                                        ),
+                                                                                        Container(
+                                                                                          padding: EdgeInsets.only(
+                                                                                              bottom: 10), // Adjust the padding as needed
+                                                                                          child: Text(
+                                                                                              profileProvider
+                                                                                                  .membershipTypeResponse.Result[index].Fees
+                                                                                                  .toString(),
+                                                                                              textAlign: TextAlign.left,
+                                                                                              style: TextStyle(fontSize: 15)),
+                                                                                        ),
+                                                                                      ],
                                                                                     ),
-                                                                                    Container(
-                                                                                      padding: EdgeInsets.only(
-                                                                                          bottom:
-                                                                                              10), // Adjust the padding as needed
-                                                                                      child: Text(
-                                                                                          profileProvider
-                                                                                              .membershipTypeResponse
-                                                                                              .Result[index]
-                                                                                              .Fees
-                                                                                              .toString(),
-                                                                                          textAlign: TextAlign.left,
-                                                                                          style:
-                                                                                              TextStyle(fontSize: 15)),
-                                                                                    ),
-                                                                                  ],
+                                                                                  ]),
                                                                                 ),
-                                                                              ]),
+                                                                                editLoading
+                                                                                    ? CircularProgressIndicator()
+                                                                                    : Container(
+                                                                                        margin: EdgeInsets.only(top: 10, bottom: 10),
+                                                                                        child: FxButton(
+                                                                                            elevation: 0,
+                                                                                            borderRadiusAll: 4,
+                                                                                            onPressed: () async {
+                                                                                              setState(() {
+                                                                                                editLoading = true;
+                                                                                              });
+                                                                                              log('Membership id ${profileProvider.membershipTypeResponse.Result[index].Id}');
+                                                                                              await profileProvider.updateMembershipType(
+                                                                                                  profileProvider.membershipTypeResponse
+                                                                                                      .Result[index].Id);
+                                                                                              setState(() {
+                                                                                                editLoading = false;
+                                                                                              });
+                                                                                              Navigator.of(context).pop();
+                                                                                            },
+                                                                                            child: FxText.button("Request Change",
+                                                                                                fontWeight: 600,
+                                                                                                color: theme.colorScheme.onPrimary,
+                                                                                                letterSpacing: 0.5)),
+                                                                                      ),
+                                                                              ],
+                                                                              onExpansionChanged: (newState) {
+                                                                                if (newState)
+                                                                                  setState(() {
+                                                                                    selected = index;
+                                                                                  });
+                                                                                else
+                                                                                  setState(() {
+                                                                                    selected = -1;
+                                                                                  });
+                                                                              },
                                                                             ),
-                                                                            editLoading
-                                                                                ? CircularProgressIndicator()
-                                                                                : Container(
-                                                                                    margin: EdgeInsets.only(
-                                                                                        top: 10, bottom: 10),
-                                                                                    child: FxButton(
-                                                                                        elevation: 0,
-                                                                                        borderRadiusAll: 4,
-                                                                                        onPressed: () async {
-                                                                                          setState(() {
-                                                                                            editLoading = true;
-                                                                                          });
-                                                                                          log('Membership id ${profileProvider.membershipTypeResponse.Result[index].Id}');
-                                                                                          await profileProvider
-                                                                                              .updateMembershipType(
-                                                                                                  profileProvider
-                                                                                                      .membershipTypeResponse
-                                                                                                      .Result[index]
-                                                                                                      .Id);
-                                                                                          setState(() {
-                                                                                            editLoading = false;
-                                                                                          });
-                                                                                          Navigator.of(context).pop();
-                                                                                        },
-                                                                                        child: FxText.button(
-                                                                                            "Request Change",
-                                                                                            fontWeight: 600,
-                                                                                            color: theme
-                                                                                                .colorScheme.onPrimary,
-                                                                                            letterSpacing: 0.5)),
-                                                                                  ),
-
-                                                                          
-                                                                          ],
-                                                                        ),
-                                                                      );
-                                                                    }),
-                                                              ))),
-                                                    ),
-                                                   
-                                                  );
-                                                });
+                                                                          );
+                                                                        }),
+                                                                  ))),
+                                                        ),
+                                                      );
+                                                    });
+                                                  },
+                                                );
                                               },
-                                            );
-                    },
-                    child: FxText.button("Upgrade Membership",
-                        fontWeight: 600, color: theme.colorScheme.onPrimary, letterSpacing: 0.5)),
-              ),
-                                       
+                                              child: FxText.button("Upgrade Membership",
+                                                  fontWeight: 600, color: theme.colorScheme.onPrimary, letterSpacing: 0.5)),
+                                        ),
                                     ],
                                   )),
                             )),

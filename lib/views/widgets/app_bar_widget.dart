@@ -23,8 +23,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final GlobalKey<ScaffoldState> scaffoldKey; // Create a key
   final PreferredSizeWidget? bottom;
   final bool showProfile;
-  AppBarWidget({Key? key, this.title, required this.scaffoldKey, this.bottom, this.showProfile = true})
-      : super(key: key);
+  AppBarWidget({Key? key, this.title, required this.scaffoldKey, this.bottom, this.showProfile = true}) : super(key: key);
   @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
   @override
@@ -34,8 +33,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
     bool isDark = false;
     TextDirection textDirection = TextDirection.ltr;
     // return Consumer<AppNotifier>(builder: (BuildContext context, AppNotifier value, Widget? child) {
-    return Consumer2<AppNotifier, ProfileController>(
-        builder: (BuildContext context, AppNotifier value, profileProvider, Widget? child) {
+    return Consumer2<AppNotifier, ProfileController>(builder: (BuildContext context, AppNotifier value, profileProvider, Widget? child) {
       log(showProfile.toString());
       isDark = AppTheme.themeType == ThemeType.dark;
       textDirection = AppTheme.textDirection;
@@ -164,28 +162,27 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
                                 height: 40,
                                 child: GestureDetector(
                                     onTap: () {
-                                      Navigator.of(context)
-                                          .pushNamedAndRemoveUntil('profile', ModalRoute.withName('home'));
+                                      Navigator.of(context).pushNamedAndRemoveUntil('profile', ModalRoute.withName('home'));
                                     },
                                     child: profileProvider.profileResponse.Result.ProfilePicPath.toString().isNotEmpty
                                         ? CircleAvatar(
                                             backgroundColor: Colors.transparent,
                                             radius: 100,
-                                            backgroundImage: NetworkImage('https://' +
-                                                profileProvider.profileResponse.Result.ProfilePicPath.toString()),
+                                            backgroundImage:
+                                                NetworkImage('https://' + profileProvider.profileResponse.Result.ProfilePicPath.toString()),
                                           )
                                         : Icon(
                                             Icons.person,
                                             color: Colors.white,
                                           )));
-                          }else if(showProfile){
+                          } 
+                          else if (showProfile) {
                             return SizedBox(
                                 width: 50,
                                 height: 40,
                                 child: GestureDetector(
                                     onTap: () {
-                                      Navigator.of(context)
-                                          .pushNamedAndRemoveUntil('profile', ModalRoute.withName('home'));
+                                      Navigator.of(context).pushNamedAndRemoveUntil('profile', ModalRoute.withName('home'));
                                     },
                                     child: Icon(
                                       Icons.person,
