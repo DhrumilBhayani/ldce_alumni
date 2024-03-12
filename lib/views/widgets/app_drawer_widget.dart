@@ -156,42 +156,6 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                               color: theme.colorScheme.primary,
                             ),
                           ),
-                        /*  ExpansionTile(
-                            onExpansionChanged: (value) async {
-                              if (ModalRoute.of(context)!.settings.name != 'login') {
-                                Navigator.pop(context);
-                                Navigator.of(context).pushNamedAndRemoveUntil('profile', ModalRoute.withName('home'));
-                              } else {
-                                Navigator.pop(context);
-                              }
-                            },
-                            title: FxText.b1("Profile"),
-                            tilePadding: EdgeInsets.all(0),
-                            trailing: SizedBox.shrink(),
-                            leading: Icon(
-                              MdiIcons.account,
-                              color: theme.colorScheme.primary,
-                            ),
-                          ),
-                        if (token == null)
-                          ExpansionTile(
-                            onExpansionChanged: (value) {
-                              if (ModalRoute.of(context)!.settings.name != 'login') {
-                                Navigator.pop(context);
-                                Navigator.of(context).pushNamed('login');
-                              } else {
-                                Navigator.pop(context);
-                              }
-                            },
-                            title: FxText.b1("Login"),
-                            tilePadding: EdgeInsets.all(0),
-                            trailing: SizedBox.shrink(),
-                            leading: Icon(
-                              MdiIcons.login,
-                              color: theme.colorScheme.primary,
-                            ),
-                          ),
-                        */
                         ExpansionTile(
                           onExpansionChanged: (value) {
                             if (ModalRoute.of(context)!.settings.name != 'home') {
