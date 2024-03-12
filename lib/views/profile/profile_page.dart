@@ -6,6 +6,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ldce_alumni/controllers/profile/profile_controller.dart';
+import 'package:ldce_alumni/core/button.dart';
 import 'package:ldce_alumni/core/text.dart';
 import 'package:ldce_alumni/models/masters/branch/lbranch.dart';
 import 'package:ldce_alumni/models/masters/country/country.dart';
@@ -62,7 +63,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   late File _image;
   final GlobalKey<ScaffoldState> _key = GlobalKey(); // Create a key
   final _personalInfo = GlobalKey<FormState>();
-  bool editLoading =false;
+
   // TextEditingController primaryAddTEC = TextEditingController();
   // TextEditingController secondaryAddTEC = TextEditingController();
   // TextEditingController emailTEC = TextEditingController();
@@ -239,7 +240,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               },
             ),
             TextButton(
-              child: const Text('Update'),
+              child: const Text('Submit'),
               onPressed: () {
                 // Handle the submit action
               },
@@ -388,7 +389,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               },
             ),
             TextButton(
-              child: const Text('Update'),
+              child: const Text('Submit'),
               onPressed: () async {
                 var encId = await globals.FlutterSecureStorageObj.read(key: "encId");
                 var token = await globals.FlutterSecureStorageObj.read(key: "access_token");
@@ -545,7 +546,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               },
             ),
             TextButton(
-              child: const Text('Update'),
+              child: const Text('Submit'),
               onPressed: () async {
                 var encId = await globals.FlutterSecureStorageObj.read(key: "encId");
                 var token = await globals.FlutterSecureStorageObj.read(key: "access_token");
@@ -587,10 +588,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   bool contactInfoLoading = false;
-  bool editPersonalInfoLoading = false;
-  bool editContactInfoLoading = false;
-  bool editCompanyInfoLoading = false;
-  bool editAcademicInfoLoading = false;
+  bool editLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -629,6 +627,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               appBar: AppBarWidget(
                 scaffoldKey: _key,
                 // title: "About US",
+                showProfile: false,
               ),
               // floatingActionButton: FloatingActionButton(
               //   onPressed: () {
@@ -1285,39 +1284,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                       ),
                                                     ),
                                                     actions: <Widget>[
-                                                      editPersonalInfoLoading
+                                                      editLoading
                                                           ? Container()
                                                           : TextButton(
                                                               child: const Text('Cancel'),
                                                               onPressed: () {
-                                                                setState(() {
-                                                                  editPersonalInfoLoading = false;
-                                                                });
+                                                                setState(() {});
                                                                 Navigator.of(context).pop();
                                                               },
                                                             ),
-                                                      editPersonalInfoLoading
+                                                      editLoading
                                                           ? CircularProgressIndicator()
                                                           : TextButton(
-                                                              child: const Text('Update'),
+                                                              child: const Text('Submit'),
                                                               onPressed: () async {
                                                                 setState(() {
-                                                                  editPersonalInfoLoading = true;
+                                                                  editLoading = true;
                                                                 });
                                                                 await profileProvider.updateProfile();
-                                                                var snackBar = SnackBar(
-                                                                  content: Text(
-                                                                      'Personal Information Updated Successfully!'),
-                                                                  backgroundColor: Theme.of(context).primaryColor,
-                                                                  behavior: SnackBarBehavior.floating,
-                                                                  duration: Duration(milliseconds: 1500),
-                                                                  margin: EdgeInsets.all(50),
-                                                                );
-
-                                                                await ScaffoldMessenger.of(context)
-                                                                    .showSnackBar(snackBar);
                                                                 setState(() {
-                                                                  editPersonalInfoLoading = false;
+                                                                  editLoading = false;
                                                                   profileProvider.editLoading = false;
                                                                 });
                                                                 Navigator.of(context).pop();
@@ -1769,29 +1755,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                               ),
                                                       ),
                                                 actions: <Widget>[
-                                                  editContactInfoLoading
+                                                  editLoading
                                                       ? Container()
                                                       : TextButton(
                                                           child: const Text('Cancel'),
                                                           onPressed: () {
-                                                            setState(() {
-                                                              editContactInfoLoading = false;
-                                                            });
+                                                            // setState(() {
+                                                            //   _errorMessage = null;
+                                                            // });
                                                             Navigator.of(context).pop();
                                                           },
                                                         ),
-                                                  editContactInfoLoading
+                                                  editLoading
                                                       ? CircularProgressIndicator()
                                                       : TextButton(
-                                                          child: const Text('Update'),
+                                                          child: const Text('Submit'),
                                                           onPressed: () async {
-                                                            log(editContactInfoLoading.toString());
                                                             setState(() {
-                                                              editContactInfoLoading = true;
+                                                              editLoading = true;
                                                             });
-                                                            log("contactInfoLoading after " +
-                                                                editContactInfoLoading.toString());
-                                                            // await Future.delayed(Duration(seconds: 1));
+                                                            await Future.delayed(Duration(seconds: 2));
                                                             if (_contactInfo.currentState!.validate()) {
                                                               setState(() {
                                                                 _errorMessage = null;
@@ -1801,27 +1784,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                               profileProvider.fullAltMobileNumber =
                                                                   '${profileProvider.altMobileNumTEC.text}'; // +${profileProvider.prefixAltMobileNumTEC.text}-
                                                               await profileProvider.updateProfile();
-                                                              var snackBar = SnackBar(
-                                                                content:
-                                                                    Text('Contact Information Updated Successfully!'),
-                                                                backgroundColor: Theme.of(context).primaryColor,
-                                                                behavior: SnackBarBehavior.floating,
-                                                                duration: Duration(milliseconds: 1500),
-                                                                margin: EdgeInsets.all(50),
-                                                              );
-
-                                                              await ScaffoldMessenger.of(context)
-                                                                  .showSnackBar(snackBar);
                                                               setState(() {
-                                                                editContactInfoLoading = false;
-                                                                profileProvider.editLoading = false;
+                                                                editLoading = false;
                                                               });
                                                               Navigator.of(context).pop();
-                                                            } else {
-                                                              setState(() {
-                                                                editContactInfoLoading = false;
-                                                              });
                                                             }
+                                                            // else {
+                                                            // setState(() {
+                                                            //   _errorMessage = validateMobInput();
+                                                            //   log('In else $_errorMessage');
+                                                            // });
+                                                            // }
                                                           },
                                                         ),
                                                 ],
@@ -2009,38 +1982,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                         ),
                                                       ),
                                                 actions: <Widget>[
-                                                  editCompanyInfoLoading
+                                                  editLoading
                                                       ? Container()
                                                       : TextButton(
                                                           child: const Text('Cancel'),
                                                           onPressed: () {
-                                                            setState(() {
-                                                              editCompanyInfoLoading = false;
-                                                            });
                                                             Navigator.of(context).pop();
                                                           },
                                                         ),
-                                                  editCompanyInfoLoading
+                                                  editLoading
                                                       ? CircularProgressIndicator()
                                                       : TextButton(
-                                                          child: const Text('Update'),
+                                                          child: const Text('Submit'),
                                                           onPressed: () async {
                                                             setState(() {
-                                                              editCompanyInfoLoading = true;
+                                                              editLoading = true;
                                                             });
                                                             await profileProvider.updateProfile();
-                                                            var snackBar = SnackBar(
-                                                              content:
-                                                                  Text('Company Information Updated Successfully!'),
-                                                              backgroundColor: Theme.of(context).primaryColor,
-                                                              behavior: SnackBarBehavior.floating,
-                                                              duration: Duration(milliseconds: 1500),
-                                                              margin: EdgeInsets.all(50),
-                                                            );
-
-                                                            await ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                                             setState(() {
-                                                              editCompanyInfoLoading = false;
+                                                              editLoading = false;
                                                             });
                                                             Navigator.of(context).pop();
                                                           },
@@ -2372,39 +2332,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     ),
                                                   ),
                                                   actions: <Widget>[
-                                                    editAcademicInfoLoading
+                                                    editLoading
                                                         ? Container()
                                                         : TextButton(
                                                             child: const Text('Cancel'),
                                                             onPressed: () {
-                                                              setState(() {
-                                                                editAcademicInfoLoading = false;
-                                                              });
+                                                              setState(() {});
                                                               Navigator.of(context).pop();
                                                             },
                                                           ),
-                                                    editAcademicInfoLoading
+                                                    editLoading
                                                         ? CircularProgressIndicator()
                                                         : TextButton(
-                                                            child: const Text('Update'),
+                                                            child: const Text('Submit'),
                                                             onPressed: () async {
                                                               setState(() {
-                                                                editAcademicInfoLoading = true;
+                                                                editLoading = true;
                                                               });
                                                               await profileProvider.updateProfile();
-                                                              var snackBar = SnackBar(
-                                                                content:
-                                                                    Text('Academic Information Updated Successfully!'),
-                                                                backgroundColor: Theme.of(context).primaryColor,
-                                                                behavior: SnackBarBehavior.floating,
-                                                                duration: Duration(milliseconds: 1500),
-                                                                margin: EdgeInsets.all(50),
-                                                              );
-
-                                                              await ScaffoldMessenger.of(context)
-                                                                  .showSnackBar(snackBar);
                                                               setState(() {
-                                                                editAcademicInfoLoading = false;
+                                                                editLoading = false;
                                                               });
                                                               Navigator.of(context).pop();
                                                             },
@@ -2479,9 +2426,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             ],
                                           )),
                                       if (profileProvider.profileResponse.Result.IsEligibleForChangeMembership)
-                                        ElevatedButton(
-                                          onPressed: () async {
-                                            profileProvider.passoutYearTEC.text =
+                                       Container(
+                margin: EdgeInsets.only(top: 24),
+                child: FxButton(
+                    elevation: 0,
+                    borderRadiusAll: 4,
+                    onPressed: () async{
+                      profileProvider.passoutYearTEC.text =
                                                 profileProvider.profileResponse.Result.PassoutYear.toString();
                                             // profileProvider.degreeNameTEC.text = profileProvider.profileResponse.Result.DegreeName.toString();
                                             // profileProvider.streamNameTEC.text = profileProvider.profileResponse.Result.StreamName.toString();
@@ -2536,7 +2487,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                                               fontWeight: 700),
                                                                           children: [
                                                                             Padding(
-                                                                              padding: EdgeInsets.only(left: 20),
+                                                                              padding:
+                                                                                  EdgeInsets.only(left: 20, top: 10),
                                                                               child: Table(children: [
                                                                                 TableRow(
                                                                                   children: [
@@ -2572,65 +2524,53 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                                             ),
                                                                             editLoading
                                                                                 ? CircularProgressIndicator()
-                                                                                : ElevatedButton(
-                                                                                    onPressed: () async {
-                                                                                      setState(() {
-                                                                                        editLoading = true;
-                                                                                      });
-                                                                                      log('Membership id ${profileProvider.membershipTypeResponse.Result[index].Id}');
-                                                                                      await profileProvider
-                                                                                          .updateMembershipType(
-                                                                                              profileProvider
-                                                                                                  .membershipTypeResponse
-                                                                                                  .Result[index]
-                                                                                                  .Id);
-                                                                                      setState(() {
-                                                                                        editLoading = false;
-                                                                                      });
-                                                                                      Navigator.of(context).pop();
-                                                                                    },
-                                                                                    child: Text(
-                                                                                        'Change Membership Request'),
-                                                                                  )
+                                                                                : Container(
+                                                                                    margin: EdgeInsets.only(
+                                                                                        top: 10, bottom: 10),
+                                                                                    child: FxButton(
+                                                                                        elevation: 0,
+                                                                                        borderRadiusAll: 4,
+                                                                                        onPressed: () async {
+                                                                                          setState(() {
+                                                                                            editLoading = true;
+                                                                                          });
+                                                                                          log('Membership id ${profileProvider.membershipTypeResponse.Result[index].Id}');
+                                                                                          await profileProvider
+                                                                                              .updateMembershipType(
+                                                                                                  profileProvider
+                                                                                                      .membershipTypeResponse
+                                                                                                      .Result[index]
+                                                                                                      .Id);
+                                                                                          setState(() {
+                                                                                            editLoading = false;
+                                                                                          });
+                                                                                          Navigator.of(context).pop();
+                                                                                        },
+                                                                                        child: FxText.button(
+                                                                                            "Request Change",
+                                                                                            fontWeight: 600,
+                                                                                            color: theme
+                                                                                                .colorScheme.onPrimary,
+                                                                                            letterSpacing: 0.5)),
+                                                                                  ),
+
+                                                                          
                                                                           ],
                                                                         ),
                                                                       );
                                                                     }),
                                                               ))),
                                                     ),
-                                                    // actions: <Widget>[
-                                                    //   editLoading
-                                                    //       ? Container()
-                                                    //       : TextButton(
-                                                    //           child: const Text('Cancel'),
-                                                    //           onPressed: () {
-                                                    //             setState(() {});
-                                                    //             Navigator.of(context).pop();
-                                                    //           },
-                                                    //         ),
-                                                    //   editLoading
-                                                    //       ? CircularProgressIndicator()
-                                                    //       : TextButton(
-                                                    //           child: const Text('Submit'),
-                                                    //           onPressed: () async {
-                                                    //             setState(() {
-                                                    //               editLoading = true;
-                                                    //             });
-                                                    //             await profileProvider.updateProfile();
-                                                    //             setState(() {
-                                                    //               editLoading = false;
-                                                    //             });
-                                                    //             Navigator.of(context).pop();
-                                                    //           },
-                                                    //         ),
-                                                    // ],
+                                                   
                                                   );
                                                 });
                                               },
                                             );
-                                          },
-                                          child: Text('Upgrade'),
-                                        ),
+                    },
+                    child: FxText.button("Upgrade Membership",
+                        fontWeight: 600, color: theme.colorScheme.onPrimary, letterSpacing: 0.5)),
+              ),
+                                       
                                     ],
                                   )),
                             )),
