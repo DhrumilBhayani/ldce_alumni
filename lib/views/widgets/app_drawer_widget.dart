@@ -488,7 +488,6 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                                         onTap: () {
                                           // print("AT Hackathon");
                                           if (ModalRoute.of(context)!.settings.name != 'membership_types') {
-                                          if (ModalRoute.of(context)!.settings.name != 'membership_types') {
                                             Navigator.pop(context);
 
                                             // Navigator.pushNamedAndRemoveUntil(
@@ -517,21 +516,16 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                                 )))),
                           ],
                         ),
-                        if (token != null)
-                          ExpansionTile(
-                            onExpansionChanged: (value) async {
-                              if (ModalRoute.of(context)!.settings.name != 'login') {
-                                Navigator.pop(context);
-                                await globals.FlutterSecureStorageObj.deleteAll();
-                                if (ModalRoute.of(context)!.settings.name != 'home') {
-                                  Navigator.pop(context);
-                                  Navigator.of(context).pushNamedAndRemoveUntil('home', ModalRoute.withName('home'));
-                                } else {
-                                  Navigator.pop(context);
-                                }
-                                const snackBar = SnackBar(
-                                  content: Text('Logged Out'),
-                                );
+                       
+                            if (token != null)
+                              ExpansionTile(
+                                onExpansionChanged: (value) async{
+                                  if (ModalRoute.of(context)!.settings.name != 'login') {
+                                    Navigator.pop(context);
+                                   await globals.FlutterSecureStorageObj.deleteAll();
+                                    const snackBar = SnackBar(
+                                      content: Text('Logged Out'),
+                                    );
 
                                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
                               } else {
