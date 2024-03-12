@@ -27,7 +27,7 @@ class ProfileController with ChangeNotifier {
       uploadingImage = false,
       isEditMode = false,
       editLoading = false;
-    
+
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -124,12 +124,12 @@ class ProfileController with ChangeNotifier {
     var token = await globals.FlutterSecureStorageObj.read(key: "access_token");
 
     if (encId != null || token != null) {
-      
       profileData['FirstName'] = firstNameTEC.text.isNotEmpty ? firstNameTEC.text : profileData['FirstName'];
       profileData['MiddleName'] = middleNameTEC.text.isNotEmpty ? middleNameTEC.text : profileData['MiddleName'];
       profileData['LastName'] = lastNameTEC.text.isNotEmpty ? lastNameTEC.text : profileData['LastName'];
-      profileData['DOB'] =
-          dobTEC.text.isNotEmpty ? DateFormat('yyyy-MM-dd').format(DateFormat('dd-MM-yyyy').parseStrict(dobTEC.text)) : profileData['DOB'];
+      profileData['DOB'] = dobTEC.text.isNotEmpty
+          ? DateFormat('yyyy-MM-dd').format(DateFormat('dd-MM-yyyy').parseStrict(dobTEC.text))
+          : profileData['DOB'];
       profileData['DOB'] = profileData['DOB'].toString() + "T00:00:00";
       log('DOB - 90 - ${profileData['DOB']}');
       profileData['Gender'] = genderValue.isNotEmpty
@@ -143,8 +143,10 @@ class ProfileController with ChangeNotifier {
       profileData['StateName'] = selectedState?.name != '' ? selectedState?.name : profileData['StateName'];
       profileData['CountryId'] = selectedCountry?.id.toInt() != 0 ? selectedCountry?.id : profileData['CountryId'];
       profileData['CountryName'] = selectedCountry?.name != '' ? selectedCountry?.name : profileData['CountryName'];
-      profileData['PrimaryAddress'] = primaryAddTEC.text.isNotEmpty ? primaryAddTEC.text : profileData['PrimaryAddress'];
-      profileData['SecondaryAddress'] = secondaryAddTEC.text.isNotEmpty ? secondaryAddTEC.text : profileData['SecondaryAddress'];
+      profileData['PrimaryAddress'] =
+          primaryAddTEC.text.isNotEmpty ? primaryAddTEC.text : profileData['PrimaryAddress'];
+      profileData['SecondaryAddress'] =
+          secondaryAddTEC.text.isNotEmpty ? secondaryAddTEC.text : profileData['SecondaryAddress'];
       profileData['EmailAddress'] = emailTEC.text.isNotEmpty ? emailTEC.text : profileData['EmailAddress'];
       profileData['PinCode'] = pincodeTEC.text.isNotEmpty ? pincodeTEC.text : profileData['PinCode'];
       // profileData['MobileNo'] = mobileNumTEC.text.isNotEmpty ? mobileNumTEC.text : profileData['MobileNo'];
@@ -152,13 +154,15 @@ class ProfileController with ChangeNotifier {
       // profileData['TelephoneNo'] = altMobileNumTEC.text.isNotEmpty ? altMobileNumTEC.text : profileData['TelephoneNo'];
       profileData['TelephoneNo'] = fullAltMobileNumber != '' ? fullAltMobileNumber : profileData['TelephoneNo'];
       profileData['CompanyName'] = companyNameTEC.text.isNotEmpty ? companyNameTEC.text : profileData['CompanyName'];
-      profileData['CompanyAddress'] = companyAddTEC.text.isNotEmpty ? companyAddTEC.text : profileData['CompanyAddress'];
+      profileData['CompanyAddress'] =
+          companyAddTEC.text.isNotEmpty ? companyAddTEC.text : profileData['CompanyAddress'];
       profileData['Designation'] = designationTEC.text.isNotEmpty ? designationTEC.text : profileData['Designation'];
       profileData['PassoutYear'] = passoutYearTEC.text.isNotEmpty ? passoutYearTEC.text : profileData['PassoutYear'];
       profileData['DegreeId'] = selectedProgram?.id.toInt() != 0 ? selectedProgram?.id : profileData['DegreeId'];
       profileData['DegreeName'] = selectedProgram?.name != '' ? selectedProgram?.name : profileData['DegreeName'];
       profileData['StreamId'] = selectedBranch?.id.toInt() != 0 ? selectedBranch?.id : profileData['StreamId'];
       profileData['StreamName'] = selectedBranch?.name != '' ? selectedBranch?.name : profileData['StreamName'];
+      // profileData['ProfilePicPath'] = null;
       editLoading = true;
       updatePofileResponse = await UpdateProfile.updateProfileDetails(
         encId: encId,

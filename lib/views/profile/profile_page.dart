@@ -239,7 +239,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               },
             ),
             TextButton(
-              child: const Text('Submit'),
+              child: const Text('Update'),
               onPressed: () {
                 // Handle the submit action
               },
@@ -388,7 +388,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               },
             ),
             TextButton(
-              child: const Text('Submit'),
+              child: const Text('Update'),
               onPressed: () async {
                 var encId = await globals.FlutterSecureStorageObj.read(key: "encId");
                 var token = await globals.FlutterSecureStorageObj.read(key: "access_token");
@@ -545,7 +545,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               },
             ),
             TextButton(
-              child: const Text('Submit'),
+              child: const Text('Update'),
               onPressed: () async {
                 var encId = await globals.FlutterSecureStorageObj.read(key: "encId");
                 var token = await globals.FlutterSecureStorageObj.read(key: "access_token");
@@ -587,7 +587,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   bool contactInfoLoading = false;
-  bool editLoading = false;
+  bool editPersonalInfoLoading = false;
+  bool editContactInfoLoading = false;
+  bool editCompanyInfoLoading = false;
+  bool editAcademicInfoLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -627,12 +630,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 scaffoldKey: _key,
                 // title: "About US",
               ),
-              floatingActionButton: FloatingActionButton(
-                onPressed: () {
-                  // profileProvider.getState(c);
-                },
-                child: Icon(Icons.refresh),
-              ),
+              // floatingActionButton: FloatingActionButton(
+              //   onPressed: () {
+              //     // profileProvider.getState(c);
+              //   },
+              //   child: Icon(Icons.refresh),
+              // ),
               endDrawer: AppDrawerWidget(),
               body: SingleChildScrollView(
                 // controller: controller,
@@ -1282,26 +1285,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                       ),
                                                     ),
                                                     actions: <Widget>[
-                                                      editLoading
+                                                      editPersonalInfoLoading
                                                           ? Container()
                                                           : TextButton(
                                                               child: const Text('Cancel'),
                                                               onPressed: () {
-                                                                setState(() {});
+                                                                setState(() {
+                                                                  editPersonalInfoLoading = false;
+                                                                });
                                                                 Navigator.of(context).pop();
                                                               },
                                                             ),
-                                                      editLoading
+                                                      editPersonalInfoLoading
                                                           ? CircularProgressIndicator()
                                                           : TextButton(
-                                                              child: const Text('Submit'),
+                                                              child: const Text('Update'),
                                                               onPressed: () async {
                                                                 setState(() {
-                                                                  editLoading = true;
+                                                                  editPersonalInfoLoading = true;
                                                                 });
                                                                 await profileProvider.updateProfile();
+                                                                var snackBar = SnackBar(
+                                                                  content: Text(
+                                                                      'Personal Information Updated Successfully!'),
+                                                                  backgroundColor: Theme.of(context).primaryColor,
+                                                                  behavior: SnackBarBehavior.floating,
+                                                                  duration: Duration(milliseconds: 1500),
+                                                                  margin: EdgeInsets.all(50),
+                                                                );
+
+                                                                await ScaffoldMessenger.of(context)
+                                                                    .showSnackBar(snackBar);
                                                                 setState(() {
-                                                                  editLoading = false;
+                                                                  editPersonalInfoLoading = false;
                                                                   profileProvider.editLoading = false;
                                                                 });
                                                                 Navigator.of(context).pop();
@@ -1753,26 +1769,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                               ),
                                                       ),
                                                 actions: <Widget>[
-                                                  editLoading
+                                                  editContactInfoLoading
                                                       ? Container()
                                                       : TextButton(
                                                           child: const Text('Cancel'),
                                                           onPressed: () {
-                                                            // setState(() {
-                                                            //   _errorMessage = null;
-                                                            // });
+                                                            setState(() {
+                                                              editContactInfoLoading = false;
+                                                            });
                                                             Navigator.of(context).pop();
                                                           },
                                                         ),
-                                                  editLoading
+                                                  editContactInfoLoading
                                                       ? CircularProgressIndicator()
                                                       : TextButton(
-                                                          child: const Text('Submit'),
+                                                          child: const Text('Update'),
                                                           onPressed: () async {
+                                                            log(editContactInfoLoading.toString());
                                                             setState(() {
-                                                              editLoading = true;
+                                                              editContactInfoLoading = true;
                                                             });
-                                                            await Future.delayed(Duration(seconds: 2));
+                                                            log("contactInfoLoading after " +
+                                                                editContactInfoLoading.toString());
+                                                            // await Future.delayed(Duration(seconds: 1));
                                                             if (_contactInfo.currentState!.validate()) {
                                                               setState(() {
                                                                 _errorMessage = null;
@@ -1782,17 +1801,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                               profileProvider.fullAltMobileNumber =
                                                                   '${profileProvider.altMobileNumTEC.text}'; // +${profileProvider.prefixAltMobileNumTEC.text}-
                                                               await profileProvider.updateProfile();
+                                                              var snackBar = SnackBar(
+                                                                content:
+                                                                    Text('Contact Information Updated Successfully!'),
+                                                                backgroundColor: Theme.of(context).primaryColor,
+                                                                behavior: SnackBarBehavior.floating,
+                                                                duration: Duration(milliseconds: 1500),
+                                                                margin: EdgeInsets.all(50),
+                                                              );
+
+                                                              await ScaffoldMessenger.of(context)
+                                                                  .showSnackBar(snackBar);
                                                               setState(() {
-                                                                editLoading = false;
+                                                                editContactInfoLoading = false;
+                                                                profileProvider.editLoading = false;
                                                               });
                                                               Navigator.of(context).pop();
+                                                            } else {
+                                                              setState(() {
+                                                                editContactInfoLoading = false;
+                                                              });
                                                             }
-                                                            // else {
-                                                            // setState(() {
-                                                            //   _errorMessage = validateMobInput();
-                                                            //   log('In else $_errorMessage');
-                                                            // });
-                                                            // }
                                                           },
                                                         ),
                                                 ],
@@ -1980,25 +2009,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                         ),
                                                       ),
                                                 actions: <Widget>[
-                                                  editLoading
+                                                  editCompanyInfoLoading
                                                       ? Container()
                                                       : TextButton(
                                                           child: const Text('Cancel'),
                                                           onPressed: () {
+                                                            setState(() {
+                                                              editCompanyInfoLoading = false;
+                                                            });
                                                             Navigator.of(context).pop();
                                                           },
                                                         ),
-                                                  editLoading
+                                                  editCompanyInfoLoading
                                                       ? CircularProgressIndicator()
                                                       : TextButton(
-                                                          child: const Text('Submit'),
+                                                          child: const Text('Update'),
                                                           onPressed: () async {
                                                             setState(() {
-                                                              editLoading = true;
+                                                              editCompanyInfoLoading = true;
                                                             });
                                                             await profileProvider.updateProfile();
+                                                            var snackBar = SnackBar(
+                                                              content:
+                                                                  Text('Company Information Updated Successfully!'),
+                                                              backgroundColor: Theme.of(context).primaryColor,
+                                                              behavior: SnackBarBehavior.floating,
+                                                              duration: Duration(milliseconds: 1500),
+                                                              margin: EdgeInsets.all(50),
+                                                            );
+
+                                                            await ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                                             setState(() {
-                                                              editLoading = false;
+                                                              editCompanyInfoLoading = false;
                                                             });
                                                             Navigator.of(context).pop();
                                                           },
@@ -2330,26 +2372,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     ),
                                                   ),
                                                   actions: <Widget>[
-                                                    editLoading
+                                                    editAcademicInfoLoading
                                                         ? Container()
                                                         : TextButton(
                                                             child: const Text('Cancel'),
                                                             onPressed: () {
-                                                              setState(() {});
+                                                              setState(() {
+                                                                editAcademicInfoLoading = false;
+                                                              });
                                                               Navigator.of(context).pop();
                                                             },
                                                           ),
-                                                    editLoading
+                                                    editAcademicInfoLoading
                                                         ? CircularProgressIndicator()
                                                         : TextButton(
-                                                            child: const Text('Submit'),
+                                                            child: const Text('Update'),
                                                             onPressed: () async {
                                                               setState(() {
-                                                                editLoading = true;
+                                                                editAcademicInfoLoading = true;
                                                               });
                                                               await profileProvider.updateProfile();
+                                                              var snackBar = SnackBar(
+                                                                content:
+                                                                    Text('Academic Information Updated Successfully!'),
+                                                                backgroundColor: Theme.of(context).primaryColor,
+                                                                behavior: SnackBarBehavior.floating,
+                                                                duration: Duration(milliseconds: 1500),
+                                                                margin: EdgeInsets.all(50),
+                                                              );
+
+                                                              await ScaffoldMessenger.of(context)
+                                                                  .showSnackBar(snackBar);
                                                               setState(() {
-                                                                editLoading = false;
+                                                                editAcademicInfoLoading = false;
                                                               });
                                                               Navigator.of(context).pop();
                                                             },

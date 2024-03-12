@@ -251,7 +251,9 @@ class UpdateProfile {
   static Future<UpdateProfile> updateProfileDetails({required encId, required token, required dataBody}) async {
     var encId = await globals.FlutterSecureStorageObj.read(key: "encId");
     var token = await globals.FlutterSecureStorageObj.read(key: "access_token");
-    log('profileData: 111 $dataBody');
+    log("\n\n\n\n\n");
+    log('profileData Controller:  $dataBody');
+    log("\n\n\n\n\n");
     var response = await http.post(Uri.parse(globals.BASE_API_URL + '/Alumni/Update?EncryptedId=$encId'),
         headers: <String, String>{"Authorization": "Bearer $token", "Content-type": "application/json"},
         body: jsonEncode(dataBody
