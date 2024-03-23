@@ -2315,7 +2315,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           ],
                                         ),
                                       ),
-                                      SizedBox(height: 20),
                                       Padding(
                                         padding: EdgeInsets.only(left: 20),
                                         child: Table(
@@ -2324,7 +2323,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               TableRow(
                                                 children: [
                                                   Container(
-                                                    // padding: EdgeInsets.only(bottom: 8), // Adjust the padding as needed
+                                                    // padding: EdgeInsets.only(bottom: 8),
+                                                    margin: EdgeInsets.only(top: 20),
                                                     child: Text(
                                                       'You have reached max level of membership',
                                                       textAlign: TextAlign.left,
@@ -2342,6 +2342,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               TableRow(
                                                 children: [
                                                   Container(
+                                                    margin: EdgeInsets.only(top: 20),
                                                     child: Text(
                                                       'Membership change request is in progress',
                                                       textAlign: TextAlign.left,
