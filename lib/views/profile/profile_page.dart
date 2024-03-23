@@ -580,6 +580,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   bool contactInfoLoading = false;
   bool editLoading = false;
+
   @override
   Widget build(BuildContext context) {
     const kSpacingUnit = 10;
@@ -591,6 +592,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         }
         return null;
       }
+
+      int membershipId = profileProvider.profileResponse.Result.MembershipTypeId;
+      var seq = profileProvider.membershipTypeResponse.Result[membershipId - 1].Sequence;
 
       return profileProvider.showLoading
           ? Scaffold(
@@ -2267,165 +2271,248 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     title: FxText.h6("MEMBERSHIP INFORMATION", fontSize: 18, fontWeight: 800),
                                     children: [
                                       Padding(
-                                          padding: EdgeInsets.only(left: 20),
-                                          child: Table(
-                                            children: [
-                                              TableRow(
-                                                children: [
-                                                  Container(
-                                                    padding: EdgeInsets.only(bottom: 10), // Adjust the padding as needed
-                                                    child: Text(
-                                                      'Membership',
+                                        padding: EdgeInsets.only(left: 20),
+                                        child: Table(
+                                          children: [
+                                            TableRow(
+                                              children: [
+                                                Container(
+                                                  padding: EdgeInsets.only(bottom: 10), // Adjust the padding as needed
+                                                  child: Text(
+                                                    'Membership',
+                                                    textAlign: TextAlign.left,
+                                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  padding: EdgeInsets.only(bottom: 10), // Adjust the padding as needed
+                                                  child: Text(profileProvider.profileResponse.Result.Membership.toString(),
+                                                      textAlign: TextAlign.left, style: TextStyle(fontSize: 15)),
+                                                ),
+                                              ],
+                                            ),
+                                            TableRow(
+                                              children: [
+                                                Container(
+                                                  // padding: EdgeInsets.only(bottom: 8), // Adjust the padding as needed
+                                                  child: Text(
+                                                    'Membership Verification Status',
+                                                    textAlign: TextAlign.left,
+                                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  padding: EdgeInsets.only(top: 8.0), // Adjust the padding as needed
+                                                  child: Text(
+                                                      profileProvider.profileResponse.Result.IsMembershipVerified
+                                                          ? "Verified"
+                                                          : "Not Verified",
                                                       textAlign: TextAlign.left,
-                                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    padding: EdgeInsets.only(bottom: 10), // Adjust the padding as needed
-                                                    child: Text(profileProvider.profileResponse.Result.Membership.toString(),
-                                                        textAlign: TextAlign.left, style: TextStyle(fontSize: 15)),
-                                                  ),
-                                                ],
-                                              ),
+                                                      style: TextStyle(fontSize: 15)),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(height: 20),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 20),
+                                        child: Table(
+                                          children: [
+                                            if (seq == 1)
                                               TableRow(
                                                 children: [
                                                   Container(
                                                     // padding: EdgeInsets.only(bottom: 8), // Adjust the padding as needed
                                                     child: Text(
-                                                      'Membership Verification Status',
+                                                      'You have reached max level of membership',
                                                       textAlign: TextAlign.left,
-                                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                                      style: TextStyle(
+                                                        fontWeight: FontWeight.bold,
+                                                        fontSize: 15,
+                                                        color: Theme.of(context).primaryColor,
+                                                      ),
                                                     ),
                                                   ),
-                                                  Container(
-                                                    padding: EdgeInsets.only(top: 8.0), // Adjust the padding as needed
-                                                    child: Text(
-                                                        profileProvider.profileResponse.Result.IsMembershipVerified
-                                                            ? "Verified"
-                                                            : "Not Verified",
-                                                        textAlign: TextAlign.left,
-                                                        style: TextStyle(fontSize: 15)),
-                                                  ),
+                                                  // SizedBox()
                                                 ],
                                               ),
-                                            ],
-                                          )),
+                                            if (profileProvider.profileResponse.Result.RequestStatus == 'InProcess')
+                                              TableRow(
+                                                children: [
+                                                  Container(
+                                                    child: Text(
+                                                      'Membership change request is in progress',
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(
+                                                        fontWeight: FontWeight.bold,
+                                                        fontSize: 15,
+                                                        color: Theme.of(context).primaryColor,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  // SizedBox()
+                                                ],
+                                              ),
+                                          ],
+                                        ),
+                                      ),
                                       if (profileProvider.profileResponse.Result.IsEligibleForChangeMembership)
                                         Container(
                                           margin: EdgeInsets.only(top: 24),
                                           child: FxButton(
                                               elevation: 0,
                                               borderRadiusAll: 4,
-                                              onPressed: () async {
-                                                // int? selected; //attention
-                                                int selected=0; //attention
+                                              onPressed: profileProvider.profileResponse.Result.IsChangeMembershipRequestSent || seq == 1
+                                                  ? null
+                                                  : () async {
+                                                      // int? selected; //attention
+                                                      var height = MediaQuery.of(context).size.height * .2;
+                                                      int selected = -1; //attention
+                                                      // int membershipId = profileProvider.profileResponse.Result.MembershipTypeId; //2
+                                                      // var seq = profileProvider.membershipTypeResponse.Result[membershipId - 1].Sequence;
+                                                      var flag = seq - 1;
+                                                      await showDialog(
+                                                        context: context,
+                                                        builder: (context) {
+                                                          return StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
+                                                            return AlertDialog(
+                                                              title: FxText.h6("MEMBERSHIP INFORMATION", fontSize: 18, fontWeight: 800),
+                                                              content: SizedBox(
+                                                                width: double.maxFinite,
+                                                                // height: MediaQuery.of(context).size.height * .5,
+                                                                child: SingleChildScrollView(
+                                                                    scrollDirection: Axis.vertical,
+                                                                    child: SizedBox(
+                                                                        width: double.infinity,
+                                                                        height: height,
+                                                                        // MediaQuery.of(context).size.height * .5,
+                                                                        child: Theme(
+                                                                          data:
+                                                                              Theme.of(context).copyWith(dividerColor: Colors.transparent),
+                                                                          child: ListView.builder(
+                                                                              key: Key('builder ${selected.toString()}'), //attention
+                                                                              itemCount:
+                                                                                  profileProvider.membershipTypeResponse.Result.length,
+                                                                              itemBuilder: (BuildContext context, int index) {
+                                                                                if (seq >
+                                                                                    profileProvider
+                                                                                        .membershipTypeResponse.Result[index].Sequence) {
+                                                                                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                                                                                    setState(() {
+                                                                                      if (flag > 0) {
+                                                                                        height += MediaQuery.of(context).size.height * .05;
+                                                                                        flag--;
+                                                                                      }
+                                                                                      if (selected == -1) {
+                                                                                        selected = index;
+                                                                                      }
+                                                                                    });
+                                                                                  });
+                                                                                  // height += MediaQuery.of(context).size.height * .2;
+                                                                                  // if (selected == -1) {
+                                                                                  //   // selected = profileProvider
+                                                                                  //   //     .membershipTypeResponse.Result[index].Id;
+                                                                                  //   selected = index;
+                                                                                  // }
 
-                                                await showDialog(
-                                                  context: context,
-                                                  builder: (context) {
-                                                    return StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
-                                                      return AlertDialog(
-                                                        title: FxText.h6("MEMBERSHIP INFORMATION", fontSize: 18, fontWeight: 800),
-                                                        content: SizedBox(
-                                                          width: double.maxFinite,
-                                                          // height: MediaQuery.of(context).size.height * .5,
-                                                          child: SingleChildScrollView(
-                                                              scrollDirection: Axis.vertical,
-                                                              child: SizedBox(
-                                                                  width: double.infinity,
-                                                                  height: MediaQuery.of(context).size.height * .5,
-                                                                  child: Theme(
-                                                                    data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-                                                                    child: ListView.builder(
-                                                                        key: Key('builder ${selected.toString()}'), //attention
-                                                                        itemCount: profileProvider.membershipTypeResponse.Result.length,
-                                                                        itemBuilder: (BuildContext context, int index) {
-                                                                          return Container(
-                                                                            // margin: EdgeInsets.all(0),
-                                                                            // padding: EdgeInsets.all(0),
-                                                                            // alignment: Alignment.topLeft,
-                                                                            child: ExpansionTile(
-                                                                              key: Key(index.toString()), //attention
-                                                                              initiallyExpanded: index == selected, //attention
-                                                                              title: FxText.h6(
-                                                                                  profileProvider.membershipTypeResponse.Result[index].Name,
-                                                                                  fontSize: 16,
-                                                                                  fontWeight: 700),
-                                                                              children: [
-                                                                                Padding(
-                                                                                  padding: EdgeInsets.only(left: 20, top: 10),
-                                                                                  child: Table(children: [
-                                                                                    TableRow(
+                                                                                  return Container(
+                                                                                    // margin: EdgeInsets.all(0),
+                                                                                    // padding: EdgeInsets.all(0),
+                                                                                    // alignment: Alignment.topLeft,
+                                                                                    child: ExpansionTile(
+                                                                                      key: Key(index.toString()), //attention
+                                                                                      initiallyExpanded: index == selected, //attention
+                                                                                      title: FxText.h6(
+                                                                                          profileProvider
+                                                                                              .membershipTypeResponse.Result[index].Name,
+                                                                                          fontSize: 16,
+                                                                                          fontWeight: 700),
                                                                                       children: [
-                                                                                        Container(
-                                                                                          padding: EdgeInsets.only(bottom: 10),
-                                                                                          child: Text(
-                                                                                            'Fees',
-                                                                                            textAlign: TextAlign.left,
-                                                                                            style: TextStyle(
-                                                                                                fontWeight: FontWeight.bold, fontSize: 15),
-                                                                                          ),
+                                                                                        Padding(
+                                                                                          padding: EdgeInsets.only(left: 20, top: 10),
+                                                                                          child: Table(children: [
+                                                                                            TableRow(
+                                                                                              children: [
+                                                                                                Container(
+                                                                                                  padding: EdgeInsets.only(bottom: 10),
+                                                                                                  child: Text(
+                                                                                                    'Fees',
+                                                                                                    textAlign: TextAlign.left,
+                                                                                                    style: TextStyle(
+                                                                                                        fontWeight: FontWeight.bold,
+                                                                                                        fontSize: 15),
+                                                                                                  ),
+                                                                                                ),
+                                                                                                Container(
+                                                                                                  padding: EdgeInsets.only(
+                                                                                                      bottom:
+                                                                                                          10), // Adjust the padding as needed
+                                                                                                  child: Text(
+                                                                                                      profileProvider.membershipTypeResponse
+                                                                                                          .Result[index].Fees
+                                                                                                          .toString(),
+                                                                                                      textAlign: TextAlign.left,
+                                                                                                      style: TextStyle(fontSize: 15)),
+                                                                                                ),
+                                                                                              ],
+                                                                                            ),
+                                                                                          ]),
                                                                                         ),
-                                                                                        Container(
-                                                                                          padding: EdgeInsets.only(
-                                                                                              bottom: 10), // Adjust the padding as needed
-                                                                                          child: Text(
-                                                                                              profileProvider
-                                                                                                  .membershipTypeResponse.Result[index].Fees
-                                                                                                  .toString(),
-                                                                                              textAlign: TextAlign.left,
-                                                                                              style: TextStyle(fontSize: 15)),
-                                                                                        ),
+                                                                                        editLoading
+                                                                                            ? CircularProgressIndicator()
+                                                                                            : Container(
+                                                                                                margin:
+                                                                                                    EdgeInsets.only(top: 10, bottom: 10),
+                                                                                                child: FxButton(
+                                                                                                    elevation: 0,
+                                                                                                    borderRadiusAll: 4,
+                                                                                                    onPressed: () async {
+                                                                                                      setState(() {
+                                                                                                        editLoading = true;
+                                                                                                      });
+                                                                                                      log('Membership id ${profileProvider.membershipTypeResponse.Result[index].Id}');
+                                                                                                      await profileProvider
+                                                                                                          .updateMembershipType(
+                                                                                                              profileProvider
+                                                                                                                  .membershipTypeResponse
+                                                                                                                  .Result[index]
+                                                                                                                  .Id);
+                                                                                                      setState(() {
+                                                                                                        editLoading = false;
+                                                                                                      });
+                                                                                                      Navigator.of(context).pop();
+                                                                                                    },
+                                                                                                    child: FxText.button("Request Change",
+                                                                                                        fontWeight: 600,
+                                                                                                        color: theme.colorScheme.onPrimary,
+                                                                                                        letterSpacing: 0.5)),
+                                                                                              ),
                                                                                       ],
+                                                                                      onExpansionChanged: (newState) {
+                                                                                        if (newState)
+                                                                                          setState(() {
+                                                                                            selected = index;
+                                                                                          });
+                                                                                        else
+                                                                                          setState(() {
+                                                                                            selected = -1;
+                                                                                          });
+                                                                                      },
                                                                                     ),
-                                                                                  ]),
-                                                                                ),
-                                                                                editLoading
-                                                                                    ? CircularProgressIndicator()
-                                                                                    : Container(
-                                                                                        margin: EdgeInsets.only(top: 10, bottom: 10),
-                                                                                        child: FxButton(
-                                                                                            elevation: 0,
-                                                                                            borderRadiusAll: 4,
-                                                                                            onPressed: () async {
-                                                                                              setState(() {
-                                                                                                editLoading = true;
-                                                                                              });
-                                                                                              log('Membership id ${profileProvider.membershipTypeResponse.Result[index].Id}');
-                                                                                              await profileProvider.updateMembershipType(
-                                                                                                  profileProvider.membershipTypeResponse
-                                                                                                      .Result[index].Id);
-                                                                                              setState(() {
-                                                                                                editLoading = false;
-                                                                                              });
-                                                                                              Navigator.of(context).pop();
-                                                                                            },
-                                                                                            child: FxText.button("Request Change",
-                                                                                                fontWeight: 600,
-                                                                                                color: theme.colorScheme.onPrimary,
-                                                                                                letterSpacing: 0.5)),
-                                                                                      ),
-                                                                              ],
-                                                                              onExpansionChanged: (newState) {
-                                                                                if (newState)
-                                                                                  setState(() {
-                                                                                    selected = index;
-                                                                                  });
-                                                                                else
-                                                                                  setState(() {
-                                                                                    selected = -1;
-                                                                                  });
-                                                                              },
-                                                                            ),
-                                                                          );
-                                                                        }),
-                                                                  ))),
-                                                        ),
+                                                                                  );
+                                                                                } else {
+                                                                                  return SizedBox.shrink(); // To skip this item in the list
+                                                                                }
+                                                                              }),
+                                                                        ))),
+                                                              ),
+                                                            );
+                                                          });
+                                                        },
                                                       );
-                                                    });
-                                                  },
-                                                );
-                                              },
+                                                    },
                                               child: FxText.button("Upgrade Membership",
                                                   fontWeight: 600, color: theme.colorScheme.onPrimary, letterSpacing: 0.5)),
                                         ),
@@ -2441,3 +2528,59 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 }
+
+
+// var height = MediaQuery.of(context).size.height * .2;
+//                                                 int selected = -1; //attention
+//                                                 int membershipId = profileProvider.profileResponse.Result.MembershipTypeId; //2
+//                                                 var seq = profileProvider.membershipTypeResponse.Result[membershipId - 1].Sequence;
+
+//                                                 await showDialog(
+//                                                   context: context,
+//                                                   builder: (context) {
+//                                                     return StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
+//                                                       return AlertDialog(
+//                                                         title: FxText.h6("MEMBERSHIP INFORMATION", fontSize: 18, fontWeight: 800),
+//                                                         content: SizedBox(
+//                                                           width: double.maxFinite,
+//                                                           child: SingleChildScrollView(
+//                                                               scrollDirection: Axis.vertical,
+//                                                               child: SizedBox(
+//                                                                   width: double.infinity,
+//                                                                   height: height, // set dialog height
+//                                                                   child: Theme(
+//                                                                     data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+//                                                                     child: ListView.builder(
+//                                                                         key: Key('builder ${selected.toString()}'), //attention
+//                                                                         itemCount: profileProvider.membershipTypeResponse.Result.length,
+//                                                                         itemBuilder: (BuildContext context, int index) {
+//                                                                           if (seq >
+//                                                                               profileProvider
+//                                                                                   .membershipTypeResponse.Result[index].Sequence) {
+//                                                                                     height += MediaQuery.of(context).size.height * .2; // here i want to add height in existing height value
+//                                                                             if (selected == -1) {
+//                                                                             selected = index;
+//                                                                             }
+                                                                            
+//                                                                             return Container(
+//                                                                               child: ExpansionTile(
+//                                                                                 key: Key(index.toString()), //attention
+//                                                                                 initiallyExpanded: index == selected, //attention
+//                                                                                 title: FxText.h6(
+//                                                                                     profileProvider
+//                                                                                         .membershipTypeResponse.Result[index].Name,
+//                                                                                     fontSize: 16,
+//                                                                                     fontWeight: 700),
+//                                                                                 ),
+//                                                                             );
+//                                                                           } else {
+//                                                                             return SizedBox.shrink(); // To skip this item in the list
+//                                                                           }
+//                                                                         }),
+//                                                                   ))),
+//                                                         ),
+//                                                       );
+//                                                     });
+//                                                   },
+//                                                 );
+                                              

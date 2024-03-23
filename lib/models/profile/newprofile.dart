@@ -40,6 +40,20 @@ class Profile {
     );
   }
 
+  // static Future<Profile> getProfileDetails({required encId}) async {
+  //   var encId = await globals.FlutterSecureStorageObj.read(key: "encId");
+
+  //   final http.Response response = await http.get(
+  //       Uri.parse('${globals.BASE_API_URL}/alumni?EncryptedId=$encId'),
+  //       headers: <String, String>{'Accept': '*/*'});
+  //   log(response.body);
+
+  //   var profileResponse = Profile.fromJson(response.body);
+  //   log(profileResponse.Result.FirstName);
+
+  //   return profileResponse;
+  // }
+
   String toJson() => json.encode(toMap());
 
   factory Profile.fromJson(String source) => Profile.fromMap(json.decode(source));
@@ -94,6 +108,8 @@ class ReqResult {
   final String Membership;
   final bool IsMembershipVerified;
   final bool IsEligibleForChangeMembership;
+  final bool IsChangeMembershipRequestSent;
+  final String RequestStatus;
   ReqResult({
     required this.EncryptedId,
     required this.FirstName,
@@ -127,6 +143,8 @@ class ReqResult {
     required this.Membership,
     required this.IsMembershipVerified,
     required this.IsEligibleForChangeMembership,
+    required this.IsChangeMembershipRequestSent,
+    required this.RequestStatus,
   });
 
   ReqResult copyWith({
@@ -162,6 +180,8 @@ class ReqResult {
     String? Membership,
     bool? IsMembershipVerified,
     bool? IsEligibleForChangeMembership,
+    bool? IsChangeMembershipRequestSent,
+    String? RequestStatus,
   }) {
     return ReqResult(
       EncryptedId: EncryptedId ?? this.EncryptedId,
@@ -196,6 +216,8 @@ class ReqResult {
       Membership: Membership ?? this.Membership,
       IsMembershipVerified: IsMembershipVerified ?? this.IsMembershipVerified,
       IsEligibleForChangeMembership: IsEligibleForChangeMembership ?? this.IsEligibleForChangeMembership,
+      IsChangeMembershipRequestSent: IsChangeMembershipRequestSent ?? this.IsChangeMembershipRequestSent,
+      RequestStatus: RequestStatus ?? this.RequestStatus,
     );
   }
 
@@ -234,6 +256,8 @@ class ReqResult {
     result.addAll({'Membership': Membership});
     result.addAll({'IsMembershipVerified': IsMembershipVerified});
     result.addAll({'IsEligibleForChangeMembership': IsEligibleForChangeMembership});
+    result.addAll({'IsChangeMembershipRequestSent': IsChangeMembershipRequestSent});
+    result.addAll({'RequestStatus': RequestStatus});
   
     return result;
   }
@@ -272,6 +296,8 @@ class ReqResult {
       Membership: map['Membership'] ?? '',
       IsMembershipVerified: map['IsMembershipVerified'] ?? false,
       IsEligibleForChangeMembership: map['IsEligibleForChangeMembership'] ?? false,
+      IsChangeMembershipRequestSent: map['IsChangeMembershipRequestSent'] ?? false,
+      RequestStatus: map['RequestStatus'] ?? '',
     );
   }
 
@@ -281,7 +307,7 @@ class ReqResult {
 
   @override
   String toString() {
-    return 'Result(EncryptedId: $EncryptedId, FirstName: $FirstName, MiddleName: $MiddleName, LastName: $LastName, FullName: $FullName, Gender: $Gender, DOB: $DOB, CountryId: $CountryId, StateId: $StateId, CityId: $CityId, CountryName: $CountryName, StateName: $StateName, CityName: $CityName, ProfilePicPath: $ProfilePicPath, PrimaryAddress: $PrimaryAddress, SecondaryAddress: $SecondaryAddress, EmailAddress: $EmailAddress, PinCode: $PinCode, MobileNo: $MobileNo, TelephoneNo: $TelephoneNo, CompanyName: $CompanyName, CompanyAddress: $CompanyAddress, Designation: $Designation, PassoutYear: $PassoutYear, StreamId: $StreamId, DegreeId: $DegreeId, StreamName: $StreamName, DegreeName: $DegreeName, MembershipTypeId: $MembershipTypeId, Membership: $Membership, IsMembershipVerified: $IsMembershipVerified, IsEligibleForChangeMembership: $IsEligibleForChangeMembership)';
+    return 'Result(EncryptedId: $EncryptedId, FirstName: $FirstName, MiddleName: $MiddleName, LastName: $LastName, FullName: $FullName, Gender: $Gender, DOB: $DOB, CountryId: $CountryId, StateId: $StateId, CityId: $CityId, CountryName: $CountryName, StateName: $StateName, CityName: $CityName, ProfilePicPath: $ProfilePicPath, PrimaryAddress: $PrimaryAddress, SecondaryAddress: $SecondaryAddress, EmailAddress: $EmailAddress, PinCode: $PinCode, MobileNo: $MobileNo, TelephoneNo: $TelephoneNo, CompanyName: $CompanyName, CompanyAddress: $CompanyAddress, Designation: $Designation, PassoutYear: $PassoutYear, StreamId: $StreamId, DegreeId: $DegreeId, StreamName: $StreamName, DegreeName: $DegreeName, MembershipTypeId: $MembershipTypeId, Membership: $Membership, IsMembershipVerified: $IsMembershipVerified, IsEligibleForChangeMembership: $IsEligibleForChangeMembership, IsChangeMembershipRequestSent: $IsChangeMembershipRequestSent, RequestStatus: $RequestStatus)';
   }
 
   @override
@@ -320,7 +346,9 @@ class ReqResult {
       other.MembershipTypeId == MembershipTypeId &&
       other.Membership == Membership &&
       other.IsMembershipVerified == IsMembershipVerified &&
-      other.IsEligibleForChangeMembership == IsEligibleForChangeMembership;
+      other.IsEligibleForChangeMembership == IsEligibleForChangeMembership &&
+      other.IsChangeMembershipRequestSent == IsChangeMembershipRequestSent &&
+      other.RequestStatus == RequestStatus;
   }
 
   @override
@@ -356,6 +384,8 @@ class ReqResult {
       MembershipTypeId.hashCode ^
       Membership.hashCode ^
       IsMembershipVerified.hashCode ^
-      IsEligibleForChangeMembership.hashCode;
+      IsEligibleForChangeMembership.hashCode ^
+      IsChangeMembershipRequestSent.hashCode ^
+      RequestStatus.hashCode;
   }
 }
