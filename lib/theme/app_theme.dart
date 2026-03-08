@@ -81,7 +81,7 @@ class AppTheme {
         actionsIconTheme: IconThemeData(color: Color(0xff495057))),
 
     /// Card Theme
-    cardTheme: CardTheme(color: Color(0xfff0f0f0)),
+    cardTheme: CardThemeData(color: Color(0xfff0f0f0)),
     cardColor: Color(0xfff0f0f0),
 
     textTheme: TextTheme(titleLarge: GoogleFonts.montserrat(), bodyLarge: GoogleFonts.montserrat()),
@@ -101,10 +101,10 @@ class AppTheme {
     dividerColor: Color(0xffe8e8e8),
 
     /// Bottom AppBar Theme
-    bottomAppBarTheme: BottomAppBarTheme(color: Color(0xffeeeeee), elevation: 2),
+    bottomAppBarTheme: BottomAppBarThemeData(color: Color(0xffeeeeee), elevation: 2),
 
     /// Tab bar Theme
-    tabBarTheme: TabBarTheme(
+    tabBarTheme: TabBarThemeData(
       unselectedLabelColor: Color(0xff495057),
       labelColor: Color(0xff3d63ff),
       indicatorSize: TabBarIndicatorSize.label,
@@ -115,35 +115,35 @@ class AppTheme {
 
     /// CheckBox theme
     checkboxTheme: CheckboxThemeData(
-      checkColor: MaterialStateProperty.all(Color(0xffeeeeee)),
-      fillColor: MaterialStateProperty.all(Color(0xff3C4EC5)),
+      checkColor: WidgetStateProperty.all(Color(0xffeeeeee)),
+      fillColor: WidgetStateProperty.all(Color(0xff3C4EC5)),
     ),
 
     /// Radio theme
     radioTheme: RadioThemeData(
-      fillColor: MaterialStateProperty.all(Color(0xff3C4EC5)),
+      fillColor: WidgetStateProperty.all(Color(0xff3C4EC5)),
     ),
 
     ///Switch Theme
     switchTheme: SwitchThemeData(
-      trackColor: MaterialStateProperty.resolveWith((state) {
-        const Set<MaterialState> interactiveStates = <MaterialState>{
-          MaterialState.pressed,
-          MaterialState.hovered,
-          MaterialState.focused,
-          MaterialState.selected,
+      trackColor: WidgetStateProperty.resolveWith((state) {
+        const Set<WidgetState> interactiveStates = <WidgetState>{
+          WidgetState.pressed,
+          WidgetState.hovered,
+          WidgetState.focused,
+          WidgetState.selected,
         };
         if (state.any(interactiveStates.contains)) {
           return Color(0xffabb3ea);
         }
         return null;
       }),
-      thumbColor: MaterialStateProperty.resolveWith((state) {
-        const Set<MaterialState> interactiveStates = <MaterialState>{
-          MaterialState.pressed,
-          MaterialState.hovered,
-          MaterialState.focused,
-          MaterialState.selected,
+      thumbColor: WidgetStateProperty.resolveWith((state) {
+        const Set<WidgetState> interactiveStates = <WidgetState>{
+          WidgetState.pressed,
+          WidgetState.hovered,
+          WidgetState.focused,
+          WidgetState.selected,
         };
         if (state.any(interactiveStates.contains)) {
           return Color(0xff3C4EC5);
@@ -172,7 +172,7 @@ class AppTheme {
     /// Other Colors
     splashColor: Colors.white.withAlpha(100),
     indicatorColor: Color(0xffeeeeee),
-    highlightColor: Color(0xffeeeeee), colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff3C4EC5), brightness: Brightness.light).copyWith(background: Color(0xffffffff)).copyWith(error: Color(0xfff0323c)),
+    highlightColor: Color(0xffeeeeee), colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff3C4EC5), brightness: Brightness.light).copyWith(surface: Color(0xffffffff)).copyWith(error: Color(0xfff0323c)),
   );
 
   /// -------------------------- Dark Theme  -------------------------------------------- ///
@@ -191,7 +191,7 @@ class AppTheme {
     appBarTheme: AppBarTheme(backgroundColor: Color(0xff161616)),
 
     /// Card Theme
-    cardTheme: CardTheme(color: Color(0xff222327)),
+    cardTheme: CardThemeData(color: Color(0xff222327)),
     cardColor: Color(0xff222327),
 
     /// Input (Text-Field) Theme
@@ -224,10 +224,10 @@ class AppTheme {
         foregroundColor: Colors.white),
 
     /// Bottom AppBar Theme
-    bottomAppBarTheme: BottomAppBarTheme(color: Color(0xff464c52), elevation: 2),
+    bottomAppBarTheme: BottomAppBarThemeData(color: Color(0xff464c52), elevation: 2),
 
     /// Tab bar Theme
-    tabBarTheme: TabBarTheme(
+    tabBarTheme: TabBarThemeData(
       unselectedLabelColor: Color(0xff495057),
       labelColor: Color(0xff069DEF),
       indicatorSize: TabBarIndicatorSize.label,
@@ -238,24 +238,24 @@ class AppTheme {
 
     ///Switch Theme
     switchTheme: SwitchThemeData(
-      trackColor: MaterialStateProperty.resolveWith((state) {
-        const Set<MaterialState> interactiveStates = <MaterialState>{
-          MaterialState.pressed,
-          MaterialState.hovered,
-          MaterialState.focused,
-          MaterialState.selected,
+      trackColor: WidgetStateProperty.resolveWith((state) {
+        const Set<WidgetState> interactiveStates = <WidgetState>{
+          WidgetState.pressed,
+          WidgetState.hovered,
+          WidgetState.focused,
+          WidgetState.selected,
         };
         if (state.any(interactiveStates.contains)) {
           return Color(0xffabb3ea);
         }
         return null;
       }),
-      thumbColor: MaterialStateProperty.resolveWith((state) {
-        const Set<MaterialState> interactiveStates = <MaterialState>{
-          MaterialState.pressed,
-          MaterialState.hovered,
-          MaterialState.focused,
-          MaterialState.selected,
+      thumbColor: WidgetStateProperty.resolveWith((state) {
+        const Set<WidgetState> interactiveStates = <WidgetState>{
+          WidgetState.pressed,
+          WidgetState.hovered,
+          WidgetState.focused,
+          WidgetState.selected,
         };
         if (state.any(interactiveStates.contains)) {
           return Color(0xff3C4EC5);
@@ -285,7 +285,7 @@ class AppTheme {
     indicatorColor: Colors.white,
     disabledColor: Color(0xffa3a3a3),
     highlightColor: Colors.white.withAlpha(28),
-    splashColor: Colors.white.withAlpha(56), colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff069DEF), brightness: Brightness.dark).copyWith(background: Color(0xff161616)).copyWith(error: Colors.orange),
+    splashColor: Colors.white.withAlpha(56), colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff069DEF), brightness: Brightness.dark).copyWith(surface: Color(0xff161616)).copyWith(error: Colors.orange),
   );
 
   static ThemeData createTheme(ColorScheme colorScheme) {

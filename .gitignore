@@ -1,6 +1,62 @@
+# ============================================
+# LDCE Connect — .gitignore
+# ============================================
+
+# Dart/Flutter generated files
 .dart_tool/
 build/
+.packages
+.flutter-plugins
+.flutter-plugins-dependencies
+generated_plugin_registrant.dart
+
+# IDE files
+.idea/
+*.iml
+.vscode/launch.json
+
+# macOS
+.DS_Store
+*.swp
+
+# Environment files (contain secrets)
+.env
+.env.production
+.env.staging
+
+# Firebase config files (contain API keys)
 google-services.json
 GoogleService-Info.plist
-.flutter-plugins-dependencies
-.packages
+
+# Android signing keys (critical secrets)
+android/key.properties
+*.jks
+*.keystore
+upload_certificate.pem
+
+# Android build
+android/.gradle/
+android/app/build/
+android/local.properties
+
+# iOS build
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/Flutter.framework/
+ios/Flutter/Flutter.podspec
+ios/Flutter/Generated.xcconfig
+ios/Flutter/app.flx
+ios/Flutter/app.zip
+ios/Flutter/engine/
+ios/Flutter/flutter_export_environment.sh
+ios/ServiceDefinitions.json
+ios/Runner/GeneratedPluginRegistrant.*
+
+# Test coverage
+coverage/
+*.lcov
+
+# Misc
+*.log
+*.pyc
+*.class

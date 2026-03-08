@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -65,25 +64,44 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // print('A Background message just showed up :  ${message.notification}');
 }
 
+/// Firebase web options — replace appId with your actual web app ID from Firebase Console
+const _firebaseWebOptions = FirebaseOptions(
+  apiKey: 'AIzaSyBLUBFJqyJKBZzr-WFgn_IZQdx5U9xNYxA',
+  appId: '1:560097527000:web:81b3a97aaf0a332f9ac3ad',
+  messagingSenderId: '560097527000',
+  projectId: 'ldce-alumni-bd8d4',
+  storageBucket: 'ldce-alumni-bd8d4.appspot.com',
+);
+
 Future<void> main() async {
   // firebase App initialize
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  print(FirebaseMessaging.instance.getToken());
-// Firebase local notification plugin
-FirebaseMessaging messaging = FirebaseMessaging.instance;
 
-NotificationSettings settings = await messaging.requestPermission(
-  alert: true,
-  announcement: false,
-  badge: true,
-  carPlay: false,
-  criticalAlert: false,
-  provisional: false,
-  sound: true,
-);
-print('User granted permission: ${settings.authorizationStatus}');
+  try {
+    await Firebase.initializeApp(
+      options: kIsWeb ? _firebaseWebOptions : null,
+    );
+  } catch (e) {
+    print('Firebase initialization failed: $e');
+  }
+
+  // Firebase messaging setup — only on native platforms
+  if (!kIsWeb) {
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    print(FirebaseMessaging.instance.getToken());
+
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+    print('User granted permission: ${settings.authorizationStatus}');
+  }
 // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
 //   print('Got a message whilst in the foreground!');
 //   print('Message data: ${message.data}');
@@ -113,31 +131,34 @@ print('User granted permission: ${settings.authorizationStatus}');
   //   // }
   //   print('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
   // }
-//Firebase messaging
-  FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-    alert: true,
-    badge: true,
-    sound: true,
-  );
+//Firebase messaging — only on native
+  if (!kIsWeb) {
+    FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
 
-  if (Platform.isAndroid) {
-    FirebaseMessaging.instance.subscribeToTopic('all-android');
-  }
-  if (Platform.isIOS) {
-    FirebaseMessaging.instance.subscribeToTopic('all-ios');
-  }
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      FirebaseMessaging.instance.subscribeToTopic('all-android');
+    }
+    if (defaultTargetPlatform == TargetPlatform.iOS) {
+      FirebaseMessaging.instance.subscribeToTopic('all-ios');
+    }
 
-  FirebaseMessaging.instance.subscribeToTopic('all-dhrumil');
-  if (kDebugMode) {
-    FirebaseMessaging.instance.subscribeToTopic('all-dhrumil-dev-11');
-    FirebaseMessaging.instance.subscribeToTopic('all');
-  FirebaseMessaging.instance.subscribeToTopic('all-dhrumil-b-sandbox');
+    FirebaseMessaging.instance.subscribeToTopic('all-dhrumil');
+    if (kDebugMode) {
+      FirebaseMessaging.instance.subscribeToTopic('all-dhrumil-dev-11');
+      FirebaseMessaging.instance.subscribeToTopic('all');
+      FirebaseMessaging.instance.subscribeToTopic('all-dhrumil-b-sandbox');
+    }
   }
   if (kReleaseMode) {
     // print = (Object object) {};
   }
-  WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  if (!kIsWeb) {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  }
 
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => AppNotifier()),
@@ -166,11 +187,13 @@ class _MyAppState extends State<MyApp> {
   String? token;
 
   getToken() async {
+    if (kIsWeb) return; // FCM token requires service worker setup on web
     token = await FirebaseMessaging.instance.getToken();
     print(token);
   }
 
   checkInternet(buildContext) async {
+    if (kIsWeb) return; // Skip on web — CORS blocks google.com
     int timeout = 40;
     try {
       http.Response response =
@@ -182,8 +205,8 @@ class _MyAppState extends State<MyApp> {
       }
     } on TimeoutException catch (e) {
       print('Timeout Error: $e');
-    } on SocketException catch (e) {
-      print('Socket Error: $e');
+    } catch (e) {
+      print('Socket/Network Error: $e');
       Navigator.push(buildContext, MaterialPageRoute(builder: (buildContext) => NoInternetScreen()));
     } on Error catch (e) {
       print('General Error: $e');
@@ -198,10 +221,10 @@ class _MyAppState extends State<MyApp> {
           builder: (context, child) {
             getToken();
             final mediaQueryData = MediaQuery.of(context);
-            final scale = mediaQueryData.textScaleFactor.clamp(1.0, 1.2);
+            final scaleFactor = mediaQueryData.textScaler.scale(1.0).clamp(1.0, 1.2);
             return MediaQuery(
               child: child!,
-              data: MediaQuery.of(context).copyWith(textScaleFactor: scale),
+              data: MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(scaleFactor)),
             );
           },
           navigatorKey: navKey,
