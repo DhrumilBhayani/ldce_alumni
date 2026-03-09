@@ -37,6 +37,10 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
   String? selectedProgramValue;
   String? selectedBranchValue;
   String? selectedYearValue;
+
+  final ValueNotifier<String?> _yearNotifier = ValueNotifier(null);
+  final ValueNotifier<String?> _programNotifier = ValueNotifier(null);
+  final ValueNotifier<String?> _branchNotifier = ValueNotifier(null);
   List<String> years = List<String>.generate(76, (counter) => (counter - 2026).abs().toString());
 
   List<String> items = [];
@@ -94,6 +98,9 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
 
   @override
   void dispose() {
+    _yearNotifier.dispose();
+    _programNotifier.dispose();
+    _branchNotifier.dispose();
     super.dispose();
     _alumniDirectoryController.uiLoading = true;
   }
@@ -404,7 +411,7 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
                                   ),
                                 ),
                                 items: years
-                                    .map((year) => DropdownMenuItem<String>(
+                                    .map((year) => DropdownItem<String>(
                                           value: year,
                                           child: Text(
                                             year,
@@ -414,13 +421,13 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
                                           ),
                                         ))
                                     .toList(),
-                                value: selectedYearValue,
+                                valueListenable: _yearNotifier,
                                 onChanged: (value) {
                                   currentPageNumber = 1;
-
                                   setState(() {
                                     print(value);
-                                    selectedYearValue = value as String;
+                                    selectedYearValue = value as String?;
+                                    _yearNotifier.value = selectedYearValue;
                                   });
                                 },
                                 buttonStyleData: ButtonStyleData(height: 40, width: MediaQuery.of(context).size.width * 0.89),
@@ -450,7 +457,7 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
                                   ),
                                 ),
                                 items: programs
-                                    .map((item) => DropdownMenuItem<String>(
+                                    .map((item) => DropdownItem<String>(
                                           value: item,
                                           child: Text(
                                             item,
@@ -460,7 +467,7 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
                                           ),
                                         ))
                                     .toList(),
-                                value: selectedProgramValue,
+                                valueListenable: _programNotifier,
                                 onChanged: (value) {
                                   currentPageNumber = 1;
                                   switch (value) {
@@ -485,7 +492,8 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
                                     default:
                                   }
                                   setState(() {
-                                    selectedProgramValue = value as String;
+                                    selectedProgramValue = value as String?;
+                                    _programNotifier.value = selectedProgramValue;
                                   });
                                 },
                                buttonStyleData: ButtonStyleData(height: 40, width: MediaQuery.of(context).size.width * 0.89),
@@ -511,7 +519,7 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
                                   ),
                                 ),
                                 items: items
-                                    .map((item) => DropdownMenuItem<String>(
+                                    .map((item) => DropdownItem<String>(
                                           value: item,
                                           child: Text(
                                             item,
@@ -521,11 +529,12 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
                                           ),
                                         ))
                                     .toList(),
-                                value: selectedBranchValue,
+                                valueListenable: _branchNotifier,
                                 onChanged: (value) {
                                   setState(() {
                                     currentPageNumber = 1;
-                                    selectedBranchValue = value as String;
+                                    selectedBranchValue = value as String?;
+                                    _branchNotifier.value = selectedBranchValue;
                                   });
                                 },
                                buttonStyleData: ButtonStyleData(height: 40, width: MediaQuery.of(context).size.width * 0.89),

@@ -12,7 +12,9 @@ class News {
       this.attachmentList);
 
   static Future<List<News>> getDummyList({pageSize = 5, pageNumber = 1}) async {
-    dynamic data = json.decode(await getData(pageSize, pageNumber));
+    final raw = await getData(pageSize, pageNumber);
+    if (raw.isEmpty) return [];
+    dynamic data = json.decode(raw);
     // print("_____________________________--");
     // print(data);
     return getListFromJson(data);

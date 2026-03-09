@@ -17,7 +17,9 @@ class Media {
   );
 
   static Future<List<Media>> getDummyList({pageSize = 5, pageNumber = 1}) async {
-    dynamic data = json.decode(await getData(pageSize, pageNumber));
+    final raw = await getData(pageSize, pageNumber);
+    if (raw.isEmpty) return [];
+    dynamic data = json.decode(raw);
     // print("_____________ Media ________________--");
     // print(data);
     return getListFromJson(data);

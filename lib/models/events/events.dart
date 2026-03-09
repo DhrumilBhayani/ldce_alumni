@@ -33,7 +33,9 @@ class Events {
       this.description, this.venue, this.contactPerson, this.attachmentList);
 
   static Future<List<Events>> getDummyList({pageSize = 5, pageNumber = 1}) async {
-    dynamic data = json.decode(await getData(pageSize, pageNumber));
+    final raw = await getData(pageSize, pageNumber);
+    if (raw.isEmpty) return [];
+    dynamic data = json.decode(raw);
     // print("_____________________________--");
     // print(data);
     return getSingleListFromJson(data);
@@ -48,14 +50,18 @@ class Events {
   }
 
   static Future<List<Events>> getUpcomingDummyList({pageSize = 5, pageNumber = 1}) async {
-    dynamic data = json.decode(await getData(pageSize, pageNumber));
+    final raw = await getData(pageSize, pageNumber);
+    if (raw.isEmpty) return [];
+    dynamic data = json.decode(raw);
     print("_____________________________--");
     print(data);
     return getListFromJson(data).first;
   }
 
   static Future<List<Events>> getPastDummyList({pageSize = 5, pageNumber = 1}) async {
-    dynamic data = json.decode(await getData(pageSize, pageNumber));
+    final raw = await getData(pageSize, pageNumber);
+    if (raw.isEmpty) return [];
+    dynamic data = json.decode(raw);
     // print("_____________________________--");
     // print(data);
     return getListFromJson(data).last;
@@ -118,7 +124,9 @@ class Events {
   }
 
   static Future<Events> getOneEvent({eventId}) async {
-    dynamic data = json.decode(await getDataById(eventId));
+    final raw = await getDataById(eventId);
+    if (raw.isEmpty) throw Exception('Failed to load event: empty response');
+    dynamic data = json.decode(raw);
     print("_____________________________--");
     print(data);
     return getSingleEventFromJson(data);

@@ -30,7 +30,9 @@ class DigitalDownloads {
   DigitalDownloads(this.title, this.description, this.category, this.fileUrl, this.pdfFileUrl);
 
   static Future<List<DigitalDownloads>> getDummyList({pageSize = 5, pageNumber = 1}) async {
-    dynamic data = json.decode(await getData(pageSize, pageNumber));
+    final raw = await getData(pageSize, pageNumber);
+    if (raw.isEmpty) return [];
+    dynamic data = json.decode(raw);
     // print("_____________________________--");
     // print(data);
     return getSingleListFromJson(data);
@@ -45,35 +47,45 @@ class DigitalDownloads {
   }
 
   static Future<List<DigitalDownloads>> getMobileSkinsList({pageSize = 5, pageNumber = 1}) async {
-    dynamic data = json.decode(await getMobileSkinData(pageSize, pageNumber));
+    final raw = await getMobileSkinData(pageSize, pageNumber);
+    if (raw.isEmpty) return [];
+    dynamic data = json.decode(raw);
     print("_____________________________--");
     print(pageNumber);
     return getListFromJson(data);
   }
 
   static Future<List<DigitalDownloads>> getDesktopWallpaperList({pageSize = 5, pageNumber = 1}) async {
-    dynamic data = json.decode(await getDesktopWallpapersData(pageSize, pageNumber));
+    final raw = await getDesktopWallpapersData(pageSize, pageNumber);
+    if (raw.isEmpty) return [];
+    dynamic data = json.decode(raw);
     // print("_____________________________--");
     // print(data);
     return getListFromJson(data);
   }
 
   static Future<List<DigitalDownloads>> getCalendarsList({pageSize = 5, pageNumber = 1}) async {
-    dynamic data = json.decode(await getCalendarsData(pageSize, pageNumber));
+    final raw = await getCalendarsData(pageSize, pageNumber);
+    if (raw.isEmpty) return [];
+    dynamic data = json.decode(raw);
     // print("_____________________________--");
     // print(data);
     return getListFromJson(data);
   }
 
   static Future<List<DigitalDownloads>> getCampaignDownloadsList({pageSize = 5, pageNumber = 1}) async {
-    dynamic data = json.decode(await getCampaignDownloadsData(pageSize, pageNumber));
+    final raw = await getCampaignDownloadsData(pageSize, pageNumber);
+    if (raw.isEmpty) return [];
+    dynamic data = json.decode(raw);
     // print("_____________________________--");
     // print(data);
     return getListFromJson(data);
   }
 
   static Future<List<DigitalDownloads>> getOtherMList({pageSize = 5, pageNumber = 1}) async {
-    dynamic data = json.decode(await getOtherMaterialsData(pageSize, pageNumber));
+    final raw = await getOtherMaterialsData(pageSize, pageNumber);
+    if (raw.isEmpty) return [];
+    dynamic data = json.decode(raw);
     // print("_____________________________--");
     // print(data);
     return getListFromJson(data);

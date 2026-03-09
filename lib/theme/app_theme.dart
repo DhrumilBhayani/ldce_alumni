@@ -81,7 +81,7 @@ class AppTheme {
         actionsIconTheme: IconThemeData(color: Color(0xff495057))),
 
     /// Card Theme
-    cardTheme: CardTheme(color: Color(0xfff0f0f0)),
+    cardTheme: CardThemeData(color: Color(0xfff0f0f0)),
     cardColor: Color(0xfff0f0f0),
 
     textTheme: TextTheme(titleLarge: GoogleFonts.montserrat(), bodyLarge: GoogleFonts.montserrat()),
@@ -101,10 +101,10 @@ class AppTheme {
     dividerColor: Color(0xffe8e8e8),
 
     /// Bottom AppBar Theme
-    bottomAppBarTheme: BottomAppBarTheme(color: Color(0xffeeeeee), elevation: 2),
+    bottomAppBarTheme: BottomAppBarThemeData(color: Color(0xffeeeeee), elevation: 2),
 
     /// Tab bar Theme
-    tabBarTheme: TabBarTheme(
+    tabBarTheme: TabBarThemeData(
       unselectedLabelColor: Color(0xff495057),
       labelColor: Color(0xff3d63ff),
       indicatorSize: TabBarIndicatorSize.label,
@@ -191,7 +191,7 @@ class AppTheme {
     appBarTheme: AppBarTheme(backgroundColor: Color(0xff161616)),
 
     /// Card Theme
-    cardTheme: CardTheme(color: Color(0xff222327)),
+    cardTheme: CardThemeData(color: Color(0xff222327)),
     cardColor: Color(0xff222327),
 
     /// Input (Text-Field) Theme
@@ -224,10 +224,10 @@ class AppTheme {
         foregroundColor: Colors.white),
 
     /// Bottom AppBar Theme
-    bottomAppBarTheme: BottomAppBarTheme(color: Color(0xff464c52), elevation: 2),
+    bottomAppBarTheme: BottomAppBarThemeData(color: Color(0xff464c52), elevation: 2),
 
     /// Tab bar Theme
-    tabBarTheme: TabBarTheme(
+    tabBarTheme: TabBarThemeData(
       unselectedLabelColor: Color(0xff495057),
       labelColor: Color(0xff069DEF),
       indicatorSize: TabBarIndicatorSize.label,

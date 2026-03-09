@@ -49,5 +49,9 @@
 		<false/>
 		<key>NSPhotoLibraryUsageDescription</key>
 		<string>Permission For Saving Skins to Gallery</string>
-	</dict>
+		<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+</dict>
 </plist>

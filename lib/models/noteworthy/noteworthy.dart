@@ -11,7 +11,9 @@ class Noteworthy {
       this.alumniBranch, this.alumniPassoutYear);
 
   static Future<List<Noteworthy>> getDummyList({pageNumber = 1, pageSize = 5}) async {
-    dynamic data = json.decode(await getData(pageSize, pageNumber));
+    final raw = await getData(pageSize, pageNumber);
+    if (raw.isEmpty) return [];
+    dynamic data = json.decode(raw);
     // print("_____________________________--");
     // print(data);
     return getListFromJson(data['Result']);

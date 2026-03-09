@@ -132,6 +132,7 @@ class _HomeEventstabState extends State<HomeEventstab> {
                     SizedBox(
                       height: 10,
                     ),
+                    if (homeProvider.singleEvent.isNotEmpty)
                     Column(
                       children: [_singleEvent(homeProvider.singleEvent[0])],
                     ),

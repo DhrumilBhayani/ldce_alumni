@@ -280,6 +280,7 @@ class SingleDownloadWidget extends StatelessWidget {
                                   child: FxText.b3("View / Download",
                                       fontWeight: 600, color: theme.colorScheme.onPrimary),
                                   style: ButtonStyle(
+                                      backgroundColor: MaterialStateProperty.all(theme.colorScheme.primary),
                                       padding: MaterialStateProperty.all(
                                           EdgeInsets.only(left: 10, right: 10, top: 0, bottom: 0))),
                                 ),
