@@ -152,7 +152,7 @@ class SingleEventHomeWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FxText.b1(title, color: theme.colorScheme.onBackground, fontWeight: 600),
+                  FxText.b1(title, color: theme.colorScheme.onSurface, fontWeight: 600),
                   Container(
                     margin: EdgeInsets.only(top: 15),
                     child: Row(
@@ -173,7 +173,7 @@ class SingleEventHomeWidget extends StatelessWidget {
                                   ),
                                   FxText.caption(outputStartDate + ' | ' + outputStartTime,
                                       fontSize: 14,
-                                      color: theme.colorScheme.onBackground,
+                                      color: theme.colorScheme.onSurface,
                                       fontWeight: 600,
                                       xMuted: true),
                                 ],
@@ -228,7 +228,7 @@ class SingleEventHomeWidget extends StatelessWidget {
                                           child: FxText.caption(venue,
                                               softWrap: true,
                                               fontSize: 14,
-                                              color: theme.colorScheme.onBackground,
+                                              color: theme.colorScheme.onSurface,
                                               fontWeight: 600,
                                               xMuted: true))
                                     ])

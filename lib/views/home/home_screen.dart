@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, unnecessary_new
 
 import 'dart:developer';
+import 'package:flutter/rendering.dart';
 import 'package:ldce_alumni/core/globals.dart' as globals;
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -544,14 +545,13 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                     height: 80,
                                     child: Tab(
                                       child: Tooltip(
-                                        height: 800,
-                                        message: "Home",
+                                        message: "Home", constraints: BoxConstraints(minHeight: 800),
                                         child: Container(
                                             // constraints: BoxConstraints.expand(width: 100, height: 800),
                                             color: Color.fromARGB(255, 250, 38, 48),
                                             child: Icon(navItems[0].icon,
                                                 color: (currentIndex == 0)
-                                                    ? theme.colorScheme.onBackground
+                                                    ? theme.colorScheme.onSurface
                                                     : theme.colorScheme.onPrimary.withAlpha(500),
                                                 size: navItems[0].size * 1.5)),
                                       ),
@@ -568,7 +568,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                           color: Color(0xffffca02),
                                           child: Icon(navItems[1].icon,
                                               color: (currentIndex == 1)
-                                                  ? theme.colorScheme.onBackground
+                                                  ? theme.colorScheme.onSurface
                                                   : theme.colorScheme.onPrimary.withAlpha(500),
                                               size: navItems[1].size * 1.5)),
                                     ))),
@@ -586,7 +586,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                           color: Color(0xff1692d0),
                                           child: Icon(navItems[2].icon,
                                               color: (currentIndex == 2)
-                                                  ? theme.colorScheme.onBackground
+                                                  ? theme.colorScheme.onSurface
                                                   : theme.colorScheme.onPrimary.withAlpha(500),
                                               size: navItems[2].size * 1.5)),
                                     ))),
@@ -602,7 +602,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                           color: Color(0xff07a44d),
                                           child: Icon(navItems[3].icon,
                                               color: (currentIndex == 3)
-                                                  ? theme.colorScheme.onBackground
+                                                  ? theme.colorScheme.onSurface
                                                   : theme.colorScheme.onPrimary.withAlpha(500),
                                               size: navItems[3].size * 1.5)),
                                     ))),
@@ -618,7 +618,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                           color: Color.fromARGB(255, 250, 38, 48),
                                           child: Icon(navItems[4].icon,
                                               color: (currentIndex == 4)
-                                                  ? theme.colorScheme.onBackground
+                                                  ? theme.colorScheme.onSurface
                                                   : theme.colorScheme.onPrimary.withAlpha(500),
                                               size: navItems[4].size * 1.5)),
                                     ))),
@@ -634,7 +634,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                           color: Color(0xffffca02),
                                           child: Icon(navItems[5].icon,
                                               color: (currentIndex == 5)
-                                                  ? theme.colorScheme.onBackground
+                                                  ? theme.colorScheme.onSurface
                                                   : theme.colorScheme.onPrimary.withAlpha(500),
                                               size: navItems[5].size * 1.5)),
                                     ))),
@@ -650,7 +650,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                           color: Color(0xff1692d0),
                                           child: Icon(navItems[6].icon,
                                               color: (currentIndex == 6)
-                                                  ? theme.colorScheme.onBackground
+                                                  ? theme.colorScheme.onSurface
                                                   : theme.colorScheme.onPrimary.withAlpha(500),
                                               size: navItems[6].size * 1.5)),
                                     ))),
@@ -675,7 +675,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       tabs.add(Container(
           color: Colors.red,
           child: Icon(navItems[i].icon,
-              color: (currentIndex == i) ? theme.colorScheme.primary : theme.colorScheme.onBackground.withAlpha(220),
+              color: (currentIndex == i) ? theme.colorScheme.primary : theme.colorScheme.onSurface.withAlpha(220),
               size: navItems[i].size)));
     }
     return tabs;

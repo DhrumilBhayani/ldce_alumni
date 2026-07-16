@@ -164,7 +164,7 @@ class _ATHackathonState extends State<ATHackathon> {
                                 // ),
                                 Container(
                                   child: FxText.h6("AT Hackathon",
-                                      color: theme.colorScheme.onBackground, fontWeight: 600),
+                                      color: theme.colorScheme.onSurface, fontWeight: 600),
                                 ),
                                 // widget.shortDescription != "null" && widget.description != "null"
                                 //     ? Container(
@@ -190,7 +190,7 @@ class _ATHackathonState extends State<ATHackathon> {
                                         child: FxText.caption(
                                             "Hackathon on Assistive Technology organized by L.D. College of Engineering in association with VOSAP.",
                                             fontSize: 15,
-                                            color: theme.colorScheme.onBackground,
+                                            color: theme.colorScheme.onSurface,
                                             fontWeight: 600,
                                             xMuted: true),
                                       )
@@ -391,7 +391,7 @@ class _ATHackathonState extends State<ATHackathon> {
                                                   "Dr. R.K.Gajjar \n(Principal, L.D.College of Engineering)",
                                                   fontSize: 14,
                                                   fontWeight: 600,
-                                                  color: theme.colorScheme.onBackground),
+                                                  color: theme.colorScheme.onSurface),
                                               // Container(
                                               //   margin: EdgeInsets.only(top: 2),
                                               //   child: FxText.caption("SEAS, Ahmedabad University",
@@ -438,7 +438,7 @@ class _ATHackathonState extends State<ATHackathon> {
                                               FxText.caption("Mr. Pranav Desai",
                                                   fontSize: 14,
                                                   fontWeight: 600,
-                                                  color: theme.colorScheme.onBackground),
+                                                  color: theme.colorScheme.onSurface),
                                               // Container(
                                               //   margin: EdgeInsets.only(top: 2),
                                               //   child: FxText.caption("SEAS, Ahmedabad University",
@@ -481,7 +481,7 @@ class _ATHackathonState extends State<ATHackathon> {
                                               FxText.caption("Mr. Prerak Shah",
                                                   fontSize: 14,
                                                   fontWeight: 600,
-                                                  color: theme.colorScheme.onBackground),
+                                                  color: theme.colorScheme.onSurface),
                                               // Container(
                                               //   margin: EdgeInsets.only(top: 2),
                                               //   child: FxText.caption("SEAS, Ahmedabad University",
@@ -527,7 +527,7 @@ class _ATHackathonState extends State<ATHackathon> {
                                               FxText.caption("Dr. H.M.Diwanji",
                                                   fontSize: 14,
                                                   fontWeight: 600,
-                                                  color: theme.colorScheme.onBackground),
+                                                  color: theme.colorScheme.onSurface),
                                               // Container(
                                               //   margin: EdgeInsets.only(top: 2),
                                               //   child: FxText.caption("SEAS, Ahmedabad University",
@@ -569,7 +569,7 @@ class _ATHackathonState extends State<ATHackathon> {
                                               FxText.caption("Dr. C.H.Vithlani",
                                                   fontSize: 14,
                                                   fontWeight: 600,
-                                                  color: theme.colorScheme.onBackground),
+                                                  color: theme.colorScheme.onSurface),
                                               // Container(
                                               //   margin: EdgeInsets.only(top: 2),
                                               //   child: FxText.caption("SEAS, Ahmedabad University",
@@ -611,7 +611,7 @@ class _ATHackathonState extends State<ATHackathon> {
                                               FxText.caption("Dr. Chirag Thaker",
                                                   fontSize: 14,
                                                   fontWeight: 600,
-                                                  color: theme.colorScheme.onBackground),
+                                                  color: theme.colorScheme.onSurface),
                                               // Container(
                                               //   margin: EdgeInsets.only(top: 2),
                                               //   child: FxText.caption("SEAS, Ahmedabad University",
@@ -653,7 +653,7 @@ class _ATHackathonState extends State<ATHackathon> {
                                               FxText.caption("Prof. Mahendrasinh Gadhvi",
                                                   fontSize: 14,
                                                   fontWeight: 600,
-                                                  color: theme.colorScheme.onBackground),
+                                                  color: theme.colorScheme.onSurface),
                                               // Container(
                                               //   margin: EdgeInsets.only(top: 2),
                                               //   child: FxText.caption("SEAS, Ahmedabad University",
@@ -699,7 +699,7 @@ class _ATHackathonState extends State<ATHackathon> {
                                               FxText.caption("LDCE75@ldce.ac.in",
                                                   fontSize: 14,
                                                   fontWeight: 600,
-                                                  color: theme.colorScheme.onBackground),
+                                                  color: theme.colorScheme.onSurface),
                                               // Container(
                                               //   margin: EdgeInsets.only(top: 2),
                                               //   child: FxText.caption("SEAS, Ahmedabad University",

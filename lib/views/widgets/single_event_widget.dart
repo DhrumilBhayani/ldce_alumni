@@ -153,7 +153,7 @@ class SingleEventWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FxText.b1(title, color: theme.colorScheme.onBackground, fontWeight: 600),
+                  FxText.b1(title, color: theme.colorScheme.onSurface, fontWeight: 600),
                   Container(
                     margin: EdgeInsets.only(top: 15),
                     child: Row(
@@ -174,7 +174,7 @@ class SingleEventWidget extends StatelessWidget {
                                   ),
                                   FxText.caption(outputStartDate + ' | ' + outputStartTime,
                                       fontSize: 14,
-                                      color: theme.colorScheme.onBackground,
+                                      color: theme.colorScheme.onSurface,
                                       fontWeight: 600,
                                       xMuted: true),
                                 ],
@@ -229,7 +229,7 @@ class SingleEventWidget extends StatelessWidget {
                                           child: FxText.caption(venue,
                                               softWrap: true,
                                               fontSize: 14,
-                                              color: theme.colorScheme.onBackground,
+                                              color: theme.colorScheme.onSurface,
                                               fontWeight: 600,
                                               xMuted: true))
                                     ])
@@ -273,7 +273,7 @@ class SingleEventWidget extends StatelessWidget {
                                   child: FxText.b3("More Info",
                                       fontWeight: 600, color: theme.colorScheme.onPrimary),
                                   style: ButtonStyle(
-                                      padding: MaterialStateProperty.all(
+                                      padding: WidgetStateProperty.all(
                                           EdgeInsets.only(left: 10, right: 10, top: 0, bottom: 0))),
                                 ),
                               )

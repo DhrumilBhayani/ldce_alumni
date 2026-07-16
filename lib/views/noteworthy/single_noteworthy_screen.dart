@@ -230,7 +230,7 @@ class _SingleNoteworthyScreenState extends State<SingleNoteworthyScreen> {
                             children: [
                               Container(
                                 child: FxText.h6(widget.alumniName + ' - ' + widget.title,
-                                    color: theme.colorScheme.onBackground, fontWeight: 600),
+                                    color: theme.colorScheme.onSurface, fontWeight: 600),
                               ),
                               // InkWell(
                               //   onTap: () {
@@ -249,7 +249,7 @@ class _SingleNoteworthyScreenState extends State<SingleNoteworthyScreen> {
                                     FxText.caption(
                                         widget.alumniPassoutYear + ' - ' + widget.alumniBranch,
                                         fontSize: 15,
-                                        color: theme.colorScheme.onBackground,
+                                        color: theme.colorScheme.onSurface,
                                         fontWeight: 600,
                                         xMuted: true),
                                   ],
@@ -262,7 +262,7 @@ class _SingleNoteworthyScreenState extends State<SingleNoteworthyScreen> {
                               widget.shortDescription != "null" && widget.description != "null"
                                   ? Container(
                                       child: FxText.caption(widget.shortDescription,
-                                          color: theme.colorScheme.onBackground,
+                                          color: theme.colorScheme.onSurface,
                                           fontWeight: 600,
                                           xMuted: true),
                                     )

@@ -163,8 +163,8 @@ class _HomeNoteworthyTabState extends State<HomeNoteworthyTab> {
                           child: FxText.b1("View All Noteworthy Mentions",
                               fontWeight: 600, color: theme.colorScheme.onPrimary),
                           style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 250, 38, 48)),
-                              padding: MaterialStateProperty.all(
+                            backgroundColor: WidgetStateProperty.all(Color.fromARGB(255, 250, 38, 48)),
+                              padding: WidgetStateProperty.all(
                                   EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 0))),
                         ))
                   ])),

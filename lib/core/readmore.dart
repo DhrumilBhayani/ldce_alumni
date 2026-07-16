@@ -225,9 +225,7 @@ class ReadMoreTextState extends State<ReadMoreText> {
           softWrap: true,
           //softWrap,
           overflow: TextOverflow.clip,
-          //overflow,
-          textScaleFactor: textScaleFactor,
-          text: textSpan,
+          text: textSpan, textScaler: TextScaler.linear(textScaleFactor),
         );
       },
     );

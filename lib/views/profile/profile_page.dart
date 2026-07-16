@@ -82,9 +82,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         _image = File(pickedFile.path);
       });
     }
-    if (_image == null) {
-      return;
-    }
 
     if (_image.lengthSync() > 5 * 1024 * 1024) {
       return;
@@ -1095,7 +1092,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                               DropdownButtonFormField<String>(
                                                                 dropdownColor: Colors.white,
                                                                 isExpanded: true,
-                                                                value: profileProvider.genderValue,
+                                                                initialValue: profileProvider.genderValue,
                                                                 // profileProvider.profileResponse.Result.Gender ? "Male" : "Female" ,
                                                                 icon: const Icon(Icons.keyboard_arrow_down),
                                                                 decoration: InputDecoration(
@@ -1135,7 +1132,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                                 dropdownColor: Colors.white,
                                                                 isExpanded: true,
                                                                 icon: const Icon(Icons.keyboard_arrow_down),
-                                                                value: profileProvider.selectedCountry ?? null,
+                                                                initialValue: profileProvider.selectedCountry ?? null,
                                                                 hint: Text('Select a country'),
                                                                 decoration: InputDecoration(
                                                                   focusedBorder: UnderlineInputBorder(
@@ -1180,7 +1177,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                                 dropdownColor: Colors.white,
                                                                 isExpanded: true,
                                                                 icon: const Icon(Icons.keyboard_arrow_down),
-                                                                value: profileProvider.selectedState ?? null,
+                                                                initialValue: profileProvider.selectedState ?? null,
                                                                 hint: Text('Select a state'),
                                                                 decoration: InputDecoration(
                                                                   focusedBorder: UnderlineInputBorder(
@@ -1223,7 +1220,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                                 dropdownColor: Colors.white,
                                                                 isExpanded: true,
                                                                 icon: const Icon(Icons.keyboard_arrow_down),
-                                                                value: profileProvider.selectedCity ?? null,
+                                                                initialValue: profileProvider.selectedCity ?? null,
                                                                 hint: Text('Select a city'),
                                                                 decoration: InputDecoration(
                                                                   focusedBorder: UnderlineInputBorder(
@@ -2246,7 +2243,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                               dropdownColor: Colors.white,
                                                               isExpanded: true,
                                                               icon: const Icon(Icons.keyboard_arrow_down),
-                                                              value: profileProvider.selectedProgram ?? null,
+                                                              initialValue: profileProvider.selectedProgram ?? null,
                                                               hint: Text('Select a program'),
                                                               decoration: InputDecoration(
                                                                 focusedBorder: UnderlineInputBorder(
@@ -2285,7 +2282,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                               dropdownColor: Colors.white,
                                                               isExpanded: true,
                                                               icon: const Icon(Icons.keyboard_arrow_down),
-                                                              value: profileProvider.selectedBranch ?? null,
+                                                              initialValue: profileProvider.selectedBranch ?? null,
                                                               hint: Text('Select a branch'),
                                                               decoration: InputDecoration(
                                                                 focusedBorder: UnderlineInputBorder(

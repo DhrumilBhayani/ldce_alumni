@@ -68,7 +68,12 @@ class MyFCMReceiver : BroadcastReceiver() {
         // notificationLayout.setTextViewText(R.id.time_view, args["current_time"].toString())
 
         //Set a click listener for the flutter logo
-        val pendingIntent = PendingIntent.getBroadcast(context, 0, myIntent, PendingIntent.FLAG_CANCEL_CURRENT)
+        val pendingIntent = PendingIntent.getBroadcast(
+            context,
+            0,
+            myIntent,
+            PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CUPCAKE) {
             notificationLayout.setOnClickPendingIntent(R.id.iv_notification_logo, pendingIntent)
         }

@@ -320,7 +320,7 @@ class _SingleEventScreenState extends State<SingleEventScreen> {
                       children: [
                         Expanded(
                           child: FxText.h5(widget.title,
-                              fontSize: 22, color: theme.colorScheme.onBackground, fontWeight: 600),
+                              fontSize: 22, color: theme.colorScheme.onSurface, fontWeight: 600),
                         ),
                       ],
                     ),
@@ -355,19 +355,19 @@ class _SingleEventScreenState extends State<SingleEventScreen> {
                                                 DateFormat('dd MMM, yyyy').format(endDateTime),
                                             fontSize: 14,
                                             fontWeight: 600,
-                                            color: theme.colorScheme.onBackground)
+                                            color: theme.colorScheme.onSurface)
                                         : FxText.caption(
                                             DateFormat('EEEE, dd MMM, yyyy').format(startDateTime),
                                             fontSize: 14,
                                             fontWeight: 600,
-                                            color: theme.colorScheme.onBackground),
+                                            color: theme.colorScheme.onSurface),
                                     widget.time != "null"
                                         ? Container(
                                             margin: EdgeInsets.only(top: 2),
                                             child: FxText.caption(widget.time!,
                                                 fontSize: 14,
                                                 fontWeight: 600,
-                                                color: theme.colorScheme.onBackground,
+                                                color: theme.colorScheme.onSurface,
                                                 xMuted: true),
                                           )
                                         : Container(),
@@ -432,7 +432,7 @@ class _SingleEventScreenState extends State<SingleEventScreen> {
                                       FxText.caption(widget.venue,
                                           fontSize: 14,
                                           fontWeight: 600,
-                                          color: theme.colorScheme.onBackground),
+                                          color: theme.colorScheme.onSurface),
                                       // Container(
                                       //   margin: EdgeInsets.only(top: 2),
                                       //   child: FxText.caption("SEAS, Ahmedabad University",
@@ -471,13 +471,13 @@ class _SingleEventScreenState extends State<SingleEventScreen> {
                                       FxText.caption("Contact Person",
                                           fontSize: 16,
                                           fontWeight: 500,
-                                          color: theme.colorScheme.onBackground),
+                                          color: theme.colorScheme.onSurface),
                                       Container(
                                         margin: EdgeInsets.only(top: 2),
                                         child: FxText.caption(widget.contactPerson,
                                             fontSize: 14,
                                             fontWeight: 600,
-                                            color: theme.colorScheme.onBackground,
+                                            color: theme.colorScheme.onSurface,
                                             xMuted: true),
                                       ),
                                     ],
@@ -521,7 +521,7 @@ class _SingleEventScreenState extends State<SingleEventScreen> {
                       ? Container(
                           margin: EdgeInsets.fromLTRB(24, 24, 24, 0),
                           child: FxText.sh1("About This Event",
-                              fontWeight: 700, color: theme.colorScheme.onBackground),
+                              fontWeight: 700, color: theme.colorScheme.onSurface),
                         )
                       : Container(),
                   widget.description != "null"
@@ -567,7 +567,7 @@ class _SingleEventScreenState extends State<SingleEventScreen> {
                     Container(
                       margin: EdgeInsets.fromLTRB(24, 24, 24, 0),
                       child: FxText.sh1("Event Images",
-                          fontWeight: 700, color: theme.colorScheme.onBackground),
+                          fontWeight: 700, color: theme.colorScheme.onSurface),
                     ),
                   if (widget.attachmentList!.isNotEmpty) Divider(),
                   // SizedBox(height: 16),

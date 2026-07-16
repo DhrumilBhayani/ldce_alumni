@@ -130,13 +130,13 @@ class SingleHomeNewsCardWidget extends StatelessWidget {
                 children: [
                   FxText.caption(date,
                       fontSize: 14,
-                      color: theme.colorScheme.onBackground,
+                      color: theme.colorScheme.onSurface,
                       fontWeight: 700,
                       xMuted: true),
                   SizedBox(
                     height: 10,
                   ),
-                  FxText.b1(title, color: theme.colorScheme.onBackground, fontWeight: 600),
+                  FxText.b1(title, color: theme.colorScheme.onSurface, fontWeight: 600),
                   Container(
                     margin: EdgeInsets.only(top: 8),
                     child: Row(
@@ -147,7 +147,7 @@ class SingleHomeNewsCardWidget extends StatelessWidget {
                             children: [
                               FxText.caption(description + "....",
                                   fontSize: 14,
-                                  color: theme.colorScheme.onBackground,
+                                  color: theme.colorScheme.onSurface,
                                   fontWeight: 600,
                                   maxLines: 2,
                                   xMuted: true),

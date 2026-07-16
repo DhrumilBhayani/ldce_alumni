@@ -362,7 +362,7 @@ class _SingleInternetEventScreenState extends State<SingleInternetEventScreen> {
                           children: [
                             Expanded(
                               child: FxText.h5(singleEvents.title,
-                                  fontSize: 22, color: theme.colorScheme.onBackground, fontWeight: 600),
+                                  fontSize: 22, color: theme.colorScheme.onSurface, fontWeight: 600),
                             ),
                           ],
                         ),
@@ -397,19 +397,19 @@ class _SingleInternetEventScreenState extends State<SingleInternetEventScreen> {
                                                     DateFormat('dd MMM, yyyy').format(endDateTime),
                                                 fontSize: 14,
                                                 fontWeight: 600,
-                                                color: theme.colorScheme.onBackground)
+                                                color: theme.colorScheme.onSurface)
                                             : FxText.caption(
                                                 DateFormat('EEEE, dd MMM, yyyy').format(startDateTime),
                                                 fontSize: 14,
                                                 fontWeight: 600,
-                                                color: theme.colorScheme.onBackground),
+                                                color: theme.colorScheme.onSurface),
                                         outputStartTime != "null"
                                             ? Container(
                                                 margin: EdgeInsets.only(top: 2),
                                                 child: FxText.caption(outputStartTime,
                                                     fontSize: 14,
                                                     fontWeight: 600,
-                                                    color: theme.colorScheme.onBackground,
+                                                    color: theme.colorScheme.onSurface,
                                                     xMuted: true),
                                               )
                                             : Container(),
@@ -474,7 +474,7 @@ class _SingleInternetEventScreenState extends State<SingleInternetEventScreen> {
                                           FxText.caption(singleEvents.venue,
                                               fontSize: 14,
                                               fontWeight: 600,
-                                              color: theme.colorScheme.onBackground),
+                                              color: theme.colorScheme.onSurface),
                                           // Container(
                                           //   margin: EdgeInsets.only(top: 2),
                                           //   child: FxText.caption("SEAS, Ahmedabad University",
@@ -513,13 +513,13 @@ class _SingleInternetEventScreenState extends State<SingleInternetEventScreen> {
                                           FxText.caption("Contact Person",
                                               fontSize: 16,
                                               fontWeight: 500,
-                                              color: theme.colorScheme.onBackground),
+                                              color: theme.colorScheme.onSurface),
                                           Container(
                                             margin: EdgeInsets.only(top: 2),
                                             child: FxText.caption(singleEvents.contactPerson,
                                                 fontSize: 14,
                                                 fontWeight: 600,
-                                                color: theme.colorScheme.onBackground,
+                                                color: theme.colorScheme.onSurface,
                                                 xMuted: true),
                                           ),
                                         ],
@@ -563,7 +563,7 @@ class _SingleInternetEventScreenState extends State<SingleInternetEventScreen> {
                           ? Container(
                               margin: EdgeInsets.fromLTRB(24, 24, 24, 0),
                               child: FxText.sh1("About This Event",
-                                  fontWeight: 700, color: theme.colorScheme.onBackground),
+                                  fontWeight: 700, color: theme.colorScheme.onSurface),
                             )
                           : Container(),
                       singleEvents.description != "null"
@@ -610,7 +610,7 @@ class _SingleInternetEventScreenState extends State<SingleInternetEventScreen> {
                         Container(
                           margin: EdgeInsets.fromLTRB(24, 24, 24, 0),
                           child: FxText.sh1("Event Images",
-                              fontWeight: 700, color: theme.colorScheme.onBackground),
+                              fontWeight: 700, color: theme.colorScheme.onSurface),
                         ),
                       if (singleEvents.attachmentList!.isNotEmpty) Divider(),
                       // SizedBox(height: 16),

@@ -149,8 +149,8 @@ class _HomeEventstabState extends State<HomeEventstab> {
                           child: FxText.b1("View All Events",
                               fontWeight: 600, color: theme.colorScheme.onPrimary),
                           style: ButtonStyle(
-                             backgroundColor: MaterialStateProperty.all(Color(0xff1692d0)),
-                              padding: MaterialStateProperty.all(
+                             backgroundColor: WidgetStateProperty.all(Color(0xff1692d0)),
+                              padding: WidgetStateProperty.all(
                                   EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 0))),
                         ))
                   ])),

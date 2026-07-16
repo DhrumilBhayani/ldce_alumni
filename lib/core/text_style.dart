@@ -171,7 +171,7 @@ class FxTextStyle {
 
     Color? finalColor;
     if (color == null) {
-      Color themeColor = AppTheme.getTheme().colorScheme.onBackground;
+      Color themeColor = AppTheme.getTheme().colorScheme.onSurface;
       finalColor = xMuted ? themeColor.withAlpha(160) : (muted ? themeColor.withAlpha(200) : themeColor);
     } else {
       finalColor = xMuted ? color.withAlpha(160) : (muted ? color.withAlpha(200) : color);

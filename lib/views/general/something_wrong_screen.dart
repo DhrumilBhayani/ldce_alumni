@@ -74,7 +74,7 @@ class _SomethingWrongScreenState extends State<SomethingWrongScreen> {
               Container(
                 margin: EdgeInsets.only(top: 24),
                 child: FxText.h6("Whoops",
-                    color: theme.colorScheme.onBackground, fontWeight: 600, letterSpacing: 0.2),
+                    color: theme.colorScheme.onSurface, fontWeight: 600, letterSpacing: 0.2),
               ),
               Container(
                 margin: EdgeInsets.only(top: 24),

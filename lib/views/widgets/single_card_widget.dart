@@ -146,7 +146,7 @@ class SingleCardWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FxText.b1(title, color: theme.colorScheme.onBackground, fontWeight: 600),
+                  FxText.b1(title, color: theme.colorScheme.onSurface, fontWeight: 600),
                   Container(
                     margin: EdgeInsets.only(top: 8),
                     child: Row(
@@ -157,7 +157,7 @@ class SingleCardWidget extends StatelessWidget {
                             children: [
                               FxText.caption(description,
                                   fontSize: 14,
-                                  color: theme.colorScheme.onBackground,
+                                  color: theme.colorScheme.onSurface,
                                   fontWeight: 600,
                                   xMuted: true),
                               // time != "null"

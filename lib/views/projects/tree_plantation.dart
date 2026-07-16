@@ -164,7 +164,7 @@ class _TreePlantationScreenState extends State<TreePlantationScreen> {
                                 // ),
                                 Container(
                                   child: FxText.h6("Foundation Day Tree Plantation Drives",
-                                      color: theme.colorScheme.onBackground, fontWeight: 600),
+                                      color: theme.colorScheme.onSurface, fontWeight: 600),
                                 ),
                                 // widget.shortDescription != "null" && widget.description != "null"
                                 //     ? Container(
@@ -291,7 +291,7 @@ class _TreePlantationScreenState extends State<TreePlantationScreen> {
                                               FxText.caption("Prerak Shah (CE '94)",
                                                   fontSize: 14,
                                                   fontWeight: 600,
-                                                  color: theme.colorScheme.onBackground),
+                                                  color: theme.colorScheme.onSurface),
                                               // Container(
                                               //   margin: EdgeInsets.only(top: 2),
                                               //   child: FxText.caption("SEAS, Ahmedabad University",
@@ -333,7 +333,7 @@ class _TreePlantationScreenState extends State<TreePlantationScreen> {
                                               FxText.caption("94293 57390 Or 98987 89240",
                                                   fontSize: 14,
                                                   fontWeight: 600,
-                                                  color: theme.colorScheme.onBackground),
+                                                  color: theme.colorScheme.onSurface),
                                               // Container(
                                               //   margin: EdgeInsets.only(top: 2),
                                               //   child: FxText.caption("SEAS, Ahmedabad University",
@@ -375,7 +375,7 @@ class _TreePlantationScreenState extends State<TreePlantationScreen> {
                                               FxText.caption("portal.admin@ldcealumni.net",
                                                   fontSize: 14,
                                                   fontWeight: 600,
-                                                  color: theme.colorScheme.onBackground),
+                                                  color: theme.colorScheme.onSurface),
                                               // Container(
                                               //   margin: EdgeInsets.only(top: 2),
                                               //   child: FxText.caption("SEAS, Ahmedabad University",

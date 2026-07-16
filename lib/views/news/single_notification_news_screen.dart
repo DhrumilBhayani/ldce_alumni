@@ -368,7 +368,7 @@ class _SingleInternetNewsScreenState extends State<SingleInternetNewsScreen> {
                                       children: [
                                         FxText.caption(singleNews.date,
                                             fontSize: 15,
-                                            color: theme.colorScheme.onBackground,
+                                            color: theme.colorScheme.onSurface,
                                             fontWeight: 600,
                                             xMuted: true),
                                       ],
@@ -379,7 +379,7 @@ class _SingleInternetNewsScreenState extends State<SingleInternetNewsScreen> {
                                   ),
                                   Container(
                                     child: FxText.h6(singleNews.title,
-                                        color: theme.colorScheme.onBackground, fontWeight: 600),
+                                        color: theme.colorScheme.onSurface, fontWeight: 600),
                                   ),
                                   singleNews.shortDescription != "null" &&
                                           singleNews.description != "null"
@@ -390,7 +390,7 @@ class _SingleInternetNewsScreenState extends State<SingleInternetNewsScreen> {
                                               Flexible(
                                                 child: FxText.caption(singleNews.shortDescription,
                                                     fontSize: 15,
-                                                    color: theme.colorScheme.onBackground,
+                                                    color: theme.colorScheme.onSurface,
                                                     fontWeight: 600,
                                                     xMuted: true),
                                               )
@@ -438,7 +438,7 @@ class _SingleInternetNewsScreenState extends State<SingleInternetNewsScreen> {
                         Container(
                           margin: EdgeInsets.fromLTRB(24, 24, 24, 0),
                           child: FxText.sh1("News Images",
-                              fontWeight: 700, color: theme.colorScheme.onBackground),
+                              fontWeight: 700, color: theme.colorScheme.onSurface),
                         ),
                       if (singleNews.attachmentList.isNotEmpty) Divider(),
                       // SizedBox(height: 16),

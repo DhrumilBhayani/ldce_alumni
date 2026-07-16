@@ -201,7 +201,7 @@ class _MyAppState extends State<MyApp> {
             final scale = mediaQueryData.textScaleFactor.clamp(1.0, 1.2);
             return MediaQuery(
               child: child!,
-              data: MediaQuery.of(context).copyWith(textScaleFactor: scale),
+              data: MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(scale)),
             );
           },
           navigatorKey: navKey,

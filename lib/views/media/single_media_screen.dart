@@ -343,7 +343,7 @@ class _SingleMediaScreenState extends State<SingleMediaScreen> {
                               children: [
                                 Container(
                                   child: FxText.h6(widget.title,
-                                      color: theme.colorScheme.onBackground, fontWeight: 600),
+                                      color: theme.colorScheme.onSurface, fontWeight: 600),
                                 ),
                                 // InkWell(
                                 //   onTap: () {
@@ -362,7 +362,7 @@ class _SingleMediaScreenState extends State<SingleMediaScreen> {
                                 widget.shortDescription != "null" && widget.description != "null"
                                     ? Container(
                                         child: FxText.caption(widget.shortDescription,
-                                            color: theme.colorScheme.onBackground,
+                                            color: theme.colorScheme.onSurface,
                                             fontWeight: 600,
                                             xMuted: true),
                                       )

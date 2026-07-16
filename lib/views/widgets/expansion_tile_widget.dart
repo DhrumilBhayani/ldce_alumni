@@ -34,7 +34,7 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
           title: FxText.sh1("Expansion Tile", fontWeight: 600),
         ),
         body: Container(
-            color: theme.colorScheme.background,
+            color: theme.colorScheme.surface,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[

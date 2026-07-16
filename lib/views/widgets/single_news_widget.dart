@@ -67,17 +67,17 @@ class SingleNewsWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FxText.b2(date!, color: theme.colorScheme.onBackground, fontWeight: 600, xMuted: true),
+                  FxText.b2(date!, color: theme.colorScheme.onSurface, fontWeight: 600, xMuted: true),
                   const SizedBox(
                     height: 4,
                   ),
-                  FxText.b1(title!, color: theme.colorScheme.onBackground, fontWeight: 600),
+                  FxText.b1(title!, color: theme.colorScheme.onSurface, fontWeight: 600),
                   const SizedBox(
                     height: 8,
                   ),
                   FxText.b2(
                     shortDescription!,
-                    color: theme.colorScheme.onBackground,
+                    color: theme.colorScheme.onSurface,
                     fontSize: 13,
                     xMuted: true,
                     overflow: TextOverflow.ellipsis,

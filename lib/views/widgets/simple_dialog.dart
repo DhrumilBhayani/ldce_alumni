@@ -29,7 +29,7 @@ class _SimpleDialogWidgetState extends State<SimpleDialogWidget> {
       child: Container(
         padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: themeData.colorScheme.background,
+          color: themeData.colorScheme.surface,
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.circular(8),
           boxShadow: [
@@ -92,7 +92,7 @@ class _SimpleDialog extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: themeData.colorScheme.background,
+          color: themeData.colorScheme.surface,
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.circular(8),
           boxShadow: [

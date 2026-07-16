@@ -126,7 +126,7 @@ class _DropdownWidgetState extends State<DropdownWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  FxText.sh1(name, color: theme.colorScheme.onBackground, letterSpacing: 0),
+                  FxText.sh1(name, color: theme.colorScheme.onSurface, letterSpacing: 0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -144,11 +144,11 @@ class _DropdownWidgetState extends State<DropdownWidget> {
                                   value: option,
                                   height: 36,
                                   child: FxText.b2(option.toString(),
-                                      color: theme.colorScheme.onBackground),
+                                      color: theme.colorScheme.onSurface),
                                 );
                               }).toList();
                             },
-                            color: theme.colorScheme.background,
+                            color: theme.colorScheme.surface,
                             child: Container(
                               padding: EdgeInsets.only(left: 12, right: 12, top: 8, bottom: 8),
                               decoration: BoxDecoration(
@@ -160,21 +160,21 @@ class _DropdownWidgetState extends State<DropdownWidget> {
                                 children: <Widget>[
                                   FxText.b1(
                                     _cartQtyList[index].toString(),
-                                    color: theme.colorScheme.onBackground,
+                                    color: theme.colorScheme.onSurface,
                                   ),
                                   Container(
                                     margin: EdgeInsets.only(left: 4),
                                     child: Icon(
                                       MdiIcons.chevronDown,
                                       size: 22,
-                                      color: theme.colorScheme.onBackground,
+                                      color: theme.colorScheme.onSurface,
                                     ),
                                   )
                                 ],
                               ),
                             )),
                       ),
-                      FxText.b1("\$$price", color: theme.colorScheme.onBackground, letterSpacing: 0)
+                      FxText.b1("\$$price", color: theme.colorScheme.onSurface, letterSpacing: 0)
                     ],
                   )
                 ],
@@ -200,11 +200,11 @@ class _CardBillWidget extends StatelessWidget {
             children: <Widget>[
               FxText.sh1(
                 'Subtotal',
-                color: theme.colorScheme.onBackground,
+                color: theme.colorScheme.onSurface,
               ),
               FxText.sh1(
                 "\$ 399.99",
-                color: theme.colorScheme.onBackground,
+                color: theme.colorScheme.onSurface,
               ),
             ],
           ),
@@ -215,11 +215,11 @@ class _CardBillWidget extends StatelessWidget {
               children: <Widget>[
                 FxText.sh1(
                   "Charges",
-                  color: theme.colorScheme.onBackground,
+                  color: theme.colorScheme.onSurface,
                 ),
                 FxText.sh1(
                   "+ \$ 59.59",
-                  color: theme.colorScheme.onBackground,
+                  color: theme.colorScheme.onSurface,
                 ),
               ],
             ),
@@ -231,11 +231,11 @@ class _CardBillWidget extends StatelessWidget {
               children: <Widget>[
                 FxText.sh1(
                   "Discount",
-                  color: theme.colorScheme.onBackground,
+                  color: theme.colorScheme.onSurface,
                 ),
                 FxText.sh1(
                   "- \$ 9.99",
-                  color: theme.colorScheme.onBackground,
+                  color: theme.colorScheme.onSurface,
                 ),
               ],
             ),

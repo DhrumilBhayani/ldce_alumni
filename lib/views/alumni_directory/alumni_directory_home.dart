@@ -145,10 +145,10 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
                             print("Previous");
                             //     arguments: homeProvider.news);
                           },
-                    child: FxText.b2("Previous", fontWeight: 600, color: theme.colorScheme.onBackground),
+                    child: FxText.b2("Previous", fontWeight: 600, color: theme.colorScheme.onSurface),
                     style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(theme.colorScheme.onPrimary),
-                        padding: MaterialStateProperty.all(
+                        backgroundColor: WidgetStateProperty.all<Color>(theme.colorScheme.onPrimary),
+                        padding: WidgetStateProperty.all(
                             EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 0))),
                   )),
               SizedBox(width: 20),
@@ -180,10 +180,10 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
                       print('3 Isloading: ' + isLoading.toString());
                       print("next");
                     },
-                    child: FxText.b2("Next", fontWeight: 600, color: theme.colorScheme.onBackground),
+                    child: FxText.b2("Next", fontWeight: 600, color: theme.colorScheme.onSurface),
                     style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(theme.colorScheme.onPrimary),
-                        padding: MaterialStateProperty.all(
+                        backgroundColor: WidgetStateProperty.all<Color>(theme.colorScheme.onPrimary),
+                        padding: WidgetStateProperty.all(
                             EdgeInsets.only(left: 30, right: 30, top: 0, bottom: 0))),
                   )),
             ])
@@ -210,10 +210,10 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
                             print("Previous");
                             //     arguments: homeProvider.news);
                           },
-                    child: FxText.b2("Previous", fontWeight: 600, color: theme.colorScheme.onBackground),
+                    child: FxText.b2("Previous", fontWeight: 600, color: theme.colorScheme.onSurface),
                     style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(theme.colorScheme.onPrimary),
-                        padding: MaterialStateProperty.all(
+                        backgroundColor: WidgetStateProperty.all<Color>(theme.colorScheme.onPrimary),
+                        padding: WidgetStateProperty.all(
                             EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 0))),
                   )),
               SizedBox(width: 20),
@@ -251,10 +251,10 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
                             print('3 Isloading: ' + isLoading.toString());
                             print("next");
                           },
-                    child: FxText.b2("Next", fontWeight: 600, color: theme.colorScheme.onBackground),
+                    child: FxText.b2("Next", fontWeight: 600, color: theme.colorScheme.onSurface),
                     style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(theme.colorScheme.onPrimary),
-                        padding: MaterialStateProperty.all(
+                        backgroundColor: WidgetStateProperty.all<Color>(theme.colorScheme.onPrimary),
+                        padding: WidgetStateProperty.all(
                             EdgeInsets.only(left: 30, right: 30, top: 0, bottom: 0))),
                   )),
             ]));
@@ -398,7 +398,7 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
                               left: 20, right: 20, top: AppBar().preferredSize.height * 0.3),
                           child: Theme(
                             data: Theme.of(context).copyWith(
-                              canvasColor: theme.colorScheme.background,
+                              canvasColor: theme.colorScheme.surface,
                             ),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton2(
@@ -426,7 +426,7 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
                                   currentPageNumber = 1;
                                   setState(() {
                                     print(value);
-                                    selectedYearValue = value as String?;
+                                    selectedYearValue = value;
                                     _yearNotifier.value = selectedYearValue;
                                   });
                                 },
@@ -444,7 +444,7 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
                           padding: EdgeInsets.only(left: 20, right: 20, top: 10),
                           child: Theme(
                             data: Theme.of(context).copyWith(
-                              canvasColor: theme.colorScheme.background,
+                              canvasColor: theme.colorScheme.surface,
                             ),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton2(
@@ -492,7 +492,7 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
                                     default:
                                   }
                                   setState(() {
-                                    selectedProgramValue = value as String?;
+                                    selectedProgramValue = value;
                                     _programNotifier.value = selectedProgramValue;
                                   });
                                 },
@@ -506,7 +506,7 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
                           padding: EdgeInsets.only(left: 20, right: 20, top: 10),
                           child: Theme(
                             data: Theme.of(context).copyWith(
-                              canvasColor: theme.colorScheme.background,
+                              canvasColor: theme.colorScheme.surface,
                             ),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton2(
@@ -533,7 +533,7 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
                                 onChanged: (value) {
                                   setState(() {
                                     currentPageNumber = 1;
-                                    selectedBranchValue = value as String?;
+                                    selectedBranchValue = value;
                                     _branchNotifier.value = selectedBranchValue;
                                   });
                                 },
@@ -616,7 +616,7 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
                                   fontWeight: 600, color: theme.colorScheme.onPrimary),
                               style: ButtonStyle(
                                   // backgroundColor: MaterialStateProperty.all<Color>(Colors.wh),
-                                  padding: MaterialStateProperty.all(
+                                  padding: WidgetStateProperty.all(
                                       EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 0))),
                             )),
                         if (isLoading)
@@ -628,7 +628,7 @@ class _AlumniDirectoryHomeState extends State<AlumniDirectoryHome> {
                             header: Container(
                               width: MediaQuery.of(context).size.width,
                               height: 50.0,
-                              color: theme.colorScheme.background,
+                              color: theme.colorScheme.surface,
                               // padding: EdgeInsets.symmetric(horizontal: 16.0),
                               alignment: Alignment.centerLeft,
                               child: Container(

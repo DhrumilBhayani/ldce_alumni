@@ -207,7 +207,7 @@ class _SinglePageHomeState extends State<SinglePageHome> {
           child: Icon(
             FeatherIcons.chevronLeft,
             size: 20,
-            color: themeData.colorScheme.onBackground,
+            color: themeData.colorScheme.onSurface,
           ),
         ),
       ),
@@ -231,7 +231,7 @@ class _SinglePageHomeState extends State<SinglePageHome> {
                     margin: EdgeInsets.only(top: 8),
                     child: Center(
                       child: FxText.sh2(widget.comingSoonText,
-                          color: themeData.colorScheme.onBackground, fontWeight: 500),
+                          color: themeData.colorScheme.onSurface, fontWeight: 500),
                     ))
                 : Container()
           ],

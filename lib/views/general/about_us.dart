@@ -324,7 +324,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                                   "LDCE Alumni Association,\n637,Mechanical Department,\nL.D. College of Engineering,\nNavrangpura, Ahmedabad-380015.",
                                   fontSize: 14,
                                   fontWeight: 600,
-                                  color: theme.colorScheme.onBackground),
+                                  color: theme.colorScheme.onSurface),
                               // Container(
                               //   margin: EdgeInsets.only(top: 2),
                               //   child: FxText.caption("SEAS, Ahmedabad University",

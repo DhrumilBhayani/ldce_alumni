@@ -240,8 +240,8 @@ class _HomeMediaTabState extends State<HomeMediaTab> {
                           child: FxText.b1("View All Media",
                               fontWeight: 600, color: theme.colorScheme.onPrimary),
                           style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(Color(0xff07a44d)),
-                              padding: MaterialStateProperty.all(
+                              backgroundColor: WidgetStateProperty.all(Color(0xff07a44d)),
+                              padding: WidgetStateProperty.all(
                                   EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 0))),
                         ))
                   ])),

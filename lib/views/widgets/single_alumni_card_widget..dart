@@ -129,7 +129,7 @@ class SingleAlumniCardWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FxText.b1(title, color: theme.colorScheme.onBackground, fontWeight: 600),
+                  FxText.b1(title, color: theme.colorScheme.onSurface, fontWeight: 600),
                   Container(
                     margin: EdgeInsets.only(top: 8),
                     child: Row(
@@ -140,7 +140,7 @@ class SingleAlumniCardWidget extends StatelessWidget {
                             children: [
                               FxText.caption(shortDescription,
                                   fontSize: 14,
-                                  color: theme.colorScheme.onBackground,
+                                  color: theme.colorScheme.onSurface,
                                   fontWeight: 600,
                                   xMuted: true,
                                   overflow: TextOverflow.ellipsis,
@@ -150,7 +150,7 @@ class SingleAlumniCardWidget extends StatelessWidget {
                               ),
                               FxText.caption(passoutYear + ' - ' + branch,
                                   fontSize: 14,
-                                  color: theme.colorScheme.onBackground,
+                                  color: theme.colorScheme.onSurface,
                                   fontWeight: 600,
                                   xMuted: true),
                               // time != "null"

@@ -115,35 +115,35 @@ class AppBlueTheme {
 
     /// CheckBox theme
     checkboxTheme: CheckboxThemeData(
-      checkColor: MaterialStateProperty.all(Color(0xffeeeeee)),
-      fillColor: MaterialStateProperty.all(Color(0xff3C4EC5)),
+      checkColor: WidgetStateProperty.all(Color(0xffeeeeee)),
+      fillColor: WidgetStateProperty.all(Color(0xff3C4EC5)),
     ),
 
     /// Radio theme
     radioTheme: RadioThemeData(
-      fillColor: MaterialStateProperty.all(Color(0xff3C4EC5)),
+      fillColor: WidgetStateProperty.all(Color(0xff3C4EC5)),
     ),
 
     ///Switch Theme
     switchTheme: SwitchThemeData(
-      trackColor: MaterialStateProperty.resolveWith((state) {
-        const Set<MaterialState> interactiveStates = <MaterialState>{
-          MaterialState.pressed,
-          MaterialState.hovered,
-          MaterialState.focused,
-          MaterialState.selected,
+      trackColor: WidgetStateProperty.resolveWith((state) {
+        const Set<WidgetState> interactiveStates = <WidgetState>{
+          WidgetState.pressed,
+          WidgetState.hovered,
+          WidgetState.focused,
+          WidgetState.selected,
         };
         if (state.any(interactiveStates.contains)) {
           return Color(0xffabb3ea);
         }
         return null;
       }),
-      thumbColor: MaterialStateProperty.resolveWith((state) {
-        const Set<MaterialState> interactiveStates = <MaterialState>{
-          MaterialState.pressed,
-          MaterialState.hovered,
-          MaterialState.focused,
-          MaterialState.selected,
+      thumbColor: WidgetStateProperty.resolveWith((state) {
+        const Set<WidgetState> interactiveStates = <WidgetState>{
+          WidgetState.pressed,
+          WidgetState.hovered,
+          WidgetState.focused,
+          WidgetState.selected,
         };
         if (state.any(interactiveStates.contains)) {
           return Color(0xff3C4EC5);
@@ -171,8 +171,7 @@ class AppBlueTheme {
 
     /// Other Colors
     splashColor: Colors.white.withAlpha(100),
-    indicatorColor: Color(0xffeeeeee),
-    highlightColor: Color(0xffeeeeee), colorScheme: ColorScheme.fromSeed(seedColor: Color(0xffdf193a), brightness: Brightness.light).copyWith(background: Color(0xffffffff)).copyWith(error: Color(0xfff0323c)),
+    highlightColor: Color(0xffeeeeee), colorScheme: ColorScheme.fromSeed(seedColor: Color(0xffdf193a), brightness: Brightness.light).copyWith(surface: Color(0xffffffff)).copyWith(error: Color(0xfff0323c)),
   );
 
   /// -------------------------- Dark Theme  -------------------------------------------- ///
@@ -238,24 +237,24 @@ class AppBlueTheme {
 
     ///Switch Theme
     switchTheme: SwitchThemeData(
-      trackColor: MaterialStateProperty.resolveWith((state) {
-        const Set<MaterialState> interactiveStates = <MaterialState>{
-          MaterialState.pressed,
-          MaterialState.hovered,
-          MaterialState.focused,
-          MaterialState.selected,
+      trackColor: WidgetStateProperty.resolveWith((state) {
+        const Set<WidgetState> interactiveStates = <WidgetState>{
+          WidgetState.pressed,
+          WidgetState.hovered,
+          WidgetState.focused,
+          WidgetState.selected,
         };
         if (state.any(interactiveStates.contains)) {
           return Color(0xffabb3ea);
         }
         return null;
       }),
-      thumbColor: MaterialStateProperty.resolveWith((state) {
-        const Set<MaterialState> interactiveStates = <MaterialState>{
-          MaterialState.pressed,
-          MaterialState.hovered,
-          MaterialState.focused,
-          MaterialState.selected,
+      thumbColor: WidgetStateProperty.resolveWith((state) {
+        const Set<WidgetState> interactiveStates = <WidgetState>{
+          WidgetState.pressed,
+          WidgetState.hovered,
+          WidgetState.focused,
+          WidgetState.selected,
         };
         if (state.any(interactiveStates.contains)) {
           return Color(0xff3C4EC5);
@@ -280,12 +279,9 @@ class AppBlueTheme {
         color: Colors.white,
       ),
     ),
-
-    ///Other Color
-    indicatorColor: Colors.white,
     disabledColor: Color(0xffa3a3a3),
     highlightColor: Colors.white.withAlpha(28),
-    splashColor: Colors.white.withAlpha(56), colorScheme: ColorScheme.fromSeed(seedColor: Color(0xffdf193a), brightness: Brightness.dark).copyWith(background: Color(0xff161616)).copyWith(error: Colors.orange),
+    splashColor: Colors.white.withAlpha(56), colorScheme: ColorScheme.fromSeed(seedColor: Color(0xffdf193a), brightness: Brightness.dark).copyWith(surface: Color(0xff161616)).copyWith(error: Colors.orange),
   );
 
   static ThemeData createTheme(ColorScheme colorScheme) {
